@@ -1,0 +1,161 @@
+openapi: 3.0.1
+info:
+  title: DTZ Core Api
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2021-12-09
+      enum:
+        - 2021-12-09
+paths:
+  /context:
+    get:
+      summary: get all contexts
+      operationId: getAllContext
+      responses:
+        200:
+          description: status
+    post:
+      summary: create new context
+      operationId: createContext
+      requestBody: 
+        description: create a new context
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                alias:
+                  type: string
+      responses:
+        200:
+          description: status
+  /context/{context_id}:
+    get:
+      summary: get context information
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: context id
+      responses:
+        200:
+          description: context information
+  /context/{context_id}/enableService:
+    get:
+      summary: enable service for context
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: context id
+      responses:
+        200:
+          description: context information
+  /certificate:
+    post:
+      summary: issue a certificate, the certificate will only be issued on the first name.
+      operationId: issueCertificate
+      requestBody: 
+        description: issue a new certificate
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        200:
+          description: issue certificate response
+  /job/{job_id}:
+    post:
+      summary: create job for async execution
+      operationId: createJob
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: job id
+      requestBody:
+        description: issue a new certificate
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobName:
+                  type: string
+                earliestStart:
+                  type: string
+                  format: dateTime
+                latestStart:
+                  type: string
+                  format: dateTime
+                costMultiplier:
+                  type: number
+                jobDefinition:
+                  type: object
+                  properties:
+                    containerImage:
+                      type: string
+                    containerTag:
+                      type: string
+                    containerPullUser:
+                      type: string
+                    containerPullPwd:
+                      type: string
+                  required:
+                  - containerImage
+              required:
+              - jobName
+              - earliestStart
+              - latestStart
+              - costMultiplier
+              - jobDefinition
+      responses:
+        200:
+          description: success
+    get:
+      summary: get execution history
+      operationId: getJobHistory
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: job id
+      responses:
+        200:
+          description: success
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    context_id:
+      type: apiKey
+      in: header
+      name: X-DTZ-CONTEXT
+security:
+  - dtz_auth: []
+  - context_id: []

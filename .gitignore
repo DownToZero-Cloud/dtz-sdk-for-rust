@@ -1,0 +1,6 @@
+.openapi-generator
+.travis.yml
+git_push.sh
+Cargo.lock
+target/
+dtz-*/.gitignore
