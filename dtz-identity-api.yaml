@@ -1,0 +1,156 @@
+openapi: 3.0.1
+info:
+  title: DTZ Identity
+  version: 1.0.0
+servers:
+- url: https://identity.dtz.rocks/api/2021-02-21
+paths:
+  /signup:
+    post:
+      summary: user signup
+      operationId: userSignup
+      requestBody:
+        description: signup
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        200:
+          description: user created
+  /authentication:
+    get:
+      summary: list user authentications
+      operationId: listAuth
+      responses:
+        200:
+          description: list of authentication
+  /authentication/{auth_id}:
+    post:
+      summary: update an authentication
+      operationId: authUpdate
+      parameters:
+        - in: path
+          name: auth_id
+          schema:
+            type: string
+          required: true
+          description: authentication id
+      requestBody:
+        description: update an existing authnetication
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                authentication_id:
+                  type: string
+      responses:
+        200:
+          description: status
+  /token/auth:
+    post:
+      summary: user login
+      operationId: userLogin
+      requestBody:
+        description: login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+        required: true
+      responses:
+        200:
+          description: Invalid input
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        401:
+          description: Invalid input
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth/apikey:
+    post:
+      summary: authenticate with apikey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                apiKey:
+                  type: string
+                contextId:
+                  type: string
+                  format: uuid
+              required:
+              - apiKey
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+components:
+  schemas:
+    ErrorResponse:
+      required:
+      - status
+      type: object
+      properties:
+        status:
+          type: string
+    SignupRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    AuthRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        scopes:
+          type: array
+          items:
+            type: string
+    AuthResponse:
+      required:
+      - token
+      type: object
+      properties:
+        token:
+          type: string
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        scope:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: number
+      required:
+      - access_token
+      - token_type
+      - expires_in
+  securitySchemes:
+    dtz_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://identity.dtz.rocks/oauth
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets

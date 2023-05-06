@@ -82,14 +82,6 @@ pub async fn context_context_id_enable_service_get(configuration: &configuration
             Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
             None => local_var_key,
         };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
 
@@ -125,14 +117,6 @@ pub async fn context_context_id_get(configuration: &configuration::Configuration
             Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
             None => local_var_key,
         };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
 
@@ -162,14 +146,6 @@ pub async fn create_context(configuration: &configuration::Configuration, create
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
         let local_var_value = match local_var_apikey.prefix {
@@ -212,14 +188,6 @@ pub async fn create_job(configuration: &configuration::Configuration, job_id: &s
             Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
             None => local_var_key,
         };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
     local_var_req_builder = local_var_req_builder.json(&create_job_request);
@@ -250,14 +218,6 @@ pub async fn get_all_context(configuration: &configuration::Configuration, ) -> 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
         let local_var_value = match local_var_apikey.prefix {
@@ -299,14 +259,6 @@ pub async fn get_job_history(configuration: &configuration::Configuration, job_i
             Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
             None => local_var_key,
         };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
 
@@ -336,14 +288,6 @@ pub async fn issue_certificate(configuration: &configuration::Configuration, iss
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-DTZ-CONTEXT", local_var_value);
-    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         let local_var_key = local_var_apikey.key.clone();
         let local_var_value = match local_var_apikey.prefix {
