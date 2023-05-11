@@ -5,3 +5,6 @@ rm -r dtz-core/git_push.sh dtz-core/.gitignore dtz-core/.travis.yml dtz-core/.op
 
 openapi-generator generate -i dtz-identity-api.yaml -g rust -o dtz-identity --package-name dtz-identity -t rust-template
 rm -r dtz-identity/git_push.sh dtz-identity/.gitignore dtz-identity/.travis.yml dtz-identity/.openapi-generator dtz-identity/.openapi-generator-ignore
+
+openapi-generator generate -i dtz-observability-api.yaml -g rust -o dtz-observability --package-name dtz-observability -t rust-template
+rm -r dtz-observability/git_push.sh dtz-observability/.gitignore dtz-observability/.travis.yml dtz-observability/.openapi-generator dtz-observability/.openapi-generator-ignore

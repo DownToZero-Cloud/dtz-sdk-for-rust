@@ -1,0 +1,228 @@
+openapi: 3.0.1
+info:
+  title: DTZ Observability
+  version: 1.0.0
+servers:
+- url: https://observability.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2021-12-21
+      enum:
+        - 2021-12-21
+paths:
+  /log:
+    get:
+      summary: get logs
+      operationId: getLogs
+      responses:
+        200:
+          description: status
+    post:
+      summary: query logs
+      operationId: queryLogs
+      requestBody: 
+        description: log query
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+      responses:
+        200:
+          description: status
+  /log/activity:
+    get:
+      summary: get log activity over time
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ts:
+                      type: string
+                    count:
+                      type: integer
+    post:
+      summary: get log activity over time filtered
+      requestBody: 
+        description: log query
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+      responses:
+        200:
+          description: context informatio
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ts:
+                      type: string
+                    count:
+                      type: integer
+  /log/attribute:
+    get:
+      summary: get log attributes
+      responses:
+        200:
+          description: attribute activity
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    count:
+                      type: integer
+  /log/push:
+    post:
+      summary: push log data
+      requestBody: 
+        description: log query
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  tsNanos:
+                    type: string
+                  spanId:
+                    type: string
+                  traceId:
+                    type: string
+                  parentId:
+                    type: string
+                  childId:
+                    type: string
+                  payload:
+                    type: string
+                  attributes:
+                    type: object
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  links:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        alias:
+                          type: string
+                        url:
+                          type: string
+                  attachments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        contentType:
+                          type: string
+      responses:
+        200:
+          description: success
+  /metric:
+    post:
+      summary: push metric data
+      operationId: postMetric
+      requestBody: 
+        description: metric data
+        content: 
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  attributes:
+                    type: object
+                  intervalStartTsNanos:
+                    type: number
+                  intervalEndTsNanos:
+                    type: number
+                  value:
+                    type: number
+                  unit:
+                    type: string
+                  kind:
+                    type: string
+                  traceId:
+                    type: string
+                  spanId:
+                    type: string
+      responses:
+        200:
+          description: success
+  /prometheus:
+    post:
+      summary: Push endpoint for prometheus data.
+      operationId: postPrometheus
+      requestBody:
+        description: prometheus format
+        content: 
+          text/plain:
+            schema:
+              type: string
+      responses:
+        200:
+          description: success
+  /stats:
+    get:
+      summary: get statistics
+      operationId: getStats
+      responses:
+        200:
+          description: statistics
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logCount:
+                    type: integer
+                  logSize:
+                    type: integer
+                  metricCount:
+                    type: integer
+                  metricSize:
+                    type: integer
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    context_id:
+      type: apiKey
+      in: header
+      name: X-DTZ-CONTEXT
+security:
+  - dtz_auth: []
+  - context_id: []
