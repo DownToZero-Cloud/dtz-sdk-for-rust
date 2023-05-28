@@ -3,7 +3,7 @@ name = "dtz-core"
 version = "1.0.0"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Core API"
-license = "Apache 2.0"
+license = "MIT or Apache-2.0"
 edition = "2021"
 
 [dependencies]

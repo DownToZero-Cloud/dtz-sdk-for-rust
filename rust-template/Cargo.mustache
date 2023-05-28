@@ -10,13 +10,7 @@ authors = ["OpenAPI Generator team and contributors"]
 {{#appDescription}}
 description = "{{{.}}}"
 {{/appDescription}}
-{{#licenseInfo}}
-license = "{{.}}"
-{{/licenseInfo}}
-{{^licenseInfo}}
-# Override this license by providing a License Object in the OpenAPI.
-license = "Unlicense"
-{{/licenseInfo}}
+license = "MIT or Apache-2.0"
 edition = "2021"
 {{#publishRustRegistry}}
 publish = ["{{.}}"]
