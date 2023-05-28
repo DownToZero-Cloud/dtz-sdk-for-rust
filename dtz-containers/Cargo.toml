@@ -1,8 +1,8 @@
 [package]
-name = "dtz-core"
+name = "dtz-containers"
 version = "1.0.0"
 authors = ["jens@apimeister.com"]
-description = "a generated client for the DTZ Core API"
+description = "a generated client for the DTZ Containers API"
 license = "Apache 2.0"
 edition = "2021"
 

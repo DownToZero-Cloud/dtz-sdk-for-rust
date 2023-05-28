@@ -2,6 +2,13 @@ openapi: 3.0.1
 info:
   title: DTZ Observability
   version: 1.0.0
+  description: a generated client for the DTZ Observability API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
 servers:
 - url: https://observability.dtz.rocks/api/{version}
   variables:

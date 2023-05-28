@@ -1,0 +1,10 @@
+pub mod _job_post_request;
+pub use self::_job_post_request::JobPostRequest;
+pub mod update_hosting_request;
+pub use self::update_hosting_request::UpdateHostingRequest;
+pub mod update_hosting_request_domains_inner;
+pub use self::update_hosting_request_domains_inner::UpdateHostingRequestDomainsInner;
+pub mod update_hosting_request_domains_inner_routing_inner;
+pub use self::update_hosting_request_domains_inner_routing_inner::UpdateHostingRequestDomainsInnerRoutingInner;
+pub mod update_hosting_request_domains_inner_routing_inner_service_definition;
+pub use self::update_hosting_request_domains_inner_routing_inner_service_definition::UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition;

@@ -1,0 +1,163 @@
+openapi: 3.0.1
+info:
+  title: DTZ Containers
+  version: 1.0.0
+  description: a generated client for the DTZ Containers API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
+servers:
+- url: https://containers.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2021-02-21
+      enum:
+        - 2021-02-21
+paths:
+  /enable:
+    post:
+      summary: enable the containers service
+      operationId: enableService
+      responses:
+        200:
+          description: service enabled
+  /disable:
+    post:
+      summary: disable the containers service
+      operationId: disableService
+      responses:
+        200:
+          description: service disabled
+  /service:
+    get:
+      summary: get current container hosting
+      operationId: getHosting
+      responses:
+        200:
+          description: status
+    post:
+      summary: update current container hosting
+      operationId: updateHosting
+      requestBody: 
+        description: update existing hosting
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                domains:
+                  type: array
+                  items: 
+                    type: object
+                    properties: 
+                      name:
+                        type: string
+                      routing:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            prefix:
+                              type: string
+                            serviceDefinition:
+                              type: object
+                              properties:
+                                containerImage:
+                                  type: string
+                                containerPullUser:
+                                  type: string
+                                containerPullPwd:
+                                  type: string
+                                envVariables:
+                                  type: object
+      responses:
+        200:
+          description: success
+  /job:
+    get:
+      summary: list all jobs
+      responses:
+        200:
+          description: success
+    post:
+      summary: create new job
+      requestBody: 
+        description: update existing hosting
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                pullUser:
+                  type: string
+                pullPwd:
+                  type: string
+                scheduleType:
+                  type: string
+                scheduleCron:
+                  type: string
+                scheduleCostOptimzation:
+                  type: string
+                scheduleRepeat:
+                  type: string
+      responses:
+        200:
+          description: success
+  /job/{job_id}:
+    get:
+      summary: get single job
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+          required: true
+          description: uuid of the job
+      responses:
+        200:
+          description: success
+    post:
+      summary: update single job
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+          required: true
+          description: uuid of the job
+      responses:
+        200:
+          description: success
+    delete:
+      summary: delete single job
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+          required: true
+          description: uuid of the job
+      responses:
+        200:
+          description: success
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    context_id:
+      type: http
+      scheme: http
+      in: header
+      name: X-DTZ-CONTEXT
+security:
+  - dtz_auth: []
+  - context_id: []

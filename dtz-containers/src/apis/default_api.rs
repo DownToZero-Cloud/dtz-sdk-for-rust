@@ -1,7 +1,7 @@
 /*
- * DTZ Observability
+ * DTZ Containers
  *
- * a generated client for the DTZ Observability API
+ * a generated client for the DTZ Containers API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: jens@apimeister.com
@@ -15,76 +15,146 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
-/// struct for typed errors of method [`get_logs`]
+/// struct for typed errors of method [`disable_service`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetLogsError {
+pub enum DisableServiceError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_stats`]
+/// struct for typed errors of method [`enable_service`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetStatsError {
+pub enum EnableServiceError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`log_activity_get`]
+/// struct for typed errors of method [`get_hosting`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LogActivityGetError {
+pub enum GetHostingError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`log_activity_post`]
+/// struct for typed errors of method [`job_get`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LogActivityPostError {
+pub enum JobGetError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`log_attribute_get`]
+/// struct for typed errors of method [`job_job_id_delete`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LogAttributeGetError {
+pub enum JobJobIdDeleteError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`log_push_post`]
+/// struct for typed errors of method [`job_job_id_get`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum LogPushPostError {
+pub enum JobJobIdGetError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`post_metric`]
+/// struct for typed errors of method [`job_job_id_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum PostMetricError {
+pub enum JobJobIdPostError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`post_prometheus`]
+/// struct for typed errors of method [`job_post`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum PostPrometheusError {
+pub enum JobPostError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`query_logs`]
+/// struct for typed errors of method [`update_hosting`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum QueryLogsError {
+pub enum UpdateHostingError {
     UnknownValue(serde_json::Value),
 }
 
 
-pub async fn get_logs(configuration: &configuration::Configuration, ) -> Result<(), Error<GetLogsError>> {
+pub async fn disable_service(configuration: &configuration::Configuration, ) -> Result<(), Error<DisableServiceError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/disable", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<DisableServiceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn enable_service(configuration: &configuration::Configuration, ) -> Result<(), Error<EnableServiceError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/enable", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<EnableServiceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_hosting(configuration: &configuration::Configuration, ) -> Result<(), Error<GetHostingError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/service", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -108,18 +178,18 @@ pub async fn get_logs(configuration: &configuration::Configuration, ) -> Result<
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<GetLogsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<GetHostingError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn get_stats(configuration: &configuration::Configuration, ) -> Result<crate::models::GetStats200Response, Error<GetStatsError>> {
+pub async fn job_get(configuration: &configuration::Configuration, ) -> Result<(), Error<JobGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/stats", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/job", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -141,20 +211,55 @@ pub async fn get_stats(configuration: &configuration::Configuration, ) -> Result
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        Ok(())
     } else {
-        let local_var_entity: Option<GetStatsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<JobGetError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn log_activity_get(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::LogActivityGet200ResponseInner>, Error<LogActivityGetError>> {
+pub async fn job_job_id_delete(configuration: &configuration::Configuration, job_id: &str) -> Result<(), Error<JobJobIdDeleteError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/activity", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/job/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<JobJobIdDeleteError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn job_job_id_get(configuration: &configuration::Configuration, job_id: &str) -> Result<(), Error<JobJobIdGetError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -176,20 +281,20 @@ pub async fn log_activity_get(configuration: &configuration::Configuration, ) ->
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+        Ok(())
     } else {
-        let local_var_entity: Option<LogActivityGetError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<JobJobIdGetError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn log_activity_post(configuration: &configuration::Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<crate::models::LogActivityGet200ResponseInner>, Error<LogActivityPostError>> {
+pub async fn job_job_id_post(configuration: &configuration::Configuration, job_id: &str) -> Result<(), Error<JobJobIdPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/activity", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/job/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -203,78 +308,6 @@ pub async fn log_activity_post(configuration: &configuration::Configuration, que
         };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
-    local_var_req_builder = local_var_req_builder.json(&query_logs_request);
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<LogActivityPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn log_attribute_get(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::LogAttributeGet200ResponseInner>, Error<LogAttributeGetError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/log/attribute", local_var_configuration.base_path);
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
-    } else {
-        let local_var_entity: Option<LogAttributeGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn log_push_post(configuration: &configuration::Configuration, _log_push_post_request_inner: Option<Vec<crate::models::LogPushPostRequestInner>>) -> Result<(), Error<LogPushPostError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/log/push", local_var_configuration.base_path);
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
-    };
-    local_var_req_builder = local_var_req_builder.json(&_log_push_post_request_inner);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -285,18 +318,18 @@ pub async fn log_push_post(configuration: &configuration::Configuration, _log_pu
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<LogPushPostError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<JobJobIdPostError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn post_metric(configuration: &configuration::Configuration, post_metric_request_inner: Option<Vec<crate::models::PostMetricRequestInner>>) -> Result<(), Error<PostMetricError>> {
+pub async fn job_post(configuration: &configuration::Configuration, job_post_request: Option<crate::models::JobPostRequest>) -> Result<(), Error<JobPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/metric", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/job", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -310,7 +343,7 @@ pub async fn post_metric(configuration: &configuration::Configuration, post_metr
         };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
-    local_var_req_builder = local_var_req_builder.json(&post_metric_request_inner);
+    local_var_req_builder = local_var_req_builder.json(&job_post_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -321,18 +354,18 @@ pub async fn post_metric(configuration: &configuration::Configuration, post_metr
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<PostMetricError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<JobPostError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn post_prometheus(configuration: &configuration::Configuration, body: Option<&str>) -> Result<(), Error<PostPrometheusError>> {
+pub async fn update_hosting(configuration: &configuration::Configuration, update_hosting_request: Option<crate::models::UpdateHostingRequest>) -> Result<(), Error<UpdateHostingError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/prometheus", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/service", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
@@ -346,7 +379,7 @@ pub async fn post_prometheus(configuration: &configuration::Configuration, body:
         };
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
     };
-    local_var_req_builder = local_var_req_builder.json(&body);
+    local_var_req_builder = local_var_req_builder.json(&update_hosting_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -357,43 +390,7 @@ pub async fn post_prometheus(configuration: &configuration::Configuration, body:
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<PostPrometheusError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn query_logs(configuration: &configuration::Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<(), Error<QueryLogsError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/log", local_var_configuration.base_path);
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
-    };
-    local_var_req_builder = local_var_req_builder.json(&query_logs_request);
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<QueryLogsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<UpdateHostingError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

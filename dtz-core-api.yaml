@@ -2,9 +2,13 @@ openapi: 3.0.1
 info:
   title: DTZ Core Api
   version: 1.0.0
+  description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
 servers:
 - url: https://dtz.rocks/api/{version}
   variables:

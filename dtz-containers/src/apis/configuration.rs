@@ -1,7 +1,7 @@
 /*
- * DTZ Observability
+ * DTZ Containers
  *
- * a generated client for the DTZ Observability API
+ * a generated client for the DTZ Containers API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: jens@apimeister.com
@@ -40,7 +40,7 @@ impl Configuration {
 impl Default for Configuration {
     fn default() -> Self {
         Configuration {
-            base_path: "https://observability.dtz.rocks/api/2021-12-21".to_owned(),
+            base_path: "https://containers.dtz.rocks/api/2021-02-21".to_owned(),
             user_agent: Some("OpenAPI-Generator/1.0.0/rust".to_owned()),
             client: reqwest::Client::new(),
             basic_auth: None,
