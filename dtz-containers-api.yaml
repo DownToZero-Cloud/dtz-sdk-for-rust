@@ -5,7 +5,6 @@ info:
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
   contact:
     name: Jens Walter
     email: jens@apimeister.com
@@ -125,6 +124,18 @@ paths:
           description: success
     post:
       summary: update single job
+      parameters:
+        - in: path
+          name: job_id
+          schema:
+            type: string
+          required: true
+          description: uuid of the job
+      responses:
+        200:
+          description: success
+    patch:
+      summary: trigger single job
       parameters:
         - in: path
           name: job_id

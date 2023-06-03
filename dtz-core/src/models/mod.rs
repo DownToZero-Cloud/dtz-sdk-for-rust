@@ -1,5 +1,7 @@
 pub mod create_context_request;
 pub use self::create_context_request::CreateContextRequest;
+pub mod create_ingress_request;
+pub use self::create_ingress_request::CreateIngressRequest;
 pub mod create_job_request;
 pub use self::create_job_request::CreateJobRequest;
 pub mod create_job_request_job_definition;

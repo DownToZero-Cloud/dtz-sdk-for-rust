@@ -7,8 +7,10 @@ Method | HTTP request | Description
 [**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 [**context_context_id_get**](DefaultApi.md#context_context_id_get) | **GET** /context/{context_id} | get context information
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
+[**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
 [**create_job**](DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
 [**get_all_context**](DefaultApi.md#get_all_context) | **GET** /context | get all contexts
+[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
 
@@ -98,6 +100,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_ingress
+
+> create_ingress(create_ingress_request)
+create or update ingress
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_ingress_request** | Option<[**CreateIngressRequest**](CreateIngressRequest.md)> | create or update ingress |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_job
 
 > create_job(job_id, create_job_request)
@@ -131,6 +161,31 @@ Name | Type | Description  | Required | Notes
 
 > get_all_context()
 get all contexts
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_ingress
+
+> get_ingress()
+get all ingress
 
 ### Parameters
 

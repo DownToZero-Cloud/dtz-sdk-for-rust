@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**job_get**](DefaultApi.md#job_get) | **GET** /job | list all jobs
 [**job_job_id_delete**](DefaultApi.md#job_job_id_delete) | **DELETE** /job/{job_id} | delete single job
 [**job_job_id_get**](DefaultApi.md#job_job_id_get) | **GET** /job/{job_id} | get single job
+[**job_job_id_patch**](DefaultApi.md#job_job_id_patch) | **PATCH** /job/{job_id} | trigger single job
 [**job_job_id_post**](DefaultApi.md#job_job_id_post) | **POST** /job/{job_id} | update single job
 [**job_post**](DefaultApi.md#job_post) | **POST** /job | create new job
 [**update_hosting**](DefaultApi.md#update_hosting) | **POST** /service | update current container hosting
@@ -148,6 +149,34 @@ Name | Type | Description  | Required | Notes
 
 > job_job_id_get(job_id)
 get single job
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**job_id** | **String** | uuid of the job | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## job_job_id_patch
+
+> job_job_id_patch(job_id)
+trigger single job
 
 ### Parameters
 

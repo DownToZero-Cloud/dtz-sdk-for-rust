@@ -150,6 +150,42 @@ paths:
       responses:
         200:
           description: success
+  /ingress:
+    get:
+      summary: get all ingress
+      operationId: getIngress
+      responses:
+        200:
+          description: success
+    post:
+      summary: create or update ingress
+      operationId: createIngress
+      requestBody:
+        description: create or update ingress
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                host:
+                  type: string
+                pathPrefix:
+                  type: string
+                containerImage:
+                  type: string
+                containerImageTag:
+                  type: string
+                containerPullUser:
+                  type: string
+                containerPullPwd:
+                  type: string
+              required:
+              - host
+              - pathPrefix
+              - containerImage
+      responses:
+        200:
+          description: success
 components:
   securitySchemes:
     dtz_auth:

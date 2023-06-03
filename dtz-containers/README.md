@@ -31,6 +31,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**job_get**](docs/DefaultApi.md#job_get) | **GET** /job | list all jobs
 *DefaultApi* | [**job_job_id_delete**](docs/DefaultApi.md#job_job_id_delete) | **DELETE** /job/{job_id} | delete single job
 *DefaultApi* | [**job_job_id_get**](docs/DefaultApi.md#job_job_id_get) | **GET** /job/{job_id} | get single job
+*DefaultApi* | [**job_job_id_patch**](docs/DefaultApi.md#job_job_id_patch) | **PATCH** /job/{job_id} | trigger single job
 *DefaultApi* | [**job_job_id_post**](docs/DefaultApi.md#job_job_id_post) | **POST** /job/{job_id} | update single job
 *DefaultApi* | [**job_post**](docs/DefaultApi.md#job_post) | **POST** /job | create new job
 *DefaultApi* | [**update_hosting**](docs/DefaultApi.md#update_hosting) | **POST** /service | update current container hosting
