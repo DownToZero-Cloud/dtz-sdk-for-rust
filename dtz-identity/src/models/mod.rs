@@ -6,6 +6,8 @@ pub mod auth_response;
 pub use self::auth_response::AuthResponse;
 pub mod auth_update_request;
 pub use self::auth_update_request::AuthUpdateRequest;
+pub mod create_api_key_request;
+pub use self::create_api_key_request::CreateApiKeyRequest;
 pub mod error_response;
 pub use self::error_response::ErrorResponse;
 pub mod signup_request;

@@ -56,6 +56,24 @@ paths:
       responses:
         200:
           description: status
+  /me/identity/apikey:
+    post:
+      summary: create api key
+      operationId: createApiKey
+      requestBody:
+        description: api key creation
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context_id:
+                  type: string
+                  format: uuid
+        required: true
+      responses:
+        200:
+          description: success
   /token/auth:
     post:
       summary: user login
@@ -69,7 +87,7 @@ paths:
         required: true
       responses:
         200:
-          description: Invalid input
+          description: success
           content: 
             application/json:
               schema:

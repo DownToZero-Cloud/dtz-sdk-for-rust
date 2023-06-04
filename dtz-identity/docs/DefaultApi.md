@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**auth_apikey_post**](DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 [**auth_update**](DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
+[**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | user signup
@@ -52,6 +53,34 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **auth_id** | **String** | authentication id | [required] |
 **auth_update_request** | Option<[**AuthUpdateRequest**](AuthUpdateRequest.md)> | update an existing authnetication |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_api_key
+
+> create_api_key(create_api_key_request)
+create api key
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_api_key_request** | [**CreateApiKeyRequest**](CreateApiKeyRequest.md) | api key creation | [required] |
 
 ### Return type
 

@@ -27,6 +27,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**auth_apikey_post**](docs/DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 *DefaultApi* | [**auth_update**](docs/DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
+*DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 *DefaultApi* | [**list_auth**](docs/DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
 *DefaultApi* | [**user_login**](docs/DefaultApi.md#user_login) | **POST** /token/auth | user login
 *DefaultApi* | [**user_signup**](docs/DefaultApi.md#user_signup) | **POST** /signup | user signup
@@ -38,6 +39,7 @@ Class | Method | HTTP request | Description
  - [AuthRequest](docs/AuthRequest.md)
  - [AuthResponse](docs/AuthResponse.md)
  - [AuthUpdateRequest](docs/AuthUpdateRequest.md)
+ - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
