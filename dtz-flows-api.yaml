@@ -1,0 +1,170 @@
+openapi: 3.0.1
+info:
+  title: DTZ Flows Api
+  version: 1.0.0
+  description: a generated client for the DTZ Flows API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
+servers:
+- url: https://flows.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2021-02-01
+      enum:
+        - 2021-02-01
+paths:
+  /enable:
+    post:
+      summary: enable the service
+      operationId: enableService
+      responses:
+        200:
+          description: success
+  /rss2email/discover:
+    post:
+      summary: discover feed on homepage
+      requestBody:
+        description: discover request
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+              required:
+              - url
+      responses:
+        200:
+          description: discover response
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  feedUrl:
+                    type: string
+                  feedType:
+                    type: string
+  /rss2email/feed:
+    get:
+      summary: get feed data
+      responses:
+        200:
+          description: feed data
+    post:
+      summary: create feed subscription
+      responses:
+        200:
+          description: success
+  /rss2email/feed/{feed_id}:
+    post:
+      summary: update feed
+      parameters:
+        - in: path
+          name: feed_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: feed id
+      requestBody:
+        description: update feed request
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                url:
+                  type: string
+                lastCheck:
+                  type: string
+                  format: date-time
+                lastDataFound:
+                  type: string
+                  format: date-time
+                enabled:
+                  type: boolean
+                name:
+                  type: string
+              required:
+              - id
+              - url
+              - lastCheck
+              - lastDataFound
+              - enabled
+              - name
+      responses:
+        200:
+          description: feed update successful
+    delete:
+      summary: delete feed
+      parameters:
+        - in: path
+          name: feed_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: feed id
+      responses:
+        200:
+          description: feed update successful
+  /rss2email/profile:
+    get:
+      summary: get profile
+      responses:
+        200:
+          description: profile response
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  subject:
+                    type: string
+                  body:
+                    type: string
+                  stripeId:
+                    type: string
+                  contextId:
+                    type: string
+                    format: uuid
+                  identityId:
+                    type: string
+                    format: uuid
+  /rss2email/profile/cancelSubscription:
+    post:
+      summary: cancel current subscription
+      responses:
+        200:
+          description: success
+  /stats:
+    get:
+      summary: get service statistics
+      responses:
+        200:
+          description: service statistics
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    context_id:
+      type: http
+      scheme: http
+      in: header
+      name: X-DTZ-CONTEXT
+security:
+  - dtz_auth: []
+  - context_id: []

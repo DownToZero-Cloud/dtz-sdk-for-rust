@@ -1,0 +1,8 @@
+pub mod _rss2email_discover_post_200_response;
+pub use self::_rss2email_discover_post_200_response::Rss2emailDiscoverPost200Response;
+pub mod _rss2email_discover_post_request;
+pub use self::_rss2email_discover_post_request::Rss2emailDiscoverPostRequest;
+pub mod _rss2email_feed__feed_id__post_request;
+pub use self::_rss2email_feed__feed_id__post_request::Rss2emailFeedFeedIdPostRequest;
+pub mod _rss2email_profile_get_200_response;
+pub use self::_rss2email_profile_get_200_response::Rss2emailProfileGet200Response;

@@ -11,3 +11,6 @@ rm -r dtz-observability/git_push.sh dtz-observability/.gitignore dtz-observabili
 
 openapi-generator generate -i dtz-containers-api.yaml -g rust -o dtz-containers --package-name dtz-containers -t rust-template
 rm -r dtz-containers/git_push.sh dtz-containers/.gitignore dtz-containers/.travis.yml dtz-containers/.openapi-generator dtz-containers/.openapi-generator-ignore
+
+openapi-generator generate -i dtz-flows-api.yaml -g rust -o dtz-flows --package-name dtz-flows -t rust-template
+rm -r dtz-flows/git_push.sh dtz-flows/.gitignore dtz-flows/.travis.yml dtz-flows/.openapi-generator dtz-flows/.openapi-generator-ignore
