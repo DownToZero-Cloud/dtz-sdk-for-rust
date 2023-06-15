@@ -4,13 +4,45 @@ All URIs are relative to *https://identity.dtz.rocks/api/2021-02-21*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**assign_role**](DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
 [**auth_apikey_post**](DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 [**auth_update**](DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
+[**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
+[**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
+[**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | user signup
 
+
+
+## assign_role
+
+> assign_role(role_id)
+create role assignment
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **uuid::Uuid** | role id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## auth_apikey_post
@@ -98,6 +130,59 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_api_key
+
+> delete_api_key(apikey)
+delete api key
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**apikey** | **uuid::Uuid** | api key | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_account_stats
+
+> crate::models::GetAccountStats200Response get_account_stats()
+get account stats
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**crate::models::GetAccountStats200Response**](getAccountStats_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_auth
 
 > list_auth()
@@ -106,6 +191,34 @@ list user authentications
 ### Parameters
 
 This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## remove_role_assignment
+
+> remove_role_assignment(role_id)
+remove role assignment from identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **uuid::Uuid** | role id | [required] |
 
 ### Return type
 

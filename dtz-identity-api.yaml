@@ -56,6 +56,32 @@ paths:
       responses:
         200:
           description: status
+  /me:
+    get:
+      summary: get account stats
+      operationId: getAccountStats
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        contextId:
+                          type: string
+                          format: uuid
+                        count:
+                          type: number
+                  identityCount: 
+                    type: number
+                  authenticationCount:
+                    type: number
   /me/identity/apikey:
     post:
       summary: create api key
@@ -71,6 +97,50 @@ paths:
                   type: string
                   format: uuid
         required: true
+      responses:
+        200:
+          description: success
+  /me/identity/apikey/{apikey}:
+    delete:
+      summary: delete api key
+      operationId: deleteApiKey
+      parameters:
+        - in: path
+          name: apikey
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: api key
+      responses:
+        200:
+          description: success
+  /me/roles/{roleId}:
+    post:
+      summary: create role assignment
+      operationId: assignRole
+      parameters:
+        - in: path
+          name: roleId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: role id
+      responses:
+        200:
+          description: success
+    delete:
+      summary: remove role assignment from identity
+      operationId: removeRoleAssignment
+      parameters:
+        - in: path
+          name: roleId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: role id
       responses:
         200:
           description: success

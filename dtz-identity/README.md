@@ -25,10 +25,14 @@ All URIs are relative to *https://identity.dtz.rocks/api/2021-02-21*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**assign_role**](docs/DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
 *DefaultApi* | [**auth_apikey_post**](docs/DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 *DefaultApi* | [**auth_update**](docs/DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
+*DefaultApi* | [**delete_api_key**](docs/DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
+*DefaultApi* | [**get_account_stats**](docs/DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 *DefaultApi* | [**list_auth**](docs/DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
+*DefaultApi* | [**remove_role_assignment**](docs/DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 *DefaultApi* | [**user_login**](docs/DefaultApi.md#user_login) | **POST** /token/auth | user login
 *DefaultApi* | [**user_signup**](docs/DefaultApi.md#user_signup) | **POST** /signup | user signup
 
@@ -41,6 +45,8 @@ Class | Method | HTTP request | Description
  - [AuthUpdateRequest](docs/AuthUpdateRequest.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
+ - [GetAccountStats200Response](docs/GetAccountStats200Response.md)
+ - [GetAccountStats200ResponseRolesInner](docs/GetAccountStats200ResponseRolesInner.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
 
