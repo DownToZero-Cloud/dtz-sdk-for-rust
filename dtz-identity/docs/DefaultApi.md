@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
+[**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
@@ -170,6 +171,31 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**crate::models::GetAccountStats200Response**](getAccountStats_200_response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_roles
+
+> crate::models::GetRoles200Response get_roles()
+get roles
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**crate::models::GetRoles200Response**](getRoles_200_response.md)
 
 ### Authorization
 

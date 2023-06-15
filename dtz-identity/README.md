@@ -31,6 +31,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 *DefaultApi* | [**delete_api_key**](docs/DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 *DefaultApi* | [**get_account_stats**](docs/DefaultApi.md#get_account_stats) | **GET** /me | get account stats
+*DefaultApi* | [**get_roles**](docs/DefaultApi.md#get_roles) | **GET** /roles | get roles
 *DefaultApi* | [**list_auth**](docs/DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
 *DefaultApi* | [**remove_role_assignment**](docs/DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 *DefaultApi* | [**user_login**](docs/DefaultApi.md#user_login) | **POST** /token/auth | user login
@@ -47,6 +48,8 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [GetAccountStats200Response](docs/GetAccountStats200Response.md)
  - [GetAccountStats200ResponseRolesInner](docs/GetAccountStats200ResponseRolesInner.md)
+ - [GetRoles200Response](docs/GetRoles200Response.md)
+ - [GetRoles200ResponseRolesInner](docs/GetRoles200ResponseRolesInner.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
 

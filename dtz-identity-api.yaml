@@ -12,6 +12,29 @@ info:
 servers:
 - url: https://identity.dtz.rocks/api/2021-02-21
 paths:
+  /auth/apikey:
+    post:
+      summary: authenticate with apikey
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                apiKey:
+                  type: string
+                contextId:
+                  type: string
+                  format: uuid
+              required:
+              - apiKey
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
   /signup:
     post:
       summary: user signup
@@ -168,29 +191,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /auth/apikey:
-    post:
-      summary: authenticate with apikey
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                apiKey:
-                  type: string
-                contextId:
-                  type: string
-                  format: uuid
-              required:
-              - apiKey
+  /roles:
+    get:
+      summary: get roles
+      operationId: getRoles
       responses:
         200:
           description: success
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenResponse'
+                type: object
+                properties:
+                  roles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        roleId:
+                          type: string
+                          format: uuid
+                        roleAlias:
+                          type: string
+                        roleScope:
+                          type: string
+                        contextId:
+                          type: string
+                          format: uuid
+                        exposure:
+                          type: string
+                        assignedToUser:
+                          type: boolean
 components:
   schemas:
     ErrorResponse:
