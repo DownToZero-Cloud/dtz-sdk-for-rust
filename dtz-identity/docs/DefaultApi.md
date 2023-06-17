@@ -36,7 +36,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -64,7 +64,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -174,7 +174,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -199,7 +199,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -224,7 +224,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -252,7 +252,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -280,7 +280,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -308,7 +308,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 

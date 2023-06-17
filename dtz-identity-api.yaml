@@ -280,3 +280,10 @@ components:
           scopes:
             write:pets: modify pets in your account
             read:pets: read your pets
+    dtz_auth2:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+security:
+  - dtz_auth: []
+  - dtz_auth2: []
