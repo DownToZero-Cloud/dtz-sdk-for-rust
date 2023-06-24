@@ -169,6 +169,14 @@ components:
       scheme: http
       in: header
       name: X-DTZ-CONTEXT
+    dtz_auth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
+          scopes:
+            dummy:dummy: dummy
 security:
   - dtz_auth: []
+  - dtz_auth2: []
   - context_id: []
