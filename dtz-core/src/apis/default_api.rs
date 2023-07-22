@@ -75,6 +75,7 @@ pub enum GetJobHistoryError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum IssueCertificateError {
+    Status429(),
     UnknownValue(serde_json::Value),
 }
 

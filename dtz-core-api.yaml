@@ -85,6 +85,8 @@ paths:
       responses:
         200:
           description: issue certificate response
+        429:
+          description: too many certificates already issued
   /job/{job_id}:
     post:
       summary: create job for async execution
