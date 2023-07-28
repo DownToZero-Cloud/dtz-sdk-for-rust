@@ -181,6 +181,8 @@ paths:
                   type: string
                 containerPullPwd:
                   type: string
+                envVariables:
+                  type: object
               required:
               - host
               - pathPrefix

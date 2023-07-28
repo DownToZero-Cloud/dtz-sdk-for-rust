@@ -25,6 +25,8 @@ pub struct CreateIngressRequest {
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
+    #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
+    pub env_variables: Option<serde_json::Value>,
 }
 
 impl CreateIngressRequest {
@@ -36,6 +38,7 @@ impl CreateIngressRequest {
             container_image_tag: None,
             container_pull_user: None,
             container_pull_pwd: None,
+            env_variables: None,
         }
     }
 }
