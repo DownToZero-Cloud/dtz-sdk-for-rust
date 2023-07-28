@@ -15,6 +15,8 @@
 pub struct UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition {
     #[serde(rename = "containerImage", skip_serializing_if = "Option::is_none")]
     pub container_image: Option<String>,
+    #[serde(rename = "containerTag", skip_serializing_if = "Option::is_none")]
+    pub container_tag: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -27,6 +29,7 @@ impl UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition {
     pub fn new() -> UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition {
         UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition {
             container_image: None,
+            container_tag: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,

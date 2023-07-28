@@ -66,6 +66,8 @@ paths:
                               properties:
                                 containerImage:
                                   type: string
+                                containerTag:
+                                  type: string
                                 containerPullUser:
                                   type: string
                                 containerPullPwd:
