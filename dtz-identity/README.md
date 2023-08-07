@@ -26,6 +26,7 @@ All URIs are relative to *https://identity.dtz.rocks/api/2021-02-21*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**assign_role**](docs/DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
+*DefaultApi* | [**assume_identity**](docs/DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
 *DefaultApi* | [**auth_apikey_post**](docs/DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 *DefaultApi* | [**auth_update**](docs/DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
@@ -40,6 +41,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AssumeIdentityRequest](docs/AssumeIdentityRequest.md)
  - [AuthApikeyPostRequest](docs/AuthApikeyPostRequest.md)
  - [AuthRequest](docs/AuthRequest.md)
  - [AuthResponse](docs/AuthResponse.md)

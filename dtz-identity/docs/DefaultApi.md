@@ -5,6 +5,7 @@ All URIs are relative to *https://identity.dtz.rocks/api/2021-02-21*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_role**](DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
+[**assume_identity**](DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
 [**auth_apikey_post**](DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 [**auth_update**](DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
@@ -42,6 +43,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## assume_identity
+
+> crate::models::AuthResponse assume_identity(assume_identity_request)
+assume identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**assume_identity_request** | [**AssumeIdentityRequest**](AssumeIdentityRequest.md) | assume different identity | [required] |
+
+### Return type
+
+[**crate::models::AuthResponse**](AuthResponse.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

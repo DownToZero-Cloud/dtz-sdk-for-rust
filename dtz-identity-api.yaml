@@ -79,6 +79,36 @@ paths:
       responses:
         200:
           description: status
+  /identity/assume:
+    post: 
+      summary: assume identity
+      operationId: assumeIdentity
+      requestBody:
+        description: assume different identity
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                identity_id:
+                  type: string
+                  format: uuid
+              required:
+              - identity_id
+        required: true
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        401:
+          description: Invalid input
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /me:
     get:
       summary: get account stats

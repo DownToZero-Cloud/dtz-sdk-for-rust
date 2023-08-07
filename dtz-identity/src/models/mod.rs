@@ -1,3 +1,5 @@
+pub mod assume_identity_request;
+pub use self::assume_identity_request::AssumeIdentityRequest;
 pub mod _auth_apikey_post_request;
 pub use self::_auth_apikey_post_request::AuthApikeyPostRequest;
 pub mod auth_request;
