@@ -140,7 +140,7 @@ pub async fn assign_role(configuration: &configuration::Configuration, role_id: 
     }
 }
 
-pub async fn assume_identity(configuration: &configuration::Configuration, assume_identity_request: crate::models::AssumeIdentityRequest) -> Result<crate::models::AuthResponse, Error<AssumeIdentityError>> {
+pub async fn assume_identity(configuration: &configuration::Configuration, assume_identity_request: Option<crate::models::AssumeIdentityRequest>) -> Result<crate::models::AuthResponse, Error<AssumeIdentityError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

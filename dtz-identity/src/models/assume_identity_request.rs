@@ -13,17 +13,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct AssumeIdentityRequest {
-    #[serde(rename = "identity_id")]
-    pub identity_id: uuid::Uuid,
-    #[serde(rename = "email")]
-    pub email: String,
+    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
+    #[serde(rename = "identity_id", skip_serializing_if = "Option::is_none")]
+    pub identity_id: Option<uuid::Uuid>,
 }
 
 impl AssumeIdentityRequest {
-    pub fn new(identity_id: uuid::Uuid, email: String) -> AssumeIdentityRequest {
+    pub fn new() -> AssumeIdentityRequest {
         AssumeIdentityRequest {
-            identity_id,
-            email,
+            email: None,
+            identity_id: None,
         }
     }
 }

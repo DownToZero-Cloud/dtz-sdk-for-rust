@@ -57,7 +57,7 @@ assume identity
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**assume_identity_request** | [**AssumeIdentityRequest**](AssumeIdentityRequest.md) | assume different identity | [required] |
+**assume_identity_request** | Option<[**AssumeIdentityRequest**](AssumeIdentityRequest.md)> | assume different identity |  |
 
 ### Return type
 

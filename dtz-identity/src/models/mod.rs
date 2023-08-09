@@ -1,7 +1,3 @@
-pub mod assume_identity_by_email;
-pub use self::assume_identity_by_email::AssumeIdentityByEmail;
-pub mod assume_identity_by_id;
-pub use self::assume_identity_by_id::AssumeIdentityById;
 pub mod assume_identity_request;
 pub use self::assume_identity_request::AssumeIdentityRequest;
 pub mod _auth_apikey_post_request;
