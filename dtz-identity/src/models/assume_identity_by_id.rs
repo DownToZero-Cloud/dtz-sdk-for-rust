@@ -12,18 +12,15 @@
 
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
-pub struct AssumeIdentityRequest {
+pub struct AssumeIdentityById {
     #[serde(rename = "identity_id")]
     pub identity_id: uuid::Uuid,
-    #[serde(rename = "email")]
-    pub email: String,
 }
 
-impl AssumeIdentityRequest {
-    pub fn new(identity_id: uuid::Uuid, email: String) -> AssumeIdentityRequest {
-        AssumeIdentityRequest {
+impl AssumeIdentityById {
+    pub fn new(identity_id: uuid::Uuid) -> AssumeIdentityById {
+        AssumeIdentityById {
             identity_id,
-            email,
         }
     }
 }

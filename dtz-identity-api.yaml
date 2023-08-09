@@ -88,13 +88,9 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                identity_id:
-                  type: string
-                  format: uuid
-              required:
-              - identity_id
+              oneOf:
+              - $ref: '#/components/schemas/AssumeIdentityById'
+              - $ref: '#/components/schemas/AssumeIdentityByEmail'
         required: true
       responses:
         200:
@@ -254,6 +250,21 @@ paths:
                           type: boolean
 components:
   schemas:
+    AssumeIdentityByEmail:
+      required:
+      - email
+      type: object
+      properties:
+        email:
+          type: string
+    AssumeIdentityById:
+      required:
+      - identity_id
+      type: object
+      properties:
+        identity_id:
+          type: string
+          format: uuid
     ErrorResponse:
       required:
       - status

@@ -41,6 +41,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AssumeIdentityByEmail](docs/AssumeIdentityByEmail.md)
+ - [AssumeIdentityById](docs/AssumeIdentityById.md)
  - [AssumeIdentityRequest](docs/AssumeIdentityRequest.md)
  - [AuthApikeyPostRequest](docs/AuthApikeyPostRequest.md)
  - [AuthRequest](docs/AuthRequest.md)
