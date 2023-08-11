@@ -49,7 +49,7 @@ Name | Type | Description  | Required | Notes
 
 ## assume_identity
 
-> crate::models::AuthResponse assume_identity(assume_identity_request)
+> crate::models::TokenResponse assume_identity(assume_identity_request)
 assume identity
 
 ### Parameters
@@ -61,7 +61,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::AuthResponse**](AuthResponse.md)
+[**crate::models::TokenResponse**](TokenResponse.md)
 
 ### Authorization
 
