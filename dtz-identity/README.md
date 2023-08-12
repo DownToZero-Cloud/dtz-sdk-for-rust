@@ -34,6 +34,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_account_stats**](docs/DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 *DefaultApi* | [**get_roles**](docs/DefaultApi.md#get_roles) | **GET** /roles | get roles
 *DefaultApi* | [**list_auth**](docs/DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
+*DefaultApi* | [**new_context**](docs/DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 *DefaultApi* | [**remove_role_assignment**](docs/DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 *DefaultApi* | [**user_login**](docs/DefaultApi.md#user_login) | **POST** /token/auth | user login
 *DefaultApi* | [**user_signup**](docs/DefaultApi.md#user_signup) | **POST** /signup | user signup
@@ -52,6 +53,7 @@ Class | Method | HTTP request | Description
  - [GetAccountStats200ResponseRolesInner](docs/GetAccountStats200ResponseRolesInner.md)
  - [GetRoles200Response](docs/GetRoles200Response.md)
  - [GetRoles200ResponseRolesInner](docs/GetRoles200ResponseRolesInner.md)
+ - [NewContextRequest](docs/NewContextRequest.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
 

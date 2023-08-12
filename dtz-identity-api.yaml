@@ -79,6 +79,37 @@ paths:
       responses:
         200:
           description: status
+  /context/{context_id}/new:
+    post:
+      summary: create identity requirements for a new context
+      operationId: newContext
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: context_id
+      requestBody:
+        description: context creation request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context_id:
+                  type: string
+                  format: uuid
+                identity_id:
+                  type: string
+                  format: uuid
+                service_principal_id:
+                  type: string
+                  format: uuid
+      responses:
+        200:
+          description: status
   /identity/assume:
     post: 
       summary: assume identity

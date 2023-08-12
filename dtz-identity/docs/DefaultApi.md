@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
+[**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | user signup
@@ -258,6 +259,35 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## new_context
+
+> new_context(context_id, new_context_request)
+create identity requirements for a new context
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **uuid::Uuid** | context_id | [required] |
+**new_context_request** | Option<[**NewContextRequest**](NewContextRequest.md)> | context creation request |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
