@@ -108,14 +108,17 @@ paths:
               properties:
                 jobName:
                   type: string
+                service:
+                  description: origin service, like dtz-flows, dtz-containers
+                  type: string
                 earliestStart:
                   type: string
                   format: dateTime
                 latestStart:
                   type: string
                   format: dateTime
-                costMultiplier:
-                  type: number
+                requireEcoMode:
+                  type: boolean
                 jobDefinition:
                   type: object
                   properties:
@@ -133,9 +136,10 @@ paths:
                   - containerImage
               required:
               - jobName
+              - service
               - earliestStart
               - latestStart
-              - costMultiplier
+              - requireEcoMode
               - jobDefinition
       responses:
         200:

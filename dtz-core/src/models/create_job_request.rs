@@ -15,23 +15,27 @@
 pub struct CreateJobRequest {
     #[serde(rename = "jobName")]
     pub job_name: String,
+    /// origin service, like dtz-flows, dtz-containers
+    #[serde(rename = "service")]
+    pub service: String,
     #[serde(rename = "earliestStart")]
     pub earliest_start: String,
     #[serde(rename = "latestStart")]
     pub latest_start: String,
-    #[serde(rename = "costMultiplier")]
-    pub cost_multiplier: f32,
+    #[serde(rename = "requireEcoMode")]
+    pub require_eco_mode: bool,
     #[serde(rename = "jobDefinition")]
     pub job_definition: Box<crate::models::CreateJobRequestJobDefinition>,
 }
 
 impl CreateJobRequest {
-    pub fn new(job_name: String, earliest_start: String, latest_start: String, cost_multiplier: f32, job_definition: crate::models::CreateJobRequestJobDefinition) -> CreateJobRequest {
+    pub fn new(job_name: String, service: String, earliest_start: String, latest_start: String, require_eco_mode: bool, job_definition: crate::models::CreateJobRequestJobDefinition) -> CreateJobRequest {
         CreateJobRequest {
             job_name,
+            service,
             earliest_start,
             latest_start,
-            cost_multiplier,
+            require_eco_mode,
             job_definition: Box::new(job_definition),
         }
     }
