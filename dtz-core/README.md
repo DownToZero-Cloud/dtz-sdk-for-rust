@@ -34,6 +34,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 *DefaultApi* | [**get_job_history**](docs/DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 *DefaultApi* | [**issue_certificate**](docs/DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
+*DefaultApi* | [**pull_job_from_queue**](docs/DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the asyn job queue
 
 
 ## Documentation For Models
@@ -43,6 +44,8 @@ Class | Method | HTTP request | Description
  - [CreateJobRequest](docs/CreateJobRequest.md)
  - [CreateJobRequestJobDefinition](docs/CreateJobRequestJobDefinition.md)
  - [IssueCertificateRequest](docs/IssueCertificateRequest.md)
+ - [PullJobFromQueue200Response](docs/PullJobFromQueue200Response.md)
+ - [PullJobFromQueueRequest](docs/PullJobFromQueueRequest.md)
 
 
 To get access to the crate's generated documentation, use:

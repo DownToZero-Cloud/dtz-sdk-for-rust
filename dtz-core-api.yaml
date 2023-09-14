@@ -87,6 +87,70 @@ paths:
           description: issue certificate response
         429:
           description: too many certificates already issued
+  /job:
+    post:
+      summary: pull one job from the asyn job queue
+      operationId: pullJobFromQueue
+      requestBody:
+        description: pulls the next job
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                nodeId:
+                  type: string
+                instanceId:
+                  type: string
+                cpuCapacity:
+                  type: number
+                  format: int64
+                memCapacity:
+                  type: number
+                ecoMode:
+                  type: boolean
+              required:
+              - jobName
+              - service
+              - earliestStart
+              - latestStart
+              - requireEcoMode
+              - jobDefinition
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  contextId:
+                    type: string
+                    format: uuid
+                  executionId:
+                    type: string
+                    format: uuid
+                  jobId:
+                    type: string
+                    format: uuid
+                  jobName:
+                    type: string
+                  containerImage:
+                    type: string
+                  containerTag:
+                    type: string
+                  containerPullUser:
+                    type: string
+                  containerPullPwd:
+                    type: string
+                  envVariables:
+                    type: object
+                required:
+                - contextId
+                - executionId
+                - jobId
+                - jobName
+                - containerImage
   /job/{job_id}:
     post:
       summary: create job for async execution

@@ -79,6 +79,13 @@ pub enum IssueCertificateError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`pull_job_from_queue`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PullJobFromQueueError {
+    UnknownValue(serde_json::Value),
+}
+
 
 pub async fn context_context_id_enable_service_get(configuration: &configuration::Configuration, context_id: &str) -> Result<(), Error<ContextContextIdEnableServiceGetError>> {
     let local_var_configuration = configuration;
@@ -421,6 +428,45 @@ pub async fn issue_certificate(configuration: &configuration::Configuration, iss
         Ok(())
     } else {
         let local_var_entity: Option<IssueCertificateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn pull_job_from_queue(configuration: &configuration::Configuration, pull_job_from_queue_request: Option<crate::models::PullJobFromQueueRequest>) -> Result<crate::models::PullJobFromQueue200Response, Error<PullJobFromQueueError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job", local_var_configuration.base_path);
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
+        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
+    }
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        let local_var_key = local_var_apikey.key.clone();
+        let local_var_value = match local_var_apikey.prefix {
+            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
+            None => local_var_key,
+        };
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+    };
+    local_var_req_builder = local_var_req_builder.json(&pull_job_from_queue_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<PullJobFromQueueError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

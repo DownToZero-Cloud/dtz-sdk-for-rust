@@ -8,3 +8,7 @@ pub mod create_job_request_job_definition;
 pub use self::create_job_request_job_definition::CreateJobRequestJobDefinition;
 pub mod issue_certificate_request;
 pub use self::issue_certificate_request::IssueCertificateRequest;
+pub mod pull_job_from_queue_200_response;
+pub use self::pull_job_from_queue_200_response::PullJobFromQueue200Response;
+pub mod pull_job_from_queue_request;
+pub use self::pull_job_from_queue_request::PullJobFromQueueRequest;

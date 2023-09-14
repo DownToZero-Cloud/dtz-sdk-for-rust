@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
+[**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the asyn job queue
 
 
 
@@ -259,6 +260,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## pull_job_from_queue
+
+> crate::models::PullJobFromQueue200Response pull_job_from_queue(pull_job_from_queue_request)
+pull one job from the asyn job queue
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**pull_job_from_queue_request** | Option<[**PullJobFromQueueRequest**](PullJobFromQueueRequest.md)> | pulls the next job |  |
+
+### Return type
+
+[**crate::models::PullJobFromQueue200Response**](pullJobFromQueue_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
