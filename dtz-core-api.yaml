@@ -103,10 +103,11 @@ paths:
                 instanceId:
                   type: string
                 cpuCapacity:
-                  type: number
+                  type: integer
                   format: int64
                 memCapacity:
-                  type: number
+                  type: integer
+                  format: int64
                 ecoMode:
                   type: boolean
               required:

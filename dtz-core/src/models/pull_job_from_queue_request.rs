@@ -18,15 +18,15 @@ pub struct PullJobFromQueueRequest {
     #[serde(rename = "instanceId")]
     pub instance_id: String,
     #[serde(rename = "cpuCapacity")]
-    pub cpu_capacity: f32,
+    pub cpu_capacity: i64,
     #[serde(rename = "memCapacity")]
-    pub mem_capacity: f32,
+    pub mem_capacity: i64,
     #[serde(rename = "ecoMode")]
     pub eco_mode: bool,
 }
 
 impl PullJobFromQueueRequest {
-    pub fn new(node_id: String, instance_id: String, cpu_capacity: f32, mem_capacity: f32, eco_mode: bool) -> PullJobFromQueueRequest {
+    pub fn new(node_id: String, instance_id: String, cpu_capacity: i64, mem_capacity: i64, eco_mode: bool) -> PullJobFromQueueRequest {
         PullJobFromQueueRequest {
             node_id,
             instance_id,
