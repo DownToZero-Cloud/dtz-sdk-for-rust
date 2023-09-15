@@ -110,12 +110,11 @@ paths:
                 ecoMode:
                   type: boolean
               required:
-              - jobName
-              - service
-              - earliestStart
-              - latestStart
-              - requireEcoMode
-              - jobDefinition
+              - nodeId
+              - instanceId
+              - cpuCapacity
+              - memCapacity
+              - ecoMode
       responses:
         200:
           description: success

@@ -13,26 +13,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PullJobFromQueueRequest {
-    #[serde(rename = "nodeId", skip_serializing_if = "Option::is_none")]
-    pub node_id: Option<String>,
-    #[serde(rename = "instanceId", skip_serializing_if = "Option::is_none")]
-    pub instance_id: Option<String>,
-    #[serde(rename = "cpuCapacity", skip_serializing_if = "Option::is_none")]
-    pub cpu_capacity: Option<f32>,
-    #[serde(rename = "memCapacity", skip_serializing_if = "Option::is_none")]
-    pub mem_capacity: Option<f32>,
-    #[serde(rename = "ecoMode", skip_serializing_if = "Option::is_none")]
-    pub eco_mode: Option<bool>,
+    #[serde(rename = "nodeId")]
+    pub node_id: String,
+    #[serde(rename = "instanceId")]
+    pub instance_id: String,
+    #[serde(rename = "cpuCapacity")]
+    pub cpu_capacity: f32,
+    #[serde(rename = "memCapacity")]
+    pub mem_capacity: f32,
+    #[serde(rename = "ecoMode")]
+    pub eco_mode: bool,
 }
 
 impl PullJobFromQueueRequest {
-    pub fn new() -> PullJobFromQueueRequest {
+    pub fn new(node_id: String, instance_id: String, cpu_capacity: f32, mem_capacity: f32, eco_mode: bool) -> PullJobFromQueueRequest {
         PullJobFromQueueRequest {
-            node_id: None,
-            instance_id: None,
-            cpu_capacity: None,
-            mem_capacity: None,
-            eco_mode: None,
+            node_id,
+            instance_id,
+            cpu_capacity,
+            mem_capacity,
+            eco_mode,
         }
     }
 }
