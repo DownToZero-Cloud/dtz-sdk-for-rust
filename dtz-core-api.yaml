@@ -151,6 +151,8 @@ paths:
                 - jobId
                 - jobName
                 - containerImage
+        204:
+          description: nothing found
   /job/{job_id}:
     post:
       summary: create job for async execution
