@@ -11,7 +11,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateHostingRequestDomainsInnerRoutingInner {
     #[serde(rename = "prefix", skip_serializing_if = "Option::is_none")]
     pub prefix: Option<String>,

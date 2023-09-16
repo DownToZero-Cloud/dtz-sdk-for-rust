@@ -11,7 +11,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PullJobFromQueue200Response {
     #[serde(rename = "contextId")]
     pub context_id: uuid::Uuid,

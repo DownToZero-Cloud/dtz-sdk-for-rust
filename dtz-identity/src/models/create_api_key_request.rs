@@ -11,7 +11,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateApiKeyRequest {
     #[serde(rename = "context_id", skip_serializing_if = "Option::is_none")]
     pub context_id: Option<uuid::Uuid>,

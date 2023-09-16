@@ -11,7 +11,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AuthUpdateRequest {
     #[serde(rename = "authentication_id", skip_serializing_if = "Option::is_none")]
     pub authentication_id: Option<String>,
