@@ -28,6 +28,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /enable | enable the service
 *DefaultApi* | [**rss2email_discover_post**](docs/DefaultApi.md#rss2email_discover_post) | **POST** /rss2email/discover | discover feed on homepage
 *DefaultApi* | [**rss2email_feed_feed_id_delete**](docs/DefaultApi.md#rss2email_feed_feed_id_delete) | **DELETE** /rss2email/feed/{feed_id} | delete feed
+*DefaultApi* | [**rss2email_feed_feed_id_disable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_disable_post) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
+*DefaultApi* | [**rss2email_feed_feed_id_enable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_enable_post) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
 *DefaultApi* | [**rss2email_feed_feed_id_post**](docs/DefaultApi.md#rss2email_feed_feed_id_post) | **POST** /rss2email/feed/{feed_id} | update feed
 *DefaultApi* | [**rss2email_feed_get**](docs/DefaultApi.md#rss2email_feed_get) | **GET** /rss2email/feed | get feed data
 *DefaultApi* | [**rss2email_feed_post**](docs/DefaultApi.md#rss2email_feed_post) | **POST** /rss2email/feed | create feed subscription

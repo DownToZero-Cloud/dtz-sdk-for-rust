@@ -7,6 +7,8 @@ Method | HTTP request | Description
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the service
 [**rss2email_discover_post**](DefaultApi.md#rss2email_discover_post) | **POST** /rss2email/discover | discover feed on homepage
 [**rss2email_feed_feed_id_delete**](DefaultApi.md#rss2email_feed_feed_id_delete) | **DELETE** /rss2email/feed/{feed_id} | delete feed
+[**rss2email_feed_feed_id_disable_post**](DefaultApi.md#rss2email_feed_feed_id_disable_post) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
+[**rss2email_feed_feed_id_enable_post**](DefaultApi.md#rss2email_feed_feed_id_enable_post) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
 [**rss2email_feed_feed_id_post**](DefaultApi.md#rss2email_feed_feed_id_post) | **POST** /rss2email/feed/{feed_id} | update feed
 [**rss2email_feed_get**](DefaultApi.md#rss2email_feed_get) | **GET** /rss2email/feed | get feed data
 [**rss2email_feed_post**](DefaultApi.md#rss2email_feed_post) | **POST** /rss2email/feed | create feed subscription
@@ -73,6 +75,62 @@ Name | Type | Description  | Required | Notes
 
 > rss2email_feed_feed_id_delete(feed_id)
 delete feed
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**feed_id** | **uuid::Uuid** | feed id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## rss2email_feed_feed_id_disable_post
+
+> rss2email_feed_feed_id_disable_post(feed_id)
+disable feed
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**feed_id** | **uuid::Uuid** | feed id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## rss2email_feed_feed_id_enable_post
+
+> rss2email_feed_feed_id_enable_post(feed_id)
+enable feed
 
 ### Parameters
 

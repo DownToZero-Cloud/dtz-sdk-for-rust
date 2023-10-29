@@ -117,6 +117,34 @@ paths:
       responses:
         200:
           description: feed update successful
+  /rss2email/feed/{feed_id}/disable:
+    post:
+      summary: disable feed
+      parameters:
+        - in: path
+          name: feed_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: feed id
+      responses:
+        200:
+          description: feed update successful
+  /rss2email/feed/{feed_id}/enable:
+    post:
+      summary: enable feed
+      parameters:
+        - in: path
+          name: feed_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: feed id
+      responses:
+        200:
+          description: feed update successful
   /rss2email/profile:
     get:
       summary: get profile
