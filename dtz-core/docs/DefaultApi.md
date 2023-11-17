@@ -75,7 +75,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_context
 
-> create_context(create_context_request)
+> crate::models::CreateContext200Response create_context(create_context_request)
 create new context
 
 ### Parameters
@@ -87,7 +87,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**crate::models::CreateContext200Response**](createContext_200_response.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

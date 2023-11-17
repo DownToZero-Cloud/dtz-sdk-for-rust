@@ -163,7 +163,7 @@ pub async fn context_context_id_get(configuration: &configuration::Configuration
     }
 }
 
-pub async fn create_context(configuration: &configuration::Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<(), Error<CreateContextError>> {
+pub async fn create_context(configuration: &configuration::Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<crate::models::CreateContext200Response, Error<CreateContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -194,7 +194,7 @@ pub async fn create_context(configuration: &configuration::Configuration, create
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+        serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<CreateContextError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };

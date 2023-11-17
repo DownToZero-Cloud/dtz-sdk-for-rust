@@ -39,6 +39,17 @@ paths:
       responses:
         200:
           description: status
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  contextId:
+                    type: string
+                  created:
+                    type: string
+                  alias:
+                    type: string
   /context/{context_id}:
     get:
       summary: get context information
