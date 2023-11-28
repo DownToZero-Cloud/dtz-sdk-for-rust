@@ -31,6 +31,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**auth_update**](docs/DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 *DefaultApi* | [**delete_api_key**](docs/DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
+*DefaultApi* | [**delete_context_roles**](docs/DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 *DefaultApi* | [**get_account_stats**](docs/DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 *DefaultApi* | [**get_roles**](docs/DefaultApi.md#get_roles) | **GET** /roles | get roles
 *DefaultApi* | [**list_auth**](docs/DefaultApi.md#list_auth) | **GET** /authentication | list user authentications

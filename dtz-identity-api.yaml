@@ -79,6 +79,21 @@ paths:
       responses:
         200:
           description: status
+  /context/{context_id}:
+    delete:
+      summary: delete all roles attached to this context
+      operationId: deleteContextRoles
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: context_id
+      responses:
+        200:
+          description: status
   /context/{context_id}/new:
     post:
       summary: create identity requirements for a new context
