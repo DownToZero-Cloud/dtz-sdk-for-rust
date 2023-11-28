@@ -26,11 +26,12 @@ All URIs are relative to *https://dtz.rocks/api/2021-12-09*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**context_context_id_enable_service_get**](docs/DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
-*DefaultApi* | [**context_context_id_get**](docs/DefaultApi.md#context_context_id_get) | **GET** /context/{context_id} | get context information
 *DefaultApi* | [**create_context**](docs/DefaultApi.md#create_context) | **POST** /context | create new context
 *DefaultApi* | [**create_ingress**](docs/DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
 *DefaultApi* | [**create_job**](docs/DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
+*DefaultApi* | [**delete_context**](docs/DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 *DefaultApi* | [**get_all_context**](docs/DefaultApi.md#get_all_context) | **GET** /context | get all contexts
+*DefaultApi* | [**get_context**](docs/DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 *DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 *DefaultApi* | [**get_job_history**](docs/DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 *DefaultApi* | [**issue_certificate**](docs/DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
@@ -44,6 +45,7 @@ Class | Method | HTTP request | Description
  - [CreateIngressRequest](docs/CreateIngressRequest.md)
  - [CreateJobRequest](docs/CreateJobRequest.md)
  - [CreateJobRequestJobDefinition](docs/CreateJobRequestJobDefinition.md)
+ - [DeleteContext200Response](docs/DeleteContext200Response.md)
  - [IssueCertificateRequest](docs/IssueCertificateRequest.md)
  - [PullJobFromQueue200Response](docs/PullJobFromQueue200Response.md)
  - [PullJobFromQueueRequest](docs/PullJobFromQueueRequest.md)

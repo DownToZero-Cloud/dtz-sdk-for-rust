@@ -5,11 +5,12 @@ All URIs are relative to *https://dtz.rocks/api/2021-12-09*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
-[**context_context_id_get**](DefaultApi.md#context_context_id_get) | **GET** /context/{context_id} | get context information
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
 [**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
 [**create_job**](DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
+[**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**get_all_context**](DefaultApi.md#get_all_context) | **GET** /context | get all contexts
+[**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
@@ -21,34 +22,6 @@ Method | HTTP request | Description
 
 > context_context_id_enable_service_get(context_id)
 enable service for context
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## context_context_id_get
-
-> context_context_id_get(context_id)
-get context information
 
 ### Parameters
 
@@ -158,6 +131,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_context
+
+> crate::models::DeleteContext200Response delete_context(context_id)
+delete context
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **uuid::Uuid** | context id | [required] |
+
+### Return type
+
+[**crate::models::DeleteContext200Response**](deleteContext_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_all_context
 
 > get_all_context()
@@ -166,6 +167,34 @@ get all contexts
 ### Parameters
 
 This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_context
+
+> get_context(context_id)
+get context information
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **uuid::Uuid** | context id | [required] |
 
 ### Return type
 
