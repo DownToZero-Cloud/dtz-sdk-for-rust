@@ -64,6 +64,7 @@ paths:
   /rss2email/feed/{feed_id}:
     post:
       summary: update feed
+      operationId: updateFeed
       parameters:
         - in: path
           name: feed_id

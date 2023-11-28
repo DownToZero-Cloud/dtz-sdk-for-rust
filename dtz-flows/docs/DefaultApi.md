@@ -9,12 +9,12 @@ Method | HTTP request | Description
 [**rss2email_feed_feed_id_delete**](DefaultApi.md#rss2email_feed_feed_id_delete) | **DELETE** /rss2email/feed/{feed_id} | delete feed
 [**rss2email_feed_feed_id_disable_post**](DefaultApi.md#rss2email_feed_feed_id_disable_post) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
 [**rss2email_feed_feed_id_enable_post**](DefaultApi.md#rss2email_feed_feed_id_enable_post) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
-[**rss2email_feed_feed_id_post**](DefaultApi.md#rss2email_feed_feed_id_post) | **POST** /rss2email/feed/{feed_id} | update feed
 [**rss2email_feed_get**](DefaultApi.md#rss2email_feed_get) | **GET** /rss2email/feed | get feed data
 [**rss2email_feed_post**](DefaultApi.md#rss2email_feed_post) | **POST** /rss2email/feed | create feed subscription
 [**rss2email_profile_cancel_subscription_post**](DefaultApi.md#rss2email_profile_cancel_subscription_post) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
 [**rss2email_profile_get**](DefaultApi.md#rss2email_profile_get) | **GET** /rss2email/profile | get profile
 [**stats_get**](DefaultApi.md#stats_get) | **GET** /stats | get service statistics
+[**update_feed**](DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
 
 
@@ -155,35 +155,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## rss2email_feed_feed_id_post
-
-> rss2email_feed_feed_id_post(feed_id, rss2email_feed_feed_id_post_request)
-update feed
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
-**rss2email_feed_feed_id_post_request** | Option<[**Rss2emailFeedFeedIdPostRequest**](Rss2emailFeedFeedIdPostRequest.md)> | update feed request |  |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## rss2email_feed_get
 
 > rss2email_feed_get()
@@ -304,6 +275,35 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_feed
+
+> update_feed(feed_id, update_feed_request)
+update feed
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**feed_id** | **uuid::Uuid** | feed id | [required] |
+**update_feed_request** | Option<[**UpdateFeedRequest**](UpdateFeedRequest.md)> | update feed request |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

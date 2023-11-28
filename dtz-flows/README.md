@@ -30,20 +30,20 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**rss2email_feed_feed_id_delete**](docs/DefaultApi.md#rss2email_feed_feed_id_delete) | **DELETE** /rss2email/feed/{feed_id} | delete feed
 *DefaultApi* | [**rss2email_feed_feed_id_disable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_disable_post) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
 *DefaultApi* | [**rss2email_feed_feed_id_enable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_enable_post) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
-*DefaultApi* | [**rss2email_feed_feed_id_post**](docs/DefaultApi.md#rss2email_feed_feed_id_post) | **POST** /rss2email/feed/{feed_id} | update feed
 *DefaultApi* | [**rss2email_feed_get**](docs/DefaultApi.md#rss2email_feed_get) | **GET** /rss2email/feed | get feed data
 *DefaultApi* | [**rss2email_feed_post**](docs/DefaultApi.md#rss2email_feed_post) | **POST** /rss2email/feed | create feed subscription
 *DefaultApi* | [**rss2email_profile_cancel_subscription_post**](docs/DefaultApi.md#rss2email_profile_cancel_subscription_post) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
 *DefaultApi* | [**rss2email_profile_get**](docs/DefaultApi.md#rss2email_profile_get) | **GET** /rss2email/profile | get profile
 *DefaultApi* | [**stats_get**](docs/DefaultApi.md#stats_get) | **GET** /stats | get service statistics
+*DefaultApi* | [**update_feed**](docs/DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
 
 ## Documentation For Models
 
  - [Rss2emailDiscoverPost200Response](docs/Rss2emailDiscoverPost200Response.md)
  - [Rss2emailDiscoverPostRequest](docs/Rss2emailDiscoverPostRequest.md)
- - [Rss2emailFeedFeedIdPostRequest](docs/Rss2emailFeedFeedIdPostRequest.md)
  - [Rss2emailProfileGet200Response](docs/Rss2emailProfileGet200Response.md)
+ - [UpdateFeedRequest](docs/UpdateFeedRequest.md)
 
 
 To get access to the crate's generated documentation, use:
