@@ -180,7 +180,7 @@ pub async fn enable_service(configuration: &configuration::Configuration, ) -> R
     }
 }
 
-pub async fn get_object(configuration: &configuration::Configuration, object_path: &str) -> Result<crate::models::Object, Error<GetObjectError>> {
+pub async fn get_object(configuration: &configuration::Configuration, object_path: &str) -> Result<std::path::PathBuf, Error<GetObjectError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

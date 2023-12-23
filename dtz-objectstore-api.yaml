@@ -69,9 +69,10 @@ paths:
         '200':
           description: Successful operation
           content:
-            application/json:
+            '*/*':
               schema:
-                $ref: '#/components/schemas/Object'
+                type: string
+                format: binary
       parameters:
       - name: objectPath
         in: path

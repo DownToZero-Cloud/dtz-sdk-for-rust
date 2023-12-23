@@ -96,7 +96,7 @@ This endpoint does not need any parameter.
 
 ## get_object
 
-> crate::models::Object get_object(object_path)
+> std::path::PathBuf get_object(object_path)
 Get Object
 
 ### Parameters
@@ -108,7 +108,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Object**](Object.md)
+[**std::path::PathBuf**](std::path::PathBuf.md)
 
 ### Authorization
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: */*
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
