@@ -43,8 +43,8 @@ paths:
           description: success
   /obj/{objectPath}:
     put:
-      summary: Create Object
-      operationId: createObject
+      summary: Put Object
+      operationId: putObject
       requestBody:
         content:
           '*/*':

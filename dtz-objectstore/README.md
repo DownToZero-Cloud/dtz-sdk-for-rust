@@ -25,12 +25,12 @@ All URIs are relative to *https://objectstore.dtz.rocks/api/2022-11-28*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**create_object**](docs/DefaultApi.md#create_object) | **PUT** /obj/{objectPath} | Create Object
 *DefaultApi* | [**delete_object**](docs/DefaultApi.md#delete_object) | **DELETE** /obj/{objectPath} | Delete object
 *DefaultApi* | [**disable_service**](docs/DefaultApi.md#disable_service) | **POST** /disable | disable the objectstore service
 *DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /enable | enable the objectstore service
 *DefaultApi* | [**get_object**](docs/DefaultApi.md#get_object) | **GET** /obj/{objectPath} | Get Object
 *DefaultApi* | [**list_objects**](docs/DefaultApi.md#list_objects) | **GET** /obj/ | List objects
+*DefaultApi* | [**put_object**](docs/DefaultApi.md#put_object) | **PUT** /obj/{objectPath} | Put Object
 *DefaultApi* | [**stats**](docs/DefaultApi.md#stats) | **GET** /stats | get service statistics
 
 
