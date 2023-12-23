@@ -19,3 +19,7 @@ rm -r dtz-containers/git_push.sh dtz-containers/.gitignore dtz-containers/.travi
 openapi-generator generate -i dtz-flows-api.yaml -g rust -o dtz-flows --package-name dtz-flows -t rust-template
 cd dtz-flows && cargo build && cd ..
 rm -r dtz-flows/git_push.sh dtz-flows/.gitignore dtz-flows/.travis.yml dtz-flows/.openapi-generator dtz-flows/.openapi-generator-ignore
+
+openapi-generator generate -i dtz-objectstore-api.yaml -g rust -o dtz-objectstore --package-name dtz-objectstore -t rust-template
+cd dtz-objectstore && cargo build && cd ..
+rm -r dtz-objectstore/git_push.sh dtz-objectstore/.gitignore dtz-objectstore/.travis.yml dtz-objectstore/.openapi-generator dtz-objectstore/.openapi-generator-ignore

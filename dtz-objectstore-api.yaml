@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: Dtz Objectstore
+  version: 1.0.0
+  description: a generated client for the DTZ Objectstore API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
+externalDocs:
+  description: dtz docs page
+  url: https://docs.downtozero.cloud
+servers:
+- url: https://objectstore.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2022-11-28
+      enum:
+        - 2022-11-28
+paths:
+  /enable:
+    post:
+      summary: enable the objectstore service
+      operationId: enableService
+      responses:
+        200:
+          description: service enabled
+  /disable:
+    post:
+      summary: disable the objectstore service
+      operationId: disableService
+      responses:
+        200:
+          description: service disabled
+  /obj/:
+    get:
+      summary: List objects
+      operationId: listObjects
+      responses:
+        '200':
+          description: success
+  /obj/{objectPath}:
+    put:
+      summary: Create Object
+      operationId: createObject
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: success
+      parameters:
+      - name: objectPath
+        in: path
+        description: object path
+        required: true
+        schema:
+          type: string  
+        style: simple
+    get:
+      summary: Get Object
+      operationId: getObject
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+      parameters:
+      - name: objectPath
+        in: path
+        description: object patch
+        required: true
+        schema:
+          type: string  
+        style: simple
+    delete:
+      summary: Delete object
+      description: This can only be done by the logged in user.
+      operationId: deleteObject
+      parameters:
+        - name: objectPath
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Object'
+  /stats:
+    get:
+      summary: get service statistics
+      operationId: stats
+      responses:
+        200:
+          description: service stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amountOfFiles:
+                    type: number
+                  amountOfStorage:
+                    type: number
+
+components:
+  schemas:
+    Object:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+  securitySchemes:
+    dtz_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://identity.dtz.rocks/oauth
+          scopes:
+            write:pets: modify pets in your account
+            read:pets: read your pets
+    dtz_auth2:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+security:
+  - dtz_auth: []
+  - dtz_auth2: []
