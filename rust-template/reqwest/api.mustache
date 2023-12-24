@@ -90,7 +90,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 
 {{/vendorExtensions.x-group-parameters}}
 {{^vendorExtensions.x-group-parameters}}
-pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &configuration::Configuration, {{#allParams}}{{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}{{#isBodyParam}}crate::models::{{/isBodyParam}}{{/isContainer}}{{/isPrimitiveType}}{{{dataType}}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{#isResponseBinary}}Vec<u8>{{/isResponseBinary}}{{^isResponseBinary}}{{{returnType}}}{{/isResponseBinary}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
+pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &configuration::Configuration, {{#allParams}}{{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}{{#isBodyParam}}crate::models::{{/isBodyParam}}{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{#isResponseBinary}}Vec<u8>{{/isResponseBinary}}{{^isResponseBinary}}{{{returnType}}}{{/isResponseBinary}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
     let local_var_configuration = configuration;
 {{/vendorExtensions.x-group-parameters}}
 
@@ -337,7 +337,14 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     {{/isMultipart}}
     {{#hasBodyParam}}
     {{#bodyParams}}
+    {{#isBinary}}
+    if let Some(x) = {{{paramName}}} {
+        local_var_req_builder = local_var_req_builder.body(x);
+    }
+    {{/isBinary}}
+    {{^isBinary}}
     local_var_req_builder = local_var_req_builder.json(&{{{paramName}}});
+    {{/isBinary}}
     {{/bodyParams}}
     {{/hasBodyParam}}
 

@@ -260,7 +260,7 @@ pub async fn list_objects(configuration: &configuration::Configuration, ) -> Res
     }
 }
 
-pub async fn put_object(configuration: &configuration::Configuration, object_path: &str, body: Option<std::path::PathBuf>) -> Result<(), Error<PutObjectError>> {
+pub async fn put_object(configuration: &configuration::Configuration, object_path: &str, body: Option<Vec<u8>>) -> Result<(), Error<PutObjectError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -282,7 +282,9 @@ pub async fn put_object(configuration: &configuration::Configuration, object_pat
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
-    local_var_req_builder = local_var_req_builder.json(&body);
+    if let Some(x) = body {
+        local_var_req_builder = local_var_req_builder.body(x);
+    }
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
