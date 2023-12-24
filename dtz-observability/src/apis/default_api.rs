@@ -109,7 +109,7 @@ pub async fn get_logs(configuration: &configuration::Configuration, ) -> Result<
         Ok(())
     } else {
         let local_var_entity: Option<GetLogsError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -141,10 +141,10 @@ pub async fn get_stats(configuration: &configuration::Configuration, ) -> Result
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetStatsError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -176,10 +176,10 @@ pub async fn log_activity_get(configuration: &configuration::Configuration, ) ->
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<LogActivityGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -212,10 +212,10 @@ pub async fn log_activity_post(configuration: &configuration::Configuration, que
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<LogActivityPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -247,10 +247,10 @@ pub async fn log_attribute_get(configuration: &configuration::Configuration, ) -
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        serde_json::from_str(&local_var_content).map_err(Error::from)
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<LogAttributeGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -286,7 +286,7 @@ pub async fn log_push_post(configuration: &configuration::Configuration, _log_pu
         Ok(())
     } else {
         let local_var_entity: Option<LogPushPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -322,7 +322,7 @@ pub async fn post_metric(configuration: &configuration::Configuration, post_metr
         Ok(())
     } else {
         let local_var_entity: Option<PostMetricError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -358,7 +358,7 @@ pub async fn post_prometheus(configuration: &configuration::Configuration, body:
         Ok(())
     } else {
         let local_var_entity: Option<PostPrometheusError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -394,7 +394,7 @@ pub async fn query_logs(configuration: &configuration::Configuration, query_logs
         Ok(())
     } else {
         let local_var_entity: Option<QueryLogsError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }

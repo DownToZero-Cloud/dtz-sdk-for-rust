@@ -119,7 +119,7 @@ pub async fn disable_service(configuration: &configuration::Configuration, ) -> 
         Ok(())
     } else {
         let local_var_entity: Option<DisableServiceError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -157,7 +157,7 @@ pub async fn enable_service(configuration: &configuration::Configuration, ) -> R
         Ok(())
     } else {
         let local_var_entity: Option<EnableServiceError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -195,7 +195,7 @@ pub async fn get_hosting(configuration: &configuration::Configuration, ) -> Resu
         Ok(())
     } else {
         let local_var_entity: Option<GetHostingError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -233,7 +233,7 @@ pub async fn job_get(configuration: &configuration::Configuration, ) -> Result<(
         Ok(())
     } else {
         let local_var_entity: Option<JobGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -271,7 +271,7 @@ pub async fn job_job_id_delete(configuration: &configuration::Configuration, job
         Ok(())
     } else {
         let local_var_entity: Option<JobJobIdDeleteError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -309,7 +309,7 @@ pub async fn job_job_id_get(configuration: &configuration::Configuration, job_id
         Ok(())
     } else {
         let local_var_entity: Option<JobJobIdGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -347,7 +347,7 @@ pub async fn job_job_id_patch(configuration: &configuration::Configuration, job_
         Ok(())
     } else {
         let local_var_entity: Option<JobJobIdPatchError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -385,7 +385,7 @@ pub async fn job_job_id_post(configuration: &configuration::Configuration, job_i
         Ok(())
     } else {
         let local_var_entity: Option<JobJobIdPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -424,7 +424,7 @@ pub async fn job_post(configuration: &configuration::Configuration, job_post_req
         Ok(())
     } else {
         let local_var_entity: Option<JobPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
@@ -463,7 +463,7 @@ pub async fn update_hosting(configuration: &configuration::Configuration, update
         Ok(())
     } else {
         let local_var_entity: Option<UpdateHostingError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: local_var_content, entity: local_var_entity };
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }

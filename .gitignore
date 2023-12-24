@@ -5,3 +5,4 @@ Cargo.lock
 target/
 dtz-*/.gitignore
 .DS_Store
+.openapi-generator-ignore

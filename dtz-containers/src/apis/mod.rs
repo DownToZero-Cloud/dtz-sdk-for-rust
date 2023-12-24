@@ -4,8 +4,14 @@ use std::fmt;
 #[derive(Debug, Clone)]
 pub struct ResponseContent<T> {
     pub status: reqwest::StatusCode,
-    pub content: String,
+    pub content: Option<Content>, 
     pub entity: Option<T>,
+}
+
+#[derive(Debug, Clone)]
+pub enum Content{
+    Text(String),
+    Binary(Vec<u8>),
 }
 
 #[derive(Debug)]
