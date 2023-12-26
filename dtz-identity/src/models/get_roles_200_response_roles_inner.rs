@@ -13,28 +13,28 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetRoles200ResponseRolesInner {
-    #[serde(rename = "roleId", skip_serializing_if = "Option::is_none")]
-    pub role_id: Option<uuid::Uuid>,
-    #[serde(rename = "roleAlias", skip_serializing_if = "Option::is_none")]
-    pub role_alias: Option<String>,
-    #[serde(rename = "roleScope", skip_serializing_if = "Option::is_none")]
-    pub role_scope: Option<String>,
+    #[serde(rename = "roleId")]
+    pub role_id: uuid::Uuid,
+    #[serde(rename = "roleAlias")]
+    pub role_alias: String,
+    #[serde(rename = "roleScope")]
+    pub role_scope: String,
     #[serde(rename = "contextId", skip_serializing_if = "Option::is_none")]
     pub context_id: Option<uuid::Uuid>,
-    #[serde(rename = "exposure", skip_serializing_if = "Option::is_none")]
-    pub exposure: Option<String>,
+    #[serde(rename = "exposure")]
+    pub exposure: String,
     #[serde(rename = "assignedToUser", skip_serializing_if = "Option::is_none")]
     pub assigned_to_user: Option<bool>,
 }
 
 impl GetRoles200ResponseRolesInner {
-    pub fn new() -> GetRoles200ResponseRolesInner {
+    pub fn new(role_id: uuid::Uuid, role_alias: String, role_scope: String, exposure: String) -> GetRoles200ResponseRolesInner {
         GetRoles200ResponseRolesInner {
-            role_id: None,
-            role_alias: None,
-            role_scope: None,
+            role_id,
+            role_alias,
+            role_scope,
             context_id: None,
-            exposure: None,
+            exposure,
             assigned_to_user: None,
         }
     }

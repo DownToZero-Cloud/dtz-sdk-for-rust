@@ -297,6 +297,11 @@ paths:
                           type: string
                         assignedToUser:
                           type: boolean
+                      required:
+                        - roleId
+                        - roleAlias
+                        - roleScope
+                        - exposure
 components:
   schemas:
     ErrorResponse:
