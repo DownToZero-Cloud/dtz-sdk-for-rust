@@ -133,7 +133,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_context
 
-> crate::models::DeleteContext200Response delete_context(context_id)
+> delete_context(context_id)
 delete context
 
 ### Parameters
@@ -142,31 +142,6 @@ delete context
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **context_id** | **uuid::Uuid** | context id | [required] |
-
-### Return type
-
-[**crate::models::DeleteContext200Response**](deleteContext_200_response.md)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## get_all_context
-
-> get_all_context()
-get all contexts
-
-### Parameters
-
-This endpoint does not need any parameter.
 
 ### Return type
 
@@ -180,6 +155,31 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_all_context
+
+> crate::models::GetAllContext200Response get_all_context()
+get all contexts
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**crate::models::GetAllContext200Response**](getAllContext_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

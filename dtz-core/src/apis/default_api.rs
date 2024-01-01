@@ -249,7 +249,7 @@ pub async fn create_job(configuration: &configuration::Configuration, job_id: &s
     }
 }
 
-pub async fn delete_context(configuration: &configuration::Configuration, context_id: &str) -> Result<crate::models::DeleteContext200Response, Error<DeleteContextError>> {
+pub async fn delete_context(configuration: &configuration::Configuration, context_id: &str) -> Result<(), Error<DeleteContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -279,7 +279,7 @@ pub async fn delete_context(configuration: &configuration::Configuration, contex
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-            serde_json::from_str(&local_var_content).map_err(Error::from)
+        Ok(())
     } else {
         let local_var_entity: Option<DeleteContextError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
@@ -287,7 +287,7 @@ pub async fn delete_context(configuration: &configuration::Configuration, contex
     }
 }
 
-pub async fn get_all_context(configuration: &configuration::Configuration, ) -> Result<(), Error<GetAllContextError>> {
+pub async fn get_all_context(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAllContext200Response, Error<GetAllContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -317,7 +317,7 @@ pub async fn get_all_context(configuration: &configuration::Configuration, ) -> 
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetAllContextError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };

@@ -24,6 +24,24 @@ paths:
       responses:
         200:
           description: status
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  contexts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        context_id:
+                          type: string
+                          format: uuid
+                        alias:
+                          type: string
+                        created:
+                          type: string
+                          format: date-time
     post:
       summary: create new context
       operationId: createContext
@@ -92,13 +110,6 @@ paths:
       responses:
         200:
           description: status
-          content:
-            application/json: 
-              schema:
-                type: object
-                properties:
-                  contextId:
-                    type: string
   /context/{context_id}/enableService:
     get:
       summary: enable service for context
