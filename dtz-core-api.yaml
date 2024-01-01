@@ -288,6 +288,33 @@ paths:
       responses:
         200:
           description: success
+          content: 
+            application/json: 
+              schema: 
+                type: array
+                items:
+                  type: object
+                  properties: 
+                    host:
+                      type: string
+                    pathPrefix:
+                      type: string
+                    containerImage:
+                      type: string
+                    containerImageTag:
+                      type: string
+                    containerImageVersion:
+                      type: string
+                    containerIdentity:
+                      type: string
+                    containerPullUser:
+                      type: string
+                    containerPullPwd:
+                      type: string
+                  required:
+                  - host
+                  - pathPrefix
+                  - containerImage
     post:
       summary: create or update ingress
       operationId: createIngress
@@ -305,6 +332,8 @@ paths:
                 containerImage:
                   type: string
                 containerImageTag:
+                  type: string
+                containerIdentity:
                   type: string
                 containerPullUser:
                   type: string

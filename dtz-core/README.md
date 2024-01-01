@@ -48,6 +48,7 @@ Class | Method | HTTP request | Description
  - [GetAllContext200Response](docs/GetAllContext200Response.md)
  - [GetAllContext200ResponseContextsInner](docs/GetAllContext200ResponseContextsInner.md)
  - [GetContext200Response](docs/GetContext200Response.md)
+ - [GetIngress200ResponseInner](docs/GetIngress200ResponseInner.md)
  - [IssueCertificateRequest](docs/IssueCertificateRequest.md)
  - [PullJobFromQueue200Response](docs/PullJobFromQueue200Response.md)
  - [PullJobFromQueueRequest](docs/PullJobFromQueueRequest.md)

@@ -214,7 +214,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ingress
 
-> get_ingress()
+> Vec<crate::models::GetIngress200ResponseInner> get_ingress()
 get all ingress
 
 ### Parameters
@@ -223,7 +223,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<crate::models::GetIngress200ResponseInner>**](getIngress_200_response_inner.md)
 
 ### Authorization
 
@@ -232,7 +232,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -14,6 +14,8 @@ pub mod get_all_context_200_response_contexts_inner;
 pub use self::get_all_context_200_response_contexts_inner::GetAllContext200ResponseContextsInner;
 pub mod get_context_200_response;
 pub use self::get_context_200_response::GetContext200Response;
+pub mod get_ingress_200_response_inner;
+pub use self::get_ingress_200_response_inner::GetIngress200ResponseInner;
 pub mod issue_certificate_request;
 pub use self::issue_certificate_request::IssueCertificateRequest;
 pub mod pull_job_from_queue_200_response;
