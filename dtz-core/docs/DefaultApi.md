@@ -186,7 +186,7 @@ This endpoint does not need any parameter.
 
 ## get_context
 
-> get_context(context_id)
+> crate::models::GetContext200Response get_context(context_id)
 get context information
 
 ### Parameters
@@ -198,7 +198,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**crate::models::GetContext200Response**](getContext_200_response.md)
 
 ### Authorization
 
@@ -207,7 +207,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -65,6 +65,19 @@ paths:
       responses:
         200:
           description: context information
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  context_id:
+                    type: string
+                    format: uuid
+                  created:
+                    type: string
+                    format: date-time
+                  alias:
+                    type: string
     delete:
       summary: delete context
       operationId: deleteContext
