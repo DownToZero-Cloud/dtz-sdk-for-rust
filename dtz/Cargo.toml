@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "base crate for the DownToZero Cloud API"
-license = "MIT or Apache-2.0"
+license = "Apache-2.0"
 
 [dependencies.reqwest]
 version = "^0.11"
