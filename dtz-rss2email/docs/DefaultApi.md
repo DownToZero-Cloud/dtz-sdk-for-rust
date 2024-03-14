@@ -1,6 +1,6 @@
 # \DefaultApi
 
-All URIs are relative to *https://flows.dtz.rocks/api/2021-02-01*
+All URIs are relative to *https://rss2email.dtz.rocks/api/2021-02-01*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -45,7 +45,7 @@ This endpoint does not need any parameter.
 
 ## rss2email_discover_post
 
-> crate::models::Rss2emailDiscoverPost200Response rss2email_discover_post(rss2email_discover_post_request)
+> models::Rss2emailDiscoverPost200Response rss2email_discover_post(rss2email_discover_post_request)
 discover feed on homepage
 
 ### Parameters
@@ -57,7 +57,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Rss2emailDiscoverPost200Response**](_rss2email_discover_post_200_response.md)
+[**models::Rss2emailDiscoverPost200Response**](_rss2email_discover_post_200_response.md)
 
 ### Authorization
 
@@ -182,16 +182,19 @@ This endpoint does not need any parameter.
 
 ## rss2email_feed_post
 
-> rss2email_feed_post()
+> models::Rss2emailFeedPost200Response rss2email_feed_post(rss2email_feed_post_request)
 create feed subscription
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**rss2email_feed_post_request** | Option<[**Rss2emailFeedPostRequest**](Rss2emailFeedPostRequest.md)> | create feed request |  |
 
 ### Return type
 
- (empty response body)
+[**models::Rss2emailFeedPost200Response**](_rss2email_feed_post_200_response.md)
 
 ### Authorization
 
@@ -199,8 +202,8 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -232,7 +235,7 @@ This endpoint does not need any parameter.
 
 ## rss2email_profile_get
 
-> crate::models::Rss2emailProfileGet200Response rss2email_profile_get()
+> models::Rss2emailProfileGet200Response rss2email_profile_get()
 get profile
 
 ### Parameters
@@ -241,7 +244,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::Rss2emailProfileGet200Response**](_rss2email_profile_get_200_response.md)
+[**models::Rss2emailProfileGet200Response**](_rss2email_profile_get_200_response.md)
 
 ### Authorization
 
@@ -282,7 +285,7 @@ This endpoint does not need any parameter.
 
 ## update_feed
 
-> update_feed(feed_id, update_feed_request)
+> update_feed(feed_id, rss2email_feed_post200_response)
 update feed
 
 ### Parameters
@@ -291,7 +294,7 @@ update feed
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **feed_id** | **uuid::Uuid** | feed id | [required] |
-**update_feed_request** | Option<[**UpdateFeedRequest**](UpdateFeedRequest.md)> | update feed request |  |
+**rss2email_feed_post200_response** | Option<[**Rss2emailFeedPost200Response**](Rss2emailFeedPost200Response.md)> | update feed request |  |
 
 ### Return type
 

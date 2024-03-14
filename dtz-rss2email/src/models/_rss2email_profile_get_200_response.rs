@@ -1,7 +1,7 @@
 /*
- * DTZ Flows Api
+ * DTZ RSS2Email Api
  *
- * a generated client for the DTZ Flows API
+ * a generated client for the DTZ RSS2Email API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: jens@apimeister.com

@@ -1,4 +1,4 @@
-# UpdateFeedRequest
+# Rss2emailFeedPost200Response
 
 ## Properties
 

@@ -16,9 +16,9 @@ openapi-generator generate -i dtz-containers-api.yaml -g rust -o dtz-containers 
 cd dtz-containers && cargo build && cd ..
 rm -r dtz-containers/git_push.sh dtz-containers/.gitignore dtz-containers/.travis.yml dtz-containers/.openapi-generator dtz-containers/.openapi-generator-ignore
 
-openapi-generator generate -i dtz-flows-api.yaml -g rust -o dtz-flows --package-name dtz-flows -t rust-template
-cd dtz-flows && cargo build && cd ..
-rm -r dtz-flows/git_push.sh dtz-flows/.gitignore dtz-flows/.travis.yml dtz-flows/.openapi-generator dtz-flows/.openapi-generator-ignore
+openapi-generator generate -i dtz-rss2email-api.yaml -g rust -o dtz-rss2email --package-name dtz-rss2email -t rust-template
+cd dtz-rss2email && cargo build && cd ..
+rm -r dtz-rss2email/git_push.sh dtz-rss2email/.gitignore dtz-rss2email/.travis.yml dtz-rss2email/.openapi-generator dtz-rss2email/.openapi-generator-ignore
 
 openapi-generator generate -i dtz-objectstore-api.yaml -g rust -o dtz-objectstore --package-name dtz-objectstore -t rust-template
 cd dtz-objectstore && cargo build && cd ..

@@ -3,7 +3,9 @@
 use reqwest;
 
 use crate::apis::ResponseContent;
-use super::{Error, configuration};
+use crate::models;
+use super::Error;
+use dtz::Configuration;
 
 {{#operations}}
 {{#operation}}
@@ -80,7 +82,7 @@ pub enum {{{operationIdCamelCase}}}Error {
 /// {{{.}}}
 {{/notes}}
 {{#vendorExtensions.x-group-parameters}}
-pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &configuration::Configuration{{#allParams}}{{#-first}}, params: {{{operationIdCamelCase}}}Params{{/-first}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{{returnType}}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
+pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &Configuration{{#allParams}}{{#-first}}, params: {{{operationIdCamelCase}}}Params{{/-first}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{{returnType}}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
     let local_var_configuration = configuration;
 
     // unbox the parameters
@@ -90,7 +92,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 
 {{/vendorExtensions.x-group-parameters}}
 {{^vendorExtensions.x-group-parameters}}
-pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &configuration::Configuration, {{#allParams}}{{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}{{#isBodyParam}}crate::models::{{/isBodyParam}}{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{#isResponseBinary}}Vec<u8>{{/isResponseBinary}}{{^isResponseBinary}}{{{returnType}}}{{/isResponseBinary}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
+pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &Configuration, {{#allParams}}{{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}{{#isBodyParam}}crate::models::{{/isBodyParam}}{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) -> Result<{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{#isResponseBinary}}Vec<u8>{{/isResponseBinary}}{{^isResponseBinary}}{{{returnType}}}{{/isResponseBinary}}{{/supportMultipleResponses}}, Error<{{{operationIdCamelCase}}}Error>> {
     let local_var_configuration = configuration;
 {{/vendorExtensions.x-group-parameters}}
 
@@ -151,44 +153,14 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     {{#isApiKey}}
     {{#isKeyInQuery}}
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.query(&[("{{{keyParamName}}}", local_var_value)]);
+        local_var_req_builder = local_var_req_builder.query(&[("{{{keyParamName}}}", local_var_apikey)]);
     }
     {{/isKeyInQuery}}
     {{/isApiKey}}
     {{/authMethods}}
     {{/hasAuthMethods}}
     {{#hasAuthMethods}}
-    {{#withAWSV4Signature}}
-    if let Some(ref local_var_aws_v4_key) = local_var_configuration.aws_v4_key {
-        let local_var_new_headers = match local_var_aws_v4_key.sign(
-	    &local_var_uri_str,
-	    "{{{httpMethod}}}",
-	    {{#hasBodyParam}}
-	    {{#bodyParams}}
-	    &serde_json::to_string(&{{{paramName}}}).expect("param should serialize to string"),
-	    {{/bodyParams}}
-	    {{/hasBodyParam}}
-	    {{^hasBodyParam}}
-	    &"",
-	    {{/hasBodyParam}}
-	    ) {
-	      Ok(new_headers) => new_headers,
-	      Err(err) => return Err(Error::AWSV4SignatureError(err)),
-	    };
-	for (local_var_name, local_var_value) in local_var_new_headers.iter() {
-	    local_var_req_builder = local_var_req_builder.header(local_var_name.as_str(), local_var_value.as_str());
-	}
-    }
-    {{/withAWSV4Signature}}
     {{/hasAuthMethods}}
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     {{#hasHeaderParams}}
     {{#headerParams}}
     {{#required}}
@@ -214,12 +186,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     {{#isApiKey}}
     {{#isKeyInHeader}}
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("{{{keyParamName}}}", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("{{{keyParamName}}}", local_var_apikey);
     };
     {{/isKeyInHeader}}
     {{/isApiKey}}

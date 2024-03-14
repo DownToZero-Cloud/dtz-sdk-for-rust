@@ -1,8 +1,8 @@
 openapi: 3.0.1
 info:
-  title: DTZ Flows Api
+  title: DTZ RSS2Email Api
   version: 1.0.0
-  description: a generated client for the DTZ Flows API
+  description: a generated client for the DTZ RSS2Email API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -10,7 +10,7 @@ info:
     name: Jens Walter
     email: jens@apimeister.com
 servers:
-- url: https://flows.dtz.rocks/api/{version}
+- url: https://rss2email.dtz.rocks/api/{version}
   variables:
     version:
       default: 2021-02-01
@@ -58,9 +58,49 @@ paths:
           description: feed data
     post:
       summary: create feed subscription
+      requestBody:
+        description: create feed request
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                targetEmail:
+                  type: string
+              required:
+              - url
       responses:
         200:
           description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  url:
+                    type: string
+                  lastCheck:
+                    type: string
+                    format: date-time
+                  lastDataFound:
+                    type: string
+                    format: date-time
+                  enabled:
+                    type: boolean
+                  name:
+                    type: string
+                required:
+                - id
+                - url
+                - lastCheck
+                - lastDataFound
+                - enabled
+                - name
   /rss2email/feed/{feed_id}:
     post:
       summary: update feed

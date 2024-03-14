@@ -1,12 +1,13 @@
 [package]
-name = "dtz-flows"
+name = "dtz-rss2email"
 version = "1.0.0"
 authors = ["jens@apimeister.com"]
-description = "a generated client for the DTZ Flows API"
+description = "a generated client for the DTZ RSS2Email API"
 license = "MIT or Apache-2.0"
 edition = "2021"
 
 [dependencies]
+dtz = { path = "../dtz" }
 serde = "^1.0"
 serde_derive = "^1.0"
 serde_json = "^1.0"

@@ -1,7 +1,7 @@
 /*
- * DTZ Flows Api
+ * DTZ RSS2Email Api
  *
- * a generated client for the DTZ Flows API
+ * a generated client for the DTZ RSS2Email API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: jens@apimeister.com
@@ -12,7 +12,9 @@
 use reqwest;
 
 use crate::apis::ResponseContent;
-use super::{Error, configuration};
+use crate::models;
+use super::Error;
+use dtz::Configuration;
 
 
 /// struct for typed errors of method [`enable_service`]
@@ -93,7 +95,7 @@ pub enum UpdateFeedError {
 }
 
 
-pub async fn enable_service(configuration: &configuration::Configuration, ) -> Result<(), Error<EnableServiceError>> {
+pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error<EnableServiceError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -101,16 +103,8 @@ pub async fn enable_service(configuration: &configuration::Configuration, ) -> R
     let local_var_uri_str = format!("{}/enable", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -128,7 +122,7 @@ pub async fn enable_service(configuration: &configuration::Configuration, ) -> R
     }
 }
 
-pub async fn rss2email_discover_post(configuration: &configuration::Configuration, rss2email_discover_post_request: Option<crate::models::Rss2emailDiscoverPostRequest>) -> Result<crate::models::Rss2emailDiscoverPost200Response, Error<Rss2emailDiscoverPostError>> {
+pub async fn rss2email_discover_post(configuration: &Configuration, rss2email_discover_post_request: Option<crate::models::Rss2emailDiscoverPostRequest>) -> Result<models::Rss2emailDiscoverPost200Response, Error<Rss2emailDiscoverPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -136,16 +130,8 @@ pub async fn rss2email_discover_post(configuration: &configuration::Configuratio
     let local_var_uri_str = format!("{}/rss2email/discover", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&rss2email_discover_post_request);
 
@@ -164,7 +150,7 @@ pub async fn rss2email_discover_post(configuration: &configuration::Configuratio
     }
 }
 
-pub async fn rss2email_feed_feed_id_delete(configuration: &configuration::Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdDeleteError>> {
+pub async fn rss2email_feed_feed_id_delete(configuration: &Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdDeleteError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -172,16 +158,8 @@ pub async fn rss2email_feed_feed_id_delete(configuration: &configuration::Config
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -199,7 +177,7 @@ pub async fn rss2email_feed_feed_id_delete(configuration: &configuration::Config
     }
 }
 
-pub async fn rss2email_feed_feed_id_disable_post(configuration: &configuration::Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdDisablePostError>> {
+pub async fn rss2email_feed_feed_id_disable_post(configuration: &Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdDisablePostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -207,16 +185,8 @@ pub async fn rss2email_feed_feed_id_disable_post(configuration: &configuration::
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -234,7 +204,7 @@ pub async fn rss2email_feed_feed_id_disable_post(configuration: &configuration::
     }
 }
 
-pub async fn rss2email_feed_feed_id_enable_post(configuration: &configuration::Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdEnablePostError>> {
+pub async fn rss2email_feed_feed_id_enable_post(configuration: &Configuration, feed_id: &str) -> Result<(), Error<Rss2emailFeedFeedIdEnablePostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -242,16 +212,8 @@ pub async fn rss2email_feed_feed_id_enable_post(configuration: &configuration::C
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -269,7 +231,7 @@ pub async fn rss2email_feed_feed_id_enable_post(configuration: &configuration::C
     }
 }
 
-pub async fn rss2email_feed_get(configuration: &configuration::Configuration, ) -> Result<(), Error<Rss2emailFeedGetError>> {
+pub async fn rss2email_feed_get(configuration: &Configuration, ) -> Result<(), Error<Rss2emailFeedGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -277,16 +239,8 @@ pub async fn rss2email_feed_get(configuration: &configuration::Configuration, ) 
     let local_var_uri_str = format!("{}/rss2email/feed", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -304,7 +258,7 @@ pub async fn rss2email_feed_get(configuration: &configuration::Configuration, ) 
     }
 }
 
-pub async fn rss2email_feed_post(configuration: &configuration::Configuration, ) -> Result<(), Error<Rss2emailFeedPostError>> {
+pub async fn rss2email_feed_post(configuration: &Configuration, rss2email_feed_post_request: Option<crate::models::Rss2emailFeedPostRequest>) -> Result<models::Rss2emailFeedPost200Response, Error<Rss2emailFeedPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -312,17 +266,10 @@ pub async fn rss2email_feed_post(configuration: &configuration::Configuration, )
     let local_var_uri_str = format!("{}/rss2email/feed", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
+    local_var_req_builder = local_var_req_builder.json(&rss2email_feed_post_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -331,7 +278,7 @@ pub async fn rss2email_feed_post(configuration: &configuration::Configuration, )
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<Rss2emailFeedPostError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
@@ -339,7 +286,7 @@ pub async fn rss2email_feed_post(configuration: &configuration::Configuration, )
     }
 }
 
-pub async fn rss2email_profile_cancel_subscription_post(configuration: &configuration::Configuration, ) -> Result<(), Error<Rss2emailProfileCancelSubscriptionPostError>> {
+pub async fn rss2email_profile_cancel_subscription_post(configuration: &Configuration, ) -> Result<(), Error<Rss2emailProfileCancelSubscriptionPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -347,16 +294,8 @@ pub async fn rss2email_profile_cancel_subscription_post(configuration: &configur
     let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -374,7 +313,7 @@ pub async fn rss2email_profile_cancel_subscription_post(configuration: &configur
     }
 }
 
-pub async fn rss2email_profile_get(configuration: &configuration::Configuration, ) -> Result<crate::models::Rss2emailProfileGet200Response, Error<Rss2emailProfileGetError>> {
+pub async fn rss2email_profile_get(configuration: &Configuration, ) -> Result<models::Rss2emailProfileGet200Response, Error<Rss2emailProfileGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -382,16 +321,8 @@ pub async fn rss2email_profile_get(configuration: &configuration::Configuration,
     let local_var_uri_str = format!("{}/rss2email/profile", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -409,7 +340,7 @@ pub async fn rss2email_profile_get(configuration: &configuration::Configuration,
     }
 }
 
-pub async fn stats_get(configuration: &configuration::Configuration, ) -> Result<(), Error<StatsGetError>> {
+pub async fn stats_get(configuration: &Configuration, ) -> Result<(), Error<StatsGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -417,16 +348,8 @@ pub async fn stats_get(configuration: &configuration::Configuration, ) -> Result
     let local_var_uri_str = format!("{}/stats", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -444,7 +367,7 @@ pub async fn stats_get(configuration: &configuration::Configuration, ) -> Result
     }
 }
 
-pub async fn update_feed(configuration: &configuration::Configuration, feed_id: &str, update_feed_request: Option<crate::models::UpdateFeedRequest>) -> Result<(), Error<UpdateFeedError>> {
+pub async fn update_feed(configuration: &Configuration, feed_id: &str, rss2email_feed_post200_response: Option<crate::models::Rss2emailFeedPost200Response>) -> Result<(), Error<UpdateFeedError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -452,18 +375,10 @@ pub async fn update_feed(configuration: &configuration::Configuration, feed_id: 
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
-    local_var_req_builder = local_var_req_builder.json(&update_feed_request);
+    local_var_req_builder = local_var_req_builder.json(&rss2email_feed_post200_response);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
