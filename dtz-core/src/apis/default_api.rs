@@ -12,7 +12,32 @@
 use reqwest;
 
 use crate::apis::ResponseContent;
-use super::{Error, configuration};
+use crate::models;
+use super::Error;
+use dtz::Configuration;
+
+fn build_url(config: &dtz::Configuration) -> String {
+    let base = url::Url::parse(&config.base_path).unwrap();
+    let svc = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
+    let mut target_url = svc.clone();
+    if base.host_str() == Some("localhost") || base.host_str() == Some("localhost6") {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let _ = target_url.set_host(Some(base.host_str().unwrap()));
+        format!("{target_url}")
+    } else {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split(".").collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
+    }
+}
 
 
 /// struct for typed errors of method [`context_context_id_enable_service_get`]
@@ -94,27 +119,19 @@ pub enum PullJobFromQueueError {
 }
 
 
-pub async fn context_context_id_enable_service_get(configuration: &configuration::Configuration, context_id: &str) -> Result<(), Error<ContextContextIdEnableServiceGetError>> {
+pub async fn context_context_id_enable_service_get(configuration: &Configuration, context_id: &str) -> Result<(), Error<ContextContextIdEnableServiceGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}/enableService", local_var_configuration.base_path, context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}/enableService", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -132,27 +149,19 @@ pub async fn context_context_id_enable_service_get(configuration: &configuration
     }
 }
 
-pub async fn create_context(configuration: &configuration::Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<crate::models::CreateContext200Response, Error<CreateContextError>> {
+pub async fn create_context(configuration: &Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<models::CreateContext200Response, Error<CreateContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/context", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&create_context_request);
 
@@ -171,27 +180,19 @@ pub async fn create_context(configuration: &configuration::Configuration, create
     }
 }
 
-pub async fn create_ingress(configuration: &configuration::Configuration, create_ingress_request: Option<crate::models::CreateIngressRequest>) -> Result<(), Error<CreateIngressError>> {
+pub async fn create_ingress(configuration: &Configuration, create_ingress_request: Option<crate::models::CreateIngressRequest>) -> Result<(), Error<CreateIngressError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/ingress", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&create_ingress_request);
 
@@ -210,27 +211,19 @@ pub async fn create_ingress(configuration: &configuration::Configuration, create
     }
 }
 
-pub async fn create_job(configuration: &configuration::Configuration, job_id: &str, create_job_request: Option<crate::models::CreateJobRequest>) -> Result<(), Error<CreateJobError>> {
+pub async fn create_job(configuration: &Configuration, job_id: &str, create_job_request: Option<crate::models::CreateJobRequest>) -> Result<(), Error<CreateJobError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&create_job_request);
 
@@ -249,27 +242,19 @@ pub async fn create_job(configuration: &configuration::Configuration, job_id: &s
     }
 }
 
-pub async fn delete_context(configuration: &configuration::Configuration, context_id: &str) -> Result<(), Error<DeleteContextError>> {
+pub async fn delete_context(configuration: &Configuration, context_id: &str) -> Result<(), Error<DeleteContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}", local_var_configuration.base_path, context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -287,27 +272,19 @@ pub async fn delete_context(configuration: &configuration::Configuration, contex
     }
 }
 
-pub async fn get_all_context(configuration: &configuration::Configuration, ) -> Result<crate::models::GetAllContext200Response, Error<GetAllContextError>> {
+pub async fn get_all_context(configuration: &Configuration, ) -> Result<models::GetAllContext200Response, Error<GetAllContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/context", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -325,27 +302,19 @@ pub async fn get_all_context(configuration: &configuration::Configuration, ) -> 
     }
 }
 
-pub async fn get_context(configuration: &configuration::Configuration, context_id: &str) -> Result<crate::models::GetContext200Response, Error<GetContextError>> {
+pub async fn get_context(configuration: &Configuration, context_id: &str) -> Result<models::GetContext200Response, Error<GetContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}", local_var_configuration.base_path, context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -363,27 +332,19 @@ pub async fn get_context(configuration: &configuration::Configuration, context_i
     }
 }
 
-pub async fn get_ingress(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::GetIngress200ResponseInner>, Error<GetIngressError>> {
+pub async fn get_ingress(configuration: &Configuration, ) -> Result<Vec<models::GetIngress200ResponseInner>, Error<GetIngressError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/ingress", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -401,27 +362,19 @@ pub async fn get_ingress(configuration: &configuration::Configuration, ) -> Resu
     }
 }
 
-pub async fn get_job_history(configuration: &configuration::Configuration, job_id: &str) -> Result<(), Error<GetJobHistoryError>> {
+pub async fn get_job_history(configuration: &Configuration, job_id: &str) -> Result<(), Error<GetJobHistoryError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", local_var_configuration.base_path, job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -439,27 +392,19 @@ pub async fn get_job_history(configuration: &configuration::Configuration, job_i
     }
 }
 
-pub async fn issue_certificate(configuration: &configuration::Configuration, issue_certificate_request: Option<crate::models::IssueCertificateRequest>) -> Result<(), Error<IssueCertificateError>> {
+pub async fn issue_certificate(configuration: &Configuration, issue_certificate_request: Option<crate::models::IssueCertificateRequest>) -> Result<(), Error<IssueCertificateError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/certificate", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/certificate", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&issue_certificate_request);
 
@@ -478,27 +423,19 @@ pub async fn issue_certificate(configuration: &configuration::Configuration, iss
     }
 }
 
-pub async fn pull_job_from_queue(configuration: &configuration::Configuration, pull_job_from_queue_request: Option<crate::models::PullJobFromQueueRequest>) -> Result<crate::models::PullJobFromQueue200Response, Error<PullJobFromQueueError>> {
+pub async fn pull_job_from_queue(configuration: &Configuration, pull_job_from_queue_request: Option<crate::models::PullJobFromQueueRequest>) -> Result<models::PullJobFromQueue200Response, Error<PullJobFromQueueError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/job", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&pull_job_from_queue_request);
 

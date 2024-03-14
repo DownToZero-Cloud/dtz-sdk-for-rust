@@ -12,7 +12,32 @@
 use reqwest;
 
 use crate::apis::ResponseContent;
-use super::{Error, configuration};
+use crate::models;
+use super::Error;
+use dtz::Configuration;
+
+fn build_url(config: &dtz::Configuration) -> String {
+    let base = url::Url::parse(&config.base_path).unwrap();
+    let svc = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
+    let mut target_url = svc.clone();
+    if base.host_str() == Some("localhost") || base.host_str() == Some("localhost6") {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let _ = target_url.set_host(Some(base.host_str().unwrap()));
+        format!("{target_url}")
+    } else {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split(".").collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
+    }
+}
 
 
 /// struct for typed errors of method [`get_logs`]
@@ -79,24 +104,16 @@ pub enum QueryLogsError {
 }
 
 
-pub async fn get_logs(configuration: &configuration::Configuration, ) -> Result<(), Error<GetLogsError>> {
+pub async fn get_logs(configuration: &Configuration, ) -> Result<(), Error<GetLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -114,24 +131,16 @@ pub async fn get_logs(configuration: &configuration::Configuration, ) -> Result<
     }
 }
 
-pub async fn get_stats(configuration: &configuration::Configuration, ) -> Result<crate::models::GetStats200Response, Error<GetStatsError>> {
+pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetStats200Response, Error<GetStatsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/stats", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/stats", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -149,24 +158,16 @@ pub async fn get_stats(configuration: &configuration::Configuration, ) -> Result
     }
 }
 
-pub async fn log_activity_get(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::LogActivityGet200ResponseInner>, Error<LogActivityGetError>> {
+pub async fn log_activity_get(configuration: &Configuration, ) -> Result<Vec<models::LogActivityGet200ResponseInner>, Error<LogActivityGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/activity", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log/activity", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -184,24 +185,16 @@ pub async fn log_activity_get(configuration: &configuration::Configuration, ) ->
     }
 }
 
-pub async fn log_activity_post(configuration: &configuration::Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<crate::models::LogActivityGet200ResponseInner>, Error<LogActivityPostError>> {
+pub async fn log_activity_post(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<models::LogActivityGet200ResponseInner>, Error<LogActivityPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/activity", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log/activity", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&query_logs_request);
 
@@ -220,24 +213,16 @@ pub async fn log_activity_post(configuration: &configuration::Configuration, que
     }
 }
 
-pub async fn log_attribute_get(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::LogAttributeGet200ResponseInner>, Error<LogAttributeGetError>> {
+pub async fn log_attribute_get(configuration: &Configuration, ) -> Result<Vec<models::LogAttributeGet200ResponseInner>, Error<LogAttributeGetError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/attribute", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log/attribute", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -255,24 +240,16 @@ pub async fn log_attribute_get(configuration: &configuration::Configuration, ) -
     }
 }
 
-pub async fn log_push_post(configuration: &configuration::Configuration, _log_push_post_request_inner: Option<Vec<crate::models::LogPushPostRequestInner>>) -> Result<(), Error<LogPushPostError>> {
+pub async fn log_push_post(configuration: &Configuration, _log_push_post_request_inner: Option<Vec<models::LogPushPostRequestInner>>) -> Result<(), Error<LogPushPostError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log/push", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log/push", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&_log_push_post_request_inner);
 
@@ -291,24 +268,16 @@ pub async fn log_push_post(configuration: &configuration::Configuration, _log_pu
     }
 }
 
-pub async fn post_metric(configuration: &configuration::Configuration, post_metric_request_inner: Option<Vec<crate::models::PostMetricRequestInner>>) -> Result<(), Error<PostMetricError>> {
+pub async fn post_metric(configuration: &Configuration, post_metric_request_inner: Option<Vec<models::PostMetricRequestInner>>) -> Result<(), Error<PostMetricError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/metric", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/metric", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&post_metric_request_inner);
 
@@ -327,24 +296,16 @@ pub async fn post_metric(configuration: &configuration::Configuration, post_metr
     }
 }
 
-pub async fn post_prometheus(configuration: &configuration::Configuration, body: Option<&str>) -> Result<(), Error<PostPrometheusError>> {
+pub async fn post_prometheus(configuration: &Configuration, body: Option<&str>) -> Result<(), Error<PostPrometheusError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/prometheus", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/prometheus", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&body);
 
@@ -363,24 +324,16 @@ pub async fn post_prometheus(configuration: &configuration::Configuration, body:
     }
 }
 
-pub async fn query_logs(configuration: &configuration::Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<(), Error<QueryLogsError>> {
+pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<(), Error<QueryLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/log", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/log", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
-        local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
-    }
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        let local_var_key = local_var_apikey.key.clone();
-        let local_var_value = match local_var_apikey.prefix {
-            Some(ref local_var_prefix) => format!("{} {}", local_var_prefix, local_var_key),
-            None => local_var_key,
-        };
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_value);
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&query_logs_request);
 

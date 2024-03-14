@@ -238,5 +238,13 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
+    dtz_auth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
+          scopes:
+            dummy:dummy: dummy
 security:
   - dtz_auth: []
+  - dtz_auth2: []

@@ -126,6 +126,9 @@ pub async fn cancel_subscription(configuration: &Configuration, ) -> Result<(), 
     let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -153,6 +156,9 @@ pub async fn create_feed(configuration: &Configuration, create_feed_request: Opt
     let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -181,6 +187,9 @@ pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -208,6 +217,9 @@ pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Resul
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -235,6 +247,9 @@ pub async fn discover_feed(configuration: &Configuration, discover_feed_request:
     let local_var_uri_str = format!("{}/rss2email/discover", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -263,6 +278,9 @@ pub async fn enable_feed(configuration: &Configuration, feed_id: &str) -> Result
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -290,6 +308,9 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
     let local_var_uri_str = format!("{}/enable", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -317,6 +338,9 @@ pub async fn get_feed(configuration: &Configuration, ) -> Result<(), Error<GetFe
     let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -344,6 +368,9 @@ pub async fn get_profile(configuration: &Configuration, ) -> Result<models::GetP
     let local_var_uri_str = format!("{}/rss2email/profile", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -371,6 +398,9 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<(), Error<GetS
     let local_var_uri_str = format!("{}/stats", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
@@ -398,6 +428,9 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, create_fe
     let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };

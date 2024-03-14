@@ -36,7 +36,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -48,7 +48,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_context
 
-> crate::models::CreateContext200Response create_context(create_context_request)
+> models::CreateContext200Response create_context(create_context_request)
 create new context
 
 ### Parameters
@@ -60,11 +60,11 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::CreateContext200Response**](createContext_200_response.md)
+[**models::CreateContext200Response**](createContext_200_response.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_all_context
 
-> crate::models::GetAllContext200Response get_all_context()
+> models::GetAllContext200Response get_all_context()
 get all contexts
 
 ### Parameters
@@ -170,11 +170,11 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetAllContext200Response**](getAllContext_200_response.md)
+[**models::GetAllContext200Response**](getAllContext_200_response.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -186,7 +186,7 @@ This endpoint does not need any parameter.
 
 ## get_context
 
-> crate::models::GetContext200Response get_context(context_id)
+> models::GetContext200Response get_context(context_id)
 get context information
 
 ### Parameters
@@ -198,11 +198,11 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::GetContext200Response**](getContext_200_response.md)
+[**models::GetContext200Response**](getContext_200_response.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -214,7 +214,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_ingress
 
-> Vec<crate::models::GetIngress200ResponseInner> get_ingress()
+> Vec<models::GetIngress200ResponseInner> get_ingress()
 get all ingress
 
 ### Parameters
@@ -223,11 +223,11 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<crate::models::GetIngress200ResponseInner>**](getIngress_200_response_inner.md)
+[**Vec<models::GetIngress200ResponseInner>**](getIngress_200_response_inner.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -255,7 +255,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -283,7 +283,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 
@@ -295,7 +295,7 @@ Name | Type | Description  | Required | Notes
 
 ## pull_job_from_queue
 
-> crate::models::PullJobFromQueue200Response pull_job_from_queue(pull_job_from_queue_request)
+> models::PullJobFromQueue200Response pull_job_from_queue(pull_job_from_queue_request)
 pull one job from the asyn job queue
 
 ### Parameters
@@ -307,11 +307,11 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::PullJobFromQueue200Response**](pullJobFromQueue_200_response.md)
+[**models::PullJobFromQueue200Response**](pullJobFromQueue_200_response.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [context_id](../README.md#context_id), [dtz_auth](../README.md#dtz_auth)
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
 
 ### HTTP request headers
 

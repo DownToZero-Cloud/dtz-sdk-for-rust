@@ -43,7 +43,7 @@ This endpoint does not need any parameter.
 
 ## get_stats
 
-> crate::models::GetStats200Response get_stats()
+> models::GetStats200Response get_stats()
 get statistics
 
 ### Parameters
@@ -52,7 +52,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetStats200Response**](getStats_200_response.md)
+[**models::GetStats200Response**](getStats_200_response.md)
 
 ### Authorization
 
@@ -68,7 +68,7 @@ This endpoint does not need any parameter.
 
 ## log_activity_get
 
-> Vec<crate::models::LogActivityGet200ResponseInner> log_activity_get()
+> Vec<models::LogActivityGet200ResponseInner> log_activity_get()
 get log activity over time
 
 ### Parameters
@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<crate::models::LogActivityGet200ResponseInner>**](_log_activity_get_200_response_inner.md)
+[**Vec<models::LogActivityGet200ResponseInner>**](_log_activity_get_200_response_inner.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ This endpoint does not need any parameter.
 
 ## log_activity_post
 
-> Vec<crate::models::LogActivityGet200ResponseInner> log_activity_post(query_logs_request)
+> Vec<models::LogActivityGet200ResponseInner> log_activity_post(query_logs_request)
 get log activity over time filtered
 
 ### Parameters
@@ -105,7 +105,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<crate::models::LogActivityGet200ResponseInner>**](_log_activity_get_200_response_inner.md)
+[**Vec<models::LogActivityGet200ResponseInner>**](_log_activity_get_200_response_inner.md)
 
 ### Authorization
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 ## log_attribute_get
 
-> Vec<crate::models::LogAttributeGet200ResponseInner> log_attribute_get()
+> Vec<models::LogAttributeGet200ResponseInner> log_attribute_get()
 get log attributes
 
 ### Parameters
@@ -130,7 +130,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<crate::models::LogAttributeGet200ResponseInner>**](_log_attribute_get_200_response_inner.md)
+[**Vec<models::LogAttributeGet200ResponseInner>**](_log_attribute_get_200_response_inner.md)
 
 ### Authorization
 
@@ -154,7 +154,7 @@ push log data
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**_log_push_post_request_inner** | Option<[**Vec<crate::models::LogPushPostRequestInner>**](_log_push_post_request_inner.md)> | log query |  |
+**_log_push_post_request_inner** | Option<[**Vec<models::LogPushPostRequestInner>**](_log_push_post_request_inner.md)> | log query |  |
 
 ### Return type
 
@@ -182,7 +182,7 @@ push metric data
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_metric_request_inner** | Option<[**Vec<crate::models::PostMetricRequestInner>**](postMetric_request_inner.md)> | metric data |  |
+**post_metric_request_inner** | Option<[**Vec<models::PostMetricRequestInner>**](postMetric_request_inner.md)> | metric data |  |
 
 ### Return type
 

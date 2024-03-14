@@ -352,11 +352,6 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
-    context_id:
-      type: http
-      scheme: http
-      in: header
-      name: X-DTZ-CONTEXT
     dtz_auth2:
       type: oauth2
       flows:
@@ -366,5 +361,4 @@ components:
             dummy:dummy: dummy
 security:
   - dtz_auth: []
-  - context_id: []
   - dtz_auth2: []

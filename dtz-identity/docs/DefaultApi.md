@@ -51,7 +51,7 @@ Name | Type | Description  | Required | Notes
 
 ## assume_identity
 
-> crate::models::TokenResponse assume_identity(assume_identity_request)
+> models::TokenResponse assume_identity(assume_identity_request)
 assume identity
 
 ### Parameters
@@ -63,7 +63,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::TokenResponse**](TokenResponse.md)
+[**models::TokenResponse**](TokenResponse.md)
 
 ### Authorization
 
@@ -79,7 +79,7 @@ Name | Type | Description  | Required | Notes
 
 ## auth_apikey_post
 
-> crate::models::TokenResponse auth_apikey_post(auth_apikey_post_request)
+> models::TokenResponse auth_apikey_post(auth_apikey_post_request)
 authenticate with apikey
 
 ### Parameters
@@ -91,7 +91,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::TokenResponse**](TokenResponse.md)
+[**models::TokenResponse**](TokenResponse.md)
 
 ### Authorization
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_account_stats
 
-> crate::models::GetAccountStats200Response get_account_stats()
+> models::GetAccountStats200Response get_account_stats()
 get account stats
 
 ### Parameters
@@ -229,7 +229,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetAccountStats200Response**](getAccountStats_200_response.md)
+[**models::GetAccountStats200Response**](getAccountStats_200_response.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ This endpoint does not need any parameter.
 
 ## get_roles
 
-> crate::models::GetRoles200Response get_roles()
+> models::GetRoles200Response get_roles()
 get roles
 
 ### Parameters
@@ -254,7 +254,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::GetRoles200Response**](getRoles_200_response.md)
+[**models::GetRoles200Response**](getRoles_200_response.md)
 
 ### Authorization
 
@@ -352,7 +352,7 @@ Name | Type | Description  | Required | Notes
 
 ## user_login
 
-> crate::models::AuthResponse user_login(auth_request)
+> models::AuthResponse user_login(auth_request)
 user login
 
 ### Parameters
@@ -364,7 +364,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::AuthResponse**](AuthResponse.md)
+[**models::AuthResponse**](AuthResponse.md)
 
 ### Authorization
 

@@ -3,10 +3,11 @@ name = "dtz-objectstore"
 version = "1.0.0"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Objectstore API"
-license = "MIT or Apache-2.0"
+license = "MIT OR Apache-2.0"
 edition = "2021"
 
 [dependencies]
+dtz = { path = "../dtz" }
 serde = "^1.0"
 serde_derive = "^1.0"
 serde_json = "^1.0"

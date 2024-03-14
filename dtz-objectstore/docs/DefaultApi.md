@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 ## delete_object
 
-> crate::models::Object delete_object(object_path)
+> models::Object delete_object(object_path)
 Delete object
 
 This can only be done by the logged in user.
@@ -30,7 +30,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**crate::models::Object**](Object.md)
+[**models::Object**](Object.md)
 
 ### Authorization
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Required | Notes
 
 ## stats
 
-> crate::models::Stats200Response stats()
+> models::Stats200Response stats()
 get service statistics
 
 ### Parameters
@@ -187,7 +187,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**crate::models::Stats200Response**](stats_200_response.md)
+[**models::Stats200Response**](stats_200_response.md)
 
 ### Authorization
 
