@@ -16,6 +16,27 @@ use crate::models;
 use super::Error;
 use dtz::Configuration;
 
+fn build_url(config: &dtz::Configuration) -> String {
+    let base = url::Url::parse(&config.base_path).unwrap();
+    let svc = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
+    let mut target_url = svc.clone();
+    if base.host_str() == Some("localhost") {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_host(Some(base.host_str().unwrap()));
+        format!("{target_url}")
+    } else {
+        let _ = target_url.set_scheme(base.scheme());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split(".").collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
+    }
+}
+
 
 /// struct for typed errors of method [`enable_service`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -100,7 +121,7 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/enable", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/enable", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -127,7 +148,7 @@ pub async fn rss2email_discover_post(configuration: &Configuration, rss2email_di
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/discover", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/rss2email/discover", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -155,7 +176,7 @@ pub async fn rss2email_feed_feed_id_delete(configuration: &Configuration, feed_i
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -182,7 +203,7 @@ pub async fn rss2email_feed_feed_id_disable_post(configuration: &Configuration, 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -209,7 +230,7 @@ pub async fn rss2email_feed_feed_id_enable_post(configuration: &Configuration, f
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -236,7 +257,7 @@ pub async fn rss2email_feed_get(configuration: &Configuration, ) -> Result<(), E
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -263,7 +284,7 @@ pub async fn rss2email_feed_post(configuration: &Configuration, rss2email_feed_p
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -291,7 +312,7 @@ pub async fn rss2email_profile_cancel_subscription_post(configuration: &Configur
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -318,7 +339,7 @@ pub async fn rss2email_profile_get(configuration: &Configuration, ) -> Result<mo
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/profile", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/rss2email/profile", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -345,7 +366,7 @@ pub async fn stats_get(configuration: &Configuration, ) -> Result<(), Error<Stat
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/stats", local_var_configuration.base_path);
+    let local_var_uri_str = format!("{}/stats", build_url(&configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
@@ -372,7 +393,7 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, rss2email
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", local_var_configuration.base_path, feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {

@@ -7,6 +7,27 @@ use crate::models;
 use super::Error;
 use dtz::Configuration;
 
+fn build_url(config: &dtz::Configuration) -> String {
+    let base = url::Url::parse(&config.base_path).unwrap();
+    let svc = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
+    let mut target_url = svc.clone();
+    if base.host_str() == Some("localhost") {
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_host(Some(base.host_str().unwrap()));
+        format!("{target_url}")
+    } else {
+        let _ = target_url.set_scheme(base.scheme());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split(".").collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
+    }
+}
+
 {{#operations}}
 {{#operation}}
 {{#vendorExtensions.x-group-parameters}}
@@ -98,7 +119,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}{{{path}}}", local_var_configuration.base_path{{#pathParams}}, {{{baseName}}}={{#isString}}crate::apis::urlencode({{/isString}}{{{paramName}}}{{^required}}.unwrap(){{/required}}{{#required}}{{#isNullable}}.unwrap(){{/isNullable}}{{/required}}{{#isArray}}.join(",").as_ref(){{/isArray}}{{#isString}}){{/isString}}{{/pathParams}});
+    let local_var_uri_str = format!("{}{{{path}}}", build_url(&configuration){{#pathParams}}, {{{baseName}}}={{#isString}}crate::apis::urlencode({{/isString}}{{{paramName}}}{{^required}}.unwrap(){{/required}}{{#required}}{{#isNullable}}.unwrap(){{/isNullable}}{{/required}}{{#isArray}}.join(",").as_ref(){{/isArray}}{{#isString}}){{/isString}}{{/pathParams}});
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::{{{httpMethod}}}, local_var_uri_str.as_str());
 
     {{#queryParams}}
