@@ -11,12 +11,14 @@ fn build_url(config: &dtz::Configuration) -> String {
     let base = url::Url::parse(&config.base_path).unwrap();
     let svc = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
     let mut target_url = svc.clone();
-    if base.host_str() == Some("localhost") {
+    if base.host_str() == Some("localhost") || base.host_str() == Some("localhost6") {
         let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
     } else {
         let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
         let host_str = base.host_str().unwrap();
         let mut parts: Vec<&str> = host_str.split('.').collect();
         let target_str = target_url.host_str().unwrap();
