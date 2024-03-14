@@ -25,26 +25,26 @@ All URIs are relative to *https://rss2email.dtz.rocks/api/2021-02-01*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**cancel_subscription**](docs/DefaultApi.md#cancel_subscription) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
+*DefaultApi* | [**create_feed**](docs/DefaultApi.md#create_feed) | **POST** /rss2email/feed | create feed subscription
+*DefaultApi* | [**delete_feed**](docs/DefaultApi.md#delete_feed) | **DELETE** /rss2email/feed/{feed_id} | delete feed
+*DefaultApi* | [**disable_feed**](docs/DefaultApi.md#disable_feed) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
+*DefaultApi* | [**discover_feed**](docs/DefaultApi.md#discover_feed) | **POST** /rss2email/discover | discover feed on homepage
+*DefaultApi* | [**enable_feed**](docs/DefaultApi.md#enable_feed) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
 *DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /enable | enable the service
-*DefaultApi* | [**rss2email_discover_post**](docs/DefaultApi.md#rss2email_discover_post) | **POST** /rss2email/discover | discover feed on homepage
-*DefaultApi* | [**rss2email_feed_feed_id_delete**](docs/DefaultApi.md#rss2email_feed_feed_id_delete) | **DELETE** /rss2email/feed/{feed_id} | delete feed
-*DefaultApi* | [**rss2email_feed_feed_id_disable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_disable_post) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
-*DefaultApi* | [**rss2email_feed_feed_id_enable_post**](docs/DefaultApi.md#rss2email_feed_feed_id_enable_post) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
-*DefaultApi* | [**rss2email_feed_get**](docs/DefaultApi.md#rss2email_feed_get) | **GET** /rss2email/feed | get feed data
-*DefaultApi* | [**rss2email_feed_post**](docs/DefaultApi.md#rss2email_feed_post) | **POST** /rss2email/feed | create feed subscription
-*DefaultApi* | [**rss2email_profile_cancel_subscription_post**](docs/DefaultApi.md#rss2email_profile_cancel_subscription_post) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
-*DefaultApi* | [**rss2email_profile_get**](docs/DefaultApi.md#rss2email_profile_get) | **GET** /rss2email/profile | get profile
-*DefaultApi* | [**stats_get**](docs/DefaultApi.md#stats_get) | **GET** /stats | get service statistics
+*DefaultApi* | [**get_feed**](docs/DefaultApi.md#get_feed) | **GET** /rss2email/feed | get feed data
+*DefaultApi* | [**get_profile**](docs/DefaultApi.md#get_profile) | **GET** /rss2email/profile | get profile
+*DefaultApi* | [**get_stats**](docs/DefaultApi.md#get_stats) | **GET** /stats | get service statistics
 *DefaultApi* | [**update_feed**](docs/DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
 
 ## Documentation For Models
 
- - [Rss2emailDiscoverPost200Response](docs/Rss2emailDiscoverPost200Response.md)
- - [Rss2emailDiscoverPostRequest](docs/Rss2emailDiscoverPostRequest.md)
- - [Rss2emailFeedPost200Response](docs/Rss2emailFeedPost200Response.md)
- - [Rss2emailFeedPostRequest](docs/Rss2emailFeedPostRequest.md)
- - [Rss2emailProfileGet200Response](docs/Rss2emailProfileGet200Response.md)
+ - [CreateFeed200Response](docs/CreateFeed200Response.md)
+ - [CreateFeedRequest](docs/CreateFeedRequest.md)
+ - [DiscoverFeed200Response](docs/DiscoverFeed200Response.md)
+ - [DiscoverFeedRequest](docs/DiscoverFeedRequest.md)
+ - [GetProfile200Response](docs/GetProfile200Response.md)
 
 
 To get access to the crate's generated documentation, use:

@@ -27,6 +27,7 @@ paths:
   /rss2email/discover:
     post:
       summary: discover feed on homepage
+      operationId: discoverFeed
       requestBody:
         description: discover request
         content: 
@@ -53,11 +54,13 @@ paths:
   /rss2email/feed:
     get:
       summary: get feed data
+      operationId: getFeed
       responses:
         200:
           description: feed data
     post:
       summary: create feed subscription
+      operationId: createFeed
       requestBody:
         description: create feed request
         content: 
@@ -147,6 +150,7 @@ paths:
           description: feed update successful
     delete:
       summary: delete feed
+      operationId: deleteFeed
       parameters:
         - in: path
           name: feed_id
@@ -161,6 +165,7 @@ paths:
   /rss2email/feed/{feed_id}/disable:
     post:
       summary: disable feed
+      operationId: disableFeed
       parameters:
         - in: path
           name: feed_id
@@ -175,6 +180,7 @@ paths:
   /rss2email/feed/{feed_id}/enable:
     post:
       summary: enable feed
+      operationId: enableFeed
       parameters:
         - in: path
           name: feed_id
@@ -189,6 +195,7 @@ paths:
   /rss2email/profile:
     get:
       summary: get profile
+      operationId: getProfile
       responses:
         200:
           description: profile response
@@ -214,12 +221,14 @@ paths:
   /rss2email/profile/cancelSubscription:
     post:
       summary: cancel current subscription
+      operationId: cancelSubscription
       responses:
         200:
           description: success
   /stats:
     get:
       summary: get service statistics
+      operationId: getStats
       responses:
         200:
           description: service statistics
@@ -229,11 +238,5 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
-    context_id:
-      type: http
-      scheme: http
-      in: header
-      name: X-DTZ-CONTEXT
 security:
   - dtz_auth: []
-  - context_id: []
