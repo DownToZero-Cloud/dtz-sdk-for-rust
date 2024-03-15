@@ -14,17 +14,17 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SignupRequest {
-    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
-    pub email: Option<String>,
-    #[serde(rename = "password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
+    #[serde(rename = "email")]
+    pub email: String,
+    #[serde(rename = "password")]
+    pub password: String,
 }
 
 impl SignupRequest {
-    pub fn new() -> SignupRequest {
+    pub fn new(email: String, password: String) -> SignupRequest {
         SignupRequest {
-            email: None,
-            password: None,
+            email,
+            password,
         }
     }
 }
