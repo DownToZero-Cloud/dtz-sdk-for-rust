@@ -180,6 +180,13 @@ paths:
                     type: number
                   authenticationCount:
                     type: number
+  /me/identity:
+    delete:
+      summary: delete current identity
+      operationId: deleteIdentity
+      responses:
+        200:
+          description: success
   /me/identity/apikey:
     post:
       summary: create api key

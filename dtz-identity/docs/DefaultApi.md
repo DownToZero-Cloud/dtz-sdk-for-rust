@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
+[**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
@@ -201,6 +202,31 @@ delete all roles attached to this context
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **context_id** | **uuid::Uuid** | context_id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_identity
+
+> delete_identity()
+delete current identity
+
+### Parameters
+
+This endpoint does not need any parameter.
 
 ### Return type
 
