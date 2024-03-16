@@ -39,7 +39,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**new_context**](docs/DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 *DefaultApi* | [**remove_role_assignment**](docs/DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 *DefaultApi* | [**user_login**](docs/DefaultApi.md#user_login) | **POST** /token/auth | user login
-*DefaultApi* | [**user_signup**](docs/DefaultApi.md#user_signup) | **POST** /signup | user signup
+*DefaultApi* | [**user_signup**](docs/DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
 
 ## Documentation For Models
@@ -58,6 +58,7 @@ Class | Method | HTTP request | Description
  - [NewContextRequest](docs/NewContextRequest.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
+ - [UserSignup200Response](docs/UserSignup200Response.md)
 
 
 To get access to the crate's generated documentation, use:

@@ -37,7 +37,7 @@ paths:
                 $ref: '#/components/schemas/TokenResponse'
   /signup:
     post:
-      summary: user signup
+      summary: create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
       operationId: userSignup
       requestBody:
         description: signup
@@ -49,6 +49,23 @@ paths:
       responses:
         200:
           description: user created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  scope:
+                    type: string
+                  token_type:
+                    type: string
+                  expires_in:
+                    type: integer
+                required:
+                  - access_token
+                  - token_type
+                  - expires_in
   /authentication:
     get:
       summary: list user authentications

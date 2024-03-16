@@ -18,7 +18,7 @@ Method | HTTP request | Description
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
-[**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | user signup
+[**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
 
 
@@ -406,8 +406,8 @@ Name | Type | Description  | Required | Notes
 
 ## user_signup
 
-> user_signup(signup_request)
-user signup
+> models::UserSignup200Response user_signup(signup_request)
+create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
 ### Parameters
 
@@ -418,7 +418,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::UserSignup200Response**](userSignup_200_response.md)
 
 ### Authorization
 
@@ -427,7 +427,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
