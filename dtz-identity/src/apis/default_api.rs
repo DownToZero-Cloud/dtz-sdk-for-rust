@@ -148,6 +148,7 @@ pub enum UserLoginError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserSignupError {
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 

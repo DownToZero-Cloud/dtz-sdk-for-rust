@@ -53,6 +53,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        500:
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /authentication:
     get:
       summary: list user authentications
