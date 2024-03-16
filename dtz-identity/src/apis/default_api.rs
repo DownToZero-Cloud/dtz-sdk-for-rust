@@ -574,7 +574,7 @@ pub async fn user_login(configuration: &Configuration, auth_request: crate::mode
     }
 }
 
-pub async fn user_signup(configuration: &Configuration, signup_request: crate::models::SignupRequest) -> Result<models::UserSignup200Response, Error<UserSignupError>> {
+pub async fn user_signup(configuration: &Configuration, signup_request: crate::models::SignupRequest) -> Result<models::TokenResponse, Error<UserSignupError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

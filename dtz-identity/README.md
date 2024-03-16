@@ -58,7 +58,6 @@ Class | Method | HTTP request | Description
  - [NewContextRequest](docs/NewContextRequest.md)
  - [SignupRequest](docs/SignupRequest.md)
  - [TokenResponse](docs/TokenResponse.md)
- - [UserSignup200Response](docs/UserSignup200Response.md)
 
 
 To get access to the crate's generated documentation, use:

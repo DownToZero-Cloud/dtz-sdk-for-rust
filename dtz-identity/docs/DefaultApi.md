@@ -406,7 +406,7 @@ Name | Type | Description  | Required | Notes
 
 ## user_signup
 
-> models::UserSignup200Response user_signup(signup_request)
+> models::TokenResponse user_signup(signup_request)
 create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
 ### Parameters
@@ -418,7 +418,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::UserSignup200Response**](userSignup_200_response.md)
+[**models::TokenResponse**](TokenResponse.md)
 
 ### Authorization
 

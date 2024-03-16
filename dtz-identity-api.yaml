@@ -52,20 +52,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  access_token:
-                    type: string
-                  scope:
-                    type: string
-                  token_type:
-                    type: string
-                  expires_in:
-                    type: integer
-                required:
-                  - access_token
-                  - token_type
-                  - expires_in
+                $ref: '#/components/schemas/TokenResponse'
   /authentication:
     get:
       summary: list user authentications

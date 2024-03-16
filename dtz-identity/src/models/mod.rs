@@ -26,5 +26,3 @@ pub mod signup_request;
 pub use self::signup_request::SignupRequest;
 pub mod token_response;
 pub use self::token_response::TokenResponse;
-pub mod user_signup_200_response;
-pub use self::user_signup_200_response::UserSignup200Response;
