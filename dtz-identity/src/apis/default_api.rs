@@ -26,8 +26,8 @@ fn build_url(config: &dtz::Configuration) -> String {
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
     } else {
-        if base == svc {
-            format!("{base}")
+        if base.scheme() == svc.scheme() && base.host_str() == svc.host_str() {
+            format!("{target_url}")
         } else {
             let _ = target_url.set_scheme(base.scheme());
             let _ = target_url.set_port(base.port());
