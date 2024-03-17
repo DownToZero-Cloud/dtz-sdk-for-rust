@@ -547,7 +547,7 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     }
 }
 
-pub async fn user_login(configuration: &Configuration, auth_request: crate::models::AuthRequest) -> Result<models::AuthResponse, Error<UserLoginError>> {
+pub async fn user_login(configuration: &Configuration, auth_request: crate::models::AuthRequest) -> Result<models::TokenResponse, Error<UserLoginError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

@@ -4,8 +4,6 @@ pub mod _auth_apikey_post_request;
 pub use self::_auth_apikey_post_request::AuthApikeyPostRequest;
 pub mod auth_request;
 pub use self::auth_request::AuthRequest;
-pub mod auth_response;
-pub use self::auth_response::AuthResponse;
 pub mod auth_update_request;
 pub use self::auth_update_request::AuthUpdateRequest;
 pub mod create_api_key_request;

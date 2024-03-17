@@ -276,7 +276,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthResponse'
+                $ref: '#/components/schemas/TokenResponse'
         401:
           description: Invalid input
           content: 
@@ -349,13 +349,9 @@ components:
           type: array
           items:
             type: string
-    AuthResponse:
       required:
-      - token
-      type: object
-      properties:
-        token:
-          type: string
+        - username
+        - password
     TokenResponse:
       type: object
       properties:

@@ -14,19 +14,19 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AuthRequest {
-    #[serde(rename = "username", skip_serializing_if = "Option::is_none")]
-    pub username: Option<String>,
-    #[serde(rename = "password", skip_serializing_if = "Option::is_none")]
-    pub password: Option<String>,
+    #[serde(rename = "username")]
+    pub username: String,
+    #[serde(rename = "password")]
+    pub password: String,
     #[serde(rename = "scopes", skip_serializing_if = "Option::is_none")]
     pub scopes: Option<Vec<String>>,
 }
 
 impl AuthRequest {
-    pub fn new() -> AuthRequest {
+    pub fn new(username: String, password: String) -> AuthRequest {
         AuthRequest {
-            username: None,
-            password: None,
+            username,
+            password,
             scopes: None,
         }
     }

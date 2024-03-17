@@ -378,7 +378,7 @@ Name | Type | Description  | Required | Notes
 
 ## user_login
 
-> models::AuthResponse user_login(auth_request)
+> models::TokenResponse user_login(auth_request)
 user login
 
 ### Parameters
@@ -390,7 +390,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::AuthResponse**](AuthResponse.md)
+[**models::TokenResponse**](TokenResponse.md)
 
 ### Authorization
 

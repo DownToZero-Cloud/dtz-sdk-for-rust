@@ -47,7 +47,6 @@ Class | Method | HTTP request | Description
  - [AssumeIdentityRequest](docs/AssumeIdentityRequest.md)
  - [AuthApikeyPostRequest](docs/AuthApikeyPostRequest.md)
  - [AuthRequest](docs/AuthRequest.md)
- - [AuthResponse](docs/AuthResponse.md)
  - [AuthUpdateRequest](docs/AuthUpdateRequest.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
