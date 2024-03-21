@@ -38,9 +38,9 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [DtzLogsInner](docs/DtzLogsInner.md)
  - [GetLogActivity200ResponseInner](docs/GetLogActivity200ResponseInner.md)
  - [GetLogAttributes200ResponseInner](docs/GetLogAttributes200ResponseInner.md)
- - [GetLogs200ResponseInner](docs/GetLogs200ResponseInner.md)
  - [GetStats200Response](docs/GetStats200Response.md)
  - [PostLogRequestInner](docs/PostLogRequestInner.md)
  - [PostLogRequestInnerAttachmentsInner](docs/PostLogRequestInnerAttachmentsInner.md)

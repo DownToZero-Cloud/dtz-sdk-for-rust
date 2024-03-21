@@ -161,7 +161,7 @@ pub async fn get_log_attributes(configuration: &Configuration, ) -> Result<Vec<m
     }
 }
 
-pub async fn get_logs(configuration: &Configuration, ) -> Result<Vec<models::GetLogs200ResponseInner>, Error<GetLogsError>> {
+pub async fn get_logs(configuration: &Configuration, ) -> Result<Vec<models::DtzLogsInner>, Error<GetLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -327,7 +327,7 @@ pub async fn query_log_activity(configuration: &Configuration, query_logs_reques
     }
 }
 
-pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<models::GetLogs200ResponseInner>, Error<QueryLogsError>> {
+pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<models::DtzLogsInner>, Error<QueryLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

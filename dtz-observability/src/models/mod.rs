@@ -1,9 +1,9 @@
+pub mod dtz_logs_inner;
+pub use self::dtz_logs_inner::DtzLogsInner;
 pub mod get_log_activity_200_response_inner;
 pub use self::get_log_activity_200_response_inner::GetLogActivity200ResponseInner;
 pub mod get_log_attributes_200_response_inner;
 pub use self::get_log_attributes_200_response_inner::GetLogAttributes200ResponseInner;
-pub mod get_logs_200_response_inner;
-pub use self::get_logs_200_response_inner::GetLogs200ResponseInner;
 pub mod get_stats_200_response;
 pub use self::get_stats_200_response::GetStats200Response;
 pub mod post_log_request_inner;

@@ -27,20 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    ts:
-                      type: string
-                    traceId:
-                      type: string
-                    spanId:
-                      type: string
-                    payload:
-                      type: string
-                    attributes:
-                      type: object
+                $ref: '#/components/schemas/DtzLogs'
     post:
       summary: query logs
       operationId: queryLogs
@@ -59,20 +46,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    ts:
-                      type: string
-                    traceId:
-                      type: string
-                    spanId:
-                      type: string
-                    payload:
-                      type: string
-                    attributes:
-                      type: object
+                $ref: '#/components/schemas/DtzLogs'
   /log/activity:
     get:
       summary: get log activity over time
@@ -259,6 +233,22 @@ paths:
                   metricSize:
                     type: integer
 components:
+  schemas:
+    DtzLogs:
+      type: array
+      items:
+        type: object
+        properties:
+          ts:
+            type: string
+          traceId:
+            type: string
+          spanId:
+            type: string
+          payload:
+            type: string
+          attributes:
+            type: object
   securitySchemes:
     dtz_auth:
       type: apiKey

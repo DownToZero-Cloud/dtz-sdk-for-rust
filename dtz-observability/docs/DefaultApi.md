@@ -68,7 +68,7 @@ This endpoint does not need any parameter.
 
 ## get_logs
 
-> Vec<models::GetLogs200ResponseInner> get_logs()
+> Vec<models::DtzLogsInner> get_logs()
 get logs
 
 ### Parameters
@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<models::GetLogs200ResponseInner>**](getLogs_200_response_inner.md)
+[**Vec<models::DtzLogsInner>**](DtzLogs_inner.md)
 
 ### Authorization
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Required | Notes
 
 ## query_logs
 
-> Vec<models::GetLogs200ResponseInner> query_logs(query_logs_request)
+> Vec<models::DtzLogsInner> query_logs(query_logs_request)
 query logs
 
 ### Parameters
@@ -242,7 +242,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<models::GetLogs200ResponseInner>**](getLogs_200_response_inner.md)
+[**Vec<models::DtzLogsInner>**](DtzLogs_inner.md)
 
 ### Authorization
 
