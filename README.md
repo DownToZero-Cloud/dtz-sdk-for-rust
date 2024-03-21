@@ -9,7 +9,7 @@ use `generate.sh` for client generation.
 ```
 
 ```
- ~/go/bin/tfplugingen-framework generate all \
+~/go/bin/tfplugingen-framework generate all \
     --input dtz-rss2email-provider-code-spec.json \
     --output internal/provider
 ```
