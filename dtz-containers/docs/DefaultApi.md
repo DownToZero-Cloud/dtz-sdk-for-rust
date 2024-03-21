@@ -291,7 +291,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_jobs
 
-> get_jobs()
+> Vec<models::GetJobs200ResponseInner> get_jobs()
 list all jobs
 
 ### Parameters
@@ -300,7 +300,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<models::GetJobs200ResponseInner>**](getJobs_200_response_inner.md)
 
 ### Authorization
 
@@ -309,7 +309,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
