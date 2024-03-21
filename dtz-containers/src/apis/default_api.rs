@@ -43,6 +43,34 @@ fn build_url(config: &dtz::Configuration) -> String {
 }
 
 
+/// struct for typed errors of method [`create_domain`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDomainError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_job`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateJobError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_domain`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteDomainError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`delete_job`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteJobError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`disable_service`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -57,6 +85,20 @@ pub enum EnableServiceError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_domain`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDomainError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_domains`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDomainsError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_hosting`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -64,45 +106,24 @@ pub enum GetHostingError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`job_get`]
+/// struct for typed errors of method [`get_job`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum JobGetError {
+pub enum GetJobError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`job_job_id_delete`]
+/// struct for typed errors of method [`get_jobs`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum JobJobIdDeleteError {
+pub enum GetJobsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`job_job_id_get`]
+/// struct for typed errors of method [`trigger_job`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum JobJobIdGetError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`job_job_id_patch`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum JobJobIdPatchError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`job_job_id_post`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum JobJobIdPostError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`job_post`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum JobPostError {
+pub enum TriggerJobError {
     UnknownValue(serde_json::Value),
 }
 
@@ -113,6 +134,135 @@ pub enum UpdateHostingError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_job`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateJobError {
+    UnknownValue(serde_json::Value),
+}
+
+
+pub async fn create_domain(configuration: &Configuration, create_domain_request: Option<crate::models::CreateDomainRequest>) -> Result<(), Error<CreateDomainError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/domain", build_url(&configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_domain_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<CreateDomainError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_job(configuration: &Configuration, create_job_request: Option<crate::models::CreateJobRequest>) -> Result<(), Error<CreateJobError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job", build_url(&configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_job_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<CreateJobError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<DeleteDomainError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<DeleteDomainError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<DeleteJobError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<DeleteJobError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
 
 pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Error<DisableServiceError>> {
     let local_var_configuration = configuration;
@@ -174,6 +324,66 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
     }
 }
 
+pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<GetDomainError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<GetDomainError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_domains(configuration: &Configuration, ) -> Result<(), Error<GetDomainsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/domain", build_url(&configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<GetDomainsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 pub async fn get_hosting(configuration: &Configuration, ) -> Result<(), Error<GetHostingError>> {
     let local_var_configuration = configuration;
 
@@ -204,7 +414,37 @@ pub async fn get_hosting(configuration: &Configuration, ) -> Result<(), Error<Ge
     }
 }
 
-pub async fn job_get(configuration: &Configuration, ) -> Result<(), Error<JobGetError>> {
+pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<GetJobError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<GetJobError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_jobs(configuration: &Configuration, ) -> Result<(), Error<GetJobsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -228,73 +468,13 @@ pub async fn job_get(configuration: &Configuration, ) -> Result<(), Error<JobGet
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<JobGetError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<GetJobsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn job_job_id_delete(configuration: &Configuration, job_id: &str) -> Result<(), Error<JobJobIdDeleteError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<JobJobIdDeleteError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn job_job_id_get(configuration: &Configuration, job_id: &str) -> Result<(), Error<JobJobIdGetError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<JobJobIdGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn job_job_id_patch(configuration: &Configuration, job_id: &str) -> Result<(), Error<JobJobIdPatchError>> {
+pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<TriggerJobError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -318,68 +498,7 @@ pub async fn job_job_id_patch(configuration: &Configuration, job_id: &str) -> Re
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<JobJobIdPatchError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn job_job_id_post(configuration: &Configuration, job_id: &str) -> Result<(), Error<JobJobIdPostError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<JobJobIdPostError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
-
-pub async fn job_post(configuration: &Configuration, job_post_request: Option<crate::models::JobPostRequest>) -> Result<(), Error<JobPostError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/job", build_url(&configuration));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-    local_var_req_builder = local_var_req_builder.json(&job_post_request);
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<JobPostError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<TriggerJobError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -411,6 +530,36 @@ pub async fn update_hosting(configuration: &Configuration, update_hosting_reques
         Ok(())
     } else {
         let local_var_entity: Option<UpdateHostingError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<UpdateJobError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<UpdateJobError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

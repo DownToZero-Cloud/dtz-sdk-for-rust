@@ -30,6 +30,55 @@ paths:
       responses:
         200:
           description: service disabled
+  /domain:
+    get:
+      summary: get all domains
+      operationId: getDomains
+      responses:
+        200:
+          description: success
+    post:
+      summary: create a new domain
+      operationId: createDomain
+      requestBody: 
+        description: register a new domain within dtz
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+      responses:
+        200:
+          description: success
+  /domain/{domain_name}:
+    get:
+      summary: get single domain
+      operationId: getDomain
+      parameters:
+        - in: path
+          name: domain_name
+          schema:
+            type: string
+          required: true
+          description: name of the domain
+      responses:
+        200:
+          description: success
+    delete:
+      summary: delete single domain
+      operationId: deleteDomain
+      parameters:
+        - in: path
+          name: domain_name
+          schema:
+            type: string
+          required: true
+          description: name of the domain
+      responses:
+        200:
+          description: success
   /service:
     get:
       summary: get current container hosting
@@ -80,11 +129,13 @@ paths:
   /job:
     get:
       summary: list all jobs
+      operationId: getJobs
       responses:
         200:
           description: success
     post:
       summary: create new job
+      operationId: createJob
       requestBody: 
         description: update existing hosting
         content: 
@@ -114,6 +165,7 @@ paths:
   /job/{job_id}:
     get:
       summary: get single job
+      operationId: getJob
       parameters:
         - in: path
           name: job_id
@@ -126,6 +178,7 @@ paths:
           description: success
     post:
       summary: update single job
+      operationId: updateJob
       parameters:
         - in: path
           name: job_id
@@ -138,6 +191,7 @@ paths:
           description: success
     patch:
       summary: trigger single job
+      operationId: triggerJob
       parameters:
         - in: path
           name: job_id
@@ -150,6 +204,7 @@ paths:
           description: success
     delete:
       summary: delete single job
+      operationId: deleteJob
       parameters:
         - in: path
           name: job_id
@@ -166,11 +221,6 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
-    context_id:
-      type: http
-      scheme: http
-      in: header
-      name: X-DTZ-CONTEXT
     dtz_auth2:
       type: oauth2
       flows:
@@ -181,4 +231,3 @@ components:
 security:
   - dtz_auth: []
   - dtz_auth2: []
-  - context_id: []

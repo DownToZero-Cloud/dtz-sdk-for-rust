@@ -1,5 +1,7 @@
-pub mod _job_post_request;
-pub use self::_job_post_request::JobPostRequest;
+pub mod create_domain_request;
+pub use self::create_domain_request::CreateDomainRequest;
+pub mod create_job_request;
+pub use self::create_job_request::CreateJobRequest;
 pub mod update_hosting_request;
 pub use self::update_hosting_request::UpdateHostingRequest;
 pub mod update_hosting_request_domains_inner;
