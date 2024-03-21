@@ -1,11 +1,11 @@
 pub mod assume_identity_request;
 pub use self::assume_identity_request::AssumeIdentityRequest;
-pub mod _auth_apikey_post_request;
-pub use self::_auth_apikey_post_request::AuthApikeyPostRequest;
 pub mod auth_request;
 pub use self::auth_request::AuthRequest;
 pub mod auth_update_request;
 pub use self::auth_update_request::AuthUpdateRequest;
+pub mod authenticate_apikey_request;
+pub use self::authenticate_apikey_request::AuthenticateApikeyRequest;
 pub mod create_api_key_request;
 pub use self::create_api_key_request::CreateApiKeyRequest;
 pub mod error_response;

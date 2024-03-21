@@ -27,8 +27,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**assign_role**](docs/DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
 *DefaultApi* | [**assume_identity**](docs/DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
-*DefaultApi* | [**auth_apikey_post**](docs/DefaultApi.md#auth_apikey_post) | **POST** /auth/apikey | authenticate with apikey
 *DefaultApi* | [**auth_update**](docs/DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
+*DefaultApi* | [**authenticate_apikey**](docs/DefaultApi.md#authenticate_apikey) | **POST** /auth/apikey | authenticate with apikey
 *DefaultApi* | [**create_api_key**](docs/DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 *DefaultApi* | [**delete_api_key**](docs/DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 *DefaultApi* | [**delete_context_roles**](docs/DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
@@ -45,9 +45,9 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [AssumeIdentityRequest](docs/AssumeIdentityRequest.md)
- - [AuthApikeyPostRequest](docs/AuthApikeyPostRequest.md)
  - [AuthRequest](docs/AuthRequest.md)
  - [AuthUpdateRequest](docs/AuthUpdateRequest.md)
+ - [AuthenticateApikeyRequest](docs/AuthenticateApikeyRequest.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [GetAccountStats200Response](docs/GetAccountStats200Response.md)

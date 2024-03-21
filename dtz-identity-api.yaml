@@ -15,6 +15,7 @@ paths:
   /auth/apikey:
     post:
       summary: authenticate with apikey
+      operationId: authenticateApikey
       requestBody:
         content:
           application/json:
