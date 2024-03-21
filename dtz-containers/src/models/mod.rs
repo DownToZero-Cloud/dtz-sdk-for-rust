@@ -4,6 +4,8 @@ pub mod create_job_request;
 pub use self::create_job_request::CreateJobRequest;
 pub mod get_jobs_200_response_inner;
 pub use self::get_jobs_200_response_inner::GetJobs200ResponseInner;
+pub mod job_response;
+pub use self::job_response::JobResponse;
 pub mod update_hosting_request;
 pub use self::update_hosting_request::UpdateHostingRequest;
 pub mod update_hosting_request_domains_inner;

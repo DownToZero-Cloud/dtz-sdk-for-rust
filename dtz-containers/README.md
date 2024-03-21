@@ -46,6 +46,7 @@ Class | Method | HTTP request | Description
  - [CreateDomainRequest](docs/CreateDomainRequest.md)
  - [CreateJobRequest](docs/CreateJobRequest.md)
  - [GetJobs200ResponseInner](docs/GetJobs200ResponseInner.md)
+ - [JobResponse](docs/JobResponse.md)
  - [UpdateHostingRequest](docs/UpdateHostingRequest.md)
  - [UpdateHostingRequestDomainsInner](docs/UpdateHostingRequestDomainsInner.md)
  - [UpdateHostingRequestDomainsInnerRoutingInner](docs/UpdateHostingRequestDomainsInnerRoutingInner.md)

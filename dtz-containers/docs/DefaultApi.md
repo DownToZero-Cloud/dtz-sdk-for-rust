@@ -263,7 +263,7 @@ This endpoint does not need any parameter.
 
 ## get_job
 
-> models::GetJobs200ResponseInner get_job(job_id)
+> models::JobResponse get_job(job_id)
 get single job
 
 ### Parameters
@@ -275,7 +275,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetJobs200ResponseInner**](getJobs_200_response_inner.md)
+[**models::JobResponse**](JobResponse.md)
 
 ### Authorization
 
@@ -372,7 +372,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_job
 
-> update_job(job_id)
+> models::JobResponse update_job(job_id)
 update single job
 
 ### Parameters
@@ -384,7 +384,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::JobResponse**](JobResponse.md)
 
 ### Authorization
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

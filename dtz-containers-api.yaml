@@ -209,31 +209,7 @@ paths:
           content:
             application/json: 
               schema:
-                type: object
-                properties:
-                  jobId:
-                    type: string
-                  jobName:
-                    type: string
-                  jobImage:
-                    type: string
-                  jobPullUser:
-                    type: string
-                  jobPullPassword:
-                    type: string
-                  scheduleType:
-                    type: string
-                  scheduleRepeat:
-                    type: string
-                  scheduleCron:
-                    type: string
-                  scheduleCostOptimzation:
-                    type: string
-                required:
-                  - jobId
-                  - jobName
-                  - jobImage
-                  - scheduleType
+                $ref: '#/components/schemas/JobResponse'
     post:
       summary: update single job
       operationId: updateJob
@@ -247,6 +223,10 @@ paths:
       responses:
         200:
           description: success
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/JobResponse'
     patch:
       summary: trigger single job
       operationId: triggerJob
@@ -274,6 +254,33 @@ paths:
         200:
           description: success
 components:
+  schemas:
+    JobResponse:
+      type: object
+      properties:
+        jobId:
+          type: string
+        jobName:
+          type: string
+        jobImage:
+          type: string
+        jobPullUser:
+          type: string
+        jobPullPassword:
+          type: string
+        scheduleType:
+          type: string
+        scheduleRepeat:
+          type: string
+        scheduleCron:
+          type: string
+        scheduleCostOptimzation:
+          type: string
+      required:
+        - jobId
+        - jobName
+        - jobImage
+        - scheduleType
   securitySchemes:
     dtz_auth:
       type: apiKey
