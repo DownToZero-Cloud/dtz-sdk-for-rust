@@ -68,7 +68,7 @@ This endpoint does not need any parameter.
 
 ## get_logs
 
-> get_logs()
+> Vec<models::GetLogs200ResponseInner> get_logs()
 get logs
 
 ### Parameters
@@ -77,7 +77,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<models::GetLogs200ResponseInner>**](getLogs_200_response_inner.md)
 
 ### Authorization
 
@@ -86,7 +86,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -230,7 +230,7 @@ Name | Type | Description  | Required | Notes
 
 ## query_logs
 
-> query_logs(query_logs_request)
+> Vec<models::GetLogs200ResponseInner> query_logs(query_logs_request)
 query logs
 
 ### Parameters
@@ -242,7 +242,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**Vec<models::GetLogs200ResponseInner>**](getLogs_200_response_inner.md)
 
 ### Authorization
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

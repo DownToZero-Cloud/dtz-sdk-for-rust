@@ -161,7 +161,7 @@ pub async fn get_log_attributes(configuration: &Configuration, ) -> Result<Vec<m
     }
 }
 
-pub async fn get_logs(configuration: &Configuration, ) -> Result<(), Error<GetLogsError>> {
+pub async fn get_logs(configuration: &Configuration, ) -> Result<Vec<models::GetLogs200ResponseInner>, Error<GetLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -180,7 +180,7 @@ pub async fn get_logs(configuration: &Configuration, ) -> Result<(), Error<GetLo
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetLogsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
@@ -327,7 +327,7 @@ pub async fn query_log_activity(configuration: &Configuration, query_logs_reques
     }
 }
 
-pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<(), Error<QueryLogsError>> {
+pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<crate::models::QueryLogsRequest>) -> Result<Vec<models::GetLogs200ResponseInner>, Error<QueryLogsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -347,7 +347,7 @@ pub async fn query_logs(configuration: &Configuration, query_logs_request: Optio
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<QueryLogsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };

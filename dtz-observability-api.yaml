@@ -24,6 +24,23 @@ paths:
       responses:
         200:
           description: status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ts:
+                      type: string
+                    traceId:
+                      type: string
+                    spanId:
+                      type: string
+                    payload:
+                      type: string
+                    attributes:
+                      type: object
     post:
       summary: query logs
       operationId: queryLogs
@@ -39,6 +56,23 @@ paths:
       responses:
         200:
           description: status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ts:
+                      type: string
+                    traceId:
+                      type: string
+                    spanId:
+                      type: string
+                    payload:
+                      type: string
+                    attributes:
+                      type: object
   /log/activity:
     get:
       summary: get log activity over time
