@@ -206,6 +206,34 @@ paths:
       responses:
         200:
           description: success
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+                  jobName:
+                    type: string
+                  jobImage:
+                    type: string
+                  jobPullUser:
+                    type: string
+                  jobPullPassword:
+                    type: string
+                  scheduleType:
+                    type: string
+                  scheduleRepeat:
+                    type: string
+                  scheduleCron:
+                    type: string
+                  scheduleCostOptimzation:
+                    type: string
+                required:
+                  - jobId
+                  - jobName
+                  - jobImage
+                  - scheduleType
     post:
       summary: update single job
       operationId: updateJob

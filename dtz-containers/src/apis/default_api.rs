@@ -414,7 +414,7 @@ pub async fn get_hosting(configuration: &Configuration, ) -> Result<(), Error<Ge
     }
 }
 
-pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<GetJobError>> {
+pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<models::GetJobs200ResponseInner, Error<GetJobError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -436,7 +436,7 @@ pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<(), 
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetJobError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
