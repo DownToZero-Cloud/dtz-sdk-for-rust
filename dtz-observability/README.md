@@ -25,25 +25,25 @@ All URIs are relative to *https://observability.dtz.rocks/api/2021-12-21*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultApi* | [**get_log_activity**](docs/DefaultApi.md#get_log_activity) | **GET** /log/activity | get log activity over time
+*DefaultApi* | [**get_log_attributes**](docs/DefaultApi.md#get_log_attributes) | **GET** /log/attribute | get log attributes
 *DefaultApi* | [**get_logs**](docs/DefaultApi.md#get_logs) | **GET** /log | get logs
 *DefaultApi* | [**get_stats**](docs/DefaultApi.md#get_stats) | **GET** /stats | get statistics
-*DefaultApi* | [**log_activity_get**](docs/DefaultApi.md#log_activity_get) | **GET** /log/activity | get log activity over time
-*DefaultApi* | [**log_activity_post**](docs/DefaultApi.md#log_activity_post) | **POST** /log/activity | get log activity over time filtered
-*DefaultApi* | [**log_attribute_get**](docs/DefaultApi.md#log_attribute_get) | **GET** /log/attribute | get log attributes
-*DefaultApi* | [**log_push_post**](docs/DefaultApi.md#log_push_post) | **POST** /log/push | push log data
+*DefaultApi* | [**post_log**](docs/DefaultApi.md#post_log) | **POST** /log/push | push log data
 *DefaultApi* | [**post_metric**](docs/DefaultApi.md#post_metric) | **POST** /metric | push metric data
 *DefaultApi* | [**post_prometheus**](docs/DefaultApi.md#post_prometheus) | **POST** /prometheus | Push endpoint for prometheus data.
+*DefaultApi* | [**query_log_activity**](docs/DefaultApi.md#query_log_activity) | **POST** /log/activity | get log activity over time filtered
 *DefaultApi* | [**query_logs**](docs/DefaultApi.md#query_logs) | **POST** /log | query logs
 
 
 ## Documentation For Models
 
+ - [GetLogActivity200ResponseInner](docs/GetLogActivity200ResponseInner.md)
+ - [GetLogAttributes200ResponseInner](docs/GetLogAttributes200ResponseInner.md)
  - [GetStats200Response](docs/GetStats200Response.md)
- - [LogActivityGet200ResponseInner](docs/LogActivityGet200ResponseInner.md)
- - [LogAttributeGet200ResponseInner](docs/LogAttributeGet200ResponseInner.md)
- - [LogPushPostRequestInner](docs/LogPushPostRequestInner.md)
- - [LogPushPostRequestInnerAttachmentsInner](docs/LogPushPostRequestInnerAttachmentsInner.md)
- - [LogPushPostRequestInnerLinksInner](docs/LogPushPostRequestInnerLinksInner.md)
+ - [PostLogRequestInner](docs/PostLogRequestInner.md)
+ - [PostLogRequestInnerAttachmentsInner](docs/PostLogRequestInnerAttachmentsInner.md)
+ - [PostLogRequestInnerLinksInner](docs/PostLogRequestInnerLinksInner.md)
  - [PostMetricRequestInner](docs/PostMetricRequestInner.md)
  - [QueryLogsRequest](docs/QueryLogsRequest.md)
 
