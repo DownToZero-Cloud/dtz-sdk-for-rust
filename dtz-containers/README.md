@@ -30,8 +30,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**create_service**](docs/DefaultApi.md#create_service) | **POST** /service | create a new service hosting
 *DefaultApi* | [**delete_domain**](docs/DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
 *DefaultApi* | [**delete_job**](docs/DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
-*DefaultApi* | [**disable_service**](docs/DefaultApi.md#disable_service) | **POST** /disable | disable the containers service
-*DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /enable | enable the containers service
+*DefaultApi* | [**disable**](docs/DefaultApi.md#disable) | **POST** /disable | disable the containers service
+*DefaultApi* | [**enable**](docs/DefaultApi.md#enable) | **POST** /enable | enable the containers service
 *DefaultApi* | [**get_domain**](docs/DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
 *DefaultApi* | [**get_domains**](docs/DefaultApi.md#get_domains) | **GET** /domain | get all domains
 *DefaultApi* | [**get_job**](docs/DefaultApi.md#get_job) | **GET** /job/{job_id} | get single job

@@ -9,8 +9,8 @@ Method | HTTP request | Description
 [**create_service**](DefaultApi.md#create_service) | **POST** /service | create a new service hosting
 [**delete_domain**](DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
 [**delete_job**](DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
-[**disable_service**](DefaultApi.md#disable_service) | **POST** /disable | disable the containers service
-[**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the containers service
+[**disable**](DefaultApi.md#disable) | **POST** /disable | disable the containers service
+[**enable**](DefaultApi.md#enable) | **POST** /enable | enable the containers service
 [**get_domain**](DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
 [**get_domains**](DefaultApi.md#get_domains) | **GET** /domain | get all domains
 [**get_job**](DefaultApi.md#get_job) | **GET** /job/{job_id} | get single job
@@ -162,9 +162,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## disable_service
+## disable
 
-> disable_service()
+> disable()
 disable the containers service
 
 ### Parameters
@@ -187,9 +187,9 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## enable_service
+## enable
 
-> enable_service()
+> enable()
 enable the containers service
 
 ### Parameters

@@ -79,17 +79,17 @@ pub enum DeleteJobError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`disable_service`]
+/// struct for typed errors of method [`disable`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum DisableServiceError {
+pub enum DisableError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`enable_service`]
+/// struct for typed errors of method [`enable`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum EnableServiceError {
+pub enum EnableError {
     UnknownValue(serde_json::Value),
 }
 
@@ -303,7 +303,7 @@ pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(
     }
 }
 
-pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Error<DisableServiceError>> {
+pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<DisableError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -327,13 +327,13 @@ pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Erro
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<DisableServiceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<DisableError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
 }
 
-pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error<EnableServiceError>> {
+pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -357,7 +357,7 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
         Ok(())
     } else {
-        let local_var_entity: Option<EnableServiceError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<EnableError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

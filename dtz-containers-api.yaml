@@ -19,14 +19,14 @@ paths:
   /enable:
     post:
       summary: enable the containers service
-      operationId: enableService
+      operationId: enable
       responses:
         200:
           description: service enabled
   /disable:
     post:
       summary: disable the containers service
-      operationId: disableService
+      operationId: disable
       responses:
         200:
           description: service disabled
