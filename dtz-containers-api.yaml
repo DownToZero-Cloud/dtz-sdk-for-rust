@@ -99,51 +99,61 @@ paths:
           description: success
   /service:
     get:
-      summary: get current container hosting
-      operationId: getHosting
+      summary: get current container services
+      operationId: getServices
       responses:
         200:
           description: status
     post:
-      summary: update current container hosting
-      operationId: updateHosting
+      summary: create a new service hosting
+      operationId: createService
       requestBody: 
-        description: update existing hosting
+        description: creation request
         content: 
           application/json:
             schema:
               type: object
               properties:
-                domains:
-                  type: array
-                  items: 
-                    type: object
-                    properties: 
-                      name:
-                        type: string
-                      routing:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            prefix:
-                              type: string
-                            serviceDefinition:
-                              type: object
-                              properties:
-                                containerImage:
-                                  type: string
-                                containerTag:
-                                  type: string
-                                containerPullUser:
-                                  type: string
-                                containerPullPwd:
-                                  type: string
-                                envVariables:
-                                  type: object
+                prefix:
+                  type: string
+                containerImage:
+                  type: string
+                containerImageVersion:
+                  type: string
+                containerPullUser:
+                  type: string
+                containerPullPwd:
+                  type: string
+                envVariables:
+                  type: object
+              required:
+                - prefix
+                - containerImage
       responses:
         200:
           description: success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+  /service/{serviceId}:
+    get:
+      summary: get service
+      operationId: getService
+      parameters:
+        - in: path
+          name: serviceId
+          schema:
+            type: string
+          required: true
+          description: service id
+      responses:
+        200:
+          description: success
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Service'
   /job:
     get:
       summary: list all jobs
@@ -316,6 +326,36 @@ components:
         - name
         - verified
         - created
+    Service:
+      type: object
+      properties:
+        contextId:
+          type: string
+          format: uuid
+        serviceId:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+        prefix:
+          type: string
+        containerImage:
+          type: string
+        containerImageVersion:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
+        envVariables:
+          type: object
+      required:
+        - contextId
+        - serviceId
+        - created
+        - prefix
+        - containerImage
   securitySchemes:
     dtz_auth:
       type: apiKey

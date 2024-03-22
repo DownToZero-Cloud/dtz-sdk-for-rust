@@ -6,17 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_domain**](DefaultApi.md#create_domain) | **POST** /domain | create a new domain
 [**create_job**](DefaultApi.md#create_job) | **POST** /job | create new job
+[**create_service**](DefaultApi.md#create_service) | **POST** /service | create a new service hosting
 [**delete_domain**](DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
 [**delete_job**](DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
 [**disable_service**](DefaultApi.md#disable_service) | **POST** /disable | disable the containers service
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the containers service
 [**get_domain**](DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
 [**get_domains**](DefaultApi.md#get_domains) | **GET** /domain | get all domains
-[**get_hosting**](DefaultApi.md#get_hosting) | **GET** /service | get current container hosting
 [**get_job**](DefaultApi.md#get_job) | **GET** /job/{job_id} | get single job
 [**get_jobs**](DefaultApi.md#get_jobs) | **GET** /job | list all jobs
+[**get_service**](DefaultApi.md#get_service) | **GET** /service/{serviceId} | get service
+[**get_services**](DefaultApi.md#get_services) | **GET** /service | get current container services
 [**trigger_job**](DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
-[**update_hosting**](DefaultApi.md#update_hosting) | **POST** /service | update current container hosting
 [**update_job**](DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
 
 
@@ -73,6 +74,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_service
+
+> models::Service create_service(create_service_request)
+create a new service hosting
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_service_request** | Option<[**CreateServiceRequest**](CreateServiceRequest.md)> | creation request |  |
+
+### Return type
+
+[**models::Service**](Service.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -236,31 +265,6 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_hosting
-
-> get_hosting()
-get current container hosting
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## get_job
 
 > models::JobResponse get_job(job_id)
@@ -314,6 +318,59 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_service
+
+> models::Service get_service(service_id)
+get service
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**service_id** | **String** | service id | [required] |
+
+### Return type
+
+[**models::Service**](Service.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_services
+
+> get_services()
+get current container services
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## trigger_job
 
 > trigger_job(job_id)
@@ -337,34 +394,6 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## update_hosting
-
-> update_hosting(update_hosting_request)
-update current container hosting
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**update_hosting_request** | Option<[**UpdateHostingRequest**](UpdateHostingRequest.md)> | update existing hosting |  |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

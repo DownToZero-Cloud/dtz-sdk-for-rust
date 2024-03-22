@@ -27,17 +27,18 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**create_domain**](docs/DefaultApi.md#create_domain) | **POST** /domain | create a new domain
 *DefaultApi* | [**create_job**](docs/DefaultApi.md#create_job) | **POST** /job | create new job
+*DefaultApi* | [**create_service**](docs/DefaultApi.md#create_service) | **POST** /service | create a new service hosting
 *DefaultApi* | [**delete_domain**](docs/DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
 *DefaultApi* | [**delete_job**](docs/DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
 *DefaultApi* | [**disable_service**](docs/DefaultApi.md#disable_service) | **POST** /disable | disable the containers service
 *DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /enable | enable the containers service
 *DefaultApi* | [**get_domain**](docs/DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
 *DefaultApi* | [**get_domains**](docs/DefaultApi.md#get_domains) | **GET** /domain | get all domains
-*DefaultApi* | [**get_hosting**](docs/DefaultApi.md#get_hosting) | **GET** /service | get current container hosting
 *DefaultApi* | [**get_job**](docs/DefaultApi.md#get_job) | **GET** /job/{job_id} | get single job
 *DefaultApi* | [**get_jobs**](docs/DefaultApi.md#get_jobs) | **GET** /job | list all jobs
+*DefaultApi* | [**get_service**](docs/DefaultApi.md#get_service) | **GET** /service/{serviceId} | get service
+*DefaultApi* | [**get_services**](docs/DefaultApi.md#get_services) | **GET** /service | get current container services
 *DefaultApi* | [**trigger_job**](docs/DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
-*DefaultApi* | [**update_hosting**](docs/DefaultApi.md#update_hosting) | **POST** /service | update current container hosting
 *DefaultApi* | [**update_job**](docs/DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
 
 
@@ -45,13 +46,11 @@ Class | Method | HTTP request | Description
 
  - [CreateDomainRequest](docs/CreateDomainRequest.md)
  - [CreateJobRequest](docs/CreateJobRequest.md)
+ - [CreateServiceRequest](docs/CreateServiceRequest.md)
  - [Domain](docs/Domain.md)
  - [GetJobs200ResponseInner](docs/GetJobs200ResponseInner.md)
  - [JobResponse](docs/JobResponse.md)
- - [UpdateHostingRequest](docs/UpdateHostingRequest.md)
- - [UpdateHostingRequestDomainsInner](docs/UpdateHostingRequestDomainsInner.md)
- - [UpdateHostingRequestDomainsInnerRoutingInner](docs/UpdateHostingRequestDomainsInnerRoutingInner.md)
- - [UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition](docs/UpdateHostingRequestDomainsInnerRoutingInnerServiceDefinition.md)
+ - [Service](docs/Service.md)
 
 
 To get access to the crate's generated documentation, use:
