@@ -154,6 +154,19 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/Service'
+    delete:
+      summary: delete service
+      operationId: deleteService
+      parameters:
+        - in: path
+          name: serviceId
+          schema:
+            type: string
+          required: true
+          description: service id
+      responses:
+        200:
+          description: success
   /job:
     get:
       summary: list all jobs

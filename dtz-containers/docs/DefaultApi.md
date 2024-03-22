@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**create_service**](DefaultApi.md#create_service) | **POST** /service | create a new service hosting
 [**delete_domain**](DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
 [**delete_job**](DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
+[**delete_service**](DefaultApi.md#delete_service) | **DELETE** /service/{serviceId} | delete service
 [**disable**](DefaultApi.md#disable) | **POST** /disable | disable the containers service
 [**enable**](DefaultApi.md#enable) | **POST** /enable | enable the containers service
 [**get_domain**](DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
@@ -145,6 +146,34 @@ delete single job
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **job_id** | **String** | uuid of the job | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_service
+
+> delete_service(service_id)
+delete service
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**service_id** | **String** | service id | [required] |
 
 ### Return type
 
