@@ -14,7 +14,7 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Domain {
-    #[serde(rename = "context_id")]
+    #[serde(rename = "contextId")]
     pub context_id: uuid::Uuid,
     #[serde(rename = "name")]
     pub name: String,

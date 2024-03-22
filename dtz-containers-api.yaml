@@ -302,7 +302,7 @@ components:
     Domain:
       type: object
       properties:
-        context_id:
+        contextId:
           type: string
           format: uuid
         name:
@@ -312,7 +312,7 @@ components:
         created:
           type: string
       required:
-        - context_id
+        - contextId
         - name
         - verified
         - created
