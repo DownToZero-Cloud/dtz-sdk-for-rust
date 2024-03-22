@@ -64,6 +64,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/Domain'
+        409:
+          description: domain already registered
   /domain/{domain_name}:
     get:
       summary: get single domain
@@ -300,7 +302,7 @@ components:
     Domain:
       type: object
       properties:
-        contextId:
+        context_id:
           type: string
           format: uuid
         name:
@@ -310,7 +312,7 @@ components:
         created:
           type: string
       required:
-        - contextId
+        - context_id
         - name
         - verified
         - created

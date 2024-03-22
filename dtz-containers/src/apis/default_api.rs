@@ -47,6 +47,7 @@ fn build_url(config: &dtz::Configuration) -> String {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateDomainError {
+    Status409(),
     UnknownValue(serde_json::Value),
 }
 
