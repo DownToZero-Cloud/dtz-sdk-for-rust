@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## create_domain
 
-> create_domain(create_domain_request)
+> models::Domain create_domain(create_domain_request)
 create a new domain
 
 ### Parameters
@@ -35,7 +35,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::Domain**](Domain.md)
 
 ### Authorization
 
@@ -44,7 +44,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -185,7 +185,7 @@ This endpoint does not need any parameter.
 
 ## get_domain
 
-> get_domain(domain_name)
+> models::Domain get_domain(domain_name)
 get single domain
 
 ### Parameters
@@ -197,7 +197,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::Domain**](Domain.md)
 
 ### Authorization
 
@@ -206,14 +206,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_domains
 
-> get_domains()
+> Vec<models::Domain> get_domains()
 get all domains
 
 ### Parameters
@@ -222,7 +222,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<models::Domain>**](Domain.md)
 
 ### Authorization
 
@@ -231,7 +231,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

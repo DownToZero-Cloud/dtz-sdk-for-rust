@@ -142,7 +142,7 @@ pub enum UpdateJobError {
 }
 
 
-pub async fn create_domain(configuration: &Configuration, create_domain_request: Option<crate::models::CreateDomainRequest>) -> Result<(), Error<CreateDomainError>> {
+pub async fn create_domain(configuration: &Configuration, create_domain_request: Option<crate::models::CreateDomainRequest>) -> Result<models::Domain, Error<CreateDomainError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -165,7 +165,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain_request:
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<CreateDomainError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
@@ -324,7 +324,7 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
     }
 }
 
-pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<GetDomainError>> {
+pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Result<models::Domain, Error<GetDomainError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -346,7 +346,7 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetDomainError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
@@ -354,7 +354,7 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
     }
 }
 
-pub async fn get_domains(configuration: &Configuration, ) -> Result<(), Error<GetDomainsError>> {
+pub async fn get_domains(configuration: &Configuration, ) -> Result<Vec<models::Domain>, Error<GetDomainsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -376,7 +376,7 @@ pub async fn get_domains(configuration: &Configuration, ) -> Result<(), Error<Ge
     let local_var_content = local_var_resp.text().await?;
 
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
+            serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<GetDomainsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };

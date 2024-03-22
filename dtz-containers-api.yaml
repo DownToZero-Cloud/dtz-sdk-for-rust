@@ -37,6 +37,12 @@ paths:
       responses:
         200:
           description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Domain'
     post:
       summary: create a new domain
       operationId: createDomain
@@ -49,9 +55,15 @@ paths:
               properties:
                 domain:
                   type: string
+              required:
+                - domain
       responses:
         200:
           description: success
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Domain'
   /domain/{domain_name}:
     get:
       summary: get single domain
@@ -66,6 +78,10 @@ paths:
       responses:
         200:
           description: success
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Domain'
     delete:
       summary: delete single domain
       operationId: deleteDomain
@@ -281,6 +297,23 @@ components:
         - jobName
         - jobImage
         - scheduleType
+    Domain:
+      type: object
+      properties:
+        context_id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        verified:
+          type: boolean
+        created:
+          type: string
+      required:
+        - context_id
+        - name
+        - verified
+        - created
   securitySchemes:
     dtz_auth:
       type: apiKey

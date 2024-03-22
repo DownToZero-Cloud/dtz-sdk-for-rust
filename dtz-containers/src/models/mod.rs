@@ -2,6 +2,8 @@ pub mod create_domain_request;
 pub use self::create_domain_request::CreateDomainRequest;
 pub mod create_job_request;
 pub use self::create_job_request::CreateJobRequest;
+pub mod domain;
+pub use self::domain::Domain;
 pub mod get_jobs_200_response_inner;
 pub use self::get_jobs_200_response_inner::GetJobs200ResponseInner;
 pub mod job_response;

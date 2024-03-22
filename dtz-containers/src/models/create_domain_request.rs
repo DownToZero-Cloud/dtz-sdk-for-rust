@@ -14,14 +14,14 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateDomainRequest {
-    #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
-    pub domain: Option<String>,
+    #[serde(rename = "domain")]
+    pub domain: String,
 }
 
 impl CreateDomainRequest {
-    pub fn new() -> CreateDomainRequest {
+    pub fn new(domain: String) -> CreateDomainRequest {
         CreateDomainRequest {
-            domain: None,
+            domain,
         }
     }
 }
