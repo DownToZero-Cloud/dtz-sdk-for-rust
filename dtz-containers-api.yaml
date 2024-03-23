@@ -97,6 +97,19 @@ paths:
       responses:
         200:
           description: success
+    patch:
+      summary: trigger domain verification
+      operationId: verifyDomain
+      parameters:
+        - in: path
+          name: domain_name
+          schema:
+            type: string
+          required: true
+          description: name of the domain
+      responses:
+        200:
+          description: success
   /service:
     get:
       summary: get current container services

@@ -156,6 +156,13 @@ pub enum UpdateJobError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`verify_domain`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum VerifyDomainError {
+    UnknownValue(serde_json::Value),
+}
+
 
 pub async fn create_domain(configuration: &Configuration, create_domain_request: Option<crate::models::CreateDomainRequest>) -> Result<models::Domain, Error<CreateDomainError>> {
     let local_var_configuration = configuration;
@@ -635,6 +642,36 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
             serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<UpdateJobError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn verify_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<VerifyDomainError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::PATCH, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<VerifyDomainError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }

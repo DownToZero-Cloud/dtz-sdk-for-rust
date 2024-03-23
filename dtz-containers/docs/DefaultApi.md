@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**get_services**](DefaultApi.md#get_services) | **GET** /service | get current container services
 [**trigger_job**](DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
 [**update_job**](DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
+[**verify_domain**](DefaultApi.md#verify_domain) | **PATCH** /domain/{domain_name} | trigger domain verification
 
 
 
@@ -452,6 +453,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## verify_domain
+
+> verify_domain(domain_name)
+trigger domain verification
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**domain_name** | **String** | name of the domain | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

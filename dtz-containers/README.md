@@ -41,6 +41,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_services**](docs/DefaultApi.md#get_services) | **GET** /service | get current container services
 *DefaultApi* | [**trigger_job**](docs/DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
 *DefaultApi* | [**update_job**](docs/DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
+*DefaultApi* | [**verify_domain**](docs/DefaultApi.md#verify_domain) | **PATCH** /domain/{domain_name} | trigger domain verification
 
 
 ## Documentation For Models
