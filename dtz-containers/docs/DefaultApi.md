@@ -173,7 +173,7 @@ delete service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **String** | service id | [required] |
+**service_id** | **uuid::Uuid** | service id | [required] |
 
 ### Return type
 
@@ -357,7 +357,7 @@ get service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **String** | service id | [required] |
+**service_id** | **uuid::Uuid** | service id | [required] |
 
 ### Return type
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_services
 
-> get_services()
+> Vec<models::Service> get_services()
 get current container services
 
 ### Parameters
@@ -386,7 +386,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<models::Service>**](Service.md)
 
 ### Authorization
 
@@ -395,7 +395,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

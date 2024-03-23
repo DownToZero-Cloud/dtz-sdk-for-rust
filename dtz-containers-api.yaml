@@ -104,6 +104,12 @@ paths:
       responses:
         200:
           description: status
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
     post:
       summary: create a new service hosting
       operationId: createService
@@ -145,6 +151,7 @@ paths:
           name: serviceId
           schema:
             type: string
+            format: uuid
           required: true
           description: service id
       responses:
@@ -162,6 +169,7 @@ paths:
           name: serviceId
           schema:
             type: string
+            format: uuid
           required: true
           description: service id
       responses:
@@ -334,6 +342,7 @@ components:
           type: boolean
         created:
           type: string
+          format: date-time
       required:
         - contextId
         - name
