@@ -64,10 +64,15 @@ paths:
                 properties:
                   contextId:
                     type: string
+                    format: uuid
                   created:
                     type: string
+                    format: date-time
                   alias:
                     type: string
+                required:
+                - contextId
+                - created
   /context/{context_id}:
     get:
       summary: get context information
