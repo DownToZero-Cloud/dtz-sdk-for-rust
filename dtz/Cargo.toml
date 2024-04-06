@@ -17,8 +17,8 @@ observabilty = []
 rss2email = []
 
 [dependencies]
-dtz-config = { path = "../dtz-config" }
-dtz-containers = { optional = true, path = "../dtz-containers" }
+dtz-config = { version = "0.1", path = "../dtz-config" }
+dtz-containers = { version = "1", optional = true, path = "../dtz-containers" }
 # dtz-core = { optional = true, path = "../dtz-core" }
 # dtz-identity = { optional = true, path = "../dtz-identity" }
 # dtz-objectstore = { optional = true, path = "../dtz-objectstore" }
