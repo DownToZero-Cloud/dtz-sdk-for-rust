@@ -1,3 +1,12 @@
 [workspace]
-members = ["dtz", "dtz-config", "dtz-containers", "dtz-identity"]
+members = [
+    "dtz",
+    "dtz-config",
+    "dtz-containers",
+    "dtz-core",
+    "dtz-identity",
+    "dtz-objectstore",
+    "dtz-observability",
+    "dtz-rss2email",
+]
 resolver = "2"

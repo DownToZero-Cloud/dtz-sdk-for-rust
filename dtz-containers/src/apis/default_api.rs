@@ -16,7 +16,7 @@ use crate::models;
 use super::Error;
 use dtz_config::Configuration;
 
-fn build_url(config: &dtz_config::Configuration) -> String {
+fn build_url(config: &Configuration) -> String {
     let base = url::Url::parse(&config.base_path).unwrap();
     let mut target_url = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
     if base.host_str() == Some("localhost") || base.host_str() == Some("localhost6") {
