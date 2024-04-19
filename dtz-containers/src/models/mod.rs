@@ -6,6 +6,8 @@ pub mod create_service_request;
 pub use self::create_service_request::CreateServiceRequest;
 pub mod domain;
 pub use self::domain::Domain;
+pub mod error_response;
+pub use self::error_response::ErrorResponse;
 pub mod get_jobs_200_response_inner;
 pub use self::get_jobs_200_response_inner::GetJobs200ResponseInner;
 pub mod job_response;
