@@ -2,6 +2,8 @@ pub mod create_context_200_response;
 pub use self::create_context_200_response::CreateContext200Response;
 pub mod create_context_request;
 pub use self::create_context_request::CreateContextRequest;
+pub mod create_ingress_content_request;
+pub use self::create_ingress_content_request::CreateIngressContentRequest;
 pub mod create_ingress_request;
 pub use self::create_ingress_request::CreateIngressRequest;
 pub mod create_job_request;

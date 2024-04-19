@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ Core Api
-  version: 1.0.0
+  version: 1.0.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -149,7 +149,7 @@ paths:
           description: too many certificates already issued
   /job:
     post:
-      summary: pull one job from the asyn job queue
+      summary: pull one job from the async job queue
       operationId: pullJobFromQueue
       requestBody:
         description: pulls the next job
@@ -351,6 +351,61 @@ paths:
       responses:
         200:
           description: success
+  /ingress/{host}/{uri}:
+    post:
+      summary: create static content for ingress
+      operationId: createIngressContent
+      parameters:
+        - in: path
+          name: host
+          schema:
+            type: string
+          required: true
+          description: host name
+        - in: path
+          name: uri
+          schema:
+            type: string
+          required: true
+          description: uri
+      requestBody:
+        description: serve static content for ingress
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                scheme:
+                  type: string
+                content:
+                  type: string
+                header:
+                  type: object
+              required:
+              - scheme
+              - content
+      responses:
+        200:
+          description: success
+    delete:
+      summary: delete ingress content
+      operationId: deleteIngressContent
+      parameters:
+        - in: path
+          name: host
+          schema:
+            type: string
+          required: true
+          description: host name
+        - in: path
+          name: uri
+          schema:
+            type: string
+          required: true
+          description: uri
+      responses:
+        200:
+          description: status
 components:
   securitySchemes:
     dtz_auth:

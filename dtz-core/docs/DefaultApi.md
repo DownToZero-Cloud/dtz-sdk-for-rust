@@ -7,14 +7,16 @@ Method | HTTP request | Description
 [**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
 [**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
+[**create_ingress_content**](DefaultApi.md#create_ingress_content) | **POST** /ingress/{host}/{uri} | create static content for ingress
 [**create_job**](DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
+[**delete_ingress_content**](DefaultApi.md#delete_ingress_content) | **DELETE** /ingress/{host}/{uri} | delete ingress content
 [**get_all_context**](DefaultApi.md#get_all_context) | **GET** /context | get all contexts
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
-[**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the asyn job queue
+[**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
 
 
 
@@ -102,6 +104,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_ingress_content
+
+> create_ingress_content(host, uri, create_ingress_content_request)
+create static content for ingress
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**host** | **String** | host name | [required] |
+**uri** | **String** | uri | [required] |
+**create_ingress_content_request** | Option<[**CreateIngressContentRequest**](CreateIngressContentRequest.md)> | serve static content for ingress |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_job
 
 > create_job(job_id, create_job_request)
@@ -142,6 +174,35 @@ delete context
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **context_id** | **uuid::Uuid** | context id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## delete_ingress_content
+
+> delete_ingress_content(host, uri)
+delete ingress content
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**host** | **String** | host name | [required] |
+**uri** | **String** | uri | [required] |
 
 ### Return type
 
@@ -296,7 +357,7 @@ Name | Type | Description  | Required | Notes
 ## pull_job_from_queue
 
 > models::PullJobFromQueue200Response pull_job_from_queue(pull_job_from_queue_request)
-pull one job from the asyn job queue
+pull one job from the async job queue
 
 ### Parameters
 
