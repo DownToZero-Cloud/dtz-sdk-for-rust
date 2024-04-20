@@ -27,16 +27,17 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**context_context_id_enable_service_get**](docs/DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 *DefaultApi* | [**create_context**](docs/DefaultApi.md#create_context) | **POST** /context | create new context
-*DefaultApi* | [**create_ingress**](docs/DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
-*DefaultApi* | [**create_ingress_content**](docs/DefaultApi.md#create_ingress_content) | **POST** /ingress/{host}/{uri} | create static content for ingress
+*DefaultApi* | [**create_ingress**](docs/DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/ | create or update ingress
+*DefaultApi* | [**create_ingress_with_uri**](docs/DefaultApi.md#create_ingress_with_uri) | **POST** /ingress/{domain}/{uri} | create static content for ingress
 *DefaultApi* | [**create_job**](docs/DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
 *DefaultApi* | [**delete_context**](docs/DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
-*DefaultApi* | [**delete_ingress_content**](docs/DefaultApi.md#delete_ingress_content) | **DELETE** /ingress/{host}/{uri} | delete ingress content
+*DefaultApi* | [**delete_ingress_with_uri**](docs/DefaultApi.md#delete_ingress_with_uri) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 *DefaultApi* | [**get_all_context**](docs/DefaultApi.md#get_all_context) | **GET** /context | get all contexts
 *DefaultApi* | [**get_context**](docs/DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
-*DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
+*DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
 *DefaultApi* | [**get_job_history**](docs/DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 *DefaultApi* | [**issue_certificate**](docs/DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
+*DefaultApi* | [**list_ingress**](docs/DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 *DefaultApi* | [**pull_job_from_queue**](docs/DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
 
 
@@ -44,14 +45,15 @@ Class | Method | HTTP request | Description
 
  - [CreateContext200Response](docs/CreateContext200Response.md)
  - [CreateContextRequest](docs/CreateContextRequest.md)
- - [CreateIngressContentRequest](docs/CreateIngressContentRequest.md)
  - [CreateIngressRequest](docs/CreateIngressRequest.md)
+ - [CreateIngressRequestContainer](docs/CreateIngressRequestContainer.md)
+ - [CreateIngressRequestStaticContent](docs/CreateIngressRequestStaticContent.md)
+ - [CreateIngressRequestStaticContentHeaderInner](docs/CreateIngressRequestStaticContentHeaderInner.md)
  - [CreateJobRequest](docs/CreateJobRequest.md)
  - [CreateJobRequestJobDefinition](docs/CreateJobRequestJobDefinition.md)
  - [GetAllContext200Response](docs/GetAllContext200Response.md)
  - [GetAllContext200ResponseContextsInner](docs/GetAllContext200ResponseContextsInner.md)
- - [GetContext200Response](docs/GetContext200Response.md)
- - [GetIngress200ResponseInner](docs/GetIngress200ResponseInner.md)
+ - [IngressResponseInner](docs/IngressResponseInner.md)
  - [IssueCertificateRequest](docs/IssueCertificateRequest.md)
  - [PullJobFromQueue200Response](docs/PullJobFromQueue200Response.md)
  - [PullJobFromQueueRequest](docs/PullJobFromQueueRequest.md)

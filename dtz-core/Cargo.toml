@@ -8,13 +8,10 @@ edition = "2021"
 rust-version = "1.63"
 
 [dependencies]
-dtz-config = { version = "0.1", path = "../dtz-config" }
-serde = "^1.0"
-serde_derive = "^1.0"
-serde_json = "^1.0"
-url = "^2.2"
-uuid = { version = "^1.0", features = ["serde", "v4"] }
-[dependencies.reqwest]
-version = "^0.12"
-default-features = false
-features = ["json", "multipart", "rustls-tls", "rustls-tls-webpki-roots"]
+dtz-config = { workspace = true }
+serde = { workspace = true }
+serde_derive = { workspace = true }
+serde_json = { workspace = true }
+url = { workspace = true }
+uuid = { workspace = true }
+reqwest = { workspace = true }

@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: DTZ Core Api
   version: 1.0.1
@@ -286,82 +286,69 @@ paths:
           description: success
   /ingress:
     get:
-      summary: get all ingress
+      summary: list all ingress
+      operationId: listIngress
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IngressResponse'
+  /ingress/{domain}/:
+    get:
+      summary: get ingress for '/' path
       operationId: getIngress
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: domain name
       responses:
         200:
           description: success
           content: 
             application/json: 
-              schema: 
-                type: array
-                items:
-                  type: object
-                  properties: 
-                    host:
-                      type: string
-                    pathPrefix:
-                      type: string
-                    containerImage:
-                      type: string
-                    containerImageTag:
-                      type: string
-                    containerImageVersion:
-                      type: string
-                    containerIdentity:
-                      type: string
-                    containerPullUser:
-                      type: string
-                    containerPullPwd:
-                      type: string
-                  required:
-                  - host
-                  - pathPrefix
-                  - containerImage
+              schema:
+                $ref: '#/components/schemas/IngressResponse'
     post:
       summary: create or update ingress
       operationId: createIngress
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: domain name
       requestBody:
         description: create or update ingress
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                host:
-                  type: string
-                pathPrefix:
-                  type: string
-                containerImage:
-                  type: string
-                containerImageTag:
-                  type: string
-                containerIdentity:
-                  type: string
-                containerPullUser:
-                  type: string
-                containerPullPwd:
-                  type: string
-                envVariables:
-                  type: object
-              required:
-              - host
-              - pathPrefix
-              - containerImage
+              $ref: '#/components/schemas/CreateIngressRequest'
       responses:
         200:
           description: success
-  /ingress/{host}/{uri}:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressResponse'
+  /ingress/{domain}/{uri}:
     post:
       summary: create static content for ingress
-      operationId: createIngressContent
+      operationId: createIngressWithUri
       parameters:
         - in: path
-          name: host
+          name: domain
           schema:
             type: string
           required: true
-          description: host name
+          description: domain name
         - in: path
           name: uri
           schema:
@@ -373,30 +360,24 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                scheme:
-                  type: string
-                content:
-                  type: string
-                header:
-                  type: object
-              required:
-              - scheme
-              - content
+              $ref: '#/components/schemas/CreateIngressRequest'
       responses:
         200:
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IngressResponse'
     delete:
-      summary: delete ingress content
-      operationId: deleteIngressContent
+      summary: delete ingress
+      operationId: deleteIngressWithUri
       parameters:
         - in: path
-          name: host
+          name: domain
           schema:
             type: string
           required: true
-          description: host name
+          description: domain name
         - in: path
           name: uri
           schema:
@@ -407,6 +388,86 @@ paths:
         200:
           description: status
 components:
+  schemas:
+    CreateIngressRequest: 
+      type: object
+      properties:
+        container:
+          type: object
+          properties:
+            containerImage:
+              type: string
+            containerImageTag:
+              type: string
+            containerImageVersion:
+              type: string
+            containerIdentity:
+              type: string
+            containerPullUser:
+              type: string
+            containerPullPwd:
+              type: string
+        staticContent:
+          type: object
+          properties:
+            scheme:
+              type: string
+            header:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  value:
+                    type: string
+            content:
+              type: string
+              format: base64
+    IngressResponse: 
+      type: array
+      items:
+        type: object
+        properties:
+          domain:
+            type: string
+          pathPrefix:
+            type: string
+          container:
+            type: object
+            properties:
+              containerImage:
+                type: string
+              containerImageTag:
+                type: string
+              containerImageVersion:
+                type: string
+              containerIdentity:
+                type: string
+              containerPullUser:
+                type: string
+              containerPullPwd:
+                type: string
+          staticContent:
+            type: object
+            properties:
+              scheme:
+                type: string
+              header:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name: 
+                      type: string
+                    value:
+                      type: string
+              content:
+                type: string
+                format: base64
+        required:
+          - domain
+          - pathPrefix
   securitySchemes:
     dtz_auth:
       type: apiKey

@@ -6,16 +6,17 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
-[**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress | create or update ingress
-[**create_ingress_content**](DefaultApi.md#create_ingress_content) | **POST** /ingress/{host}/{uri} | create static content for ingress
+[**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/ | create or update ingress
+[**create_ingress_with_uri**](DefaultApi.md#create_ingress_with_uri) | **POST** /ingress/{domain}/{uri} | create static content for ingress
 [**create_job**](DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
-[**delete_ingress_content**](DefaultApi.md#delete_ingress_content) | **DELETE** /ingress/{host}/{uri} | delete ingress content
+[**delete_ingress_with_uri**](DefaultApi.md#delete_ingress_with_uri) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**get_all_context**](DefaultApi.md#get_all_context) | **GET** /context | get all contexts
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
-[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress | get all ingress
+[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
+[**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
 
 
@@ -78,7 +79,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_ingress
 
-> create_ingress(create_ingress_request)
+> Vec<models::IngressResponseInner> create_ingress(domain, create_ingress_request)
 create or update ingress
 
 ### Parameters
@@ -86,11 +87,12 @@ create or update ingress
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
+**domain** | **String** | domain name | [required] |
 **create_ingress_request** | Option<[**CreateIngressRequest**](CreateIngressRequest.md)> | create or update ingress |  |
 
 ### Return type
 
- (empty response body)
+[**Vec<models::IngressResponseInner>**](IngressResponse_inner.md)
 
 ### Authorization
 
@@ -99,14 +101,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## create_ingress_content
+## create_ingress_with_uri
 
-> create_ingress_content(host, uri, create_ingress_content_request)
+> Vec<models::IngressResponseInner> create_ingress_with_uri(domain, uri, create_ingress_request)
 create static content for ingress
 
 ### Parameters
@@ -114,13 +116,13 @@ create static content for ingress
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**host** | **String** | host name | [required] |
+**domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
-**create_ingress_content_request** | Option<[**CreateIngressContentRequest**](CreateIngressContentRequest.md)> | serve static content for ingress |  |
+**create_ingress_request** | Option<[**CreateIngressRequest**](CreateIngressRequest.md)> | serve static content for ingress |  |
 
 ### Return type
 
- (empty response body)
+[**Vec<models::IngressResponseInner>**](IngressResponse_inner.md)
 
 ### Authorization
 
@@ -129,7 +131,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -191,17 +193,17 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## delete_ingress_content
+## delete_ingress_with_uri
 
-> delete_ingress_content(host, uri)
-delete ingress content
+> delete_ingress_with_uri(domain, uri)
+delete ingress
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**host** | **String** | host name | [required] |
+**domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
 
 ### Return type
@@ -247,7 +249,7 @@ This endpoint does not need any parameter.
 
 ## get_context
 
-> models::GetContext200Response get_context(context_id)
+> models::GetAllContext200ResponseContextsInner get_context(context_id)
 get context information
 
 ### Parameters
@@ -259,7 +261,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetContext200Response**](getContext_200_response.md)
+[**models::GetAllContext200ResponseContextsInner**](getAllContext_200_response_contexts_inner.md)
 
 ### Authorization
 
@@ -275,16 +277,19 @@ Name | Type | Description  | Required | Notes
 
 ## get_ingress
 
-> Vec<models::GetIngress200ResponseInner> get_ingress()
-get all ingress
+> Vec<models::IngressResponseInner> get_ingress(domain)
+get ingress for '/' path
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**domain** | **String** | domain name | [required] |
 
 ### Return type
 
-[**Vec<models::GetIngress200ResponseInner>**](getIngress_200_response_inner.md)
+[**Vec<models::IngressResponseInner>**](IngressResponse_inner.md)
 
 ### Authorization
 
@@ -350,6 +355,31 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_ingress
+
+> Vec<Vec<models::IngressResponseInner>> list_ingress()
+list all ingress
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<Vec<models::IngressResponseInner>>**](Vec.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

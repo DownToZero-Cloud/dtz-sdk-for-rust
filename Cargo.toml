@@ -10,3 +10,15 @@ members = [
     "dtz-rss2email",
 ]
 resolver = "2"
+
+[workspace.dependencies]
+dtz-config = { version = "0.1", path = "./dtz-config" }
+serde = "^1.0"
+serde_derive = "^1.0"
+serde_json = "^1.0"
+url = "^2.2"
+uuid = { version = "^1.0", features = ["serde", "v4"] }
+[workspace.dependencies.reqwest]
+version = "^0.12"
+default-features = false
+features = ["json", "multipart", "rustls-tls", "rustls-tls-webpki-roots"]

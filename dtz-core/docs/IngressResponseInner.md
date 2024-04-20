@@ -1,9 +1,11 @@
-# CreateIngressRequest
+# IngressResponseInner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**domain** | **String** |  | 
+**path_prefix** | **String** |  | 
 **container** | Option<[**models::CreateIngressRequestContainer**](CreateIngressRequest_container.md)> |  | [optional]
 **static_content** | Option<[**models::CreateIngressRequestStaticContent**](CreateIngressRequest_staticContent.md)> |  | [optional]
 
