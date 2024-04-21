@@ -16,24 +16,24 @@ use crate::models;
 pub struct Container {
     #[serde(rename = "containerImage", skip_serializing_if = "Option::is_none")]
     pub container_image: Option<String>,
-    #[serde(rename = "containerImageVersion", skip_serializing_if = "Option::is_none")]
-    pub container_image_version: Option<String>,
     #[serde(rename = "containerIdentity", skip_serializing_if = "Option::is_none")]
     pub container_identity: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
+    #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
+    pub env_variables: Option<serde_json::Value>,
 }
 
 impl Container {
     pub fn new() -> Container {
         Container {
             container_image: None,
-            container_image_version: None,
             container_identity: None,
             container_pull_user: None,
             container_pull_pwd: None,
+            env_variables: None,
         }
     }
 }

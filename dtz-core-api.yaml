@@ -13,9 +13,9 @@ servers:
 - url: https://dtz.rocks/api/{version}
   variables:
     version:
-      default: 2021-12-09
+      default: "2021-12-09"
       enum:
-        - 2021-12-09
+        - "2021-12-09"
 paths:
   /context:
     get:
@@ -484,14 +484,14 @@ components:
       properties:
         containerImage:
           type: string
-        containerImageVersion:
-          type: string
         containerIdentity:
           type: string
         containerPullUser:
           type: string
         containerPullPwd:
           type: string
+        envVariables:
+          type: object
   securitySchemes:
     dtz_auth:
       type: apiKey
