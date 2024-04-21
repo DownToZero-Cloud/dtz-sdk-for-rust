@@ -120,7 +120,7 @@ create job for async execution
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **job_id** | **uuid::Uuid** | job id | [required] |
-**create_job_request** | Option<[**CreateJobRequest**](CreateJobRequest.md)> | issue a new certificate |  |
+**create_job_request** | Option<[**CreateJobRequest**](CreateJobRequest.md)> | create a new job |  |
 
 ### Return type
 

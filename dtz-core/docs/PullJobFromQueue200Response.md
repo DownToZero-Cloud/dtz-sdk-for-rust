@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **job_id** | [**uuid::Uuid**](uuid::Uuid.md) |  | 
 **job_name** | **String** |  | 
 **container_image** | **String** |  | 
-**container_tag** | Option<**String**> |  | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]
 **env_variables** | Option<[**serde_json::Value**](.md)> |  | [optional]

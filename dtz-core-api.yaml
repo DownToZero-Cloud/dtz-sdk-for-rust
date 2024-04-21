@@ -197,8 +197,6 @@ paths:
                     type: string
                   containerImage:
                     type: string
-                  containerTag:
-                    type: string
                   containerPullUser:
                     type: string
                   containerPullPwd:
@@ -226,7 +224,7 @@ paths:
           required: true
           description: job id
       requestBody:
-        description: issue a new certificate
+        description: create a new job
         content: 
           application/json:
             schema:
@@ -249,8 +247,6 @@ paths:
                   type: object
                   properties:
                     containerImage:
-                      type: string
-                    containerTag:
                       type: string
                     containerPullUser:
                       type: string
@@ -487,8 +483,6 @@ components:
       type: object
       properties:
         containerImage:
-          type: string
-        containerImageTag:
           type: string
         containerImageVersion:
           type: string

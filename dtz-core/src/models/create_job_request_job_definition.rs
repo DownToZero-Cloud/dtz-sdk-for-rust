@@ -16,8 +16,6 @@ use crate::models;
 pub struct CreateJobRequestJobDefinition {
     #[serde(rename = "containerImage")]
     pub container_image: String,
-    #[serde(rename = "containerTag", skip_serializing_if = "Option::is_none")]
-    pub container_tag: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -30,7 +28,6 @@ impl CreateJobRequestJobDefinition {
     pub fn new(container_image: String) -> CreateJobRequestJobDefinition {
         CreateJobRequestJobDefinition {
             container_image,
-            container_tag: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,

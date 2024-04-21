@@ -24,8 +24,6 @@ pub struct PullJobFromQueue200Response {
     pub job_name: String,
     #[serde(rename = "containerImage")]
     pub container_image: String,
-    #[serde(rename = "containerTag", skip_serializing_if = "Option::is_none")]
-    pub container_tag: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -42,7 +40,6 @@ impl PullJobFromQueue200Response {
             job_id,
             job_name,
             container_image,
-            container_tag: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,
