@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**container_image** | Option<**String**> |  | [optional]
+**container_image** | **String** |  | 
 **container_identity** | Option<**String**> |  | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]

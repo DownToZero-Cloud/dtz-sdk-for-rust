@@ -440,8 +440,8 @@ components:
         staticContent:
           $ref: '#/components/schemas/StaticContent'
       required:
-        - domain
-        - pathPrefix
+      - domain
+      - pathPrefix
     StaticContent:
       type: object
       properties:
@@ -461,7 +461,7 @@ components:
               type: string
               format: base64
           required:
-            - content
+          - content
         https:
           type: object
           properties:
@@ -478,7 +478,7 @@ components:
               type: string
               format: base64
           required:
-            - content
+          - content
     Container:
       type: object
       properties:
@@ -492,6 +492,8 @@ components:
           type: string
         envVariables:
           type: object
+      required:
+      - containerImage
   securitySchemes:
     dtz_auth:
       type: apiKey

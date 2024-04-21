@@ -14,8 +14,8 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Container {
-    #[serde(rename = "containerImage", skip_serializing_if = "Option::is_none")]
-    pub container_image: Option<String>,
+    #[serde(rename = "containerImage")]
+    pub container_image: String,
     #[serde(rename = "containerIdentity", skip_serializing_if = "Option::is_none")]
     pub container_identity: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
@@ -27,9 +27,9 @@ pub struct Container {
 }
 
 impl Container {
-    pub fn new() -> Container {
+    pub fn new(container_image: String) -> Container {
         Container {
-            container_image: None,
+            container_image,
             container_identity: None,
             container_pull_user: None,
             container_pull_pwd: None,
