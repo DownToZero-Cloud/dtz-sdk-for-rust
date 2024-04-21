@@ -1,11 +1,11 @@
-# CreateIngressRequest
+# StaticContentHttpHeaderInner
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**container** | Option<[**models::Container**](Container.md)> |  | [optional]
-**static_content** | Option<[**models::StaticContent**](StaticContent.md)> |  | [optional]
+**name** | Option<**String**> |  | [optional]
+**value** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

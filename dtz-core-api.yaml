@@ -300,7 +300,7 @@ paths:
   /ingress/{domain}/:
     get:
       summary: get ingress for '/' path
-      operationId: getIngress
+      operationId: getRootIngress
       parameters:
         - in: path
           name: domain
@@ -317,7 +317,7 @@ paths:
                 $ref: '#/components/schemas/IngressResponse'
     post:
       summary: create or update ingress
-      operationId: createIngress
+      operationId: createRootIngress
       parameters:
         - in: path
           name: domain
@@ -338,10 +338,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngressResponse'
+    delete:
+      summary: delete ingress
+      operationId: deleteRootIngress
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: domain name
+      responses:
+        200:
+          description: status
   /ingress/{domain}/{uri}:
+    get:
+      summary: get ingress for '/' path
+      operationId: getIngress
+      parameters:
+        - in: path
+          name: domain
+          schema:
+            type: string
+          required: true
+          description: domain name
+        - in: path
+          name: uri
+          schema:
+            type: string
+          required: true
+          description: uri
+      responses:
+        200:
+          description: success
+          content: 
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/IngressResponse'
     post:
       summary: create static content for ingress
-      operationId: createIngressWithUri
+      operationId: createIngress
       parameters:
         - in: path
           name: domain
@@ -370,7 +406,7 @@ paths:
                 $ref: '#/components/schemas/IngressResponse'
     delete:
       summary: delete ingress
-      operationId: deleteIngressWithUri
+      operationId: deleteIngress
       parameters:
         - in: path
           name: domain
@@ -393,25 +429,29 @@ components:
       type: object
       properties:
         container:
-          type: object
-          properties:
-            containerImage:
-              type: string
-            containerImageTag:
-              type: string
-            containerImageVersion:
-              type: string
-            containerIdentity:
-              type: string
-            containerPullUser:
-              type: string
-            containerPullPwd:
-              type: string
+          $ref: '#/components/schemas/Container'
         staticContent:
+          $ref: '#/components/schemas/StaticContent'
+    IngressResponse:
+      type: object
+      properties:
+        domain:
+          type: string
+        pathPrefix:
+          type: string
+        container:
+          $ref: '#/components/schemas/Container'
+        staticContent:
+          $ref: '#/components/schemas/StaticContent'
+      required:
+        - domain
+        - pathPrefix
+    StaticContent:
+      type: object
+      properties:
+        http:
           type: object
           properties:
-            scheme:
-              type: string
             header:
               type: array
               items:
@@ -424,50 +464,40 @@ components:
             content:
               type: string
               format: base64
-    IngressResponse: 
-      type: array
-      items:
-        type: object
-        properties:
-          domain:
-            type: string
-          pathPrefix:
-            type: string
-          container:
-            type: object
-            properties:
-              containerImage:
-                type: string
-              containerImageTag:
-                type: string
-              containerImageVersion:
-                type: string
-              containerIdentity:
-                type: string
-              containerPullUser:
-                type: string
-              containerPullPwd:
-                type: string
-          staticContent:
-            type: object
-            properties:
-              scheme:
-                type: string
-              header:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name: 
-                      type: string
-                    value:
-                      type: string
-              content:
-                type: string
-                format: base64
-        required:
-          - domain
-          - pathPrefix
+          required:
+            - content
+        https:
+          type: object
+          properties:
+            header:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  value:
+                    type: string
+            content:
+              type: string
+              format: base64
+          required:
+            - content
+    Container:
+      type: object
+      properties:
+        containerImage:
+          type: string
+        containerImageTag:
+          type: string
+        containerImageVersion:
+          type: string
+        containerIdentity:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
   securitySchemes:
     dtz_auth:
       type: apiKey
