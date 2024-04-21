@@ -459,7 +459,7 @@ components:
                     type: string
             content:
               type: string
-              format: base64
+              format: byte
           required:
           - content
         https:
@@ -476,7 +476,7 @@ components:
                     type: string
             content:
               type: string
-              format: base64
+              format: byte
           required:
           - content
     Container:
