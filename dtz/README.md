@@ -10,12 +10,12 @@ The `dtz`-crate only exposes the `dtz-config` crate which covers the API client 
 
 All service specific functionality is exposed through features.
 
-### Feature
+### Features
 
 * containers
 * core
 * identity
-* full (contains all feature at once)
+* full (contains all features at once)
 * objectstore
 * observability
 * rss2mail

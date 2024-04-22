@@ -6,6 +6,7 @@ pub mod containers {
 }
 
 #[cfg(feature = "core")]
+/// module for dtz core services
 pub mod core {
     pub use dtz_core::*;
 }

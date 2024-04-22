@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "A base crate for the DownToZero Cloud API"
@@ -31,3 +31,6 @@ dtz-identity = { version = "1.0", optional = true, path = "../dtz-identity" }
 dtz-objectstore = { version = "1.0", optional = true, path = "../dtz-objectstore" }
 dtz-observability = { version = "1.0", optional = true, path = "../dtz-observability" }
 dtz-rss2email = { version = "1.0", optional = true, path = "../dtz-rss2email" }
+
+[package.metadata.docs.rs]
+all-features = true
