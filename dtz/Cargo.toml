@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "A base crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
-rust-version = "1.64"
+rust-version.workspace = true
 
 [features]
 containers = ["dep:dtz-containers"]

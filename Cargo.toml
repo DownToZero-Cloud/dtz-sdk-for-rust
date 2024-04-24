@@ -1,4 +1,5 @@
 [workspace]
+package.rust-version = "1.64"
 members = [
     "dtz",
     "dtz-config",

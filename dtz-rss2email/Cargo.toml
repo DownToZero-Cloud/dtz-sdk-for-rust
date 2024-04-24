@@ -5,7 +5,7 @@ authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ RSS2Email API"
 license = "MIT OR Apache-2.0"
 edition = "2021"
-rust-version = "1.63"
+rust-version.workspace = true
 
 [dependencies]
 dtz-config = { workspace = true }
