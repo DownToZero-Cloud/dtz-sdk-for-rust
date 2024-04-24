@@ -7,7 +7,7 @@ on:
 jobs:
   fmt:
     permissions: read-all
-    runs-on: [self-hosted,ubuntu-2204-rust]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
@@ -31,7 +31,7 @@ jobs:
     - name: Rustfmt Check
       uses: actions-rust-lang/rustfmt@v1
   msrv:
-    runs-on: [self-hosted,ubuntu-2204-rust]
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
       with:
