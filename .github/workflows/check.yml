@@ -1,4 +1,4 @@
-name: build
+name: check
 on:
   workflow_dispatch:
   push:
