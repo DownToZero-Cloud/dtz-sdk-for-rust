@@ -27,4 +27,4 @@ jobs:
     - name: install msrv
       run: cargo install cargo-msrv
     - name: Run clippy
-      run: cargo msrv verify --path dtz
+      run: cargo msrv verify -- --path dtz
