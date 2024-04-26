@@ -25,7 +25,7 @@ rss2email = ["dep:dtz-rss2email"]
 
 [dependencies]
 dtz-config = { version = "=0.1.0", path = "../dtz-config" }
-dtz-containers = { version = "=1.0.1", optional = true, path = "../dtz-containers" }
+dtz-containers = { version = "=1.0.2", optional = true, path = "../dtz-containers" }
 dtz-core = { version = "=1.0.2", optional = true, path = "../dtz-core" }
 dtz-identity = { version = "=1.0.0", optional = true, path = "../dtz-identity" }
 dtz-objectstore = { version = "=1.0.0", optional = true, path = "../dtz-objectstore" }

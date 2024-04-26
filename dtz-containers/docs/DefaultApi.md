@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**get_services**](DefaultApi.md#get_services) | **GET** /service | get current container services
 [**trigger_job**](DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
 [**update_job**](DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
+[**update_service**](DefaultApi.md#update_service) | **POST** /service/{serviceId} | update service
 [**verify_domain**](DefaultApi.md#verify_domain) | **PATCH** /domain/{domain_name} | trigger domain verification
 
 
@@ -452,6 +453,35 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_service
+
+> models::Service update_service(service_id, create_service_request)
+update service
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**service_id** | **uuid::Uuid** | service id | [required] |
+**create_service_request** | Option<[**CreateServiceRequest**](CreateServiceRequest.md)> | update request |  |
+
+### Return type
+
+[**models::Service**](Service.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

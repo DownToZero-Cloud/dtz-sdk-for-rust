@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ Containers
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -173,6 +173,46 @@ paths:
             format: uuid
           required: true
           description: service id
+      responses:
+        200:
+          description: success
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Service'
+    post:
+      summary: update service
+      operationId: updateService
+      parameters:
+        - in: path
+          name: serviceId
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: service id
+      requestBody: 
+        description: update request
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                prefix:
+                  type: string
+                containerImage:
+                  type: string
+                containerImageVersion:
+                  type: string
+                containerPullUser:
+                  type: string
+                containerPullPwd:
+                  type: string
+                envVariables:
+                  type: object
+              required:
+                - prefix
+                - containerImage
       responses:
         200:
           description: success

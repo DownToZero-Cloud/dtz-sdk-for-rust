@@ -84,7 +84,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containers"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "dtz-config",
  "reqwest",
