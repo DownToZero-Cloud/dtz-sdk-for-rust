@@ -15,7 +15,7 @@ use crate::models;
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAllContext200Response {
     #[serde(rename = "contexts", skip_serializing_if = "Option::is_none")]
-    pub contexts: Option<Vec<models::GetAllContext200ResponseContextsInner>>,
+    pub contexts: Option<Vec<models::ContextResponse>>,
 }
 
 impl GetAllContext200Response {

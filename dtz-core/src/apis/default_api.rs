@@ -187,7 +187,8 @@ pub async fn context_context_id_enable_service_get(configuration: &Configuration
     }
 }
 
-pub async fn create_context(configuration: &Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<models::CreateContext200Response, Error<CreateContextError>> {
+/// create new context
+pub async fn create_context(configuration: &Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<models::ContextResponse, Error<CreateContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -401,6 +402,7 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) ->
     }
 }
 
+/// get all contexts
 pub async fn get_all_context(configuration: &Configuration, ) -> Result<models::GetAllContext200Response, Error<GetAllContextError>> {
     let local_var_configuration = configuration;
 
@@ -431,7 +433,7 @@ pub async fn get_all_context(configuration: &Configuration, ) -> Result<models::
     }
 }
 
-pub async fn get_context(configuration: &Configuration, context_id: &str) -> Result<models::GetAllContext200ResponseContextsInner, Error<GetContextError>> {
+pub async fn get_context(configuration: &Configuration, context_id: &str) -> Result<models::ContextResponse, Error<GetContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;

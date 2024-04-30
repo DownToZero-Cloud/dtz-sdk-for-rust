@@ -20,6 +20,7 @@ paths:
   /context:
     get:
       summary: get all contexts
+      description: get all contexts
       operationId: getAllContext
       responses:
         200:
@@ -32,18 +33,10 @@ paths:
                   contexts:
                     type: array
                     items:
-                      type: object
-                      properties:
-                        context_id:
-                          type: string
-                          format: uuid
-                        alias:
-                          type: string
-                        created:
-                          type: string
-                          format: date-time
+                      $ref: '#/components/schemas/ContextResponse'
     post:
       summary: create new context
+      description: create new context
       operationId: createContext
       requestBody: 
         description: create a new context
@@ -60,19 +53,7 @@ paths:
           content:
             application/json: 
               schema:
-                type: object
-                properties:
-                  contextId:
-                    type: string
-                    format: uuid
-                  created:
-                    type: string
-                    format: date-time
-                  alias:
-                    type: string
-                required:
-                - contextId
-                - created
+                $ref: '#/components/schemas/ContextResponse'
   /context/{context_id}:
     get:
       summary: get context information
@@ -91,16 +72,7 @@ paths:
           content:
             application/json: 
               schema:
-                type: object
-                properties:
-                  context_id:
-                    type: string
-                    format: uuid
-                  created:
-                    type: string
-                    format: date-time
-                  alias:
-                    type: string
+                $ref: '#/components/schemas/ContextResponse'
     delete:
       summary: delete context
       operationId: deleteContext
@@ -425,6 +397,20 @@ paths:
           description: status
 components:
   schemas:
+    ContextResponse:
+      type: object
+      properties:
+        contextId:
+          type: string
+          format: uuid
+        created:
+          type: string
+          format: date-time
+        alias:
+          type: string
+      required:
+      - contextId
+      - created
     CreateIngressRequest: 
       type: object
       properties:

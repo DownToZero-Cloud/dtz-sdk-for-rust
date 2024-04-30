@@ -53,7 +53,9 @@ Name | Type | Description  | Required | Notes
 
 ## create_context
 
-> models::CreateContext200Response create_context(create_context_request)
+> models::ContextResponse create_context(create_context_request)
+create new context
+
 create new context
 
 ### Parameters
@@ -65,7 +67,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateContext200Response**](createContext_200_response.md)
+[**models::ContextResponse**](ContextResponse.md)
 
 ### Authorization
 
@@ -257,6 +259,8 @@ Name | Type | Description  | Required | Notes
 > models::GetAllContext200Response get_all_context()
 get all contexts
 
+get all contexts
+
 ### Parameters
 
 This endpoint does not need any parameter.
@@ -279,7 +283,7 @@ This endpoint does not need any parameter.
 
 ## get_context
 
-> models::GetAllContext200ResponseContextsInner get_context(context_id)
+> models::ContextResponse get_context(context_id)
 get context information
 
 ### Parameters
@@ -291,7 +295,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetAllContext200ResponseContextsInner**](getAllContext_200_response_contexts_inner.md)
+[**models::ContextResponse**](ContextResponse.md)
 
 ### Authorization
 

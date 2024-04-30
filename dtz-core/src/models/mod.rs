@@ -1,7 +1,7 @@
 pub mod container;
 pub use self::container::Container;
-pub mod create_context_200_response;
-pub use self::create_context_200_response::CreateContext200Response;
+pub mod context_response;
+pub use self::context_response::ContextResponse;
 pub mod create_context_request;
 pub use self::create_context_request::CreateContextRequest;
 pub mod create_ingress_request;
@@ -12,8 +12,6 @@ pub mod create_job_request_job_definition;
 pub use self::create_job_request_job_definition::CreateJobRequestJobDefinition;
 pub mod get_all_context_200_response;
 pub use self::get_all_context_200_response::GetAllContext200Response;
-pub mod get_all_context_200_response_contexts_inner;
-pub use self::get_all_context_200_response_contexts_inner::GetAllContext200ResponseContextsInner;
 pub mod ingress_response;
 pub use self::ingress_response::IngressResponse;
 pub mod issue_certificate_request;
