@@ -6,6 +6,8 @@ authors = ["jens@apimeister.com"]
 description = "A base crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
 rust-version.workspace = true
+repository = "https://github.com/DownToZero-Cloud/dtz-sdk-for-rust"
+documentation = "https://docs.rs/dtz"
 
 [features]
 containers = ["dep:dtz-containers"]
