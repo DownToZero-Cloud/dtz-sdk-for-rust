@@ -20,6 +20,7 @@ Method | HTTP request | Description
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
+[**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
 
 
 
@@ -462,6 +463,37 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::PullJobFromQueue200Response**](pullJobFromQueue_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_context
+
+> models::ContextResponse update_context(context_id, create_context_request)
+update context
+
+update context
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **uuid::Uuid** | context id | [required] |
+**create_context_request** | Option<[**CreateContextRequest**](CreateContextRequest.md)> | update context |  |
+
+### Return type
+
+[**models::ContextResponse**](ContextResponse.md)
 
 ### Authorization
 

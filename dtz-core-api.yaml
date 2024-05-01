@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.3
+  version: 1.0.4
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -69,6 +69,34 @@ paths:
       responses:
         200:
           description: context information
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/ContextResponse'
+    post:
+      summary: update context
+      description: update context
+      operationId: updateContext
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: uuid
+          required: true
+          description: context id
+      requestBody: 
+        description: update context
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                alias:
+                  type: string
+      responses:
+        200:
+          description: status
           content:
             application/json: 
               schema:
