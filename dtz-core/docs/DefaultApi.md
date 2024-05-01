@@ -257,7 +257,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_all_context
 
-> models::GetAllContext200Response get_all_context()
+> Vec<models::ContextResponse> get_all_context()
 get all contexts
 
 get all contexts
@@ -268,7 +268,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetAllContext200Response**](getAllContext_200_response.md)
+[**Vec<models::ContextResponse>**](ContextResponse.md)
 
 ### Authorization
 

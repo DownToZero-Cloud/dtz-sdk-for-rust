@@ -1,6 +1,6 @@
 [package]
 name = "dtz-core"
-version = "1.0.4"
+version = "1.0.5"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Core API"
 license = "MIT OR Apache-2.0"
