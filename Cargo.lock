@@ -76,10 +76,36 @@ dependencies = [
 ]
 
 [[package]]
+name = "dtz-billing"
+version = "1.0.0"
+dependencies = [
+ "dtz-config",
+ "reqwest",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "url",
+ "uuid",
+]
+
+[[package]]
 name = "dtz-config"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "reqwest",
+]
+
+[[package]]
+name = "dtz-containerregistry"
+version = "1.0.0"
+dependencies = [
+ "dtz-config",
+ "reqwest",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "url",
+ "uuid",
 ]
 
 [[package]]

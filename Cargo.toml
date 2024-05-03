@@ -2,7 +2,9 @@
 package.rust-version = "1.64"
 members = [
     "dtz",
+    "dtz-billing",
     "dtz-config",
+    "dtz-containerregistry",
     "dtz-containers",
     "dtz-core",
     "dtz-identity",
@@ -13,7 +15,7 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-dtz-config = { version = "0.1", path = "./dtz-config" }
+dtz-config = { version = "1", path = "./dtz-config" }
 serde = "^1.0"
 serde_derive = "^1.0"
 serde_json = "^1.0"

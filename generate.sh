@@ -1,5 +1,13 @@
 #!/bin/bash
 
+openapi-generator generate -i dtz-billing-api.yaml -g rust -o dtz-billing --package-name dtz-billing -t rust-template
+cd dtz-billing && cargo build && cd ..
+rm -r dtz-billing/git_push.sh dtz-billing/.gitignore dtz-billing/.travis.yml dtz-billing/.openapi-generator dtz-billing/.openapi-generator-ignore
+
+openapi-generator generate -i dtz-containerregistry-api.yaml -g rust -o dtz-containerregistry --package-name dtz-containerregistry -t rust-template
+cd dtz-containerregistry && cargo build && cd ..
+rm -r dtz-containerregistry/git_push.sh dtz-containerregistry/.gitignore dtz-containerregistry/.travis.yml dtz-containerregistry/.openapi-generator dtz-containerregistry/.openapi-generator-ignore
+
 openapi-generator generate -i dtz-core-api.yaml -g rust -o dtz-core --package-name dtz-core -t rust-template
 cd dtz-core && cargo build && cd ..
 rm -r dtz-core/git_push.sh dtz-core/.gitignore dtz-core/.travis.yml dtz-core/.openapi-generator dtz-core/.openapi-generator-ignore

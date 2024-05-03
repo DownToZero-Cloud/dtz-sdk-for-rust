@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: DTZ Billing Api
+  version: 1.0.0
+  description: a generated client for the DTZ Billing API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
+servers:
+- url: https://billing.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2022-12-28
+      enum:
+        - 2022-12-28
+paths:
+  /stats:
+    get:
+      summary: get stats
+      operationId: getStats
+      responses:
+        200:
+          description: success
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: number
+                  ts:
+                    type: string
+                    format: date-time
+  /usage:
+    post:
+      summary: post new service usage
+      description: |
+        post new service usage
+        This endpoint cannot be used with service credentials. Only system credentials can update service usage.
+      operationId: postUsage
+      responses:
+        200:
+          description: success
+  /charge/stripe:
+    post:
+      summary: stripe webhook
+      description: |
+        stripe webhook
+        This endpoint cannot be used with service credentials. Only system credentials can update charge information.
+      responses:
+        200:
+          description: success
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    dtz_auth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
+          scopes:
+            dummy:dummy: dummy
+security:
+  - dtz_auth: []
+  - dtz_auth2: []

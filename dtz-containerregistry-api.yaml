@@ -1,0 +1,62 @@
+openapi: 3.1.0
+info:
+  title: DTZ Container Registry
+  version: 1.0.0
+  description: a generated client for the DTZ Container Registry API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  contact:
+    name: Jens Walter
+    email: jens@apimeister.com
+externalDocs:
+  description: dtz docs page
+  url: https://docs.downtozero.cloud
+servers:
+- url: https://cr.dtz.rocks/api/{version}
+  variables:
+    version:
+      default: 2023-12-28
+      enum:
+        - 2023-12-28
+paths:
+  /enable:
+    post:
+      summary: enable the container registry service
+      description: enable the container registry service
+      operationId: enableService
+      responses:
+        200:
+          description: service enabled
+  /disable:
+    post:
+      summary: disable the container registry service
+      description: disable the container registry service
+      operationId: disableService
+      responses:
+        200:
+          description: service disabled
+  /v2/:
+    get:
+      summary: check authentication
+      description: check authentication
+      operationId: checkAuthentication
+      responses:
+        200:
+          description: success
+components:
+  securitySchemes:
+    dtz_auth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+    dtz_auth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
+          scopes:
+            dummy:dummy: dummy
+security:
+  - dtz_auth: []
+  - dtz_auth2: []
