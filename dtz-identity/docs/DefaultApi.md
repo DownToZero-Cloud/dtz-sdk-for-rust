@@ -109,7 +109,7 @@ Name | Type | Description  | Required | Notes
 
 ## authenticate_apikey
 
-> models::TokenResponse authenticate_apikey(authenticate_apikey_request)
+> models::TokenResponse authenticate_apikey(apikey_request)
 authenticate with apikey
 
 ### Parameters
@@ -117,7 +117,7 @@ authenticate with apikey
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**authenticate_apikey_request** | Option<[**AuthenticateApikeyRequest**](AuthenticateApikeyRequest.md)> |  |  |
+**apikey_request** | Option<[**ApikeyRequest**](ApikeyRequest.md)> |  |  |
 
 ### Return type
 

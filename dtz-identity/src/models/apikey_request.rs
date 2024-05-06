@@ -13,18 +13,18 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetAccountStats200ResponseRolesInner {
+pub struct ApikeyRequest {
+    #[serde(rename = "apiKey")]
+    pub api_key: String,
     #[serde(rename = "contextId", skip_serializing_if = "Option::is_none")]
     pub context_id: Option<uuid::Uuid>,
-    #[serde(rename = "count", skip_serializing_if = "Option::is_none")]
-    pub count: Option<f64>,
 }
 
-impl GetAccountStats200ResponseRolesInner {
-    pub fn new() -> GetAccountStats200ResponseRolesInner {
-        GetAccountStats200ResponseRolesInner {
+impl ApikeyRequest {
+    pub fn new(api_key: String) -> ApikeyRequest {
+        ApikeyRequest {
+            api_key,
             context_id: None,
-            count: None,
         }
     }
 }

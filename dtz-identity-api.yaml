@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ Identity
-  version: 1.0.0
+  version: 1.0.1
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -20,15 +20,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                apiKey:
-                  type: string
-                contextId:
-                  type: string
-                  format: uuid
-              required:
-              - apiKey
+              $ref: '#/components/schemas/ApikeyRequest'
       responses:
         200:
           description: success
@@ -299,29 +291,19 @@ paths:
                   roles:
                     type: array
                     items:
-                      type: object
-                      properties:
-                        roleId:
-                          type: string
-                          format: uuid
-                        roleAlias:
-                          type: string
-                        roleScope:
-                          type: string
-                        contextId:
-                          type: string
-                          format: uuid
-                        exposure:
-                          type: string
-                        assignedToUser:
-                          type: boolean
-                      required:
-                        - roleId
-                        - roleAlias
-                        - roleScope
-                        - exposure
+                      $ref: '#/components/schemas/Role'
 components:
   schemas:
+    ApikeyRequest:
+      type: object
+      properties:
+        apiKey:
+          type: string
+        contextId:
+          type: string
+          format: uuid
+      required:
+      - apiKey
     ErrorResponse:
       required:
       - status
@@ -368,6 +350,28 @@ components:
       - access_token
       - token_type
       - expires_in
+    Role:
+      type: object
+      properties:
+        roleId:
+          type: string
+          format: uuid
+        roleAlias:
+          type: string
+        roleScope:
+          type: string
+        contextId:
+          type: string
+          format: uuid
+        exposure:
+          type: string
+        assignedToUser:
+          type: boolean
+      required:
+        - roleId
+        - roleAlias
+        - roleScope
+        - exposure
   securitySchemes:
     dtz_auth:
       type: oauth2
