@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ RSS2Email Api
-  version: 1.0.0
+  version: 1.0.1
   description: a generated client for the DTZ RSS2Email API
   license:
     name: Apache 2.0

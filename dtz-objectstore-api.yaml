@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Dtz Objectstore
-  version: 1.0.0
+  version: 1.0.1
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0

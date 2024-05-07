@@ -64,7 +64,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "dtz"
-version = "0.3.7"
+version = "0.3.8"
 dependencies = [
  "dtz-config",
  "dtz-containers",
@@ -123,7 +123,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-core"
-version = "1.0.5"
+version = "1.0.6"
 dependencies = [
  "dtz-config",
  "reqwest",
@@ -149,7 +149,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-objectstore"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "dtz-config",
  "reqwest",
@@ -162,7 +162,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-observability"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "dtz-config",
  "reqwest",
@@ -175,7 +175,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "dtz-config",
  "reqwest",
