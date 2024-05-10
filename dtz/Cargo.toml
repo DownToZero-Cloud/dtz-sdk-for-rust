@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.3.8"
+version = "0.3.9"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "A base crate for the DownToZero Cloud API"
