@@ -29,7 +29,7 @@ rss2email = ["dep:dtz-rss2email"]
 dtz-config = { version = "=1.0.0", path = "../dtz-config" }
 dtz-containers = { version = "=1.0.3", optional = true, path = "../dtz-containers" }
 dtz-core = { version = "=1.0.6", optional = true, path = "../dtz-core" }
-dtz-identity = { version = "=1.0.1", optional = true, path = "../dtz-identity" }
+dtz-identity = { version = "=1.0.2", optional = true, path = "../dtz-identity" }
 dtz-objectstore = { version = "=1.0.1", optional = true, path = "../dtz-objectstore" }
 dtz-observability = { version = "=1.0.1", optional = true, path = "../dtz-observability" }
 dtz-rss2email = { version = "=1.0.1", optional = true, path = "../dtz-rss2email" }

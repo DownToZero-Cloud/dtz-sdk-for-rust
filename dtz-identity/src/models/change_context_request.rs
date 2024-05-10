@@ -13,15 +13,15 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetRoles200Response {
-    #[serde(rename = "roles", skip_serializing_if = "Option::is_none")]
-    pub roles: Option<Vec<models::Role>>,
+pub struct ChangeContextRequest {
+    #[serde(rename = "contextId", skip_serializing_if = "Option::is_none")]
+    pub context_id: Option<uuid::Uuid>,
 }
 
-impl GetRoles200Response {
-    pub fn new() -> GetRoles200Response {
-        GetRoles200Response {
-            roles: None,
+impl ChangeContextRequest {
+    pub fn new() -> ChangeContextRequest {
+        ChangeContextRequest {
+            context_id: None,
         }
     }
 }

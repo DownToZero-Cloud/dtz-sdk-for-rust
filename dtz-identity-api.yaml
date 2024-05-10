@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -276,6 +276,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  /token/refresh:
+    post:
+      summary: token refresh
+      description: token refresh
+      operationId: tokenRefresh
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeContextRequest'
+        required: true
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+
   /roles:
     get:
       summary: get roles
@@ -335,6 +354,12 @@ components:
       required:
         - username
         - password
+    ChangeContextRequest:
+      type: object
+      properties:
+        contextId:
+          type: string
+          format: uuid
     TokenResponse:
       type: object
       properties:
