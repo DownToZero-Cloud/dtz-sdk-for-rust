@@ -13,13 +13,7 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Service {
-    #[serde(rename = "contextId")]
-    pub context_id: uuid::Uuid,
-    #[serde(rename = "serviceId")]
-    pub service_id: uuid::Uuid,
-    #[serde(rename = "created")]
-    pub created: String,
+pub struct CreateService {
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "containerImage")]
@@ -34,12 +28,9 @@ pub struct Service {
     pub env_variables: Option<serde_json::Value>,
 }
 
-impl Service {
-    pub fn new(context_id: uuid::Uuid, service_id: uuid::Uuid, created: String, prefix: String, container_image: String) -> Service {
-        Service {
-            context_id,
-            service_id,
-            created,
+impl CreateService {
+    pub fn new(prefix: String, container_image: String) -> CreateService {
+        CreateService {
             prefix,
             container_image,
             container_image_version: None,

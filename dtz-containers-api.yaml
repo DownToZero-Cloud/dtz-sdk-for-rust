@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ Containers
-  version: 1.0.3
+  version: 1.0.4
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -51,12 +51,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                domain:
-                  type: string
-              required:
-                - domain
+              $ref: '#/components/schemas/CreateDomain'
       responses:
         200:
           description: success
@@ -137,23 +132,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                prefix:
-                  type: string
-                containerImage:
-                  type: string
-                containerImageVersion:
-                  type: string
-                containerPullUser:
-                  type: string
-                containerPullPwd:
-                  type: string
-                envVariables:
-                  type: object
-              required:
-                - prefix
-                - containerImage
+              $ref: '#/components/schemas/CreateService'
       responses:
         200:
           description: success
@@ -412,6 +391,13 @@ components:
         - name
         - verified
         - created
+    CreateDomain:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
     Service:
       type: object
       properties:
@@ -440,6 +426,24 @@ components:
         - contextId
         - serviceId
         - created
+        - prefix
+        - containerImage
+    CreateService:
+      type: object
+      properties:
+        prefix:
+          type: string
+        containerImage:
+          type: string
+        containerImageVersion:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
+        envVariables:
+          type: object
+      required:
         - prefix
         - containerImage
   securitySchemes:

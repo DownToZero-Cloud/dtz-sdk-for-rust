@@ -13,15 +13,15 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ErrorResponse {
-    #[serde(rename = "msg", skip_serializing_if = "Option::is_none")]
-    pub msg: Option<String>,
+pub struct CreateDomain {
+    #[serde(rename = "name")]
+    pub name: String,
 }
 
-impl ErrorResponse {
-    pub fn new() -> ErrorResponse {
-        ErrorResponse {
-            msg: None,
+impl CreateDomain {
+    pub fn new(name: String) -> CreateDomain {
+        CreateDomain {
+            name,
         }
     }
 }
