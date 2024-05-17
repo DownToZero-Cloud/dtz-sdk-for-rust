@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Dtz Objectstore
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0
@@ -38,9 +38,22 @@ paths:
     get:
       summary: List objects
       operationId: listObjects
+      parameters:
+      - name: prefix
+        in: query
+        description: prefix to search for
+        required: false
+        schema:
+          type: string
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectMetadata'
   /obj/{objectPath}:
     put:
       summary: Put Object
@@ -62,6 +75,13 @@ paths:
         schema:
           type: string  
         style: simple
+      - name: X-DTZ-EXPIRATION
+        in: header
+        description: expiration of the object, format is a iso8601 duration,e.g. "P1D" for 1 day, "PT2H" for 2 hours
+        required: false
+        schema:
+          type: string  
+        style: simple
     get:
       summary: Get Object
       operationId: getObject
@@ -73,6 +93,11 @@ paths:
               schema:
                 type: string
                 format: binary
+          headers: 
+            Content-Digest: 
+              description: sha256 digest of the content (base64 encoded)
+              schema: 
+                type: string
       parameters:
       - name: objectPath
         in: path
@@ -108,15 +133,16 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  amountOfFiles:
-                    type: number
-                  amountOfStorage:
-                    type: number
-
+                $ref: '#/components/schemas/Stats'
 components:
   schemas:
+    Stats:
+      type: object
+      properties:
+        amountOfFiles:
+          type: number
+        amountOfStorage:
+          type: number
     Object:
       type: object
       properties:
@@ -124,6 +150,30 @@ components:
           type: string
         name:
           type: string
+    ObjectMetadata:
+      type: object
+      properties:
+        objectId:
+          type: string
+          format: uuid
+        key:
+          type: string
+        size:
+          type: integer
+        lastModified:
+          type: string
+          format: date-time
+        lastAccessed:
+          type: string
+          format: date-time
+        metadata:
+          type: object
+      required:
+      - objectId
+      - key
+      - size
+      - lastModified
+      - lastAccessed
   securitySchemes:
     dtz_auth:
       type: oauth2

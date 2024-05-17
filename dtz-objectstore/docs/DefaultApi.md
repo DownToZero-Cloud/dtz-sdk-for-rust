@@ -124,16 +124,19 @@ Name | Type | Description  | Required | Notes
 
 ## list_objects
 
-> list_objects()
+> Vec<models::ObjectMetadata> list_objects(prefix)
 List objects
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**prefix** | Option<**String**> | prefix to search for |  |
 
 ### Return type
 
- (empty response body)
+[**Vec<models::ObjectMetadata>**](ObjectMetadata.md)
 
 ### Authorization
 
@@ -142,14 +145,14 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## put_object
 
-> put_object(object_path, body)
+> put_object(object_path, x_dtz_expiration, body)
 Put Object
 
 ### Parameters
@@ -158,6 +161,7 @@ Put Object
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **object_path** | **String** | object path | [required] |
+**x_dtz_expiration** | Option<**String**> | expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours |  |
 **body** | Option<**std::path::PathBuf**> |  |  |
 
 ### Return type
@@ -178,7 +182,7 @@ Name | Type | Description  | Required | Notes
 
 ## stats
 
-> models::Stats200Response stats()
+> models::Stats stats()
 get service statistics
 
 ### Parameters
@@ -187,7 +191,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::Stats200Response**](stats_200_response.md)
+[**models::Stats**](Stats.md)
 
 ### Authorization
 
