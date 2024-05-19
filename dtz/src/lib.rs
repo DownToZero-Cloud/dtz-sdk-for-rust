@@ -1,9 +1,21 @@
 pub use dtz_config::*;
 
+#[cfg(feature = "billing")]
+/// module for dtz billing services
+pub mod billing {
+    pub use dtz_billing::*;
+}
+
 #[cfg(feature = "containers")]
 /// module for dtz container services
 pub mod containers {
     pub use dtz_containers::*;
+}
+
+#[cfg(feature = "containerregistry")]
+/// module for dtz container registry services
+pub mod containerregistry {
+    pub use dtz_containerregistry::*;
 }
 
 #[cfg(feature = "core")]

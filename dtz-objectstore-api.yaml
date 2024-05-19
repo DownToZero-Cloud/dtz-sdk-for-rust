@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Dtz Objectstore
-  version: 1.0.2
+  version: 1.0.3
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0
@@ -106,6 +106,29 @@ paths:
         schema:
           type: string  
         style: simple
+    head:
+      summary: Get Object Metadata
+      operationId: getObjectMetadata
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectMetadata'
+          headers: 
+            Content-Digest: 
+              description: sha256 digest of the content (base64 encoded)
+              schema: 
+                type: string
+      parameters:
+      - name: objectPath
+        in: path
+        description: object patch
+        required: true
+        schema:
+          type: string  
+        style: simple
     delete:
       summary: Delete object
       description: This can only be done by the logged in user.
@@ -160,6 +183,8 @@ components:
           type: string
         size:
           type: integer
+        sizeCompressed:
+          type: integer          
         lastModified:
           type: string
           format: date-time
@@ -168,6 +193,9 @@ components:
           format: date-time
         metadata:
           type: object
+        expiration:
+          type: string
+          format: date-time
       required:
       - objectId
       - key

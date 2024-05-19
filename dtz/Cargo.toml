@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.3.11"
+version = "0.4.0"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud API"
@@ -10,10 +10,14 @@ repository = "https://github.com/DownToZero-Cloud/dtz-sdk-for-rust"
 documentation = "https://docs.rs/dtz"
 
 [features]
+billing = ["dep:dtz-billing"]
+containerregistry = ["dep:dtz-containerregistry"]
 containers = ["dep:dtz-containers"]
 core = ["dep:dtz-core"]
 identity = ["dep:dtz-identity"]
 full = [
+    "billing",
+    "containerregistry",
     "containers",
     "core",
     "identity",
@@ -26,11 +30,13 @@ observability = ["dep:dtz-observability"]
 rss2email = ["dep:dtz-rss2email"]
 
 [dependencies]
+dtz-billing = { version = "=1.0.0", optional = true, path = "../dtz-billing" }
 dtz-config = { version = "=1.0.0", path = "../dtz-config" }
+dtz-containerregistry = { version = "=1.0.0", optional = true, path = "../dtz-containerregistry" }
 dtz-containers = { version = "=1.0.4", optional = true, path = "../dtz-containers" }
 dtz-core = { version = "=1.0.6", optional = true, path = "../dtz-core" }
 dtz-identity = { version = "=1.0.2", optional = true, path = "../dtz-identity" }
-dtz-objectstore = { version = "=1.0.2", optional = true, path = "../dtz-objectstore" }
+dtz-objectstore = { version = "=1.0.3", optional = true, path = "../dtz-objectstore" }
 dtz-observability = { version = "=1.0.1", optional = true, path = "../dtz-observability" }
 dtz-rss2email = { version = "=1.0.1", optional = true, path = "../dtz-rss2email" }
 
