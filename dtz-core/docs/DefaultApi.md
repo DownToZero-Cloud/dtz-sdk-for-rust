@@ -12,12 +12,12 @@ Method | HTTP request | Description
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
-[**get_all_context**](DefaultApi.md#get_all_context) | **GET** /context | get all contexts
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
+[**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
 [**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
-[**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate, the certificate will only be issued on the first name.
+[**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
@@ -255,20 +255,21 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_all_context
+## get_context
 
-> Vec<models::ContextResponse> get_all_context()
-get all contexts
-
-get all contexts
+> models::ContextResponse get_context(context_id)
+get context information
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **uuid::Uuid** | context id | [required] |
 
 ### Return type
 
-[**Vec<models::ContextResponse>**](ContextResponse.md)
+[**models::ContextResponse**](ContextResponse.md)
 
 ### Authorization
 
@@ -282,17 +283,16 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_context
+## get_current_context
 
-> models::ContextResponse get_context(context_id)
-get context information
+> models::ContextResponse get_current_context()
+get current context
+
+get current context
 
 ### Parameters
 
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -398,7 +398,9 @@ Name | Type | Description  | Required | Notes
 ## issue_certificate
 
 > issue_certificate(issue_certificate_request)
-issue a certificate, the certificate will only be issued on the first name.
+issue a certificate
+
+issue a certificate -  if no certificate exists a new one is issued, if a certificate exists a new one will only be issued 3 days before its expiration 
 
 ### Parameters
 

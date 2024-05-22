@@ -6,7 +6,7 @@ A base crate for the DownToZero Cloud API
 
 ## Exposed functionality
 
-The `dtz`-crate only exposes the `dtz-config` crate which covers the API client and authentication requirments.
+The `dtz`-crate only exposes the `dtz-config` crate which covers the API client and authentication requirements.
 
 All service specific functionality is exposed through features.
 

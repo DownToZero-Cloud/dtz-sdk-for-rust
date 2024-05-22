@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.6
+  version: 1.0.7
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -19,18 +19,16 @@ servers:
 paths:
   /context:
     get:
-      summary: get all contexts
-      description: get all contexts
-      operationId: getAllContext
+      summary: get current context
+      description: get current context
+      operationId: getCurrentContext
       responses:
         200:
           description: status
           content:
             application/json: 
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ContextResponse'
+                $ref: '#/components/schemas/ContextResponse'
     post:
       summary: create new context
       description: create new context
@@ -128,7 +126,11 @@ paths:
           description: context information
   /certificate:
     post:
-      summary: issue a certificate, the certificate will only be issued on the first name.
+      summary: issue a certificate
+      description: |
+        issue a certificate - 
+        if no certificate exists a new one is issued, if a certificate exists
+        a new one will only be issued 3 days before its expiration
       operationId: issueCertificate
       requestBody: 
         description: issue a new certificate
