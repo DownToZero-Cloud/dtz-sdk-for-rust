@@ -11,9 +11,10 @@ Method | HTTP request | Description
 [**discover_feed**](DefaultApi.md#discover_feed) | **POST** /rss2email/discover | discover feed on homepage
 [**enable_feed**](DefaultApi.md#enable_feed) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the service
-[**get_feed**](DefaultApi.md#get_feed) | **GET** /rss2email/feed | get feed data
+[**get_feed**](DefaultApi.md#get_feed) | **GET** /rss2email/feed/{feed_id} | get feed
 [**get_profile**](DefaultApi.md#get_profile) | **GET** /rss2email/profile | get profile
 [**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get service statistics
+[**list_feed**](DefaultApi.md#list_feed) | **GET** /rss2email/feed | list all feeds
 [**update_feed**](DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
 
@@ -210,16 +211,19 @@ This endpoint does not need any parameter.
 
 ## get_feed
 
-> get_feed()
-get feed data
+> models::CreateFeed200Response get_feed(feed_id)
+get feed
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**feed_id** | **uuid::Uuid** | feed id | [required] |
 
 ### Return type
 
- (empty response body)
+[**models::CreateFeed200Response**](createFeed_200_response.md)
 
 ### Authorization
 
@@ -228,7 +232,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -262,6 +266,31 @@ This endpoint does not need any parameter.
 
 > get_stats()
 get service statistics
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_feed
+
+> list_feed()
+list all feeds
 
 ### Parameters
 
