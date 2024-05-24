@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**get_profile**](DefaultApi.md#get_profile) | **GET** /rss2email/profile | get profile
 [**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get service statistics
 [**list_feed**](DefaultApi.md#list_feed) | **GET** /rss2email/feed | list all feeds
+[**post_profile**](DefaultApi.md#post_profile) | **POST** /rss2email/profile | post a profile
 [**update_feed**](DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
 
@@ -46,7 +47,7 @@ This endpoint does not need any parameter.
 
 ## create_feed
 
-> models::CreateFeed200Response create_feed(create_feed_request)
+> models::Feed create_feed(feed_request)
 create feed subscription
 
 ### Parameters
@@ -54,11 +55,11 @@ create feed subscription
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_feed_request** | Option<[**CreateFeedRequest**](CreateFeedRequest.md)> | create feed request |  |
+**feed_request** | Option<[**FeedRequest**](FeedRequest.md)> | create feed request |  |
 
 ### Return type
 
-[**models::CreateFeed200Response**](createFeed_200_response.md)
+[**models::Feed**](Feed.md)
 
 ### Authorization
 
@@ -211,7 +212,7 @@ This endpoint does not need any parameter.
 
 ## get_feed
 
-> models::CreateFeed200Response get_feed(feed_id)
+> models::Feed get_feed(feed_id)
 get feed
 
 ### Parameters
@@ -223,7 +224,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateFeed200Response**](createFeed_200_response.md)
+[**models::Feed**](Feed.md)
 
 ### Authorization
 
@@ -239,7 +240,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_profile
 
-> models::GetProfile200Response get_profile()
+> models::Profile get_profile()
 get profile
 
 ### Parameters
@@ -248,7 +249,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::GetProfile200Response**](getProfile_200_response.md)
+[**models::Profile**](Profile.md)
 
 ### Authorization
 
@@ -312,9 +313,37 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## post_profile
+
+> post_profile(profile)
+post a profile
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**profile** | Option<[**Profile**](Profile.md)> | update profile request |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_feed
 
-> update_feed(feed_id, create_feed200_response)
+> update_feed(feed_id, feed_request)
 update feed
 
 ### Parameters
@@ -323,7 +352,7 @@ update feed
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **feed_id** | **uuid::Uuid** | feed id | [required] |
-**create_feed200_response** | Option<[**CreateFeed200Response**](CreateFeed200Response.md)> | update feed request |  |
+**feed_request** | Option<[**FeedRequest**](FeedRequest.md)> | update feed request |  |
 
 ### Return type
 

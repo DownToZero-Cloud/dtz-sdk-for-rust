@@ -1,10 +1,10 @@
-pub mod create_feed_200_response;
-pub use self::create_feed_200_response::CreateFeed200Response;
-pub mod create_feed_request;
-pub use self::create_feed_request::CreateFeedRequest;
 pub mod discover_feed_200_response;
 pub use self::discover_feed_200_response::DiscoverFeed200Response;
 pub mod discover_feed_request;
 pub use self::discover_feed_request::DiscoverFeedRequest;
-pub mod get_profile_200_response;
-pub use self::get_profile_200_response::GetProfile200Response;
+pub mod feed;
+pub use self::feed::Feed;
+pub mod feed_request;
+pub use self::feed_request::FeedRequest;
+pub mod profile;
+pub use self::profile::Profile;

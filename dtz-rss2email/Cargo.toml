@@ -1,6 +1,6 @@
 [package]
 name = "dtz-rss2email"
-version = "1.0.2"
+version = "1.0.3"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ RSS2Email API"
 license = "MIT OR Apache-2.0"

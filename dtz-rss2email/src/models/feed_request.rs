@@ -13,15 +13,18 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct DiscoverFeedRequest {
+pub struct FeedRequest {
     #[serde(rename = "url")]
     pub url: String,
+    #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
 }
 
-impl DiscoverFeedRequest {
-    pub fn new(url: String) -> DiscoverFeedRequest {
-        DiscoverFeedRequest {
+impl FeedRequest {
+    pub fn new(url: String) -> FeedRequest {
+        FeedRequest {
             url,
+            enabled: None,
         }
     }
 }

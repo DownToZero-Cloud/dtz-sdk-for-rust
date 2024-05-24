@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ RSS2Email Api
-  version: 1.0.2
+  version: 1.0.3
   description: a generated client for the DTZ RSS2Email API
   license:
     name: Apache 2.0
@@ -66,44 +66,14 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                url:
-                  type: string
-                targetEmail:
-                  type: string
-              required:
-              - url
+              $ref: '#/components/schemas/FeedRequest'
       responses:
         200:
           description: success
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  url:
-                    type: string
-                  lastCheck:
-                    type: string
-                    format: date-time
-                  lastDataFound:
-                    type: string
-                    format: date-time
-                  enabled:
-                    type: boolean
-                  name:
-                    type: string
-                required:
-                - id
-                - url
-                - lastCheck
-                - lastDataFound
-                - enabled
-                - name
+                $ref: '#/components/schemas/Feed'
   /rss2email/feed/{feed_id}:
     get:
       summary: get feed
@@ -122,30 +92,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                  url:
-                    type: string
-                  lastCheck:
-                    type: string
-                    format: date-time
-                  lastDataFound:
-                    type: string
-                    format: date-time
-                  enabled:
-                    type: boolean
-                  name:
-                    type: string
-                required:
-                - id
-                - url
-                - lastCheck
-                - lastDataFound
-                - enabled
-                - name
+                $ref: '#/components/schemas/Feed'
     post:
       summary: update feed
       operationId: updateFeed
@@ -162,30 +109,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                url:
-                  type: string
-                lastCheck:
-                  type: string
-                  format: date-time
-                lastDataFound:
-                  type: string
-                  format: date-time
-                enabled:
-                  type: boolean
-                name:
-                  type: string
-              required:
-              - id
-              - url
-              - lastCheck
-              - lastDataFound
-              - enabled
-              - name
+              $ref: '#/components/schemas/FeedRequest'
       responses:
         200:
           description: feed update successful
@@ -243,22 +167,19 @@ paths:
           content: 
             application/json:
               schema:
-                type: object
-                properties:
-                  email:
-                    type: string
-                  subject:
-                    type: string
-                  body:
-                    type: string
-                  stripeId:
-                    type: string
-                  contextId:
-                    type: string
-                    format: uuid
-                  identityId:
-                    type: string
-                    format: uuid
+                $ref: '#/components/schemas/Profile'
+    post:
+      summary: post a profile
+      operationId: postProfile
+      requestBody:
+        description: update profile request
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        200:
+          description: success
   /rss2email/profile/cancelSubscription:
     post:
       summary: cancel current subscription
@@ -274,6 +195,52 @@ paths:
         200:
           description: service statistics
 components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        email:
+          type: string
+        subject:
+          type: string
+        body:
+          type: string
+      required:
+      - email
+    Feed:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+        lastCheck:
+          type: string
+          format: date-time
+        lastDataFound:
+          type: string
+          format: date-time
+        enabled:
+          type: boolean
+        name:
+          type: string
+      required:
+      - id
+      - url
+      - lastCheck
+      - lastDataFound
+      - enabled
+      - name
+    FeedRequest:
+      type: object
+      properties:
+        url:
+          type: string
+        enabled:
+          type: boolean
+      required:
+      - url
   securitySchemes:
     dtz_auth:
       type: apiKey
