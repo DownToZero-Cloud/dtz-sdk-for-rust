@@ -290,7 +290,7 @@ This endpoint does not need any parameter.
 
 ## list_feed
 
-> list_feed()
+> Vec<models::Feed> list_feed()
 list all feeds
 
 ### Parameters
@@ -299,7 +299,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**Vec<models::Feed>**](Feed.md)
 
 ### Authorization
 
@@ -308,7 +308,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

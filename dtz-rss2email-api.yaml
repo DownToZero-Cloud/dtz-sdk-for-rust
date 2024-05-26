@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ RSS2Email Api
-  version: 1.0.3
+  version: 1.0.4
   description: a generated client for the DTZ RSS2Email API
   license:
     name: Apache 2.0
@@ -58,6 +58,10 @@ paths:
       responses:
         200:
           description: feed data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedList'
     post:
       summary: create feed subscription
       operationId: createFeed
@@ -207,6 +211,10 @@ components:
           type: string
       required:
       - email
+    FeedList:
+      type: array
+      items:
+        $ref: '#/components/schemas/Feed'
     Feed:
       type: object
       properties:
