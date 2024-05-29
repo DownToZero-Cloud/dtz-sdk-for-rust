@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: DTZ Containers
-  version: 1.0.4
+  version: 1.0.5
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -422,6 +422,13 @@ components:
           type: string
         envVariables:
           type: object
+        login:
+          type: object
+          properties:
+            providerName:
+              type: string
+          required:
+          - providerName
       required:
         - contextId
         - serviceId
@@ -443,6 +450,13 @@ components:
           type: string
         envVariables:
           type: object
+        login:
+          type: object
+          properties:
+            providerName:
+              type: string
+          required:
+          - providerName
       required:
         - prefix
         - containerImage

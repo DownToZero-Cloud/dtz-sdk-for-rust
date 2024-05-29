@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.4.4"
+version = "0.4.5"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud API"
@@ -33,7 +33,7 @@ rss2email = ["dep:dtz-rss2email"]
 dtz-billing = { version = "=1.0.0", optional = true, path = "../dtz-billing" }
 dtz-config = { version = "=1.0.0", path = "../dtz-config" }
 dtz-containerregistry = { version = "=1.0.0", optional = true, path = "../dtz-containerregistry" }
-dtz-containers = { version = "=1.0.4", optional = true, path = "../dtz-containers" }
+dtz-containers = { version = "=1.0.5", optional = true, path = "../dtz-containers" }
 dtz-core = { version = "=1.0.7", optional = true, path = "../dtz-core" }
 dtz-identity = { version = "=1.0.2", optional = true, path = "../dtz-identity" }
 dtz-objectstore = { version = "=1.0.3", optional = true, path = "../dtz-objectstore" }

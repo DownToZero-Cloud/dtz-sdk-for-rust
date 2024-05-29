@@ -13,15 +13,15 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateDomain {
-    #[serde(rename = "name")]
-    pub name: String,
+pub struct ServiceLogin {
+    #[serde(rename = "providerName")]
+    pub provider_name: String,
 }
 
-impl CreateDomain {
-    pub fn new(name: String) -> CreateDomain {
-        CreateDomain {
-            name,
+impl ServiceLogin {
+    pub fn new(provider_name: String) -> ServiceLogin {
+        ServiceLogin {
+            provider_name,
         }
     }
 }

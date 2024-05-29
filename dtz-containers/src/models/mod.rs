@@ -14,5 +14,7 @@ pub mod job_response;
 pub use self::job_response::JobResponse;
 pub mod service;
 pub use self::service::Service;
+pub mod service_login;
+pub use self::service_login::ServiceLogin;
 pub mod update_service_request;
 pub use self::update_service_request::UpdateServiceRequest;
