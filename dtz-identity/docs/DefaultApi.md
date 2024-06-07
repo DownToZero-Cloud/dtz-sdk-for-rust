@@ -17,9 +17,9 @@ Method | HTTP request | Description
 [**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**oauth_authorize**](DefaultApi.md#oauth_authorize) | **GET** /oauth/authorize | oauth authorize
+[**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
-[**token_request**](DefaultApi.md#token_request) | **POST** /oauth/token | token request
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
@@ -384,6 +384,36 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## oauth_token
+
+> models::TokenResponse oauth_token(oauth_token_request)
+oauth token request
+
+oauth token request
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**oauth_token_request** | [**OauthTokenRequest**](OauthTokenRequest.md) |  | [required] |
+
+### Return type
+
+[**models::TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## remove_role_assignment
 
 > remove_role_assignment(role_id)
@@ -425,36 +455,6 @@ token refresh
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **change_context_request** | [**ChangeContextRequest**](ChangeContextRequest.md) |  | [required] |
-
-### Return type
-
-[**models::TokenResponse**](TokenResponse.md)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## token_request
-
-> models::TokenResponse token_request(oauth_token_request)
-token request
-
-token request
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**oauth_token_request** | [**OauthTokenRequest**](OauthTokenRequest.md) |  | [required] |
 
 ### Return type
 

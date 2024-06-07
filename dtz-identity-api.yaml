@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.3
+  version: 1.0.4
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -346,13 +346,18 @@ paths:
       responses:
         302:
           description: success
+          headers:
+            Location:
+              schema:
+                type: string
+              description: redirect uri
         401:
           description: unauthorized
   /oauth/token:
     post:
-      summary: token request
-      description: token request
-      operationId: tokenRequest
+      summary: oauth token request
+      description: oauth token request
+      operationId: oauthToken
       requestBody:
         content:
           application/json:
