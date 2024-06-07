@@ -24,4 +24,11 @@ uuid = { version = "^1.0", features = ["serde", "v4"] }
 [workspace.dependencies.reqwest]
 version = "^0.12"
 default-features = false
-features = ["json", "multipart", "rustls-tls", "rustls-tls-webpki-roots"]
+features = [
+    "json",
+    "multipart",
+    "rustls-tls",
+    "rustls-tls-webpki-roots",
+    "http2",
+    "zstd",
+]

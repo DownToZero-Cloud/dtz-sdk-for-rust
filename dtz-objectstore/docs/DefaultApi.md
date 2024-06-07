@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## delete_object
 
-> models::Object delete_object(object_path)
+> delete_object(object_path)
 Delete object
 
 This can only be done by the logged in user.
@@ -31,7 +31,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::Object**](Object.md)
+ (empty response body)
 
 ### Authorization
 
@@ -40,7 +40,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

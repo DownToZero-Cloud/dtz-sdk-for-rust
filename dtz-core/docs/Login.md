@@ -1,12 +1,10 @@
-# CreateIngressRequest
+# Login
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**login** | Option<[**models::Login**](Login.md)> |  | [optional]
-**container** | Option<[**models::Container**](Container.md)> |  | [optional]
-**static_content** | Option<[**models::StaticContent**](StaticContent.md)> |  | [optional]
+**provider_name** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

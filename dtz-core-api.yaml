@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.7
+  version: 1.0.8
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -441,10 +441,19 @@ components:
     CreateIngressRequest: 
       type: object
       properties:
+        login:
+          $ref: '#/components/schemas/Login'
         container:
           $ref: '#/components/schemas/Container'
         staticContent:
           $ref: '#/components/schemas/StaticContent'
+    Login:
+      type: object
+      properties:
+        providerName:
+          type: string
+      required:
+      - providerName
     IngressResponse:
       type: object
       properties:
@@ -452,6 +461,8 @@ components:
           type: string
         pathPrefix:
           type: string
+        login:
+          $ref: '#/components/schemas/Login'
         container:
           $ref: '#/components/schemas/Container'
         staticContent:

@@ -14,6 +14,8 @@ pub mod ingress_response;
 pub use self::ingress_response::IngressResponse;
 pub mod issue_certificate_request;
 pub use self::issue_certificate_request::IssueCertificateRequest;
+pub mod login;
+pub use self::login::Login;
 pub mod pull_job_from_queue_200_response;
 pub use self::pull_job_from_queue_200_response::PullJobFromQueue200Response;
 pub mod pull_job_from_queue_request;
