@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.2
+  version: 1.0.3
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -294,7 +294,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-
   /roles:
     get:
       summary: get roles
@@ -311,6 +310,62 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Role'
+  /oauth/authorize:
+    get:
+      summary: oauth authorize
+      operationId: oauthAuthorize
+      parameters: 
+        - in: query
+          name: response_type
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: client_id
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: redirect_uri
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: scope
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: state
+          schema:
+            type: string
+        - in: query
+          name: nonce
+          schema:
+            type: string
+      responses:
+        302:
+          description: success
+        401:
+          description: unauthorized
+  /oauth/token:
+    post:
+      summary: token request
+      description: token request
+      operationId: tokenRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OauthTokenRequest'
+        required: true
+      responses:
+        200:
+          description: success
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'      
 components:
   schemas:
     ApikeyRequest:
@@ -397,6 +452,19 @@ components:
         - roleAlias
         - roleScope
         - exposure
+    OauthTokenRequest:
+      type: object
+      properties:
+        grant_type:
+          type: string
+        client_id:
+          type: string
+        client_secret:
+          type: string
+        redirect_uri:
+          type: string
+        code:
+          type: string
   securitySchemes:
     dtz_auth:
       type: oauth2

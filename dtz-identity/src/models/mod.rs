@@ -20,6 +20,8 @@ pub mod get_roles_200_response;
 pub use self::get_roles_200_response::GetRoles200Response;
 pub mod new_context_request;
 pub use self::new_context_request::NewContextRequest;
+pub mod oauth_token_request;
+pub use self::oauth_token_request::OauthTokenRequest;
 pub mod role;
 pub use self::role::Role;
 pub mod signup_request;
