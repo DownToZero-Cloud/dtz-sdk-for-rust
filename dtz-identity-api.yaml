@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.6
+  version: 1.0.7
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -361,7 +361,7 @@ paths:
       operationId: oauthToken
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/OauthTokenRequest'
         required: true

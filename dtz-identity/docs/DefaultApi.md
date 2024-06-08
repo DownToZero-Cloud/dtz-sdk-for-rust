@@ -386,7 +386,7 @@ Name | Type | Description  | Required | Notes
 
 ## oauth_token
 
-> models::TokenResponse oauth_token(oauth_token_request)
+> models::TokenResponse oauth_token(grant_type, client_id, client_secret, redirect_uri, code)
 oauth token request
 
 oauth token request
@@ -396,7 +396,11 @@ oauth token request
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**oauth_token_request** | [**OauthTokenRequest**](OauthTokenRequest.md) |  | [required] |
+**grant_type** | Option<**String**> |  |  |
+**client_id** | Option<**String**> |  |  |
+**client_secret** | Option<**String**> |  |  |
+**redirect_uri** | Option<**String**> |  |  |
+**code** | Option<**String**> |  |  |
 
 ### Return type
 
@@ -408,7 +412,7 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
