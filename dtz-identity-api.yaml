@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.5
+  version: 1.0.6
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -314,6 +314,7 @@ paths:
     get:
       summary: oauth authorize
       operationId: oauthAuthorize
+      x-dtz-include-headers: true
       parameters: 
         - in: query
           name: response_type
