@@ -12,6 +12,7 @@ use crate::models;
 
 
 
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ServiceLogin {
     #[serde(rename = "providerName")]

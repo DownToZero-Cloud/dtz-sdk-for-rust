@@ -24,21 +24,19 @@ fn build_url(config: &Configuration) -> String {
         let _ = target_url.set_port(base.port());
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
+    } else if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
+        format!("{target_url}")
     } else {
-        if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
-            format!("{target_url}")
-        } else {
-            let _ = target_url.set_scheme(base.scheme());
-            let _ = target_url.set_port(base.port());
-            let host_str = base.host_str().unwrap();
-            let mut parts: Vec<&str> = host_str.split('.').collect();
-            let target_str = target_url.host_str().unwrap();
-            let target_parts: Vec<&str> = target_str.split(".").collect();
-            parts.insert(0, target_parts.first().unwrap());
-            let final_url = parts.join(".");
-            let _ = target_url.set_host(Some(&final_url));
-            format!("{target_url}")
-        }
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split('.').collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
     }
 }
 
@@ -177,7 +175,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/domain", build_url(&configuration));
+    let local_var_uri_str = format!("{}/domain", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -208,7 +206,7 @@ pub async fn create_job(configuration: &Configuration, create_job_request: Optio
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job", build_url(&configuration));
+    let local_var_uri_str = format!("{}/job", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -239,7 +237,7 @@ pub async fn create_service(configuration: &Configuration, create_service: Optio
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/service", build_url(&configuration));
+    let local_var_uri_str = format!("{}/service", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -270,7 +268,7 @@ pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(domain_name));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -300,7 +298,7 @@ pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -330,7 +328,7 @@ pub async fn delete_service(configuration: &Configuration, service_id: &str) -> 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(&configuration), serviceId=crate::apis::urlencode(service_id));
+    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(service_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -360,7 +358,7 @@ pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<Disabl
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/disable", build_url(&configuration));
+    let local_var_uri_str = format!("{}/disable", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -390,7 +388,7 @@ pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableE
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/enable", build_url(&configuration));
+    let local_var_uri_str = format!("{}/enable", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -420,7 +418,7 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(domain_name));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -450,7 +448,7 @@ pub async fn get_domains(configuration: &Configuration, ) -> Result<Vec<models::
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/domain", build_url(&configuration));
+    let local_var_uri_str = format!("{}/domain", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -480,7 +478,7 @@ pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<mode
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -510,7 +508,7 @@ pub async fn get_jobs(configuration: &Configuration, ) -> Result<Vec<models::Get
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job", build_url(&configuration));
+    let local_var_uri_str = format!("{}/job", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -540,7 +538,7 @@ pub async fn get_service(configuration: &Configuration, service_id: &str) -> Res
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(&configuration), serviceId=crate::apis::urlencode(service_id));
+    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(service_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -570,7 +568,7 @@ pub async fn get_services(configuration: &Configuration, ) -> Result<Vec<models:
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/service", build_url(&configuration));
+    let local_var_uri_str = format!("{}/service", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -600,7 +598,7 @@ pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::PATCH, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -630,7 +628,7 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -660,7 +658,7 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(&configuration), serviceId=crate::apis::urlencode(service_id));
+    let local_var_uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(service_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -691,7 +689,7 @@ pub async fn verify_domain(configuration: &Configuration, domain_name: &str) -> 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(&configuration), domain_name=crate::apis::urlencode(domain_name));
+    let local_var_uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(domain_name));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::PATCH, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {

@@ -12,6 +12,7 @@ use crate::models;
 
 
 
+
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorResponse {
     #[serde(rename = "msg", skip_serializing_if = "Option::is_none")]

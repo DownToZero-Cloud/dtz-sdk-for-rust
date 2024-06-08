@@ -24,21 +24,19 @@ fn build_url(config: &Configuration) -> String {
         let _ = target_url.set_port(base.port());
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
+    } else if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
+        format!("{target_url}")
     } else {
-        if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
-            format!("{target_url}")
-        } else {
-            let _ = target_url.set_scheme(base.scheme());
-            let _ = target_url.set_port(base.port());
-            let host_str = base.host_str().unwrap();
-            let mut parts: Vec<&str> = host_str.split('.').collect();
-            let target_str = target_url.host_str().unwrap();
-            let target_parts: Vec<&str> = target_str.split(".").collect();
-            parts.insert(0, target_parts.first().unwrap());
-            let final_url = parts.join(".");
-            let _ = target_url.set_host(Some(&final_url));
-            format!("{target_url}")
-        }
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split('.').collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
     }
 }
 
@@ -140,7 +138,7 @@ pub async fn cancel_subscription(configuration: &Configuration, ) -> Result<(), 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -170,7 +168,7 @@ pub async fn create_feed(configuration: &Configuration, feed_request: Option<cra
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/feed", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -201,7 +199,7 @@ pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -231,7 +229,7 @@ pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Resul
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -261,7 +259,7 @@ pub async fn discover_feed(configuration: &Configuration, discover_feed_request:
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/discover", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/discover", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -292,7 +290,7 @@ pub async fn enable_feed(configuration: &Configuration, feed_id: &str) -> Result
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -322,7 +320,7 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/enable", build_url(&configuration));
+    let local_var_uri_str = format!("{}/enable", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -352,7 +350,7 @@ pub async fn get_feed(configuration: &Configuration, feed_id: &str) -> Result<mo
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -382,7 +380,7 @@ pub async fn get_profile(configuration: &Configuration, ) -> Result<models::Prof
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/profile", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -412,7 +410,7 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<(), Error<GetS
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/stats", build_url(&configuration));
+    let local_var_uri_str = format!("{}/stats", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -442,7 +440,7 @@ pub async fn list_feed(configuration: &Configuration, ) -> Result<Vec<models::Fe
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/feed", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -472,7 +470,7 @@ pub async fn post_profile(configuration: &Configuration, profile: Option<crate::
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/profile", build_url(&configuration));
+    let local_var_uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -503,7 +501,7 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_requ
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(&configuration), feed_id=crate::apis::urlencode(feed_id));
+    let local_var_uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(feed_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {

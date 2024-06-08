@@ -24,21 +24,19 @@ fn build_url(config: &Configuration) -> String {
         let _ = target_url.set_port(base.port());
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
+    } else if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
+        format!("{target_url}")
     } else {
-        if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
-            format!("{target_url}")
-        } else {
-            let _ = target_url.set_scheme(base.scheme());
-            let _ = target_url.set_port(base.port());
-            let host_str = base.host_str().unwrap();
-            let mut parts: Vec<&str> = host_str.split('.').collect();
-            let target_str = target_url.host_str().unwrap();
-            let target_parts: Vec<&str> = target_str.split(".").collect();
-            parts.insert(0, target_parts.first().unwrap());
-            let final_url = parts.join(".");
-            let _ = target_url.set_host(Some(&final_url));
-            format!("{target_url}")
-        }
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split('.').collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
     }
 }
 
@@ -169,7 +167,7 @@ pub async fn context_context_id_enable_service_get(configuration: &Configuration
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}/enableService", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -200,7 +198,7 @@ pub async fn create_context(configuration: &Configuration, create_context_reques
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context", build_url(&configuration));
+    let local_var_uri_str = format!("{}/context", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -231,7 +229,7 @@ pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &s
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(&configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
+    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -262,7 +260,7 @@ pub async fn create_job(configuration: &Configuration, job_id: &str, create_job_
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -293,7 +291,7 @@ pub async fn create_root_ingress(configuration: &Configuration, domain: &str, cr
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(&configuration), domain=crate::apis::urlencode(domain));
+    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(domain));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -324,7 +322,7 @@ pub async fn delete_context(configuration: &Configuration, context_id: &str) -> 
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -354,7 +352,7 @@ pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &s
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(&configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
+    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -384,7 +382,7 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) ->
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(&configuration), domain=crate::apis::urlencode(domain));
+    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(domain));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -414,7 +412,7 @@ pub async fn get_context(configuration: &Configuration, context_id: &str) -> Res
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -445,7 +443,7 @@ pub async fn get_current_context(configuration: &Configuration, ) -> Result<mode
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context", build_url(&configuration));
+    let local_var_uri_str = format!("{}/context", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -475,7 +473,7 @@ pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str)
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(&configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
+    let local_var_uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(domain), uri=crate::apis::urlencode(uri));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -505,7 +503,7 @@ pub async fn get_job_history(configuration: &Configuration, job_id: &str) -> Res
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job/{job_id}", build_url(&configuration), job_id=crate::apis::urlencode(job_id));
+    let local_var_uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(job_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -535,7 +533,7 @@ pub async fn get_root_ingress(configuration: &Configuration, domain: &str) -> Re
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(&configuration), domain=crate::apis::urlencode(domain));
+    let local_var_uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(domain));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -566,7 +564,7 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/certificate", build_url(&configuration));
+    let local_var_uri_str = format!("{}/certificate", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -597,7 +595,7 @@ pub async fn list_ingress(configuration: &Configuration, ) -> Result<Vec<models:
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/ingress", build_url(&configuration));
+    let local_var_uri_str = format!("{}/ingress", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -627,7 +625,7 @@ pub async fn pull_job_from_queue(configuration: &Configuration, pull_job_from_qu
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/job", build_url(&configuration));
+    let local_var_uri_str = format!("{}/job", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -659,7 +657,7 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/context/{context_id}", build_url(&configuration), context_id=crate::apis::urlencode(context_id));
+    let local_var_uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {

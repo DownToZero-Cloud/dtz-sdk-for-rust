@@ -24,21 +24,19 @@ fn build_url(config: &Configuration) -> String {
         let _ = target_url.set_port(base.port());
         let _ = target_url.set_host(Some(base.host_str().unwrap()));
         format!("{target_url}")
+    } else if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
+        format!("{target_url}")
     } else {
-        if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
-            format!("{target_url}")
-        } else {
-            let _ = target_url.set_scheme(base.scheme());
-            let _ = target_url.set_port(base.port());
-            let host_str = base.host_str().unwrap();
-            let mut parts: Vec<&str> = host_str.split('.').collect();
-            let target_str = target_url.host_str().unwrap();
-            let target_parts: Vec<&str> = target_str.split(".").collect();
-            parts.insert(0, target_parts.first().unwrap());
-            let final_url = parts.join(".");
-            let _ = target_url.set_host(Some(&final_url));
-            format!("{target_url}")
-        }
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let host_str = base.host_str().unwrap();
+        let mut parts: Vec<&str> = host_str.split('.').collect();
+        let target_str = target_url.host_str().unwrap();
+        let target_parts: Vec<&str> = target_str.split('.').collect();
+        parts.insert(0, target_parts.first().unwrap());
+        let final_url = parts.join(".");
+        let _ = target_url.set_host(Some(&final_url));
+        format!("{target_url}")
     }
 }
 
@@ -71,7 +69,7 @@ pub async fn charge_stripe_post(configuration: &Configuration, ) -> Result<(), E
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/charge/stripe", build_url(&configuration));
+    let local_var_uri_str = format!("{}/charge/stripe", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -101,7 +99,7 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetSta
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/stats", build_url(&configuration));
+    let local_var_uri_str = format!("{}/stats", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
@@ -132,7 +130,7 @@ pub async fn post_usage(configuration: &Configuration, ) -> Result<(), Error<Pos
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/usage", build_url(&configuration));
+    let local_var_uri_str = format!("{}/usage", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
