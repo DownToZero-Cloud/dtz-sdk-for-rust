@@ -1,8 +1,8 @@
-# DownToZero Client API
+# DownToZero Cloud SDK
 
 [![Latest Version](https://img.shields.io/crates/v/dtz.svg)](https://crates.io/crates/dtz)
 
-A base crate for the DownToZero Cloud API
+A base crate for the DownToZero Cloud SDK
 
 ## Exposed functionality
 
