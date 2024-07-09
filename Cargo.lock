@@ -180,7 +180,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.4.11"
+version = "0.4.12"
 dependencies = [
  "dtz-billing",
  "dtz-config",
