@@ -6,15 +6,15 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**assign_role**](DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
 [**assume_identity**](DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
-[**auth_update**](DefaultApi.md#auth_update) | **POST** /authentication/{auth_id} | update an authentication
 [**authenticate_apikey**](DefaultApi.md#authenticate_apikey) | **POST** /auth/apikey | authenticate with apikey
+[**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 [**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
-[**list_auth**](DefaultApi.md#list_auth) | **GET** /authentication | list user authentications
+[**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**oauth_authorize**](DefaultApi.md#oauth_authorize) | **GET** /oauth/authorize | oauth authorize
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
@@ -81,35 +81,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## auth_update
-
-> auth_update(auth_id, auth_update_request)
-update an authentication
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**auth_id** | **String** | authentication id | [required] |
-**auth_update_request** | Option<[**AuthUpdateRequest**](AuthUpdateRequest.md)> | update an existing authnetication |  |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## authenticate_apikey
 
 > models::TokenResponse authenticate_apikey(apikey_request)
@@ -134,6 +105,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## change_authentication
+
+> change_authentication(change_authentication_request)
+update the user authentication, aka change you password
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**change_authentication_request** | Option<[**ChangeAuthenticationRequest**](ChangeAuthenticationRequest.md)> | update an existing authentication |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -297,9 +296,9 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## list_auth
+## list_authentication
 
-> list_auth()
+> list_authentication()
 list user authentications
 
 ### Parameters
@@ -396,11 +395,11 @@ oauth token request
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**grant_type** | Option<**String**> |  |  |
-**client_id** | Option<**String**> |  |  |
-**client_secret** | Option<**String**> |  |  |
-**redirect_uri** | Option<**String**> |  |  |
-**code** | Option<**String**> |  |  |
+**grant_type** | **String** |  | [required] |
+**client_id** | **String** |  | [required] |
+**client_secret** | **String** |  | [required] |
+**redirect_uri** | **String** |  | [required] |
+**code** | **String** |  | [required] |
 
 ### Return type
 

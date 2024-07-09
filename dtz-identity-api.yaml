@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.7
+  version: 1.0.8
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -55,33 +55,29 @@ paths:
   /authentication:
     get:
       summary: list user authentications
-      operationId: listAuth
+      operationId: listAuthentication
       responses:
         200:
           description: list of authentication
-  /authentication/{auth_id}:
     post:
-      summary: update an authentication
-      operationId: authUpdate
-      parameters:
-        - in: path
-          name: auth_id
-          schema:
-            type: string
-          required: true
-          description: authentication id
+      summary: update the user authentication, aka change you password
+      operationId: changeAuthentication
       requestBody:
-        description: update an existing authnetication
+        description: update an existing authentication
         content:
           application/json:
             schema:
               type: object
               properties:
-                authentication_id:
+                email:
+                  type: string
+                oldPassword:
+                  type: string
+                newPassword:
                   type: string
       responses:
         200:
-          description: status
+          description: success
   /context/{context_id}:
     delete:
       summary: delete all roles attached to this context
@@ -471,6 +467,12 @@ components:
           type: string
         code:
           type: string
+      required:
+      - grant_type
+      - client_id
+      - client_secret
+      - redirect_uri
+      - code
   securitySchemes:
     dtz_auth:
       type: oauth2
