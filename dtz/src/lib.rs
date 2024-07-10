@@ -1,5 +1,9 @@
 pub use dtz_config::*;
 
+#[cfg(feature = "id")]
+/// module for dtz identifier
+pub mod id;
+
 #[cfg(feature = "billing")]
 /// module for dtz billing services
 pub mod billing {

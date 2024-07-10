@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.4.12"
+version = "0.4.13"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"
@@ -14,6 +14,8 @@ billing = ["dep:dtz-billing"]
 containerregistry = ["dep:dtz-containerregistry"]
 containers = ["dep:dtz-containers"]
 core = ["dep:dtz-core"]
+default = ["id"]
+id = ["dep:serde", "dep:uuid"]
 identity = ["dep:dtz-identity"]
 full = [
     "billing",
@@ -39,6 +41,8 @@ dtz-identity = { version = "=1.0.8", optional = true, path = "../dtz-identity" }
 dtz-objectstore = { version = "=1.0.4", optional = true, path = "../dtz-objectstore" }
 dtz-observability = { version = "=1.0.1", optional = true, path = "../dtz-observability" }
 dtz-rss2email = { version = "=1.0.4", optional = true, path = "../dtz-rss2email" }
+serde = { version = "1", optional = true }
+uuid = { version = "1", optional = true, features = ["serde", "v7"] }
 
 [package.metadata.docs.rs]
 all-features = true

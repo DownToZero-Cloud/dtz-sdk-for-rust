@@ -180,7 +180,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.4.12"
+version = "0.4.13"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -191,6 +191,8 @@ dependencies = [
  "dtz-objectstore",
  "dtz-observability",
  "dtz-rss2email",
+ "serde",
+ "uuid",
 ]
 
 [[package]]
