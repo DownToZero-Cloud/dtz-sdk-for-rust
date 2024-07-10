@@ -59,6 +59,12 @@ impl Serialize for IdentityId {
     }
 }
 
+impl From<Uuid> for IdentityId {
+    fn from(id: Uuid) -> Self {
+        IdentityId { id }
+    }
+}
+
 #[test]
 fn id_tostring() {
     let id = IdentityId::default();

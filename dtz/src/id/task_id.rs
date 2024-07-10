@@ -1,6 +1,7 @@
 use std::fmt::Display;
-
 use uuid::Uuid;
+
+static PREFIX: &str = "task-";
 
 #[derive(Debug, Clone, Copy)]
 pub struct TaskId {
@@ -15,7 +16,7 @@ impl Default for TaskId {
 
 impl Display for TaskId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&format!("task-{}", self.id))
+        f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
 
@@ -37,7 +38,7 @@ impl<'de> serde::Deserialize<'de> for TaskId {
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix("task-") {
+                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
                     let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
                     Ok(TaskId { id: uuid })
                 } else {
@@ -56,5 +57,11 @@ impl serde::Serialize for TaskId {
         S: serde::Serializer,
     {
         serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl From<Uuid> for TaskId {
+    fn from(id: Uuid) -> Self {
+        TaskId { id }
     }
 }

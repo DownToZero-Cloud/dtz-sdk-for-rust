@@ -61,3 +61,9 @@ impl serde::Serialize for ExecutionId {
         serializer.serialize_str(&self.to_string())
     }
 }
+
+impl From<Uuid> for ExecutionId {
+    fn from(id: Uuid) -> Self {
+        ExecutionId { id }
+    }
+}

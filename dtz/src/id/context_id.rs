@@ -1,5 +1,4 @@
 use std::fmt::Display;
-
 use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
 use uuid::Uuid;
 
@@ -58,4 +57,17 @@ impl Serialize for ContextId {
     {
         serializer.serialize_str(&self.to_string())
     }
+}
+
+impl From<Uuid> for ContextId {
+    fn from(id: Uuid) -> Self {
+        ContextId { id }
+    }
+}
+
+#[test]
+fn test_from() {
+    let uuid = Uuid::now_v7();
+    let ctx = ContextId::from(uuid);
+    assert_eq!(ctx.id, uuid);
 }
