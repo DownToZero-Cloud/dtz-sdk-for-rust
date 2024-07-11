@@ -174,7 +174,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.5.2"
+version = "0.5.3"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -193,6 +193,7 @@ name = "dtz-billing"
 version = "1.0.0"
 dependencies = [
  "dtz-config",
+ "dtz-identifier",
  "reqwest",
  "serde",
  "serde_derive",
@@ -297,9 +298,10 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "1.0.4"
+version = "1.0.5"
 dependencies = [
  "dtz-config",
+ "dtz-identifier",
  "reqwest",
  "serde",
  "serde_derive",

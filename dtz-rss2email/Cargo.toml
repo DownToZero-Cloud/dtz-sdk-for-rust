@@ -1,6 +1,6 @@
 [package]
 name = "dtz-rss2email"
-version = "1.0.4"
+version = "1.0.5"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ RSS2Email API"
 license = "MIT OR Apache-2.0"
@@ -9,6 +9,7 @@ rust-version.workspace = true
 
 [dependencies]
 dtz-config = { workspace = true }
+dtz-identifier = { workspace = true }
 serde = { workspace = true }
 serde_derive = { workspace = true }
 serde_json = { workspace = true }

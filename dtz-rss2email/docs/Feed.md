@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
+**id** | [**dtz_identifier::FeedId**](dtz_identifier::FeedId.md) |  | 
 **url** | **String** |  | 
 **last_check** | **String** |  | 
 **last_data_found** | **String** |  | 

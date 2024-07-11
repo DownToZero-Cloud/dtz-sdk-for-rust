@@ -57,7 +57,7 @@ delete feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **String** | feed id | [required] |
+**feed_id** | **dtz_identifier::FeedId** | feed id | [required] |
 
 ### Return type
 
@@ -85,7 +85,7 @@ disable feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **String** | feed id | [required] |
+**feed_id** | **dtz_identifier::FeedId** | feed id | [required] |
 
 ### Return type
 
@@ -141,7 +141,7 @@ enable feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **String** | feed id | [required] |
+**feed_id** | **dtz_identifier::FeedId** | feed id | [required] |
 
 ### Return type
 
@@ -194,7 +194,7 @@ get feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **String** | feed id | [required] |
+**feed_id** | **dtz_identifier::FeedId** | feed id | [required] |
 
 ### Return type
 
@@ -325,7 +325,7 @@ update feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **String** | feed id | [required] |
+**feed_id** | **dtz_identifier::FeedId** | feed id | [required] |
 **feed_request** | Option<[**FeedRequest**](FeedRequest.md)> | update feed request |  |
 
 ### Return type

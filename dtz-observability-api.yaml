@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: DTZ Observability
   version: 1.0.1
@@ -13,16 +13,16 @@ servers:
 - url: https://observability.dtz.rocks/api/{version}
   variables:
     version:
-      default: 2021-12-21
+      default: "2021-12-21"
       enum:
-        - 2021-12-21
+        - "2021-12-21"
 paths:
   /log:
     get:
       summary: get logs
       operationId: getLogs
       responses:
-        200:
+        "200":
           description: status
           content:
             application/json:
@@ -41,7 +41,7 @@ paths:
                 search:
                   type: string
       responses:
-        200:
+        "200":
           description: status
           content:
             application/json:
@@ -52,7 +52,7 @@ paths:
       summary: get log activity over time
       operationId: getLogActivity
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
@@ -78,7 +78,7 @@ paths:
                 search:
                   type: string
       responses:
-        200:
+        "200":
           description: context informatio
           content: 
             application/json:
@@ -96,7 +96,7 @@ paths:
       summary: get log attributes
       operationId: getLogAttributes
       responses:
-        200:
+        "200":
           description: attribute activity
           content: 
             application/json:
@@ -114,7 +114,7 @@ paths:
       summary: push log data
       operationId: postLog
       requestBody: 
-        description: log query
+        description: log data
         content:
           application/json:
             schema:
@@ -161,7 +161,7 @@ paths:
                         contentType:
                           type: string
       responses:
-        200:
+        "200":
           description: success
   /metric:
     post:
@@ -197,7 +197,7 @@ paths:
                   spanId:
                     type: string
       responses:
-        200:
+        "200":
           description: success
   /prometheus:
     post:
@@ -210,14 +210,14 @@ paths:
             schema:
               type: string
       responses:
-        200:
+        "200":
           description: success
   /stats:
     get:
       summary: get statistics
       operationId: getStats
       responses:
-        200:
+        "200":
           description: statistics
           content: 
             application/json:
