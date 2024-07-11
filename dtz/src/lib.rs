@@ -1,6 +1,5 @@
 pub use dtz_config::*;
 
-#[cfg(feature = "id")]
 /// module for dtz identifier
 pub mod id {
     pub use dtz_identifier::*;
