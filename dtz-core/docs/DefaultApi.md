@@ -7,19 +7,19 @@ Method | HTTP request | Description
 [**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
 [**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/{uri} | create static content for ingress
-[**create_job**](DefaultApi.md#create_job) | **POST** /job/{job_id} | create job for async execution
 [**create_root_ingress**](DefaultApi.md#create_root_ingress) | **POST** /ingress/{domain}/ | create or update ingress
+[**create_task**](DefaultApi.md#create_task) | **POST** /task/{task_id} | create task for async execution
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
-[**get_job_history**](DefaultApi.md#get_job_history) | **GET** /job/{job_id} | get execution history
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
+[**get_task_history**](DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
-[**pull_job_from_queue**](DefaultApi.md#pull_job_from_queue) | **POST** /job | pull one job from the async job queue
+[**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
 
 
@@ -34,7 +34,7 @@ enable service for context
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 
 ### Return type
 
@@ -112,35 +112,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## create_job
-
-> create_job(job_id, create_job_request)
-create job for async execution
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **uuid::Uuid** | job id | [required] |
-**create_job_request** | Option<[**CreateJobRequest**](CreateJobRequest.md)> | create a new job |  |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## create_root_ingress
 
 > models::IngressResponse create_root_ingress(domain, create_ingress_request)
@@ -170,6 +141,35 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## create_task
+
+> create_task(task_id, create_task_request)
+create task for async execution
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**task_id** | **String** | task id | [required] |
+**create_task_request** | Option<[**CreateTaskRequest**](CreateTaskRequest.md)> | create a new task |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## delete_context
 
 > delete_context(context_id)
@@ -180,7 +180,7 @@ delete context
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 
 ### Return type
 
@@ -265,7 +265,7 @@ get context information
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 
 ### Return type
 
@@ -339,34 +339,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_job_history
-
-> get_job_history(job_id)
-get execution history
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **uuid::Uuid** | job id | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## get_root_ingress
 
 > models::IngressResponse get_root_ingress(domain)
@@ -391,6 +363,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_task_history
+
+> get_task_history(task_id)
+get execution history
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**task_id** | **String** | task id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -450,21 +450,21 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## pull_job_from_queue
+## pull_task_from_queue
 
-> models::PullJobFromQueue200Response pull_job_from_queue(pull_job_from_queue_request)
-pull one job from the async job queue
+> models::PullTaskFromQueue200Response pull_task_from_queue(pull_task_from_queue_request)
+pull one task from the async task queue
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**pull_job_from_queue_request** | Option<[**PullJobFromQueueRequest**](PullJobFromQueueRequest.md)> | pulls the next job |  |
+**pull_task_from_queue_request** | Option<[**PullTaskFromQueueRequest**](PullTaskFromQueueRequest.md)> | pulls the next task |  |
 
 ### Return type
 
-[**models::PullJobFromQueue200Response**](pullJobFromQueue_200_response.md)
+[**models::PullTaskFromQueue200Response**](pullTaskFromQueue_200_response.md)
 
 ### Authorization
 
@@ -490,7 +490,7 @@ update context
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context id | [required] |
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 **create_context_request** | Option<[**CreateContextRequest**](CreateContextRequest.md)> | update context |  |
 
 ### Return type

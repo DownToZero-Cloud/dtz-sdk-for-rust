@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.8
+  version: 1.0.9
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -23,7 +23,7 @@ paths:
       description: get current context
       operationId: getCurrentContext
       responses:
-        200:
+        "200":
           description: status
           content:
             application/json: 
@@ -43,7 +43,7 @@ paths:
                 alias:
                   type: string
       responses:
-        200:
+        "200":
           description: status
           content:
             application/json: 
@@ -58,11 +58,11 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            format: ContextId
           required: true
           description: context id
       responses:
-        200:
+        "200":
           description: context information
           content:
             application/json: 
@@ -77,7 +77,7 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            format: ContextId
           required: true
           description: context id
       requestBody: 
@@ -90,7 +90,7 @@ paths:
                 alias:
                   type: string
       responses:
-        200:
+        "200":
           description: status
           content:
             application/json: 
@@ -104,11 +104,11 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            format: ContextId
           required: true
           description: context id
       responses:
-        200:
+        "200":
           description: status
   /context/{context_id}/enableService:
     get:
@@ -118,11 +118,11 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            format: ContextId
           required: true
           description: context id
       responses:
-        200:
+        "200":
           description: context information
   /certificate:
     post:
@@ -142,16 +142,16 @@ paths:
                 domain:
                   type: string
       responses:
-        200:
+        "200":
           description: issue certificate response
-        429:
+        "429":
           description: too many certificates already issued
-  /job:
+  /task:
     post:
-      summary: pull one job from the async job queue
-      operationId: pullJobFromQueue
+      summary: pull one task from the async task queue
+      operationId: pullTaskFromQueue
       requestBody:
-        description: pulls the next job
+        description: pulls the next task
         content: 
           application/json:
             schema:
@@ -176,7 +176,7 @@ paths:
               - memCapacity
               - ecoMode
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
@@ -185,14 +185,14 @@ paths:
                 properties:
                   contextId:
                     type: string
-                    format: uuid
+                    format: ContextId
                   executionId:
                     type: string
-                    format: uuid
-                  jobId:
+                    format: ExecutionId
+                  taskId:
                     type: string
-                    format: uuid
-                  jobName:
+                    format: TaskId
+                  taskName:
                     type: string
                   containerImage:
                     type: string
@@ -207,31 +207,31 @@ paths:
                 required:
                 - contextId
                 - executionId
-                - jobId
-                - jobName
+                - taskId
+                - taskName
                 - containerImage
-        204:
+        "204":
           description: nothing found
-  /job/{job_id}:
+  /task/{task_id}:
     post:
-      summary: create job for async execution
-      operationId: createJob
+      summary: create task for async execution
+      operationId: createTask
       parameters:
         - in: path
-          name: job_id
+          name: task_id
           schema:
             type: string
-            format: uuid
+            format: TaskId
           required: true
-          description: job id
+          description: task id
       requestBody:
-        description: create a new job
+        description: create a new task
         content: 
           application/json:
             schema:
               type: object
               properties:
-                jobName:
+                taskName:
                   type: string
                 service:
                   description: origin service, like dtz-flows, dtz-containers
@@ -244,7 +244,7 @@ paths:
                   format: dateTime
                 requireEcoMode:
                   type: boolean
-                jobDefinition:
+                taskDefinition:
                   type: object
                   properties:
                     containerImage:
@@ -260,35 +260,35 @@ paths:
                   required:
                   - containerImage
               required:
-              - jobName
+              - taskName
               - service
               - earliestStart
               - latestStart
               - requireEcoMode
-              - jobDefinition
+              - taskDefinition
       responses:
-        200:
+        "200":
           description: success
     get:
       summary: get execution history
-      operationId: getJobHistory
+      operationId: getTaskHistory
       parameters:
         - in: path
-          name: job_id
+          name: task_id
           schema:
             type: string
-            format: uuid
+            format: TaskId
           required: true
-          description: job id
+          description: task id
       responses:
-        200:
+        "200":
           description: success
   /ingress:
     get:
       summary: list all ingress
       operationId: listIngress
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -308,7 +308,7 @@ paths:
           required: true
           description: domain name
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json: 
@@ -331,7 +331,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateIngressRequest'
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -348,7 +348,7 @@ paths:
           required: true
           description: domain name
       responses:
-        200:
+        "200":
           description: status
   /ingress/{domain}/{uri}:
     get:
@@ -368,7 +368,7 @@ paths:
           required: true
           description: uri
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json: 
@@ -397,7 +397,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CreateIngressRequest'
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -420,7 +420,7 @@ paths:
           required: true
           description: uri
       responses:
-        200:
+        "200":
           description: status
 components:
   schemas:
@@ -429,7 +429,7 @@ components:
       properties:
         contextId:
           type: string
-          format: uuid
+          format: ContextId
         created:
           type: string
           format: date-time
