@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: DTZ RSS2Email Api
   version: 1.0.4
@@ -13,16 +13,16 @@ servers:
 - url: https://rss2email.dtz.rocks/api/{version}
   variables:
     version:
-      default: 2021-02-01
+      default: "2021-02-01"
       enum:
-        - 2021-02-01
+        - "2021-02-01"
 paths:
   /enable:
     post:
       summary: enable the service
       operationId: enableService
       responses:
-        200:
+        "200":
           description: success
   /rss2email/discover:
     post:
@@ -40,7 +40,7 @@ paths:
               required:
               - url
       responses:
-        200:
+        "200":
           description: discover response
           content: 
             application/json:
@@ -56,7 +56,7 @@ paths:
       summary: list all feeds
       operationId: listFeed
       responses:
-        200:
+        "200":
           description: feed data
           content:
             application/json:
@@ -72,7 +72,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeedRequest'
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -87,11 +87,11 @@ paths:
           name: feed_id
           schema:
             type: string
-            format: uuid
+            format: FeedId
           required: true
           description: feed id
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -105,7 +105,7 @@ paths:
           name: feed_id
           schema:
             type: string
-            format: uuid
+            format: FeedId
           required: true
           description: feed id
       requestBody:
@@ -115,7 +115,7 @@ paths:
             schema:
               $ref: '#/components/schemas/FeedRequest'
       responses:
-        200:
+        "200":
           description: feed update successful
     delete:
       summary: delete feed
@@ -125,11 +125,11 @@ paths:
           name: feed_id
           schema:
             type: string
-            format: uuid
+            format: FeedId
           required: true
           description: feed id
       responses:
-        200:
+        "200":
           description: feed update successful
   /rss2email/feed/{feed_id}/disable:
     post:
@@ -140,11 +140,11 @@ paths:
           name: feed_id
           schema:
             type: string
-            format: uuid
+            format: FeedId
           required: true
           description: feed id
       responses:
-        200:
+        "200":
           description: feed update successful
   /rss2email/feed/{feed_id}/enable:
     post:
@@ -155,18 +155,18 @@ paths:
           name: feed_id
           schema:
             type: string
-            format: uuid
+            format: FeedId
           required: true
           description: feed id
       responses:
-        200:
+        "200":
           description: feed update successful
   /rss2email/profile:
     get:
       summary: get profile
       operationId: getProfile
       responses:
-        200:
+        "200":
           description: profile response
           content: 
             application/json:
@@ -182,21 +182,14 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
       responses:
-        200:
-          description: success
-  /rss2email/profile/cancelSubscription:
-    post:
-      summary: cancel current subscription
-      operationId: cancelSubscription
-      responses:
-        200:
+        "200":
           description: success
   /stats:
     get:
       summary: get service statistics
       operationId: getStats
       responses:
-        200:
+        "200":
           description: service statistics
 components:
   schemas:
@@ -220,7 +213,7 @@ components:
       properties:
         id:
           type: string
-          format: uuid
+          format: FeedId
         url:
           type: string
         lastCheck:

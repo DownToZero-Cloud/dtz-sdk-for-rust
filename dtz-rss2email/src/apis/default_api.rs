@@ -41,13 +41,6 @@ fn build_url(config: &Configuration) -> String {
 }
 
 
-/// struct for typed errors of method [`cancel_subscription`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CancelSubscriptionError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`create_feed`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -132,36 +125,6 @@ pub enum UpdateFeedError {
     UnknownValue(serde_json::Value),
 }
 
-
-pub async fn cancel_subscription(configuration: &Configuration, ) -> Result<(), Error<CancelSubscriptionError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/rss2email/profile/cancelSubscription", build_url(configuration));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<CancelSubscriptionError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
-}
 
 pub async fn create_feed(configuration: &Configuration, feed_request: Option<crate::models::FeedRequest>) -> Result<models::Feed, Error<CreateFeedError>> {
     let local_var_configuration = configuration;

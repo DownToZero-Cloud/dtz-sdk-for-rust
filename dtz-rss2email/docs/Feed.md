@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | [**uuid::Uuid**](uuid::Uuid.md) |  | 
+**id** | **String** |  | 
 **url** | **String** |  | 
 **last_check** | **String** |  | 
 **last_data_found** | **String** |  | 

@@ -4,7 +4,6 @@ All URIs are relative to *https://rss2email.dtz.rocks/api/2021-02-01*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancel_subscription**](DefaultApi.md#cancel_subscription) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
 [**create_feed**](DefaultApi.md#create_feed) | **POST** /rss2email/feed | create feed subscription
 [**delete_feed**](DefaultApi.md#delete_feed) | **DELETE** /rss2email/feed/{feed_id} | delete feed
 [**disable_feed**](DefaultApi.md#disable_feed) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
@@ -18,31 +17,6 @@ Method | HTTP request | Description
 [**post_profile**](DefaultApi.md#post_profile) | **POST** /rss2email/profile | post a profile
 [**update_feed**](DefaultApi.md#update_feed) | **POST** /rss2email/feed/{feed_id} | update feed
 
-
-
-## cancel_subscription
-
-> cancel_subscription()
-cancel current subscription
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_feed
@@ -83,7 +57,7 @@ delete feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
+**feed_id** | **String** | feed id | [required] |
 
 ### Return type
 
@@ -111,7 +85,7 @@ disable feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
+**feed_id** | **String** | feed id | [required] |
 
 ### Return type
 
@@ -167,7 +141,7 @@ enable feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
+**feed_id** | **String** | feed id | [required] |
 
 ### Return type
 
@@ -220,7 +194,7 @@ get feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
+**feed_id** | **String** | feed id | [required] |
 
 ### Return type
 
@@ -351,7 +325,7 @@ update feed
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**feed_id** | **uuid::Uuid** | feed id | [required] |
+**feed_id** | **String** | feed id | [required] |
 **feed_request** | Option<[**FeedRequest**](FeedRequest.md)> | update feed request |  |
 
 ### Return type

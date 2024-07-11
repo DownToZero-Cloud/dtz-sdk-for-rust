@@ -6,7 +6,7 @@ members = [
     "dtz-config",
     "dtz-containerregistry",
     "dtz-containers",
-    "dtz-core",
+    "dtz-core", "dtz-identifier",
     "dtz-identity",
     "dtz-objectstore",
     "dtz-observability",

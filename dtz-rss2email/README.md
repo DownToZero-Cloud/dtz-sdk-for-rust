@@ -25,7 +25,6 @@ All URIs are relative to *https://rss2email.dtz.rocks/api/2021-02-01*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**cancel_subscription**](docs/DefaultApi.md#cancel_subscription) | **POST** /rss2email/profile/cancelSubscription | cancel current subscription
 *DefaultApi* | [**create_feed**](docs/DefaultApi.md#create_feed) | **POST** /rss2email/feed | create feed subscription
 *DefaultApi* | [**delete_feed**](docs/DefaultApi.md#delete_feed) | **DELETE** /rss2email/feed/{feed_id} | delete feed
 *DefaultApi* | [**disable_feed**](docs/DefaultApi.md#disable_feed) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
