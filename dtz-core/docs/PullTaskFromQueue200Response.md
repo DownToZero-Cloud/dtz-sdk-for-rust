@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **context_id** | [**dtz_identifier::ContextId**](dtz_identifier::ContextId.md) |  | 
-**execution_id** | **String** |  | 
+**execution_id** | [**dtz_identifier::ExecutionId**](dtz_identifier::ExecutionId.md) |  | 
 **task_id** | [**dtz_identifier::TaskId**](dtz_identifier::TaskId.md) |  | 
 **task_name** | **String** |  | 
 **container_image** | **String** |  | 
