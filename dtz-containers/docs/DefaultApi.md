@@ -147,7 +147,7 @@ delete single job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **String** | uuid of the job | [required] |
+**job_id** | **dtz_identifier::JobId** | uuid of the job | [required] |
 
 ### Return type
 
@@ -175,7 +175,7 @@ delete service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **String** | service id | [required] |
+**service_id** | **dtz_identifier::ServiceId** | service id | [required] |
 
 ### Return type
 
@@ -306,7 +306,7 @@ get single job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **String** | uuid of the job | [required] |
+**job_id** | **dtz_identifier::JobId** | uuid of the job | [required] |
 
 ### Return type
 
@@ -359,7 +359,7 @@ get service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **String** | service id | [required] |
+**service_id** | **dtz_identifier::ServiceId** | service id | [required] |
 
 ### Return type
 
@@ -412,7 +412,7 @@ trigger single job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **String** | uuid of the job | [required] |
+**job_id** | **dtz_identifier::JobId** | uuid of the job | [required] |
 
 ### Return type
 
@@ -440,7 +440,7 @@ update single job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**job_id** | **String** | uuid of the job | [required] |
+**job_id** | **dtz_identifier::JobId** | uuid of the job | [required] |
 
 ### Return type
 
@@ -468,7 +468,7 @@ update service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **String** | service id | [required] |
+**service_id** | **dtz_identifier::ServiceId** | service id | [required] |
 **update_service_request** | Option<[**UpdateServiceRequest**](UpdateServiceRequest.md)> | update request |  |
 
 ### Return type

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **context_id** | [**dtz_identifier::ContextId**](dtz_identifier::ContextId.md) |  | 
-**service_id** | **String** |  | 
+**service_id** | [**dtz_identifier::ServiceId**](dtz_identifier::ServiceId.md) |  | 
 **created** | **String** |  | 
 **prefix** | **String** |  | 
 **container_image** | **String** |  | 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | **String** |  | 
+**job_id** | [**dtz_identifier::JobId**](dtz_identifier::JobId.md) |  | 
 **job_name** | **String** |  | 
 **job_image** | **String** |  | 
 **job_pull_user** | Option<**String**> |  | [optional]

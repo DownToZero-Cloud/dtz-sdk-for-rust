@@ -19,7 +19,7 @@ pub struct Service {
     #[serde(rename = "contextId")]
     pub context_id: dtz_identifier::ContextId,
     #[serde(rename = "serviceId")]
-    pub service_id: String,
+    pub service_id: dtz_identifier::ServiceId,
     #[serde(rename = "created")]
     pub created: String,
     #[serde(rename = "prefix")]
@@ -39,7 +39,7 @@ pub struct Service {
 }
 
 impl Service {
-    pub fn new(context_id: dtz_identifier::ContextId, service_id: String, created: String, prefix: String, container_image: String) -> Service {
+    pub fn new(context_id: dtz_identifier::ContextId, service_id: dtz_identifier::ServiceId, created: String, prefix: String, container_image: String) -> Service {
         Service {
             context_id,
             service_id,

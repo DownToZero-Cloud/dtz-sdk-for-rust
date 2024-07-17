@@ -14,6 +14,7 @@ pub use context_id::*;
 pub use execution_id::*;
 pub use feed_id::*;
 pub use identity_id::*;
+pub use job_id::*;
 pub use object_id::*;
 pub use role_id::*;
 pub use service_id::*;

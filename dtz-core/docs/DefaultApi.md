@@ -151,7 +151,7 @@ create task for async execution
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**task_id** | **String** | task id | [required] |
+**task_id** | **dtz_identifier::TaskId** | task id | [required] |
 **create_task_request** | Option<[**CreateTaskRequest**](CreateTaskRequest.md)> | create a new task |  |
 
 ### Return type
@@ -377,7 +377,7 @@ get execution history
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**task_id** | **String** | task id | [required] |
+**task_id** | **dtz_identifier::TaskId** | task id | [required] |
 
 ### Return type
 

@@ -17,7 +17,7 @@ use crate::models;
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Role {
     #[serde(rename = "roleId")]
-    pub role_id: String,
+    pub role_id: dtz_identifier::RoleId,
     #[serde(rename = "roleAlias")]
     pub role_alias: String,
     #[serde(rename = "roleScope")]
@@ -31,7 +31,7 @@ pub struct Role {
 }
 
 impl Role {
-    pub fn new(role_id: String, role_alias: String, role_scope: String, exposure: String) -> Role {
+    pub fn new(role_id: dtz_identifier::RoleId, role_alias: String, role_scope: String, exposure: String) -> Role {
         Role {
             role_id,
             role_alias,

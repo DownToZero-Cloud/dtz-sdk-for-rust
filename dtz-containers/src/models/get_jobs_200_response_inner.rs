@@ -17,7 +17,7 @@ use crate::models;
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetJobs200ResponseInner {
     #[serde(rename = "jobId")]
-    pub job_id: String,
+    pub job_id: dtz_identifier::JobId,
     #[serde(rename = "jobName")]
     pub job_name: String,
     #[serde(rename = "jobImage")]
@@ -37,7 +37,7 @@ pub struct GetJobs200ResponseInner {
 }
 
 impl GetJobs200ResponseInner {
-    pub fn new(job_id: String, job_name: String, job_image: String, schedule_type: String) -> GetJobs200ResponseInner {
+    pub fn new(job_id: dtz_identifier::JobId, job_name: String, job_image: String, schedule_type: String) -> GetJobs200ResponseInner {
         GetJobs200ResponseInner {
             job_id,
             job_name,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**role_id** | **String** |  | 
+**role_id** | [**dtz_identifier::RoleId**](dtz_identifier::RoleId.md) |  | 
 **role_alias** | **String** |  | 
 **role_scope** | **String** |  | 
 **context_id** | Option<[**dtz_identifier::ContextId**](dtz_identifier::ContextId.md)> |  | [optional]

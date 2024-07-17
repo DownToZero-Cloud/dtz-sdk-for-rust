@@ -35,7 +35,7 @@ create role assignment
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**role_id** | **String** | role id | [required] |
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
 
 ### Return type
 
@@ -427,7 +427,7 @@ remove role assignment from identity
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**role_id** | **String** | role id | [required] |
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
 
 ### Return type
 

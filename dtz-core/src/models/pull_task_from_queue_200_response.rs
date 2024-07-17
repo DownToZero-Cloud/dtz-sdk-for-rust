@@ -21,7 +21,7 @@ pub struct PullTaskFromQueue200Response {
     #[serde(rename = "executionId")]
     pub execution_id: String,
     #[serde(rename = "taskId")]
-    pub task_id: String,
+    pub task_id: dtz_identifier::TaskId,
     #[serde(rename = "taskName")]
     pub task_name: String,
     #[serde(rename = "containerImage")]
@@ -37,7 +37,7 @@ pub struct PullTaskFromQueue200Response {
 }
 
 impl PullTaskFromQueue200Response {
-    pub fn new(context_id: dtz_identifier::ContextId, execution_id: String, task_id: String, task_name: String, container_image: String) -> PullTaskFromQueue200Response {
+    pub fn new(context_id: dtz_identifier::ContextId, execution_id: String, task_id: dtz_identifier::TaskId, task_name: String, container_image: String) -> PullTaskFromQueue200Response {
         PullTaskFromQueue200Response {
             context_id,
             execution_id,
