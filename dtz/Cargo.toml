@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.5.7"
+version = "0.5.8"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"
