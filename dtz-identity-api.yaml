@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.8
+  version: 1.0.9
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -22,7 +22,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ApikeyRequest'
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -40,13 +40,13 @@ paths:
               $ref: '#/components/schemas/SignupRequest'
         required: true
       responses:
-        200:
+        "200":
           description: user created
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-        500:
+        "500":
           description: server error
           content:
             application/json:
@@ -57,7 +57,7 @@ paths:
       summary: list user authentications
       operationId: listAuthentication
       responses:
-        200:
+        "200":
           description: list of authentication
     post:
       summary: update the user authentication, aka change you password
@@ -76,7 +76,7 @@ paths:
                 newPassword:
                   type: string
       responses:
-        200:
+        "200":
           description: success
   /context/{context_id}:
     delete:
@@ -87,11 +87,14 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            pattern: 'context-[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}'
+            examples:
+              - sample_id:
+                value: context-01909cb6-225b-7f11-8779-c401fbee19ff
           required: true
           description: context_id
       responses:
-        200:
+        "200":
           description: status
   /context/{context_id}/new:
     post:
@@ -102,7 +105,7 @@ paths:
           name: context_id
           schema:
             type: string
-            format: uuid
+            format: ContextId
           required: true
           description: context_id
       requestBody:
@@ -112,17 +115,14 @@ paths:
             schema:
               type: object
               properties:
-                context_id:
-                  type: string
-                  format: uuid
                 identity_id:
                   type: string
-                  format: uuid
+                  format: IdentityId
                 service_principal_id:
                   type: string
-                  format: uuid
+                  format: IdentityId
       responses:
-        200:
+        "200":
           description: status
   /identity/assume:
     post: 
@@ -139,15 +139,15 @@ paths:
                   type: string
                 identity_id:
                   type: string
-                  format: uuid
+                  format: IdentityId
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-        401:
+        "401":
           description: Invalid input
           content: 
             application/json:
@@ -158,7 +158,7 @@ paths:
       summary: get account stats
       operationId: getAccountStats
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -172,7 +172,7 @@ paths:
                       properties:
                         contextId:
                           type: string
-                          format: uuid
+                          format: ContextId
                         count:
                           type: number
                   identityCount: 
@@ -184,7 +184,7 @@ paths:
       summary: delete current identity
       operationId: deleteIdentity
       responses:
-        200:
+        "200":
           description: success
   /me/identity/apikey:
     post:
@@ -199,10 +199,10 @@ paths:
               properties:
                 context_id:
                   type: string
-                  format: uuid
+                  format: ContextId
         required: true
       responses:
-        200:
+        "200":
           description: success
   /me/identity/apikey/{apikey}:
     delete:
@@ -213,11 +213,11 @@ paths:
           name: apikey
           schema:
             type: string
-            format: uuid
+            format: ApikeyId
           required: true
           description: api key
       responses:
-        200:
+        "200":
           description: success
   /me/roles/{roleId}:
     post:
@@ -228,11 +228,11 @@ paths:
           name: roleId
           schema:
             type: string
-            format: uuid
+            format: RoleId
           required: true
           description: role id
       responses:
-        200:
+        "200":
           description: success
     delete:
       summary: remove role assignment from identity
@@ -242,11 +242,11 @@ paths:
           name: roleId
           schema:
             type: string
-            format: uuid
+            format: RoleId
           required: true
           description: role id
       responses:
-        200:
+        "200":
           description: success
   /token/auth:
     post:
@@ -260,13 +260,13 @@ paths:
               $ref: '#/components/schemas/AuthRequest'
         required: true
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
-        401:
+        "401":
           description: Invalid input
           content: 
             application/json:
@@ -284,7 +284,7 @@ paths:
               $ref: '#/components/schemas/ChangeContextRequest'
         required: true
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
@@ -295,7 +295,7 @@ paths:
       summary: get roles
       operationId: getRoles
       responses:
-        200:
+        "200":
           description: success
           content:
             application/json:
@@ -341,14 +341,14 @@ paths:
           schema:
             type: string
       responses:
-        302:
+        "302":
           description: success
           headers:
             Location:
               schema:
                 type: string
               description: redirect uri
-        401:
+        "401":
           description: unauthorized
   /oauth/token:
     post:
@@ -362,7 +362,7 @@ paths:
               $ref: '#/components/schemas/OauthTokenRequest'
         required: true
       responses:
-        200:
+        "200":
           description: success
           content: 
             application/json:
@@ -377,7 +377,7 @@ components:
           type: string
         contextId:
           type: string
-          format: uuid
+          format: ContextId
       required:
       - apiKey
     ErrorResponse:
@@ -416,7 +416,7 @@ components:
       properties:
         contextId:
           type: string
-          format: uuid
+          format: ContextId
     TokenResponse:
       type: object
       properties:
@@ -437,14 +437,14 @@ components:
       properties:
         roleId:
           type: string
-          format: uuid
+          format: RoleId
         roleAlias:
           type: string
         roleScope:
           type: string
         contextId:
           type: string
-          format: uuid
+          format: ContextId
         exposure:
           type: string
         assignedToUser:

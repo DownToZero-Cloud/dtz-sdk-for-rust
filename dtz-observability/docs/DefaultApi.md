@@ -126,7 +126,7 @@ push log data
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**post_log_request_inner** | Option<[**Vec<models::PostLogRequestInner>**](postLog_request_inner.md)> | log query |  |
+**post_log_request_inner** | Option<[**Vec<models::PostLogRequestInner>**](postLog_request_inner.md)> | log data |  |
 
 ### Return type
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**role_id** | [**uuid::Uuid**](uuid::Uuid.md) |  | 
+**role_id** | **String** |  | 
 **role_alias** | **String** |  | 
 **role_scope** | **String** |  | 
-**context_id** | Option<[**uuid::Uuid**](uuid::Uuid.md)> |  | [optional]
+**context_id** | Option<[**dtz_identifier::ContextId**](dtz_identifier::ContextId.md)> |  | [optional]
 **exposure** | **String** |  | 
 **assigned_to_user** | Option<**bool**> |  | [optional]
 

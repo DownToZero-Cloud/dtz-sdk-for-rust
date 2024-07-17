@@ -35,7 +35,7 @@ create role assignment
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**role_id** | **uuid::Uuid** | role id | [required] |
+**role_id** | **String** | role id | [required] |
 
 ### Return type
 
@@ -175,7 +175,7 @@ delete api key
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**apikey** | **uuid::Uuid** | api key | [required] |
+**apikey** | **String** | api key | [required] |
 
 ### Return type
 
@@ -203,7 +203,7 @@ delete all roles attached to this context
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context_id | [required] |
+**context_id** | **String** | context_id | [required] |
 
 ### Return type
 
@@ -331,7 +331,7 @@ create identity requirements for a new context
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **uuid::Uuid** | context_id | [required] |
+**context_id** | **dtz_identifier::ContextId** | context_id | [required] |
 **new_context_request** | Option<[**NewContextRequest**](NewContextRequest.md)> | context creation request |  |
 
 ### Return type
@@ -427,7 +427,7 @@ remove role assignment from identity
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**role_id** | **uuid::Uuid** | role id | [required] |
+**role_id** | **String** | role id | [required] |
 
 ### Return type
 

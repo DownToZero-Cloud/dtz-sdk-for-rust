@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object_id** | [**uuid::Uuid**](uuid::Uuid.md) |  | 
+**id** | **String** |  | 
 **key** | **String** |  | 
 **size** | **i32** |  | 
 **size_compressed** | Option<**i32**> |  | [optional]

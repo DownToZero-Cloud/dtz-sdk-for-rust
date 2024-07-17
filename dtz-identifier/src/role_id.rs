@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 static PREFIX: &str = "role-";
 
-#[derive(Debug)]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub struct RoleId {
     pub id: Uuid,
 }

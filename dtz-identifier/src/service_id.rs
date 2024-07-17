@@ -1,28 +1,37 @@
-static PREFIX: &str = "apikey-";
+use std::fmt::Display;
+use uuid::Uuid;
+
+static PREFIX: &str = "service-";
 
 #[derive(Debug, Clone, PartialEq, Copy)]
-pub struct ApiKeyId {
-    pub id: uuid::Uuid,
+pub struct ServiceId {
+    pub id: Uuid,
 }
 
-impl std::fmt::Display for ApiKeyId {
+impl Default for ServiceId {
+    fn default() -> Self {
+        Self { id: Uuid::now_v7() }
+    }
+}
+
+impl Display for ServiceId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
 
-impl<'de> serde::Deserialize<'de> for ApiKeyId {
+impl<'de> serde::Deserialize<'de> for ServiceId {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        struct ApiKeyIdVisitor;
+        struct ServiceIdVisitor;
 
-        impl<'de> serde::de::Visitor<'de> for ApiKeyIdVisitor {
-            type Value = ApiKeyId;
+        impl<'de> serde::de::Visitor<'de> for ServiceIdVisitor {
+            type Value = ServiceId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("a string starting with 'apikey-' followed by a UUID")
+                formatter.write_str("a string starting with 'service-' followed by a UUID")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
@@ -30,19 +39,19 @@ impl<'de> serde::Deserialize<'de> for ApiKeyId {
                 E: serde::de::Error,
             {
                 if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = uuid::Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(ApiKeyId { id: uuid })
+                    let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
+                    Ok(ServiceId { id: uuid })
                 } else {
                     Err(E::custom("invalid format"))
                 }
             }
         }
 
-        deserializer.deserialize_str(ApiKeyIdVisitor)
+        deserializer.deserialize_str(ServiceIdVisitor)
     }
 }
 
-impl serde::Serialize for ApiKeyId {
+impl serde::Serialize for ServiceId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -51,8 +60,8 @@ impl serde::Serialize for ApiKeyId {
     }
 }
 
-impl From<uuid::Uuid> for ApiKeyId {
-    fn from(id: uuid::Uuid) -> Self {
-        ApiKeyId { id }
+impl From<Uuid> for ServiceId {
+    fn from(id: Uuid) -> Self {
+        ServiceId { id }
     }
 }

@@ -2,7 +2,7 @@ use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
 use std::fmt::Display;
 use uuid::Uuid;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub struct IdentityId {
     pub id: Uuid,
 }

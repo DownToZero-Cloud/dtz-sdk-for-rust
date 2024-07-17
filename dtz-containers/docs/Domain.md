@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**context_id** | [**uuid::Uuid**](uuid::Uuid.md) |  | 
+**context_id** | [**dtz_identifier::ContextId**](dtz_identifier::ContextId.md) |  | 
 **name** | **String** |  | 
 **verified** | **bool** |  | 
 **created** | **String** |  | 

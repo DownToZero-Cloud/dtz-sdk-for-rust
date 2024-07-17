@@ -1,6 +1,6 @@
 [package]
 name = "dtz-identity"
-version = "1.0.8"
+version = "1.0.9"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Identity API"
 license = "MIT OR Apache-2.0"
@@ -9,6 +9,7 @@ rust-version.workspace = true
 
 [dependencies]
 dtz-config = { workspace = true }
+dtz-identifier = { workspace = true }
 serde = { workspace = true }
 serde_derive = { workspace = true }
 serde_json = { workspace = true }

@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 static PREFIX: &str = "execution-";
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub struct ExecutionId {
     pub id: Uuid,
 }

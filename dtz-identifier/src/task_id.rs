@@ -3,7 +3,7 @@ use uuid::Uuid;
 
 static PREFIX: &str = "task-";
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, PartialEq, Copy)]
 pub struct TaskId {
     pub id: Uuid,
 }

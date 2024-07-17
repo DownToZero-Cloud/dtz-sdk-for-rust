@@ -175,7 +175,7 @@ delete service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **uuid::Uuid** | service id | [required] |
+**service_id** | **String** | service id | [required] |
 
 ### Return type
 
@@ -359,7 +359,7 @@ get service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **uuid::Uuid** | service id | [required] |
+**service_id** | **String** | service id | [required] |
 
 ### Return type
 
@@ -468,7 +468,7 @@ update service
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**service_id** | **uuid::Uuid** | service id | [required] |
+**service_id** | **String** | service id | [required] |
 **update_service_request** | Option<[**UpdateServiceRequest**](UpdateServiceRequest.md)> | update request |  |
 
 ### Return type
