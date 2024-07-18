@@ -34,7 +34,7 @@ dtz-billing = { version = "=1.0.0", optional = true, path = "../dtz-billing" }
 dtz-config = { workspace = true }
 dtz-containerregistry = { version = "=1.0.0", optional = true, path = "../dtz-containerregistry" }
 dtz-containers = { workspace = true, optional = true }
-dtz-core = { version = "=1.0.10", optional = true, path = "../dtz-core" }
+dtz-core = { workspace = true, optional = true }
 dtz-identifier = { workspace = true }
 dtz-identity = { workspace = true, optional = true }
 dtz-objectstore = { version = "=1.0.5", optional = true, path = "../dtz-objectstore" }
