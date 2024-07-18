@@ -16,7 +16,7 @@ resolver = "2"
 
 [workspace.dependencies]
 dtz-config = { version = "=1.0.1", path = "./dtz-config" }
-dtz-identifier = { version = "=1.0.5", path = "./dtz-identifier" }
+dtz-identifier = { version = "=1.0.6", path = "./dtz-identifier" }
 serde = "^1.0"
 serde_derive = "^1.0"
 serde_json = "^1.0"

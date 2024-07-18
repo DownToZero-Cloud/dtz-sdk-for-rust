@@ -1,6 +1,8 @@
-use std::fmt::Display;
 use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
+use std::fmt::Display;
 use uuid::Uuid;
+
+static PREFIX: &str = "context-";
 
 #[derive(Debug, Clone, PartialEq, Copy)]
 pub struct ContextId {
@@ -15,7 +17,7 @@ impl Default for ContextId {
 
 impl Display for ContextId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&format!("context-{}", self.id))
+        f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
 
@@ -37,7 +39,7 @@ impl<'de> Deserialize<'de> for ContextId {
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix("context-") {
+                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
                     let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
                     Ok(ContextId { id: uuid })
                 } else {
@@ -70,4 +72,46 @@ fn test_from() {
     let uuid = Uuid::now_v7();
     let ctx = ContextId::from(uuid);
     assert_eq!(ctx.id, uuid);
+}
+
+impl TryFrom<&str> for ContextId {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
+            let uuid =
+                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
+            Ok(ContextId { id: uuid })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
+#[test]
+fn key_invalid_1() {
+    let k = "abc-dsfdg";
+    let apikey: Result<ContextId, String> = ContextId::try_from(k);
+    assert!(apikey.is_err())
+}
+
+#[test]
+fn key_invalid_2() {
+    let k = "context-dsfdg";
+    let apikey: Result<ContextId, String> = ContextId::try_from(k);
+    assert!(apikey.is_err())
+}
+
+#[test]
+fn key_valid_1() {
+    let k = "context-0190c589-eb70-7980-97cf-af67b3a84116";
+    let apikey: Result<ContextId, String> = ContextId::try_from(k);
+    assert!(apikey.is_ok())
+}
+
+#[test]
+fn key_invalid_3() {
+    let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
+    let apikey: Result<ContextId, String> = ContextId::try_from(k);
+    assert!(apikey.is_err())
 }

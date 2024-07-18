@@ -7,7 +7,9 @@ pub struct ApiKeyId {
 
 impl Default for ApiKeyId {
     fn default() -> Self {
-        Self { id: uuid::Uuid::now_v7() }
+        Self {
+            id: uuid::Uuid::now_v7(),
+        }
     }
 }
 
@@ -68,7 +70,8 @@ impl TryFrom<&str> for ApiKeyId {
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-            let uuid = uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
+            let uuid =
+                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
             Ok(ApiKeyId { id: uuid })
         } else {
             Err("invalid format".to_string())
@@ -77,29 +80,29 @@ impl TryFrom<&str> for ApiKeyId {
 }
 
 #[test]
-fn key_invalid_1(){
+fn key_invalid_1() {
     let k = "abc-dsfdg";
-    let apikey: Result<ApiKeyId,String> = ApiKeyId::try_from(k);
+    let apikey: Result<ApiKeyId, String> = ApiKeyId::try_from(k);
     assert!(apikey.is_err())
 }
 
 #[test]
-fn key_invalid_2(){
+fn key_invalid_2() {
     let k = "apikey-dsfdg";
-    let apikey: Result<ApiKeyId,String> = ApiKeyId::try_from(k);
+    let apikey: Result<ApiKeyId, String> = ApiKeyId::try_from(k);
     assert!(apikey.is_err())
 }
 
 #[test]
-fn key_valid_1(){
+fn key_valid_1() {
     let k = "apikey-0190c589-eb70-7980-97cf-af67b3a84116";
-    let apikey: Result<ApiKeyId,String> = ApiKeyId::try_from(k);
+    let apikey: Result<ApiKeyId, String> = ApiKeyId::try_from(k);
     assert!(apikey.is_ok())
 }
 
 #[test]
-fn key_invalid_3(){
+fn key_invalid_3() {
     let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
-    let apikey: Result<ApiKeyId,String> = ApiKeyId::try_from(k);
+    let apikey: Result<ApiKeyId, String> = ApiKeyId::try_from(k);
     assert!(apikey.is_err())
 }
