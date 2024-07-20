@@ -224,7 +224,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containers"
-version = "1.0.8"
+version = "1.0.9"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
