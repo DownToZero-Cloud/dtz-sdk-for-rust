@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 static PREFIX: &str = "context-";
 
-#[derive(Debug, Clone, PartialEq, Copy, Eq)]
+#[derive(Debug, Clone, PartialEq, Copy, Eq, Hash)]
 pub struct ContextId {
     pub id: Uuid,
 }
