@@ -261,7 +261,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-identity"
-version = "1.0.12"
+version = "1.0.13"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
