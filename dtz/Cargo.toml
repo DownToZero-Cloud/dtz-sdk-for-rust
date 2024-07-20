@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "0.5.11"
+version = "0.5.12"
 edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"
@@ -30,16 +30,16 @@ observability = ["dep:dtz-observability"]
 rss2email = ["dep:dtz-rss2email"]
 
 [dependencies]
-dtz-billing = { version = "=1.0.0", optional = true, path = "../dtz-billing" }
+dtz-billing = { workspace = true, optional = true }
 dtz-config = { workspace = true }
-dtz-containerregistry = { version = "=1.0.0", optional = true, path = "../dtz-containerregistry" }
+dtz-containerregistry = { workspace = true, optional = true }
 dtz-containers = { workspace = true, optional = true }
 dtz-core = { workspace = true, optional = true }
-dtz-identifier = { workspace = true }
+dtz-identifier = { workspace = true, optional = true }
 dtz-identity = { workspace = true, optional = true }
-dtz-objectstore = { version = "=1.0.5", optional = true, path = "../dtz-objectstore" }
-dtz-observability = { version = "=1.0.1", optional = true, path = "../dtz-observability" }
-dtz-rss2email = { version = "=1.0.5", optional = true, path = "../dtz-rss2email" }
+dtz-objectstore = { workspace = true, optional = true }
+dtz-observability = { workspace = true, optional = true }
+dtz-rss2email = { workspace = true, optional = true }
 
 [package.metadata.docs.rs]
 all-features = true

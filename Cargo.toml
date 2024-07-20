@@ -15,11 +15,16 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-dtz-config = { version = "=1.0.1", path = "./dtz-config" }
-dtz-containers = { version = "=1.0.8", path = "./dtz-containers" }
-dtz-core = { version = "=1.0.11", path = "./dtz-core" }
+dtz-billing = { path = "./dtz-billing" }
+dtz-config = { path = "./dtz-config" }
+dtz-containerregistry = { path = "./dtz-containerregistry" }
+dtz-containers = { path = "./dtz-containers" }
+dtz-core = { path = "./dtz-core" }
 dtz-identifier = { path = "./dtz-identifier" }
-dtz-identity = { version = "=1.0.11", path = "./dtz-identity" }
+dtz-identity = { path = "./dtz-identity" }
+dtz-objectstore = { path = "./dtz-objectstore" }
+dtz-observability = { path = "./dtz-observability" }
+dtz-rss2email = { path = "./dtz-rss2email" }
 serde = "^1.0"
 serde_derive = "^1.0"
 serde_json = "^1.0"
