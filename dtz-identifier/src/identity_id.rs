@@ -2,6 +2,8 @@ use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
 use std::fmt::Display;
 use uuid::Uuid;
 
+static PREFIX: &str = "identity-";
+
 #[derive(Debug, Clone, PartialEq, Copy)]
 pub struct IdentityId {
     pub id: Uuid,
@@ -9,7 +11,7 @@ pub struct IdentityId {
 
 impl Display for IdentityId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.write_str(&format!("ident-{}", self.id))
+        f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
 
@@ -30,14 +32,14 @@ impl<'de> Deserialize<'de> for IdentityId {
             type Value = IdentityId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("a string starting with 'ident-' followed by a UUID")
+                formatter.write_str("a string starting with 'identity-' followed by a UUID")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix("ident-") {
+                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
                     let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
                     Ok(IdentityId { id: uuid })
                 } else {
@@ -65,10 +67,24 @@ impl From<Uuid> for IdentityId {
     }
 }
 
+impl TryFrom<&str> for IdentityId {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
+            let uuid =
+                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
+            Ok(IdentityId { id: uuid })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
 #[test]
 fn id_tostring() {
     let id = IdentityId::default();
     let full_id = format!("{id}");
     println!("full-id: {full_id}");
-    assert!(full_id.starts_with("ident-"));
+    assert!(full_id.starts_with(PREFIX));
 }
