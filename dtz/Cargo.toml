@@ -35,7 +35,7 @@ dtz-config = { workspace = true }
 dtz-containerregistry = { workspace = true, optional = true }
 dtz-containers = { workspace = true, optional = true }
 dtz-core = { workspace = true, optional = true }
-dtz-identifier = { workspace = true, optional = true }
+dtz-identifier = { workspace = true }
 dtz-identity = { workspace = true, optional = true }
 dtz-objectstore = { workspace = true, optional = true }
 dtz-observability = { workspace = true, optional = true }
