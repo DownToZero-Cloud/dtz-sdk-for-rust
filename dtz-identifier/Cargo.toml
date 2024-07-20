@@ -8,5 +8,5 @@ description = "identifier crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-serde = { version = "1" }
-uuid = { version = "1", features = ["serde", "v7"] }
+serde = { workspace = true }
+uuid = { workspace = true }
