@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.12
+  version: 1.0.14
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -430,6 +430,9 @@ components:
         contextId:
           type: string
           format: ContextId
+        owner:
+          type: string
+          format: IdentityId
         created:
           type: string
           format: date-time
@@ -437,6 +440,7 @@ components:
           type: string
       required:
       - contextId
+      - owner
       - created
     CreateIngressRequest: 
       type: object

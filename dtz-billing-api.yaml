@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 1.0.0
+  version: 1.0.1
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0
@@ -13,9 +13,9 @@ servers:
 - url: https://billing.dtz.rocks/api/{version}
   variables:
     version:
-      default: 2022-12-28
+      default: "2022-12-28"
       enum:
-        - 2022-12-28
+        - "2022-12-28"
 paths:
   /stats:
     get:
@@ -34,6 +34,19 @@ paths:
                   ts:
                     type: string
                     format: date-time
+  /transaction:
+    get:
+      summary: get a transaction listing of all incoming and outgoing charges
+      operationId: listTransactions
+      responses:
+        200:
+          description: success
+          content:
+            application/json: 
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
   /usage:
     post:
       summary: post new service usage
@@ -41,6 +54,12 @@ paths:
         post new service usage
         This endpoint cannot be used with service credentials. Only system credentials can update service usage.
       operationId: postUsage
+      requestBody: 
+        description: register a new domain within dtz
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usage'
       responses:
         200:
           description: success
@@ -54,6 +73,39 @@ paths:
         200:
           description: success
 components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        service:
+          type: string
+        contextId:
+          type: string
+        ts:
+          type: string
+        amountMoney:
+          type: number
+    Usage:
+      type: object
+      properties:
+        service:
+          type: string
+        contextId:
+          type: string
+          format: ContextId
+        ts:
+          type: string
+        amount:
+          type: integer
+        unitOfAmount:
+          type: string
+          enum:
+            - "GbSeconds"
+            - "Requests"
+            - "MilliSeconds"
+            - "Watt"
+        amountMoney:
+          type: number
   securitySchemes:
     dtz_auth:
       type: apiKey

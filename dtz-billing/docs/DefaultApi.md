@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**charge_stripe_post**](DefaultApi.md#charge_stripe_post) | **POST** /charge/stripe | stripe webhook
 [**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get stats
+[**list_transactions**](DefaultApi.md#list_transactions) | **GET** /transaction | get a transaction listing of all incoming and outgoing charges
 [**post_usage**](DefaultApi.md#post_usage) | **POST** /usage | post new service usage
 
 
@@ -62,16 +63,44 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_transactions
+
+> Vec<models::Transaction> list_transactions()
+get a transaction listing of all incoming and outgoing charges
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::Transaction>**](Transaction.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## post_usage
 
-> post_usage()
+> post_usage(usage)
 post new service usage
 
 post new service usage This endpoint cannot be used with service credentials. Only system credentials can update service usage. 
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**usage** | Option<[**Usage**](Usage.md)> | register a new domain within dtz |  |
 
 ### Return type
 
@@ -83,7 +112,7 @@ This endpoint does not need any parameter.
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
