@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**charge_stripe_post**](DefaultApi.md#charge_stripe_post) | **POST** /charge/stripe | stripe webhook
 [**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get stats
 [**list_transactions**](DefaultApi.md#list_transactions) | **GET** /transaction | get a transaction listing of all incoming and outgoing charges
-[**post_usage**](DefaultApi.md#post_usage) | **POST** /usage | post new service usage
+[**post_consumption**](DefaultApi.md#post_consumption) | **POST** /consumption | post new service consumption
 
 
 
@@ -88,19 +88,19 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## post_usage
+## post_consumption
 
-> post_usage(usage)
-post new service usage
+> post_consumption(consumption)
+post new service consumption
 
-post new service usage This endpoint cannot be used with service credentials. Only system credentials can update service usage. 
+post new service consumption This endpoint cannot be used with service credentials. Only system credentials can update service consumption. 
 
 ### Parameters
 
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**usage** | Option<[**Usage**](Usage.md)> | register a new domain within dtz |  |
+**consumption** | Option<[**Consumption**](Consumption.md)> |  |  |
 
 ### Return type
 

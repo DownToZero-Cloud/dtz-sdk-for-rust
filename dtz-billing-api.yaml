@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0
@@ -47,19 +47,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Transaction'
-  /usage:
+  /consumption:
     post:
-      summary: post new service usage
+      summary: post new service consumption
       description: |
-        post new service usage
-        This endpoint cannot be used with service credentials. Only system credentials can update service usage.
-      operationId: postUsage
-      requestBody: 
-        description: register a new domain within dtz
+        post new service consumption
+        This endpoint cannot be used with service credentials. Only system credentials can update service consumption.
+      operationId: postConsumption
+      requestBody:
         content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/Usage'
+              $ref: '#/components/schemas/Consumption'
       responses:
         200:
           description: success
@@ -85,7 +84,7 @@ components:
           type: string
         amountMoney:
           type: number
-    Usage:
+    Consumption:
       type: object
       properties:
         service:
@@ -93,6 +92,10 @@ components:
         contextId:
           type: string
           format: ContextId
+        deduplicationKey:
+          type: string
+        description:
+          type: string
         ts:
           type: string
         amount:
@@ -106,6 +109,11 @@ components:
             - "Watt"
         amountMoney:
           type: number
+      required:
+        - service
+        - contextId
+        - amount
+        - unitOfAmount
   securitySchemes:
     dtz_auth:
       type: apiKey
