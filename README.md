@@ -1,15 +1,49 @@
-# API client generation
+# DownToZero Cloud SDK
 
-use `generate.sh` for client generation.
+[![Latest Version](https://img.shields.io/crates/v/dtz.svg)](https://crates.io/crates/dtz)
 
-# terraform provider generation
+A base crate for the DownToZero Cloud SDK
+
+## Exposed functionality
+
+The `dtz`-crate only exposes the `dtz-config` crate which covers the API client and authentication requirements.
+
+All service specific functionality is exposed through features.
+
+### Features
+
+* containers
+* core
+* identity
+* full (contains all features at once)
+* objectstore
+* observability
+* rss2mail
+
+## Examples
+
+Retrieving the current Context.
 
 ```
-~/go/bin/tfplugingen-openapi generate --config dtz-rss2email-tf-config.yaml --output dtz-rss2email-provider-code-spec.json dtz-rss2email-api.yaml
+[dependencies]
+tokio = { version = "1", features = ["full] }
+dtz = { version = "*", features = ["core"] }
 ```
 
-```
-~/go/bin/tfplugingen-framework generate all \
-    --input dtz-rss2email-provider-code-spec.json \
-    --output internal/provider
+```rust
+#[tokio::main]
+use std::str::FromStr;
+use uuid::Uuid;
+
+async fn main() {
+    let config = dtz::Configuration {
+        api_key: Some("some api key".to_string()),
+        ..Default::default()
+    };
+    let ctx_id = "00000000-0000-0000-0000-000000000000";
+    let result = dtz::core::apis::default_api::get_context(&config, ctx_id)
+        .await
+        .unwrap();
+    println!("result: {result:?}");
+}
 ```
