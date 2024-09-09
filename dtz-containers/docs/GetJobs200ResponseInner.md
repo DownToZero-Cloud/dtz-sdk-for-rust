@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | [**dtz_identifier::JobId**](dtz_identifier::JobId.md) |  | 
-**job_name** | **String** |  | 
-**job_image** | **String** |  | 
-**job_pull_user** | Option<**String**> |  | [optional]
-**job_pull_password** | Option<**String**> |  | [optional]
+**id** | [**dtz_identifier::JobId**](dtz_identifier::JobId.md) |  | 
+**name** | **String** |  | 
+**container_image** | **String** |  | 
+**container_pull_user** | Option<**String**> |  | [optional]
+**container_pull_pwd** | Option<**String**> |  | [optional]
 **schedule_type** | **String** |  | 
 **schedule_repeat** | Option<**String**> |  | [optional]
 **schedule_cron** | Option<**String**> |  | [optional]

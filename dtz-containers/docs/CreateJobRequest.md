@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | Option<**String**> |  | [optional]
-**image** | Option<**String**> |  | [optional]
-**pull_user** | Option<**String**> |  | [optional]
-**pull_pwd** | Option<**String**> |  | [optional]
+**container_image** | Option<**String**> |  | [optional]
+**container_pull_user** | Option<**String**> |  | [optional]
+**container_pull_pwd** | Option<**String**> |  | [optional]
 **schedule_type** | Option<**String**> |  | [optional]
 **schedule_cron** | Option<**String**> |  | [optional]
 **schedule_cost_optimzation** | Option<**String**> |  | [optional]
