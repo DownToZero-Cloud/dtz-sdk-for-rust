@@ -9,7 +9,7 @@ openapi-generator generate -i dtz-containerregistry-api.yaml -g rust -o dtz-cont
 rm -r dtz-containerregistry/git_push.sh dtz-containerregistry/.gitignore dtz-containerregistry/.travis.yml dtz-containerregistry/.openapi-generator dtz-containerregistry/.openapi-generator-ignore
 
 rm -r dtz-core/src
-openapi-generator generate -i dtz-core-api.yaml -g rust -o dtz-core --package-name dtz-core -t rust-template --type-mappings 'string+FeedId=dtz_identifier::FeedId' --type-mappings 'string+ContextId=dtz_identifier::ContextId' --type-mappings 'string+IdentityId=dtz_identifier::IdentityId' --type-mappings 'string+RoleId=dtz_identifier::RoleId' --type-mappings 'string+TaskId=dtz_identifier::TaskId' --type-mappings 'string+JobId=dtz_identifier::JobId' --type-mappings 'string+ServiceId=dtz_identifier::ServiceId' --type-mappings 'string+ExecutionId=dtz_identifier::ExecutionId'
+openapi-generator generate -i dtz-core-api.yaml -g rust -o dtz-core --package-name dtz-core -t rust-template --type-mappings 'string+FeedId=dtz_identifier::FeedId' --type-mappings 'string+ContextId=dtz_identifier::ContextId' --type-mappings 'string+IdentityId=dtz_identifier::IdentityId' --type-mappings 'string+RoleId=dtz_identifier::RoleId' --type-mappings 'string+TaskId=dtz_identifier::TaskId' --type-mappings 'string+JobId=dtz_identifier::JobId' --type-mappings 'string+ServiceId=dtz_identifier::ServiceId' --type-mappings 'string+ExecutionId=dtz_identifier::ExecutionId' --additional-properties supportMultipleResponses=true
 rm -r dtz-core/git_push.sh dtz-core/.gitignore dtz-core/.travis.yml dtz-core/.openapi-generator dtz-core/.openapi-generator-ignore
 
 rm -r dtz-identity/src

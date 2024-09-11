@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.14
+  version: 1.0.15
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -150,6 +150,7 @@ paths:
     post:
       summary: pull one task from the async task queue
       operationId: pullTaskFromQueue
+      x-dtz-all-responses: true
       requestBody:
         description: pulls the next task
         content: 
