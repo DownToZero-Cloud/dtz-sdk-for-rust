@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_job
 
-> create_job(create_job_request)
+> models::JobResponse create_job(create_job_request)
 create new job
 
 ### Parameters
@@ -67,7 +67,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::JobResponse**](JobResponse.md)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
