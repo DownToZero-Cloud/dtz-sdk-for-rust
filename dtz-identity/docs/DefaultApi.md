@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 [**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
+[**get_account_email**](DefaultApi.md#get_account_email) | **GET** /me/email | Get account email
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
 [**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
@@ -242,6 +243,31 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_account_email
+
+> models::GetAccountEmail200Response get_account_email()
+Get account email
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::GetAccountEmail200Response**](getAccountEmail_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

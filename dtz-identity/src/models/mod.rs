@@ -12,6 +12,8 @@ pub mod create_api_key_request;
 pub use self::create_api_key_request::CreateApiKeyRequest;
 pub mod error_response;
 pub use self::error_response::ErrorResponse;
+pub mod get_account_email_200_response;
+pub use self::get_account_email_200_response::GetAccountEmail200Response;
 pub mod get_account_stats_200_response;
 pub use self::get_account_stats_200_response::GetAccountStats200Response;
 pub mod get_account_stats_200_response_roles_inner;

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.13
+  version: 1.0.14
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -179,6 +179,26 @@ paths:
                     type: number
                   authenticationCount:
                     type: number
+  /me/email:
+    get:
+      summary: Get account email
+      operationId: getAccountEmail
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+        "404":
+          description: Email not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /me/identity:
     delete:
       summary: delete current identity

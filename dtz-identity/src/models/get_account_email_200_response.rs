@@ -15,15 +15,15 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateApiKeyRequest {
-    #[serde(rename = "context_id", skip_serializing_if = "Option::is_none")]
-    pub context_id: Option<dtz_identifier::ContextId>,
+pub struct GetAccountEmail200Response {
+    #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
+    pub email: Option<String>,
 }
 
-impl CreateApiKeyRequest {
-    pub fn new() -> CreateApiKeyRequest {
-        CreateApiKeyRequest {
-            context_id: None,
+impl GetAccountEmail200Response {
+    pub fn new() -> GetAccountEmail200Response {
+        GetAccountEmail200Response {
+            email: None,
         }
     }
 }
