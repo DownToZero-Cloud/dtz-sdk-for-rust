@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Observability
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Observability API
   license:
     name: Apache 2.0
@@ -172,30 +172,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  attributes:
-                    type: object
-                  intervalStartTsNanos:
-                    type: number
-                  intervalEndTsNanos:
-                    type: number
-                  value:
-                    type: number
-                  unit:
-                    type: string
-                  kind:
-                    type: string
-                  traceId:
-                    type: string
-                  spanId:
-                    type: string
+              $ref: '#/components/schemas/DtzMetrics'
       responses:
         "200":
           description: success
@@ -212,6 +189,90 @@ paths:
       responses:
         "200":
           description: success
+  /prometheus/api/v1/label/{label}/values:
+    get:
+      summary: list all available values for one labels
+      operationId: listLabelValues
+      parameters:
+        - in: path
+          name: label
+          schema:
+            type: string
+          required: true
+          description: name of the label
+      responses:
+        "200":
+          description: prometheus format
+          content: 
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array    
+                    items:
+                      type: string
+  /prometheus/api/v1/labels:
+    get:
+      summary: list all available labels
+      operationId: listLabels
+      responses:
+        "200":
+          description: prometheus format
+          content: 
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: array    
+                    items:
+                      type: string
+  /prometheus/api/v1/metadata:
+    get:
+      summary: query metric metadata
+      operationId: getMetricMetadata
+      responses:
+        "200":
+          description: prometheus format
+          content: 
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+  /prometheus/api/v1/status/buildinfo:
+    get:
+      summary: retreive build information about the dtz backend
+      operationId: getBuildInfo
+      responses:
+        "200":
+          description: prometheus format
+          content: 
+            text/plain:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      version:
+                        type: string
+                      revision:
+                        type: string
+                      branch:
+                        type: string
+                      buildUser:
+                        type: string
   /stats:
     get:
       summary: get statistics
@@ -249,6 +310,45 @@ components:
             type: string
           attributes:
             type: object
+    DtzMetrics:
+      type: array
+      items:
+        $ref: '#/components/schemas/DtzMetric'
+    DtzMetric:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        attributes:
+          type: object
+        intervalStartTsNanos:
+          type: integer
+          format: int64
+        intervalEndTsNanos:
+          type: integer
+          format: int64
+        value:
+          type: number
+        unit:
+          type: string
+        kind:
+          type: string
+          enum:
+            - Gauge
+            - Sum
+            - Counter
+        traceId:
+          type: string
+        spanId:
+          type: string
+      required:
+        - name
+        - value
+        - intervalEndTsNanos
+        - unit
+        - kind
   securitySchemes:
     dtz_auth:
       type: apiKey
