@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 1.0.12
+  version: 1.1.0
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -226,34 +226,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      format: JobId
-                    name:
-                      type: string
-                    containerImage:
-                      type: string
-                    containerPullUser:
-                      type: string
-                    containerPullPwd:
-                      type: string
-                    scheduleType:
-                      type: string
-                    scheduleRepeat:
-                      type: string
-                    scheduleCron:
-                      type: string
-                      examples: 
-                        - "4 2 * * *"
-                    scheduleCostOptimzation:
-                      type: string
-                  required:
-                    - id
-                    - name
-                    - containerImage
-                    - scheduleType
+                  $ref: '#/components/schemas/JobResponse'
     post:
       summary: create new job
       operationId: createJob
@@ -262,24 +235,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                containerImage:
-                  type: string
-                containerPullUser:
-                  type: string
-                containerPullPwd:
-                  type: string
-                scheduleType:
-                  type: string
-                scheduleCron:
-                  type: string
-                scheduleCostOptimzation:
-                  type: string
-                scheduleRepeat:
-                  type: string
+              $ref: '#/components/schemas/CreateJob'
       responses:
         "200":
           description: success
@@ -359,6 +315,35 @@ components:
       properties:
         msg:
           type: string
+    CreateJob:
+      type: object
+      properties:
+        name:
+          type: string
+        containerImage:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
+        scheduleType:
+          type: string
+          enum:
+          - relaxed
+          - precise
+          - none
+        scheduleCron:
+          type: string
+        scheduleRepeat:
+          type: string
+        envVariables:
+          type: object
+          additionalProperties:
+            type: string
+      required:
+      - name
+      - containerImage
+      - scheduleType
     JobResponse:
       type: object
       properties:
@@ -375,12 +360,18 @@ components:
           type: string
         scheduleType:
           type: string
+          enum:
+            - relaxed
+            - precise
+            - none
         scheduleRepeat:
           type: string
         scheduleCron:
           type: string
-        scheduleCostOptimzation:
-          type: string
+        envVariables:
+          type: object
+          additionalProperties:
+            type: string
       required:
         - id
         - name
@@ -435,6 +426,8 @@ components:
           type: string
         envVariables:
           type: object
+          additionalProperties:
+            type: string
         login:
           type: object
           properties:
@@ -463,6 +456,8 @@ components:
           type: string
         envVariables:
           type: object
+          additionalProperties:
+            type: string
         login:
           type: object
           properties:

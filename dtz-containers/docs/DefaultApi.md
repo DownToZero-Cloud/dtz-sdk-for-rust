@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_job
 
-> models::JobResponse create_job(create_job_request)
+> models::JobResponse create_job(create_job)
 create new job
 
 ### Parameters
@@ -63,7 +63,7 @@ create new job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_job_request** | Option<[**CreateJobRequest**](CreateJobRequest.md)> | update existing hosting |  |
+**create_job** | Option<[**CreateJob**](CreateJob.md)> | update existing hosting |  |
 
 ### Return type
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_jobs
 
-> Vec<models::GetJobs200ResponseInner> get_jobs()
+> Vec<models::JobResponse> get_jobs()
 list all jobs
 
 ### Parameters
@@ -335,7 +335,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Vec<models::GetJobs200ResponseInner>**](getJobs_200_response_inner.md)
+[**Vec<models::JobResponse>**](JobResponse.md)
 
 ### Authorization
 

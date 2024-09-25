@@ -1,15 +1,13 @@
 pub mod create_domain;
 pub use self::create_domain::CreateDomain;
-pub mod create_job_request;
-pub use self::create_job_request::CreateJobRequest;
+pub mod create_job;
+pub use self::create_job::CreateJob;
 pub mod create_service;
 pub use self::create_service::CreateService;
 pub mod domain;
 pub use self::domain::Domain;
 pub mod error_response;
 pub use self::error_response::ErrorResponse;
-pub mod get_jobs_200_response_inner;
-pub use self::get_jobs_200_response_inner::GetJobs200ResponseInner;
 pub mod job_response;
 pub use self::job_response::JobResponse;
 pub mod service;

@@ -21,7 +21,7 @@ pub struct DtzMetric {
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "attributes", skip_serializing_if = "Option::is_none")]
-    pub attributes: Option<serde_json::Value>,
+    pub attributes: Option<std::collections::HashMap<String, String>>,
     #[serde(rename = "intervalStartTsNanos", skip_serializing_if = "Option::is_none")]
     pub interval_start_ts_nanos: Option<i64>,
     #[serde(rename = "intervalEndTsNanos")]

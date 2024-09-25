@@ -323,6 +323,8 @@ components:
           type: string
         attributes:
           type: object
+          additionalProperties:
+            type: string
         intervalStartTsNanos:
           type: integer
           format: int64
