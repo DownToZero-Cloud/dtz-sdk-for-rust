@@ -20,7 +20,6 @@ impl Display for RoleId {
     }
 }
 
-
 impl<'de> serde::Deserialize<'de> for RoleId {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

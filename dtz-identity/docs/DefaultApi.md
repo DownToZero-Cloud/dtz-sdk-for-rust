@@ -140,7 +140,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_api_key
 
-> create_api_key(create_api_key_request)
+> String create_api_key(create_api_key_request)
 create api key
 
 ### Parameters
@@ -152,7 +152,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+**String**
 
 ### Authorization
 
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: text/plain
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

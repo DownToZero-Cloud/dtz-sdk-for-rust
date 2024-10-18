@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.14
+  version: 1.0.15
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -220,10 +220,22 @@ paths:
                 context_id:
                   type: string
                   format: ContextId
+                alias:
+                  type: string
+              required:
+              - context_id
         required: true
       responses:
         "200":
           description: success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                text:
+                  summary: api key
+                  value: apikey-00000000-0000-0000-0000-000000000000
   /me/identity/apikey/{apikey}:
     delete:
       summary: delete api key

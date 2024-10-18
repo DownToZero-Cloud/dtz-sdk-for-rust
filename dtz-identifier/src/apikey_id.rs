@@ -8,7 +8,7 @@ pub struct ApiKeyId {
 impl Default for ApiKeyId {
     fn default() -> Self {
         Self {
-            id: uuid::Uuid::now_v7(),
+            id: uuid::Uuid::new_v4(),
         }
     }
 }
