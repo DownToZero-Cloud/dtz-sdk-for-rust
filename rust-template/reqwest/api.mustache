@@ -11,25 +11,10 @@ use dtz_config::Configuration;
 fn build_url(config: &Configuration) -> String {
     let base = url::Url::parse(&config.base_path).unwrap();
     let mut target_url = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
-    if base.host_str() == Some("localhost") || base.host_str() == Some("localhost6") {
-        let _ = target_url.set_scheme(base.scheme());
-        let _ = target_url.set_port(base.port());
-        let _ = target_url.set_host(Some(base.host_str().unwrap()));
-        format!("{target_url}")
-    } else if base.scheme() == target_url.scheme() && base.host_str() == target_url.host_str() {
-        format!("{target_url}")
-    } else {
-        let _ = target_url.set_scheme(base.scheme());
-        let _ = target_url.set_port(base.port());
-        let host_str = base.host_str().unwrap();
-        let mut parts: Vec<&str> = host_str.split('.').collect();
-        let target_str = target_url.host_str().unwrap();
-        let target_parts: Vec<&str> = target_str.split('.').collect();
-        parts.insert(0, target_parts.first().unwrap());
-        let final_url = parts.join(".");
-        let _ = target_url.set_host(Some(&final_url));
-        format!("{target_url}")
-    }
+    let _ = target_url.set_scheme(base.scheme());
+    let _ = target_url.set_port(base.port());
+    let _ = target_url.set_host(Some(base.host_str().unwrap()));
+    format!("{target_url}")
 }
 
 {{#operations}}
