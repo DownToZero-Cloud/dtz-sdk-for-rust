@@ -1,6 +1,6 @@
 [package]
 name = "dtz-containerregistry"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Container Registry API"
 license = "MIT OR Apache-2.0"
