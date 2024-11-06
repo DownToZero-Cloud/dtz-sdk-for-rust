@@ -18,12 +18,16 @@ use super::Error;
 use dtz_config::Configuration;
 
 fn build_url(config: &Configuration) -> String {
-    let base = url::Url::parse(&config.base_path).unwrap();
-    let mut target_url = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
-    let _ = target_url.set_scheme(base.scheme());
-    let _ = target_url.set_port(base.port());
-    let _ = target_url.set_host(Some(base.host_str().unwrap()));
-    format!("{target_url}")
+    if let Some(base_path) = &config.base_path {
+        let base = url::Url::parse(base_path).unwrap();
+        let mut target_url = url::Url::parse(crate::apis::configuration::SVC_URL).unwrap();
+        let _ = target_url.set_scheme(base.scheme());
+        let _ = target_url.set_port(base.port());
+        let _ = target_url.set_host(Some(base.host_str().unwrap()));
+        format!("{target_url}")
+    } else {
+        crate::apis::configuration::SVC_URL.to_string()
+    }
 }
 
 

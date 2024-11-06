@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.17
+  version: 1.0.18
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
