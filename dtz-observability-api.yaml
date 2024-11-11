@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Observability
-  version: 1.0.3
+  version: 1.0.4
   description: a generated client for the DTZ Observability API
   license:
     name: Apache 2.0
@@ -356,5 +356,13 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
+    dtz_auth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
+          scopes:
+            dummy:dummy: dummy
 security:
   - dtz_auth: []
+  - dtz_auth2: []
