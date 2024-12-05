@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 1.0.4
+  version: 1.0.5
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0
@@ -105,24 +105,32 @@ components:
         values:
           type: array
           items:
-            type: object
-            properties:
-              description:
-                type: string
-              amount:
-                type: integer
-              unitOfAmount:
-                type: string
-                enum:
-                  - "GbSeconds"
-                  - "Requests"
-                  - "MilliSeconds"
-                  - "Watt"
-                  - "Euro"
+            $ref: '#/components/schemas/ConsumptionValue'
       required:
         - service
         - contextId
         - values
+        - intervalStart
+        - intervalEnd
+        - deduplicationKey
+    ConsumptionValue:
+      type: object
+      properties:
+        description:
+          type: string
+        amount:
+          type: number
+        unitOfAmount:
+          type: string
+          enum:
+            - "GbSeconds"
+            - "Requests"
+            - "MilliSeconds"
+            - "Watt"
+            - "Euro"
+      required:
+        - amount
+        - unitOfAmount
   securitySchemes:
     dtz_auth:
       type: apiKey

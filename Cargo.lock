@@ -197,7 +197,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.6.6"
+version = "0.6.7"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -213,7 +213,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-billing"
-version = "1.0.4"
+version = "1.0.5"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
