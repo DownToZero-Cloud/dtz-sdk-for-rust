@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Observability
-  version: 1.0.4
+  version: 1.0.5
   description: a generated client for the DTZ Observability API
   license:
     name: Apache 2.0
@@ -17,6 +17,20 @@ servers:
       enum:
         - "2021-12-21"
 paths:
+  /enable:
+    post:
+      summary: enable the observability service
+      operationId: enable
+      responses:
+        "200":
+          description: service enabled
+  /disable:
+    post:
+      summary: disable the observability service
+      operationId: disable
+      responses:
+        "200":
+          description: service disabled
   /log:
     get:
       summary: get logs
@@ -323,8 +337,6 @@ components:
           type: string
         attributes:
           type: object
-          additionalProperties:
-            type: string
         intervalStartTsNanos:
           type: integer
           format: int64
@@ -356,13 +368,5 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
-    dtz_auth2:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
-          scopes:
-            dummy:dummy: dummy
 security:
   - dtz_auth: []
-  - dtz_auth2: []

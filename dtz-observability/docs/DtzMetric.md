@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **String** |  | 
 **description** | Option<**String**> |  | [optional]
-**attributes** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
+**attributes** | Option<[**serde_json::Value**](.md)> |  | [optional]
 **interval_start_ts_nanos** | Option<**i64**> |  | [optional]
 **interval_end_ts_nanos** | **i64** |  | 
 **value** | **f64** |  | 
