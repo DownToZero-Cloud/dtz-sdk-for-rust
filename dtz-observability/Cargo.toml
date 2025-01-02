@@ -1,6 +1,6 @@
 [package]
 name = "dtz-observability"
-version = "1.0.5"
+version = "1.0.6"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Observability API"
 license = "MIT OR Apache-2.0"
