@@ -11,7 +11,7 @@ pub struct ContextId {
 
 impl Default for ContextId {
     fn default() -> Self {
-        Self { id: Uuid::now_v7() }
+        Self { id: Uuid::new_v4() }
     }
 }
 
@@ -69,7 +69,7 @@ impl From<Uuid> for ContextId {
 
 #[test]
 fn test_from() {
-    let uuid = Uuid::now_v7();
+    let uuid = Uuid::new_v4();
     let ctx = ContextId::from(uuid);
     assert_eq!(ctx.id, uuid);
 }
