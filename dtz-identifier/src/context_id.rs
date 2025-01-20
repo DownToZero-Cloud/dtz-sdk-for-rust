@@ -9,6 +9,12 @@ pub struct ContextId {
     pub id: Uuid,
 }
 
+impl crate::ShortId for ContextId {
+    fn to_short_id(&self) -> String {
+        self.id.to_string()[0..8].to_string()
+    }
+}
+
 impl Default for ContextId {
     fn default() -> Self {
         Self { id: Uuid::new_v4() }
@@ -114,4 +120,12 @@ fn key_invalid_3() {
     let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
     let apikey: Result<ContextId, String> = ContextId::try_from(k);
     assert!(apikey.is_err())
+}
+
+#[test]
+fn short_id() {
+    use crate::ShortId;
+    let k = "context-0190c589-eb70-7980-97cf-af67b3a84116";
+    let ctx = ContextId::try_from(k).unwrap();
+    assert_eq!(ctx.to_short_id(), "0190c589");
 }

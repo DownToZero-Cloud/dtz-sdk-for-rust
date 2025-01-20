@@ -19,3 +19,7 @@ pub use object_id::*;
 pub use role_id::*;
 pub use service_id::*;
 pub use task_id::*;
+
+pub trait ShortId {
+    fn to_short_id(&self) -> String;
+}
