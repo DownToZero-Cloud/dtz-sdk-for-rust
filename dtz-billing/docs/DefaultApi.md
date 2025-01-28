@@ -5,6 +5,7 @@ All URIs are relative to *https://billing.dtz.rocks/api/2022-12-28*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**charge_stripe_post**](DefaultApi.md#charge_stripe_post) | **POST** /charge/stripe | stripe webhook
+[**check_funded**](DefaultApi.md#check_funded) | **GET** /funded | check if identity is funded
 [**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get stats
 [**list_transactions**](DefaultApi.md#list_transactions) | **GET** /transaction | get a transaction listing of all incoming and outgoing charges
 [**post_consumption**](DefaultApi.md#post_consumption) | **POST** /consumption | post new service consumption
@@ -34,6 +35,34 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## check_funded
+
+> models::CheckFunded200Response check_funded(identity)
+check if identity is funded
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**identity** | Option<**String**> |  |  |
+
+### Return type
+
+[**models::CheckFunded200Response**](checkFunded_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

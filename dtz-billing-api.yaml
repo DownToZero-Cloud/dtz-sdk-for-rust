@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 1.0.6
+  version: 1.1.0
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0
@@ -34,6 +34,27 @@ paths:
                   ts:
                     type: string
                     format: date-time
+  /funded:
+    get:
+      summary: check if identity is funded
+      operationId: checkFunded
+      parameters:
+        - name: identity
+          in: query
+          required: false
+          schema:
+            type: string
+            format: identity
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  isFunded:
+                    type: boolean
   /transaction:
     get:
       summary: get a transaction listing of all incoming and outgoing charges

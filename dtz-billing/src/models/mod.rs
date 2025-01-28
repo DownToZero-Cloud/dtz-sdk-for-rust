@@ -1,3 +1,5 @@
+pub mod check_funded_200_response;
+pub use self::check_funded_200_response::CheckFunded200Response;
 pub mod consumption;
 pub use self::consumption::Consumption;
 pub mod consumption_value;
