@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**check_authentication**](DefaultApi.md#check_authentication) | **GET** /v2/ | check authentication
 [**disable_service**](DefaultApi.md#disable_service) | **POST** /disable | disable the container registry service
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the container registry service
+[**get_stats**](DefaultApi.md#get_stats) | **GET** /stats | get stats
 
 
 
@@ -87,6 +88,33 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_stats
+
+> models::StatsResponse get_stats()
+get stats
+
+get stats
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::StatsResponse**](StatsResponse.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

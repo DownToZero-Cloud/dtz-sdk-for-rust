@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Container Registry
-  version: 1.0.1
+  version: 1.0.2
   description: a generated client for the DTZ Container Registry API
   license:
     name: Apache 2.0
@@ -36,6 +36,18 @@ paths:
       responses:
         200:
           description: service disabled
+  /stats:
+    get:
+      summary: get stats
+      description: get stats
+      operationId: getStats
+      responses:
+        200:
+          description: stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsResponse"
   /v2/:
     get:
       summary: check authentication
@@ -45,6 +57,14 @@ paths:
         200:
           description: success
 components:
+  schemas:
+    StatsResponse:
+      type: object
+      properties:
+        imageCount:
+          type: integer
+        serverUrl:
+          type: string
   securitySchemes:
     dtz_auth:
       type: apiKey
