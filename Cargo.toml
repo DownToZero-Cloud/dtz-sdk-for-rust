@@ -23,7 +23,7 @@ dtz-core = {  version = "=1.0.16", path = "./dtz-core" }
 dtz-identifier = {  version = "=1.1.0", path = "./dtz-identifier" }
 dtz-identity = {  version = "=1.0.18", path = "./dtz-identity" }
 dtz-objectstore = {  version = "=1.0.6", path = "./dtz-objectstore" }
-dtz-observability = {  version = "=1.0.6", path = "./dtz-observability" }
+dtz-observability = {  version = "=1.0.7", path = "./dtz-observability" }
 dtz-rss2email = {  version = "=1.0.6", path = "./dtz-rss2email" }
 serde = "^1.0"
 serde_derive = "^1.0"
