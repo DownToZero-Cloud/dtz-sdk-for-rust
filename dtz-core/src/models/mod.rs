@@ -20,6 +20,8 @@ pub mod pull_task_from_queue_200_response;
 pub use self::pull_task_from_queue_200_response::PullTaskFromQueue200Response;
 pub mod pull_task_from_queue_request;
 pub use self::pull_task_from_queue_request::PullTaskFromQueueRequest;
+pub mod rewrite;
+pub use self::rewrite::Rewrite;
 pub mod static_content;
 pub use self::static_content::StaticContent;
 pub mod static_content_http;

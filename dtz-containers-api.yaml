@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 1.1.1
+  version: 1.1.2
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -190,6 +190,19 @@ paths:
                   type: string
                 envVariables:
                   type: object
+                rewrite:
+                  description: provids url rewriting capabilities
+                  type: object
+                  properties:
+                    source:
+                      type: string
+                      description: regex to match the incoming uri
+                    target:
+                      description: replacement value
+                      type: string
+                  required:
+                    - source
+                    - target
               required:
                 - prefix
                 - containerImage
@@ -428,6 +441,19 @@ components:
           type: object
           additionalProperties:
             type: string
+        rewrite:
+          description: provids url rewriting capabilities
+          type: object
+          properties:
+            source:
+              type: string
+              description: regex to match the incoming uri
+            target:
+              description: replacement value
+              type: string
+          required:
+            - source
+            - target
         login:
           type: object
           properties:
@@ -458,6 +484,19 @@ components:
           type: object
           additionalProperties:
             type: string
+        rewrite:
+          description: provids url rewriting capabilities
+          type: object
+          properties:
+            source:
+              type: string
+              description: regex to match the incoming uri
+            target:
+              description: replacement value
+              type: string
+          required:
+            - source
+            - target
         login:
           type: object
           properties:

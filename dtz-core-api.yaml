@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.0.16
+  version: 1.0.17
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -448,6 +448,8 @@ components:
       properties:
         login:
           $ref: '#/components/schemas/Login'
+        rewrite:
+          $ref: '#/components/schemas/Rewrite'
         container:
           $ref: '#/components/schemas/Container'
         staticContent:
@@ -459,6 +461,18 @@ components:
           type: string
       required:
       - providerName
+    Rewrite:
+      type: object
+      properties:
+        source:
+          description: URI source as Regex (re2 syntax)
+          type: string
+        target:
+          description: replacement string
+          type: string
+      required:
+        - source
+        - target
     IngressResponse:
       type: object
       properties:
@@ -468,6 +482,8 @@ components:
           type: string
         login:
           $ref: '#/components/schemas/Login'
+        rewrite:
+          $ref: '#/components/schemas/Rewrite'
         container:
           $ref: '#/components/schemas/Container'
         staticContent:
@@ -491,6 +507,7 @@ components:
                   value:
                     type: string
             content:
+              description: base64 encoded content
               type: string
               format: byte
           required:
@@ -508,6 +525,7 @@ components:
                   value:
                     type: string
             content:
+              description: base64 encoded content
               type: string
               format: byte
           required:

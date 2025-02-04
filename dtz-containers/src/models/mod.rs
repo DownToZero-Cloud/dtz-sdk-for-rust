@@ -16,3 +16,5 @@ pub mod service_login;
 pub use self::service_login::ServiceLogin;
 pub mod update_service_request;
 pub use self::update_service_request::UpdateServiceRequest;
+pub mod update_service_request_rewrite;
+pub use self::update_service_request_rewrite::UpdateServiceRequestRewrite;
