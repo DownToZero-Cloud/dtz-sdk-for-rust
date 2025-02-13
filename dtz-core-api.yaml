@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.1.0
+  version: 1.1.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -468,6 +468,8 @@ components:
         scope:
           description: set the scope for this ingress, changes can only be performed within the same scope
           type: string
+        validity:
+          $ref: '#/components/schemas/Validity'
         login:
           $ref: '#/components/schemas/Login'
         rewrite:
@@ -476,6 +478,8 @@ components:
           $ref: '#/components/schemas/Container'
         staticContent:
           $ref: '#/components/schemas/StaticContent'
+      required:
+      - scope
     Login:
       type: object
       properties:
@@ -483,6 +487,17 @@ components:
           type: string
       required:
       - providerName
+    Validity:
+      type: object
+      properties:
+        validFrom:
+          description: if not present, ingress is immediately available
+          type: string
+          format: data-time
+        validTo:
+          description: if not present, ingress is available forwever
+          type: string
+          format: data-time
     Rewrite:
       type: object
       properties:
@@ -505,6 +520,8 @@ components:
         scope:
           description: owning scope, changes can only be performed within the scope 
           type: string
+        validity:
+          $ref: '#/components/schemas/Validity'
         login:
           $ref: '#/components/schemas/Login'
         rewrite:

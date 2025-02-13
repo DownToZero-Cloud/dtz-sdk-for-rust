@@ -28,3 +28,5 @@ pub mod static_content_http;
 pub use self::static_content_http::StaticContentHttp;
 pub mod static_content_http_header_inner;
 pub use self::static_content_http_header_inner::StaticContentHttpHeaderInner;
+pub mod validity;
+pub use self::validity::Validity;
