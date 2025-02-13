@@ -312,7 +312,7 @@ This endpoint does not need any parameter.
 
 ## get_ingress
 
-> models::IngressResponse get_ingress(domain, uri)
+> models::IngressResponse get_ingress(domain, uri, scope)
 get ingress for '/' path
 
 ### Parameters
@@ -322,6 +322,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
+**scope** | **String** | only include the named scope | [required] |
 
 ### Return type
 
@@ -341,7 +342,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_root_ingress
 
-> models::IngressResponse get_root_ingress(domain)
+> models::IngressResponse get_root_ingress(domain, scope)
 get ingress for '/' path
 
 ### Parameters
@@ -350,6 +351,7 @@ get ingress for '/' path
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
+**scope** | **String** | only include the named scope | [required] |
 
 ### Return type
 
@@ -427,12 +429,15 @@ Name | Type | Description  | Required | Notes
 
 ## list_ingress
 
-> Vec<models::IngressResponse> list_ingress()
+> Vec<models::IngressResponse> list_ingress(scope)
 list all ingress
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**scope** | **String** | only include the named scope | [required] |
 
 ### Return type
 
