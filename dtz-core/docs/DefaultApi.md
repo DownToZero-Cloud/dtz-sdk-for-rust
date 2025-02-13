@@ -437,7 +437,7 @@ list all ingress
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**scope** | **String** | only include the named scope | [required] |
+**scope** | Option<**String**> | only include the named scope |  |
 
 ### Return type
 

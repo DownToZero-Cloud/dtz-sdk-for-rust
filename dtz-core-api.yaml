@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.1.1
+  version: 1.1.2
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -293,7 +293,6 @@ paths:
           name: scope
           schema:
             type: string
-          required: true
           description: only include the named scope
       responses:
         "200":
