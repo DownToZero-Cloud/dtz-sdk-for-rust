@@ -1,6 +1,6 @@
 [package]
 name = "dtz-identity"
-version = "1.0.18"
+version = "1.0.19"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Identity API"
 license = "MIT OR Apache-2.0"

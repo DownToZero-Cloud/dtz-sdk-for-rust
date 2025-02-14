@@ -324,7 +324,7 @@ This endpoint does not need any parameter.
 
 ## list_authentication
 
-> list_authentication()
+> models::ListAuthentication200Response list_authentication()
 list user authentications
 
 ### Parameters
@@ -333,7 +333,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
- (empty response body)
+[**models::ListAuthentication200Response**](listAuthentication_200_response.md)
 
 ### Authorization
 
@@ -342,7 +342,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
