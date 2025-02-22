@@ -6,5 +6,7 @@ pub mod consumption_value;
 pub use self::consumption_value::ConsumptionValue;
 pub mod get_stats_200_response;
 pub use self::get_stats_200_response::GetStats200Response;
+pub mod get_stats_200_response_euro;
+pub use self::get_stats_200_response_euro::GetStats200ResponseEuro;
 pub mod transaction;
 pub use self::transaction::Transaction;
