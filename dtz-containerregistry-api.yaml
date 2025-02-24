@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Container Registry
-  version: 1.0.2
+  version: 1.0.3
   description: a generated client for the DTZ Container Registry API
   license:
     name: Apache 2.0
