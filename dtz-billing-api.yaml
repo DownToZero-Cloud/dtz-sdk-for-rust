@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 1.1.1
+  version: 1.1.2
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0
@@ -70,6 +70,33 @@ paths:
     get:
       summary: get a transaction listing of all incoming and outgoing charges
       operationId: listTransactions
+      parameters: 
+        - name: fromTime
+          description: filter timeframe from that date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: toTime
+          description: filter timeframe to that date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: service
+          description: filter by service
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contextId
+          description: filter by context id
+          in: query
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: success

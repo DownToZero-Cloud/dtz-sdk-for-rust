@@ -94,6 +94,20 @@ impl TryFrom<&str> for ContextId {
     }
 }
 
+impl TryFrom<String> for ContextId {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
+            let uuid =
+                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
+            Ok(ContextId { id: uuid })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
 #[test]
 fn key_invalid_1() {
     let k = "abc-dsfdg";
