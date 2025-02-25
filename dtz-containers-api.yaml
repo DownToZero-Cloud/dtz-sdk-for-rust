@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 1.1.2
+  version: 1.1.3
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -178,6 +178,11 @@ paths:
             schema:
               type: object
               properties:
+                domain:
+                  description: by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
+                  type: array
+                  items:
+                    type: string
                 prefix:
                   type: string
                 containerImage:
@@ -421,6 +426,11 @@ components:
         contextId:
           type: string
           format: ContextId
+        domain:
+          description: by default this property is empty, this property is only populated if it was part of the service creation.
+          type: array
+          items:
+            type: string
         serviceId:
           type: string
           format: ServiceId
@@ -470,6 +480,11 @@ components:
     CreateService:
       type: object
       properties:
+        domain:
+          description: by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
+          type: array
+          items:
+            type: string
         prefix:
           type: string
         containerImage:
