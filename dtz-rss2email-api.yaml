@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ RSS2Email Api
-  version: 1.0.6
+  version: 1.0.7
   description: a generated client for the DTZ RSS2Email API
   license:
     name: Apache 2.0
@@ -97,6 +97,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Feed'
+            application/hcl:
+              schema:
+                type: string
     post:
       summary: update feed
       operationId: updateFeed
@@ -172,6 +175,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Profile'
+            application/hcl:
+              schema:
+                type: string
     post:
       summary: post a profile
       operationId: postProfile
@@ -191,6 +197,10 @@ paths:
       responses:
         "200":
           description: service statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedStatistics'
 components:
   schemas:
     Profile:
@@ -242,6 +252,26 @@ components:
           type: boolean
       required:
       - url
+    FeedStatistics:
+      type: object
+      properties:
+        amountOfFeeds:
+          type: integer
+          format: int64
+        amountOfNotificationDay:
+          type: integer
+          format: int64
+        amountOfNotificationWeek:
+          type: integer
+          format: int64
+        amountOfNotificationMonth:
+          type: integer
+          format: int64
+      required:
+        - amountOfFeeds
+        - amountOfNotificationDay
+        - amountOfNotificationWeek
+        - amountOfNotificationMonth
   securitySchemes:
     dtz_auth:
       type: apiKey

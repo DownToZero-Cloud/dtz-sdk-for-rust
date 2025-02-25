@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Observability
-  version: 1.0.7
+  version: 1.0.8
   description: a generated client for the DTZ Observability API
   license:
     name: Apache 2.0

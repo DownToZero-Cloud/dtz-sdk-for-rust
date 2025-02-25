@@ -6,5 +6,7 @@ pub mod feed;
 pub use self::feed::Feed;
 pub mod feed_request;
 pub use self::feed_request::FeedRequest;
+pub mod feed_statistics;
+pub use self::feed_statistics::FeedStatistics;
 pub mod profile;
 pub use self::profile::Profile;

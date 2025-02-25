@@ -319,7 +319,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-observability"
-version = "1.0.7"
+version = "1.0.8"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -333,7 +333,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "1.0.6"
+version = "1.0.7"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
