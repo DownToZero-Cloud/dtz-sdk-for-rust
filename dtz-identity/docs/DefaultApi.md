@@ -16,7 +16,9 @@ Method | HTTP request | Description
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
 [**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
+[**list_identity**](DefaultApi.md#list_identity) | **GET** /identity | get a list of all available identities
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
+[**new_identity**](DefaultApi.md#new_identity) | **POST** /identity | creates a new identity
 [**oauth_authorize**](DefaultApi.md#oauth_authorize) | **GET** /oauth/authorize | oauth authorize
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
@@ -347,6 +349,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_identity
+
+> models::ListIdentity200Response list_identity()
+get a list of all available identities
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::ListIdentity200Response**](listIdentity_200_response.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## new_context
 
 > new_context(context_id, new_context_request)
@@ -372,6 +399,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## new_identity
+
+> models::ListIdentity200ResponseIdentitiesInner new_identity(new_identity_request)
+creates a new identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**new_identity_request** | Option<[**NewIdentityRequest**](NewIdentityRequest.md)> | create identity request |  |
+
+### Return type
+
+[**models::ListIdentity200ResponseIdentitiesInner**](listIdentity_200_response_identities_inner.md)
+
+### Authorization
+
+[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

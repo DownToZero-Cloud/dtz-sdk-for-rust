@@ -15,18 +15,18 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AssumeIdentityRequest {
+pub struct NewIdentityRequest {
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
-    pub identity_id: Option<dtz_identifier::IdentityId>,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
 }
 
-impl AssumeIdentityRequest {
-    pub fn new() -> AssumeIdentityRequest {
-        AssumeIdentityRequest {
+impl NewIdentityRequest {
+    pub fn new() -> NewIdentityRequest {
+        NewIdentityRequest {
             email: None,
-            identity_id: None,
+            description: None,
         }
     }
 }

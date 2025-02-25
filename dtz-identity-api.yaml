@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.19
+  version: 1.0.20
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -149,6 +149,59 @@ paths:
       responses:
         "200":
           description: status
+  /identity:
+    get:
+      summary: get a list of all available identities
+      operationId: listIdentity
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentIdentity:
+                    type: string
+                  identities:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        identityId:
+                          type: string
+                        email:
+                          type: string
+                        description:
+                          type: string
+    post:
+      summary: creates a new identity
+      operationId: newIdentity
+      requestBody:
+        description: create identity request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                description:
+                  type: string
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  identityId:
+                    type: string
+                  email:
+                    type: string
+                  description:
+                    type: string
   /identity/assume:
     post: 
       summary: assume identity
@@ -162,7 +215,7 @@ paths:
               properties:
                 email:
                   type: string
-                identity_id:
+                identityId:
                   type: string
                   format: IdentityId
       responses:
