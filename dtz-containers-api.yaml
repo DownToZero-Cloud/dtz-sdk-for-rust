@@ -523,17 +523,22 @@ components:
         - prefix
         - containerImage
   securitySchemes:
-    dtz_auth:
+    dtz_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/authorize
+          tokenUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/token
+          scopes: {}
+    dtz_apikey:
       type: apiKey
       in: header
       name: X-API-KEY
-    dtz_auth2:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
-          scopes:
-            dummy:dummy: dummy
+    dtz-cookie:
+      type: apiKey
+      in: cookie
+      name: dtz_auth
 security:
-  - dtz_auth: []
-  - dtz_auth2: []
+  - dtz_apikey: []
+  - dtz_oauth: []
+  - dtz-cookie: []
