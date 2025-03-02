@@ -1,6 +1,6 @@
 [package]
 name = "dtz-observability"
-version = "1.0.8"
+version = "1.0.9"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Observability API"
 license = "MIT OR Apache-2.0"
@@ -14,5 +14,4 @@ serde = { workspace = true }
 serde_derive = { workspace = true }
 serde_json = { workspace = true }
 url = { workspace = true }
-uuid = { workspace = true }
 reqwest = { workspace = true }

@@ -203,7 +203,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.6.18"
+version = "0.7.0"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -219,7 +219,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-billing"
-version = "1.1.2"
+version = "1.1.3"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -228,7 +228,6 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -240,7 +239,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containerregistry"
-version = "1.0.3"
+version = "1.0.4"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -249,12 +248,11 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "url",
- "uuid",
 ]
 
 [[package]]
 name = "dtz-containers"
-version = "1.1.3"
+version = "1.1.4"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -263,12 +261,11 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "url",
- "uuid",
 ]
 
 [[package]]
 name = "dtz-core"
-version = "1.1.3"
+version = "1.1.4"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -278,7 +275,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "url",
- "uuid",
 ]
 
 [[package]]
@@ -291,7 +287,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-identity"
-version = "1.0.20"
+version = "1.0.21"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -300,39 +296,10 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "url",
- "uuid",
 ]
 
 [[package]]
 name = "dtz-objectstore"
-version = "1.0.6"
-dependencies = [
- "dtz-config",
- "dtz-identifier",
- "reqwest",
- "serde",
- "serde_derive",
- "serde_json",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "dtz-observability"
-version = "1.0.8"
-dependencies = [
- "dtz-config",
- "dtz-identifier",
- "reqwest",
- "serde",
- "serde_derive",
- "serde_json",
- "url",
- "uuid",
-]
-
-[[package]]
-name = "dtz-rss2email"
 version = "1.0.7"
 dependencies = [
  "dtz-config",
@@ -342,7 +309,32 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "url",
- "uuid",
+]
+
+[[package]]
+name = "dtz-observability"
+version = "1.0.9"
+dependencies = [
+ "dtz-config",
+ "dtz-identifier",
+ "reqwest",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "url",
+]
+
+[[package]]
+name = "dtz-rss2email"
+version = "1.0.8"
+dependencies = [
+ "dtz-config",
+ "dtz-identifier",
+ "reqwest",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "url",
 ]
 
 [[package]]
@@ -1538,16 +1530,6 @@ name = "utf8_iter"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
-
-[[package]]
-name = "uuid"
-version = "1.15.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e0f540e3240398cce6128b64ba83fdbdd86129c16a3aa1a3a252efd66eb3d587"
-dependencies = [
- "getrandom 0.3.1",
- "serde",
-]
 
 [[package]]
 name = "want"
