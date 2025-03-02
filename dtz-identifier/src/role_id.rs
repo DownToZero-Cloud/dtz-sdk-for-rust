@@ -27,7 +27,7 @@ impl<'de> serde::Deserialize<'de> for RoleId {
     {
         struct RoleIdVisitor;
 
-        impl<'de> serde::de::Visitor<'de> for RoleIdVisitor {
+        impl serde::de::Visitor<'_> for RoleIdVisitor {
             type Value = RoleId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {

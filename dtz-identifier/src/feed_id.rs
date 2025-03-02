@@ -26,7 +26,7 @@ impl<'de> serde::Deserialize<'de> for FeedId {
     {
         struct FeedIdVisitor;
 
-        impl<'de> serde::de::Visitor<'de> for FeedIdVisitor {
+        impl serde::de::Visitor<'_> for FeedIdVisitor {
             type Value = FeedId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {

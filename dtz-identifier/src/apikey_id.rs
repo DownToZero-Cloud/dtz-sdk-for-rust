@@ -26,7 +26,7 @@ impl<'de> serde::Deserialize<'de> for ApiKeyId {
     {
         struct ApiKeyIdVisitor;
 
-        impl<'de> serde::de::Visitor<'de> for ApiKeyIdVisitor {
+        impl serde::de::Visitor<'_> for ApiKeyIdVisitor {
             type Value = ApiKeyId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {

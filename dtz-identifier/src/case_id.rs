@@ -24,7 +24,9 @@ impl TryFrom<String> for CaseId {
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         if let Some(id_str) = value.strip_prefix(PREFIX) {
-            Ok(CaseId { id: id_str.to_string() })
+            Ok(CaseId {
+                id: id_str.to_string(),
+            })
         } else {
             Err("invalid format".to_string())
         }
@@ -36,7 +38,9 @@ impl TryFrom<&str> for CaseId {
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         if let Some(id_str) = value.strip_prefix(PREFIX) {
-            Ok(CaseId { id: id_str.to_string() })
+            Ok(CaseId {
+                id: id_str.to_string(),
+            })
         } else {
             Err("invalid format".to_string())
         }
@@ -50,7 +54,7 @@ impl<'de> serde::Deserialize<'de> for CaseId {
     {
         struct CaseIdVisitor;
 
-        impl<'de> serde::de::Visitor<'de> for CaseIdVisitor {
+        impl serde::de::Visitor<'_> for CaseIdVisitor {
             type Value = CaseId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
@@ -63,9 +67,10 @@ impl<'de> serde::Deserialize<'de> for CaseId {
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = uuid::Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(CaseId { id: uuid.to_string() })
+                if let Some(id_str) = value.strip_prefix(PREFIX) {
+                    Ok(CaseId {
+                        id: id_str.to_string(),
+                    })
                 } else {
                     Err(E::custom("invalid format"))
                 }
