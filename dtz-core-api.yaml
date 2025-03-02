@@ -10,12 +10,7 @@ info:
     name: Jens Walter
     email: jens@apimeister.com
 servers:
-- url: https://dtz.rocks/api/{version}
-  variables:
-    version:
-      default: "2021-12-09"
-      enum:
-        - "2021-12-09"
+- url: https://dtz.rocks/api/2021-12-09
 paths:
   /context:
     get:
@@ -33,6 +28,7 @@ paths:
       summary: create new context
       description: create new context
       operationId: createContext
+      x-openai-isConsequential: true
       requestBody: 
         description: create a new context
         content: 
@@ -99,6 +95,7 @@ paths:
     delete:
       summary: delete context
       operationId: deleteContext
+      x-openai-isConsequential: true
       parameters:
         - in: path
           name: context_id
@@ -111,8 +108,9 @@ paths:
         "200":
           description: status
   /context/{context_id}/enableService:
-    get:
+    post:
       summary: enable service for context
+      operationId: enableService
       parameters:
         - in: path
           name: context_id
@@ -124,6 +122,98 @@ paths:
       responses:
         "200":
           description: context information
+  /context/{context_id}/support:
+    post:
+      summary: create a new support request
+      operationId: createSupportRequest
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: ContextId
+          required: true
+          description: context id
+      requestBody:
+        description: support request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        "200":
+          description: support case information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportCase'
+  /context/{context_id}/support/{case_id}:
+    get:
+      summary: get the full support case, including its timeline
+      operationId: getSupportCase
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: ContextId
+          required: true
+          description: context id
+        - in: path
+          name: case_id
+          schema:
+            type: string
+            format: CaseId
+          required: true
+          description: case id
+          examples:
+            caseId1:
+              description: sample case id
+              value: case-r3e2m4sa
+      responses:
+        "200":
+          description: support case information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportCase'
+    post:
+      summary: add a new entry to the support timeline
+      operationId: updateSupportCase
+      parameters:
+        - in: path
+          name: context_id
+          schema:
+            type: string
+            format: ContextId
+          required: true
+          description: context id
+        - in: path
+          name: case_id
+          schema:
+            type: string
+            format: CaseId
+          required: true
+          description: case id
+      requestBody:
+        description: support case update
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        "200":
+          description: support case information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SupportCase'
   /certificate:
     post:
       summary: issue a certificate
@@ -353,6 +443,7 @@ paths:
     delete:
       summary: delete ingress
       operationId: deleteRootIngress
+      x-openai-isConsequential: true
       parameters:
         - in: path
           name: domain
@@ -425,6 +516,7 @@ paths:
     delete:
       summary: delete ingress
       operationId: deleteIngress
+      x-openai-isConsequential: true
       parameters:
         - in: path
           name: domain
@@ -441,6 +533,19 @@ paths:
       responses:
         "200":
           description: status
+  /identity/availableContexts:
+    get:
+      summary: list all avaiable contexts
+      operationId: listAvailableContexts
+      responses:
+        "200":
+          description: context listing
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContextResponse'                    
 components:
   schemas:
     ContextResponse:
@@ -492,11 +597,11 @@ components:
         validFrom:
           description: if not present, ingress is immediately available
           type: string
-          format: data-time
+          format: date-time
         validTo:
           description: if not present, ingress is available forwever
           type: string
-          format: data-time
+          format: date-time
     Rewrite:
       type: object
       properties:
@@ -588,18 +693,48 @@ components:
           type: object
       required:
       - containerImage
+    SupportCase:
+      type: object
+      properties:
+        caseId:
+          type: string
+          format: CaseId
+        created:
+          type: string
+          format: date-time
+        status:
+          type: string
+        timeline:
+          type: array
+          items:
+            type: object
+            properties:
+              created:
+                type: string
+                format: date-time
+              content:
+                type: string
+              identityId:
+                type: string
+                format: IdentityId
   securitySchemes:
-    dtz_auth:
+    dtz_oauth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/authorize
+          tokenUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/token
+          scopes:
+            openid: general scope
+    dtz_apikey:
       type: apiKey
       in: header
       name: X-API-KEY
-    dtz_auth2:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/token/auth
-          scopes:
-            dummy:dummy: dummy
+    dtz-cookie:
+      type: apiKey
+      in: cookie
+      name: dtz_auth
 security:
-  - dtz_auth: []
-  - dtz_auth2: []
+  - dtz_oauth: []
+  - dtz_apikey: []
+  - dtz-cookie: []

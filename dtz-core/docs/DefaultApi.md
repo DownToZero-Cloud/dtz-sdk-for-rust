@@ -4,52 +4,28 @@ All URIs are relative to *https://dtz.rocks/api/2021-12-09*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**context_context_id_enable_service_get**](DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
 [**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/{uri} | create static content for ingress
 [**create_root_ingress**](DefaultApi.md#create_root_ingress) | **POST** /ingress/{domain}/ | create or update ingress
+[**create_support_request**](DefaultApi.md#create_support_request) | **POST** /context/{context_id}/support | create a new support request
 [**create_task**](DefaultApi.md#create_task) | **POST** /task/{task_id} | create task for async execution
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
+[**enable_service**](DefaultApi.md#enable_service) | **POST** /context/{context_id}/enableService | enable service for context
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
 [**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
+[**get_support_case**](DefaultApi.md#get_support_case) | **GET** /context/{context_id}/support/{case_id} | get the full support case, including its timeline
 [**get_task_history**](DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
+[**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /identity/availableContexts | list all avaiable contexts
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
+[**update_support_case**](DefaultApi.md#update_support_case) | **POST** /context/{context_id}/support/{case_id} | add a new entry to the support timeline
 
-
-
-## context_context_id_enable_service_get
-
-> context_context_id_enable_service_get(context_id)
-enable service for context
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **dtz_identifier::ContextId** | context id | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_context
@@ -72,7 +48,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -102,7 +78,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -131,7 +107,36 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_support_request
+
+> models::SupportCase create_support_request(context_id, create_support_request_request)
+create a new support request
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+**create_support_request_request** | Option<[**CreateSupportRequestRequest**](CreateSupportRequestRequest.md)> | support request |  |
+
+### Return type
+
+[**models::SupportCase**](SupportCase.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -160,7 +165,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -188,7 +193,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -217,7 +222,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -245,7 +250,35 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## enable_service
+
+> enable_service(context_id)
+enable service for context
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -273,7 +306,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -300,7 +333,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -330,7 +363,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -359,7 +392,36 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_support_case
+
+> models::SupportCase get_support_case(context_id, case_id)
+get the full support case, including its timeline
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+**case_id** | **String** | case id | [required] |
+
+### Return type
+
+[**models::SupportCase**](SupportCase.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -387,7 +449,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -417,12 +479,37 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_available_contexts
+
+> Vec<models::ContextResponse> list_available_contexts()
+list all avaiable contexts
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::ContextResponse>**](ContextResponse.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -445,7 +532,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -473,7 +560,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -504,7 +591,37 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_support_case
+
+> models::SupportCase update_support_case(context_id, case_id, create_support_request_request)
+add a new entry to the support timeline
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+**case_id** | **String** | case id | [required] |
+**create_support_request_request** | Option<[**CreateSupportRequestRequest**](CreateSupportRequestRequest.md)> | support case update |  |
+
+### Return type
+
+[**models::SupportCase**](SupportCase.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 

@@ -25,23 +25,27 @@ All URIs are relative to *https://dtz.rocks/api/2021-12-09*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**context_context_id_enable_service_get**](docs/DefaultApi.md#context_context_id_enable_service_get) | **GET** /context/{context_id}/enableService | enable service for context
 *DefaultApi* | [**create_context**](docs/DefaultApi.md#create_context) | **POST** /context | create new context
 *DefaultApi* | [**create_ingress**](docs/DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/{uri} | create static content for ingress
 *DefaultApi* | [**create_root_ingress**](docs/DefaultApi.md#create_root_ingress) | **POST** /ingress/{domain}/ | create or update ingress
+*DefaultApi* | [**create_support_request**](docs/DefaultApi.md#create_support_request) | **POST** /context/{context_id}/support | create a new support request
 *DefaultApi* | [**create_task**](docs/DefaultApi.md#create_task) | **POST** /task/{task_id} | create task for async execution
 *DefaultApi* | [**delete_context**](docs/DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 *DefaultApi* | [**delete_ingress**](docs/DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 *DefaultApi* | [**delete_root_ingress**](docs/DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
+*DefaultApi* | [**enable_service**](docs/DefaultApi.md#enable_service) | **POST** /context/{context_id}/enableService | enable service for context
 *DefaultApi* | [**get_context**](docs/DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 *DefaultApi* | [**get_current_context**](docs/DefaultApi.md#get_current_context) | **GET** /context | get current context
 *DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
 *DefaultApi* | [**get_root_ingress**](docs/DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
+*DefaultApi* | [**get_support_case**](docs/DefaultApi.md#get_support_case) | **GET** /context/{context_id}/support/{case_id} | get the full support case, including its timeline
 *DefaultApi* | [**get_task_history**](docs/DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 *DefaultApi* | [**issue_certificate**](docs/DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
+*DefaultApi* | [**list_available_contexts**](docs/DefaultApi.md#list_available_contexts) | **GET** /identity/availableContexts | list all avaiable contexts
 *DefaultApi* | [**list_ingress**](docs/DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 *DefaultApi* | [**pull_task_from_queue**](docs/DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
 *DefaultApi* | [**update_context**](docs/DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
+*DefaultApi* | [**update_support_case**](docs/DefaultApi.md#update_support_case) | **POST** /context/{context_id}/support/{case_id} | add a new entry to the support timeline
 
 
 ## Documentation For Models
@@ -50,6 +54,7 @@ Class | Method | HTTP request | Description
  - [ContextResponse](docs/ContextResponse.md)
  - [CreateContextRequest](docs/CreateContextRequest.md)
  - [CreateIngressRequest](docs/CreateIngressRequest.md)
+ - [CreateSupportRequestRequest](docs/CreateSupportRequestRequest.md)
  - [CreateTaskRequest](docs/CreateTaskRequest.md)
  - [CreateTaskRequestTaskDefinition](docs/CreateTaskRequestTaskDefinition.md)
  - [IngressResponse](docs/IngressResponse.md)
@@ -61,6 +66,8 @@ Class | Method | HTTP request | Description
  - [StaticContent](docs/StaticContent.md)
  - [StaticContentHttp](docs/StaticContentHttp.md)
  - [StaticContentHttpHeaderInner](docs/StaticContentHttpHeaderInner.md)
+ - [SupportCase](docs/SupportCase.md)
+ - [SupportCaseTimelineInner](docs/SupportCaseTimelineInner.md)
  - [Validity](docs/Validity.md)
 
 

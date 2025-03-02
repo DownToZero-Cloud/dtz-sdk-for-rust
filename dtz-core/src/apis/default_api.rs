@@ -40,13 +40,6 @@ pub enum PullTaskFromQueueSuccess {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`context_context_id_enable_service_get`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ContextContextIdEnableServiceGetError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`create_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -65,6 +58,13 @@ pub enum CreateIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRootIngressError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`create_support_request`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateSupportRequestError {
     UnknownValue(serde_json::Value),
 }
 
@@ -96,6 +96,13 @@ pub enum DeleteRootIngressError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`enable_service`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EnableServiceError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -124,6 +131,13 @@ pub enum GetRootIngressError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_support_case`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetSupportCaseError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_task_history`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -136,6 +150,13 @@ pub enum GetTaskHistoryError {
 #[serde(untagged)]
 pub enum IssueCertificateError {
     Status429(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_available_contexts`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAvailableContextsError {
     UnknownValue(serde_json::Value),
 }
 
@@ -160,36 +181,13 @@ pub enum UpdateContextError {
     UnknownValue(serde_json::Value),
 }
 
-
-pub async fn context_context_id_enable_service_get(configuration: &Configuration, context_id: &str) -> Result<(), Error<ContextContextIdEnableServiceGetError>> {
-    let local_var_configuration = configuration;
-
-    let local_var_client = &local_var_configuration.client;
-
-    let local_var_uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(context_id));
-    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
-
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-
-    let local_var_req = local_var_req_builder.build()?;
-    let local_var_resp = local_var_client.execute(local_var_req).await?;
-
-    let local_var_status = local_var_resp.status();
-    let local_var_content = local_var_resp.text().await?;
-
-    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
-        Ok(())
-    } else {
-        let local_var_entity: Option<ContextContextIdEnableServiceGetError> = serde_json::from_str(&local_var_content).ok();
-        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
-        Err(Error::ResponseError(local_var_error))
-    }
+/// struct for typed errors of method [`update_support_case`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateSupportCaseError {
+    UnknownValue(serde_json::Value),
 }
+
 
 /// create new context
 pub async fn create_context(configuration: &Configuration, create_context_request: Option<crate::models::CreateContextRequest>) -> Result<models::ContextResponse, Error<CreateContextError>> {
@@ -280,6 +278,37 @@ pub async fn create_root_ingress(configuration: &Configuration, domain: &str, cr
             serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<CreateRootIngressError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn create_support_request(configuration: &Configuration, context_id: &str, create_support_request_request: Option<crate::models::CreateSupportRequestRequest>) -> Result<models::SupportCase, Error<CreateSupportRequestError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/context/{context_id}/support", build_url(configuration), context_id=crate::apis::urlencode(context_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_support_request_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CreateSupportRequestError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -401,6 +430,36 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) ->
         Ok(())
     } else {
         let local_var_entity: Option<DeleteRootIngressError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn enable_service(configuration: &Configuration, context_id: &str) -> Result<(), Error<EnableServiceError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(context_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<EnableServiceError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -529,6 +588,36 @@ pub async fn get_root_ingress(configuration: &Configuration, domain: &str, scope
     }
 }
 
+pub async fn get_support_case(configuration: &Configuration, context_id: &str, case_id: &str) -> Result<models::SupportCase, Error<GetSupportCaseError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/context/{context_id}/support/{case_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id), case_id=crate::apis::urlencode(case_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetSupportCaseError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 pub async fn get_task_history(configuration: &Configuration, task_id: &str) -> Result<(), Error<GetTaskHistoryError>> {
     let local_var_configuration = configuration;
 
@@ -586,6 +675,36 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
         Ok(())
     } else {
         let local_var_entity: Option<IssueCertificateError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<Vec<models::ContextResponse>, Error<ListAvailableContextsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/identity/availableContexts", build_url(configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListAvailableContextsError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -684,6 +803,37 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
             serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
         let local_var_entity: Option<UpdateContextError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn update_support_case(configuration: &Configuration, context_id: &str, case_id: &str, create_support_request_request: Option<crate::models::CreateSupportRequestRequest>) -> Result<models::SupportCase, Error<UpdateSupportCaseError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/context/{context_id}/support/{case_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id), case_id=crate::apis::urlencode(case_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&create_support_request_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<UpdateSupportCaseError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
