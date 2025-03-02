@@ -527,8 +527,8 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/authorize
-          tokenUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/token
+          authorizationUrl: https://oauth.dtz.rocks/api/2021-02-21/oauth/authorize
+          tokenUrl: https://oauth.dtz.rocks/api/2021-02-21/oauth/token
           scopes: {}
     dtz_apikey:
       type: apiKey
