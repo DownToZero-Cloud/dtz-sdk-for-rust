@@ -22,10 +22,6 @@ pub use role_id::*;
 pub use service_id::*;
 pub use task_id::*;
 
-pub trait ShortId {
-    fn to_short_id(&self) -> String;
-}
-
 fn generate_internal_id() -> String {
     const DEFAULT_LENGTH: usize = 8;
     use rand::prelude::*;

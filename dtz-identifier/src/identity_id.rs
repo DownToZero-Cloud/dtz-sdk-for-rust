@@ -1,12 +1,11 @@
 use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
 use std::fmt::Display;
-use uuid::Uuid;
 
 static PREFIX: &str = "identity-";
 
-#[derive(Debug, Clone, PartialEq, Copy)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct IdentityId {
-    pub id: Uuid,
+    pub id: String,
 }
 
 impl Display for IdentityId {
@@ -17,7 +16,9 @@ impl Display for IdentityId {
 
 impl Default for IdentityId {
     fn default() -> Self {
-        Self { id: Uuid::now_v7() }
+        Self {
+            id: crate::generate_internal_id(),
+        }
     }
 }
 
@@ -32,16 +33,19 @@ impl<'de> Deserialize<'de> for IdentityId {
             type Value = IdentityId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("a string starting with 'identity-' followed by a UUID")
+                formatter.write_str("a string starting with '")?;
+                formatter.write_str(PREFIX)?;
+                formatter.write_str("' followed by a 8-character alphanumeric string")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(IdentityId { id: uuid })
+                if let Some(id_str) = value.strip_prefix(PREFIX) {
+                    Ok(IdentityId {
+                        id: id_str.to_string(),
+                    })
                 } else {
                     Err(E::custom("invalid format"))
                 }
@@ -61,9 +65,17 @@ impl Serialize for IdentityId {
     }
 }
 
-impl From<Uuid> for IdentityId {
-    fn from(id: Uuid) -> Self {
-        IdentityId { id }
+impl TryFrom<String> for IdentityId {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(IdentityId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
     }
 }
 
@@ -71,10 +83,10 @@ impl TryFrom<&str> for IdentityId {
     type Error = String;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
-        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-            let uuid =
-                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
-            Ok(IdentityId { id: uuid })
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(IdentityId {
+                id: id_str.to_string(),
+            })
         } else {
             Err("invalid format".to_string())
         }
@@ -87,4 +99,32 @@ fn id_tostring() {
     let full_id = format!("{id}");
     println!("full-id: {full_id}");
     assert!(full_id.starts_with(PREFIX));
+}
+
+#[test]
+fn key_invalid_1() {
+    let k = "abc-dsfdg";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_err())
+}
+
+#[test]
+fn key_valid_1() {
+    let k = "identity-dsfdg";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_ok())
+}
+
+#[test]
+fn key_valid_2() {
+    let k = "identity-0190c589-eb70-7980-97cf-af67b3a84116";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_ok())
+}
+
+#[test]
+fn key_invalid_2() {
+    let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_err())
 }

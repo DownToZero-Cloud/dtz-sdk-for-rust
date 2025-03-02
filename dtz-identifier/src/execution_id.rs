@@ -1,22 +1,50 @@
 use std::fmt::Display;
-use uuid::Uuid;
 
 static PREFIX: &str = "execution-";
 
-#[derive(Debug, Clone, PartialEq, Copy)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct ExecutionId {
-    pub id: Uuid,
+    pub id: String,
 }
 
 impl Default for ExecutionId {
     fn default() -> Self {
-        Self { id: Uuid::now_v7() }
+        Self { id: crate::generate_internal_id() }
     }
 }
 
 impl Display for ExecutionId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
+    }
+}
+
+
+impl TryFrom<String> for ExecutionId {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(ExecutionId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
+impl TryFrom<&str> for ExecutionId {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(ExecutionId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
     }
 }
 
@@ -33,16 +61,17 @@ impl<'de> serde::Deserialize<'de> for ExecutionId {
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("a string starting with '")?;
                 formatter.write_str(PREFIX)?;
-                formatter.write_str("' followed by a UUID")
+                formatter.write_str("' followed by a 8-character alphanumeric string")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(ExecutionId { id: uuid })
+                if let Some(id_str) = value.strip_prefix(PREFIX) {
+                    Ok(ExecutionId {
+                        id: id_str.to_string(),
+                    })
                 } else {
                     Err(E::custom("invalid format"))
                 }
@@ -62,8 +91,3 @@ impl serde::Serialize for ExecutionId {
     }
 }
 
-impl From<Uuid> for ExecutionId {
-    fn from(id: Uuid) -> Self {
-        ExecutionId { id }
-    }
-}

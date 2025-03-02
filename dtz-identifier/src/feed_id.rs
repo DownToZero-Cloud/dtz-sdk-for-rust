@@ -1,14 +1,14 @@
 static PREFIX: &str = "feed-";
 
-#[derive(Debug, Clone, PartialEq, Copy)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct FeedId {
-    pub id: uuid::Uuid,
+    pub id: String,
 }
 
 impl Default for FeedId {
     fn default() -> Self {
         Self {
-            id: uuid::Uuid::now_v7(),
+            id: crate::generate_internal_id(),
         }
     }
 }
@@ -16,6 +16,34 @@ impl Default for FeedId {
 impl std::fmt::Display for FeedId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
+    }
+}
+
+impl TryFrom<String> for FeedId {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(FeedId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
+impl TryFrom<&str> for FeedId {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(FeedId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
     }
 }
 
@@ -32,16 +60,17 @@ impl<'de> serde::Deserialize<'de> for FeedId {
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("a string starting with '")?;
                 formatter.write_str(PREFIX)?;
-                formatter.write_str("' followed by a UUID")
+                formatter.write_str("' followed by a 8-character alphanumeric string")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = uuid::Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(FeedId { id: uuid })
+                if let Some(id_str) = value.strip_prefix(PREFIX) {
+                    Ok(FeedId {
+                        id: id_str.to_string(),
+                    })
                 } else {
                     Err(E::custom("invalid format"))
                 }
@@ -61,15 +90,30 @@ impl serde::Serialize for FeedId {
     }
 }
 
-impl From<uuid::Uuid> for FeedId {
-    fn from(id: uuid::Uuid) -> Self {
-        FeedId { id }
-    }
+#[test]
+fn key_invalid_1() {
+    let k = "abc-dsfdg";
+    let feed: Result<FeedId, String> = FeedId::try_from(k);
+    assert!(feed.is_err())
 }
 
 #[test]
-fn test_from() {
-    let uuid = uuid::Uuid::now_v7();
-    let ctx = FeedId::from(uuid);
-    assert_eq!(ctx.id, uuid);
+fn key_valid_1() {
+    let k = "feed-dsfdg";
+    let feed: Result<FeedId, String> = FeedId::try_from(k);
+    assert!(feed.is_ok())
+}
+
+#[test]
+fn key_valid_2() {
+    let k = "feed-0190c589-eb70-7980-97cf-af67b3a84116";
+    let feed: Result<FeedId, String> = FeedId::try_from(k);
+    assert!(feed.is_ok())
+}
+
+#[test]
+fn key_invalid_2() {
+    let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
+    let feed: Result<FeedId, String> = FeedId::try_from(k);
+    assert!(feed.is_err())
 }

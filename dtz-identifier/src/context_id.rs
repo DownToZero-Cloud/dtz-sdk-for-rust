@@ -1,29 +1,52 @@
 use serde::{de::Visitor, Deserialize, Deserializer, Serialize};
 use std::fmt::Display;
-use uuid::Uuid;
 
 static PREFIX: &str = "context-";
 
-#[derive(Debug, Clone, PartialEq, Copy, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct ContextId {
-    pub id: Uuid,
-}
-
-impl crate::ShortId for ContextId {
-    fn to_short_id(&self) -> String {
-        self.id.to_string()[0..8].to_string()
-    }
+    pub id: String,
 }
 
 impl Default for ContextId {
     fn default() -> Self {
-        Self { id: Uuid::new_v4() }
+        Self {
+            id: crate::generate_internal_id(),
+        }
     }
 }
 
 impl Display for ContextId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
+    }
+}
+
+impl TryFrom<String> for ContextId {
+    type Error = String;
+
+    fn try_from(value: String) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(ContextId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
+    }
+}
+
+impl TryFrom<&str> for ContextId {
+    type Error = String;
+
+    fn try_from(value: &str) -> Result<Self, Self::Error> {
+        if let Some(id_str) = value.strip_prefix(PREFIX) {
+            Ok(ContextId {
+                id: id_str.to_string(),
+            })
+        } else {
+            Err("invalid format".to_string())
+        }
     }
 }
 
@@ -38,16 +61,19 @@ impl<'de> Deserialize<'de> for ContextId {
             type Value = ContextId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-                formatter.write_str("a string starting with 'context-' followed by a UUID")
+                formatter.write_str("a string starting with '")?;
+                formatter.write_str(PREFIX)?;
+                formatter.write_str("' followed by a 8-character alphanumeric string")
             }
 
             fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>
             where
                 E: serde::de::Error,
             {
-                if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-                    let uuid = Uuid::parse_str(uuid_str).map_err(E::custom)?;
-                    Ok(ContextId { id: uuid })
+                if let Some(id_str) = value.strip_prefix(PREFIX) {
+                    Ok(ContextId {
+                        id: id_str.to_string(),
+                    })
                 } else {
                     Err(E::custom("invalid format"))
                 }
@@ -67,45 +93,12 @@ impl Serialize for ContextId {
     }
 }
 
-impl From<Uuid> for ContextId {
-    fn from(id: Uuid) -> Self {
-        ContextId { id }
-    }
-}
-
 #[test]
 fn test_from() {
-    let uuid = Uuid::new_v4();
-    let ctx = ContextId::from(uuid);
-    assert_eq!(ctx.id, uuid);
-}
-
-impl TryFrom<&str> for ContextId {
-    type Error = String;
-
-    fn try_from(value: &str) -> Result<Self, Self::Error> {
-        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-            let uuid =
-                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
-            Ok(ContextId { id: uuid })
-        } else {
-            Err("invalid format".to_string())
-        }
-    }
-}
-
-impl TryFrom<String> for ContextId {
-    type Error = String;
-
-    fn try_from(value: String) -> Result<Self, Self::Error> {
-        if let Some(uuid_str) = value.strip_prefix(PREFIX) {
-            let uuid =
-                uuid::Uuid::parse_str(uuid_str).map_err(|_e| "invalid format".to_string())?;
-            Ok(ContextId { id: uuid })
-        } else {
-            Err("invalid format".to_string())
-        }
-    }
+    let id = crate::generate_internal_id();
+    let id_str = format!("{PREFIX}{id}");
+    let ctx = ContextId::try_from(id_str).unwrap();
+    assert_eq!(ctx.id, id);
 }
 
 #[test]
@@ -119,7 +112,7 @@ fn key_invalid_1() {
 fn key_invalid_2() {
     let k = "context-dsfdg";
     let apikey: Result<ContextId, String> = ContextId::try_from(k);
-    assert!(apikey.is_err())
+    assert!(apikey.is_ok())
 }
 
 #[test]
@@ -134,12 +127,4 @@ fn key_invalid_3() {
     let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
     let apikey: Result<ContextId, String> = ContextId::try_from(k);
     assert!(apikey.is_err())
-}
-
-#[test]
-fn short_id() {
-    use crate::ShortId;
-    let k = "context-0190c589-eb70-7980-97cf-af67b3a84116";
-    let ctx = ContextId::try_from(k).unwrap();
-    assert_eq!(ctx.to_short_id(), "0190c589");
 }
