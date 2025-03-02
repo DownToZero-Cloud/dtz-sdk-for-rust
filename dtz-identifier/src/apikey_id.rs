@@ -8,7 +8,7 @@ pub struct ApiKeyId {
 impl Default for ApiKeyId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: generate_internal_id(),
         }
     }
 }
@@ -88,6 +88,25 @@ impl serde::Serialize for ApiKeyId {
     {
         serializer.serialize_str(&self.to_string())
     }
+}
+
+fn generate_internal_id() -> String {
+    const DEFAULT_LENGTH: usize = 24;
+    use rand::prelude::*;
+    let mut rng = rand::rng();
+    // generate the first non-numeric character
+    let first_char: char = loop {
+        let c: char = rng.sample(rand::distr::Alphanumeric) as char;
+        if c.is_alphabetic() {
+            break c;
+        }
+    };
+    // generate DEFAULT_LENGTH-1 random alphanumeric characters
+    let mut id: Vec<char> = (0..DEFAULT_LENGTH - 1)
+        .map(|_| rng.sample(rand::distr::Alphanumeric) as char)
+        .collect();
+    id.insert(0, first_char);
+    id.into_iter().collect::<String>().to_lowercase()
 }
 
 #[test]
