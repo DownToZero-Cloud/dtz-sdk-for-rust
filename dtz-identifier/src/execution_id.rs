@@ -9,7 +9,7 @@ pub struct ExecutionId {
 
 impl Default for ExecutionId {
     fn default() -> Self {
-        Self { id: crate::generate_internal_id() }
+        Self { id: crate::generate_internal_id(18) }
     }
 }
 

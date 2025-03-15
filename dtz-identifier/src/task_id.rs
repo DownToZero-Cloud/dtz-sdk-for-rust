@@ -10,7 +10,7 @@ pub struct TaskId {
 impl Default for TaskId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(16),
         }
     }
 }

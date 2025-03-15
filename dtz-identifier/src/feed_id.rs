@@ -8,7 +8,7 @@ pub struct FeedId {
 impl Default for FeedId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(8),
         }
     }
 }

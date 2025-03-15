@@ -17,7 +17,7 @@ impl Display for IdentityId {
 impl Default for IdentityId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(8),
         }
     }
 }

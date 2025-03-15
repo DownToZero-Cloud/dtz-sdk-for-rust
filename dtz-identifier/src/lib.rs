@@ -22,8 +22,7 @@ pub use role_id::*;
 pub use service_id::*;
 pub use task_id::*;
 
-fn generate_internal_id() -> String {
-    const DEFAULT_LENGTH: usize = 8;
+fn generate_internal_id(length: usize) -> String {
     use rand::prelude::*;
     let mut rng = rand::rng();
     // generate the first non-numeric character
@@ -34,7 +33,7 @@ fn generate_internal_id() -> String {
         }
     };
     // generate DEFAULT_LENGTH-1 random alphanumeric characters
-    let mut id: Vec<char> = (0..DEFAULT_LENGTH - 1)
+    let mut id: Vec<char> = (0..length - 1)
         .map(|_| rng.sample(rand::distr::Alphanumeric) as char)
         .collect();
     id.insert(0, first_char);
@@ -43,7 +42,7 @@ fn generate_internal_id() -> String {
 
 #[test]
 fn test_generate_id_string() {
-    let id = generate_internal_id();
+    let id = generate_internal_id(8);
     println!("id: {}", id);
     assert_eq!(id.len(), 8);
     let c = id.chars().next().unwrap();

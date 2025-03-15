@@ -11,7 +11,7 @@ pub struct ContextId {
 impl Default for ContextId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(8),
         }
     }
 }
@@ -95,7 +95,7 @@ impl Serialize for ContextId {
 
 #[test]
 fn test_from() {
-    let id = crate::generate_internal_id();
+    let id = crate::generate_internal_id(8);
     let id_str = format!("{PREFIX}{id}");
     let ctx = ContextId::try_from(id_str).unwrap();
     assert_eq!(ctx.id, id);

@@ -8,7 +8,7 @@ pub struct CaseId {
 impl Default for CaseId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(8),
         }
     }
 }

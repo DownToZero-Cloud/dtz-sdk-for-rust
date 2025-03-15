@@ -10,7 +10,7 @@ pub struct RoleId {
 impl Default for RoleId {
     fn default() -> Self {
         Self {
-            id: crate::generate_internal_id(),
+            id: crate::generate_internal_id(8),
         }
     }
 }
