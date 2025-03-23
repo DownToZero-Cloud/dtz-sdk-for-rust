@@ -8,6 +8,14 @@ pub struct ContextId {
     pub id: String,
 }
 
+impl ContextId {
+    pub fn nil() -> Self {
+        Self {
+            id: "00000000".to_string(),
+        }
+    }
+}
+
 impl Default for ContextId {
     fn default() -> Self {
         Self {
@@ -128,3 +136,10 @@ fn key_invalid_3() {
     let apikey: Result<ContextId, String> = ContextId::try_from(k);
     assert!(apikey.is_err())
 }
+
+#[test]
+fn test_nil() {
+    let ctx = ContextId::nil();
+    assert_eq!(ctx.id, "00000000");
+}
+
