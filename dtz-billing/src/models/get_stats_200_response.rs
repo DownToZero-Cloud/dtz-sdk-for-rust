@@ -15,17 +15,26 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetStats200Response {
-    #[serde(rename = "euro", skip_serializing_if = "Option::is_none")]
-    pub euro: Option<Box<crate::models::GetStats200ResponseEuro>>,
-    #[serde(rename = "watt", skip_serializing_if = "Option::is_none")]
-    pub watt: Option<Box<crate::models::GetStats200ResponseEuro>>,
+    #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
+    pub last_updated: Option<String>,
+    #[serde(rename = "balance", skip_serializing_if = "Option::is_none")]
+    pub balance: Option<Box<crate::models::GetStats200ResponseBalance>>,
+    #[serde(rename = "previousDay", skip_serializing_if = "Option::is_none")]
+    pub previous_day: Option<Box<crate::models::GetStats200ResponsePreviousDay>>,
+    #[serde(rename = "previousWeek", skip_serializing_if = "Option::is_none")]
+    pub previous_week: Option<Box<crate::models::GetStats200ResponsePreviousDay>>,
+    #[serde(rename = "overall", skip_serializing_if = "Option::is_none")]
+    pub overall: Option<Box<crate::models::GetStats200ResponsePreviousDay>>,
 }
 
 impl GetStats200Response {
     pub fn new() -> GetStats200Response {
         GetStats200Response {
-            euro: None,
-            watt: None,
+            last_updated: None,
+            balance: None,
+            previous_day: None,
+            previous_week: None,
+            overall: None,
         }
     }
 }

@@ -160,7 +160,7 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetSta
     }
 }
 
-pub async fn list_transactions(configuration: &Configuration, from_time: Option<String>, to_time: Option<String>, service: Option<&str>, context_id: Option<&str>) -> Result<Vec<models::Transaction>, Error<ListTransactionsError>> {
+pub async fn list_transactions(configuration: &Configuration, start: Option<String>, end: Option<String>, service: Option<&str>, context_id: Option<&str>) -> Result<Vec<models::Transaction>, Error<ListTransactionsError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -168,11 +168,11 @@ pub async fn list_transactions(configuration: &Configuration, from_time: Option<
     let local_var_uri_str = format!("{}/transaction", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_str) = from_time {
-        local_var_req_builder = local_var_req_builder.query(&[("fromTime", &local_var_str.to_string())]);
+    if let Some(ref local_var_str) = start {
+        local_var_req_builder = local_var_req_builder.query(&[("start", &local_var_str.to_string())]);
     }
-    if let Some(ref local_var_str) = to_time {
-        local_var_req_builder = local_var_req_builder.query(&[("toTime", &local_var_str.to_string())]);
+    if let Some(ref local_var_str) = end {
+        local_var_req_builder = local_var_req_builder.query(&[("end", &local_var_str.to_string())]);
     }
     if let Some(ref local_var_str) = service {
         local_var_req_builder = local_var_req_builder.query(&[("service", &local_var_str.to_string())]);

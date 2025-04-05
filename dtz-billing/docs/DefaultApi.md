@@ -94,7 +94,7 @@ This endpoint does not need any parameter.
 
 ## list_transactions
 
-> Vec<models::Transaction> list_transactions(from_time, to_time, service, context_id)
+> Vec<models::Transaction> list_transactions(start, end, service, context_id)
 get a transaction listing of all incoming and outgoing charges
 
 ### Parameters
@@ -102,8 +102,8 @@ get a transaction listing of all incoming and outgoing charges
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**from_time** | Option<**String**> | filter timeframe from that date |  |
-**to_time** | Option<**String**> | filter timeframe to that date |  |
+**start** | Option<**String**> | filter timeframe from that date |  |
+**end** | Option<**String**> | filter timeframe to that date |  |
 **service** | Option<**String**> | filter by service |  |
 **context_id** | Option<**String**> | filter by context id |  |
 
