@@ -1,6 +1,6 @@
 [package]
 name = "dtz-objectstore"
-version = "1.0.7"
+version = "1.0.8"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Objectstore API"
 license = "MIT OR Apache-2.0"
