@@ -17,7 +17,7 @@ resolver = "2"
 [workspace.dependencies]
 dtz-billing = { version = "=1.1.4", path = "./dtz-billing" }
 dtz-config = { version = "=1.0.2", path = "./dtz-config" }
-dtz-containerregistry = {  version = "=1.0.4", path = "./dtz-containerregistry" }
+dtz-containerregistry = {  version = "=1.0.5", path = "./dtz-containerregistry" }
 dtz-containers = {  version = "=1.1.4", path = "./dtz-containers" }
 dtz-core = {  version = "=1.1.5", path = "./dtz-core" }
 dtz-identifier = {  version = "=1.2.5", path = "./dtz-identifier" }
