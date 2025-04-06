@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 1.1.6
+  version: 1.1.7
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
