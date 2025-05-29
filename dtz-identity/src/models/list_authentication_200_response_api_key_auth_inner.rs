@@ -21,6 +21,8 @@ pub struct ListAuthentication200ResponseApiKeyAuthInner {
     pub default_context_id: Option<dtz_identifier::ContextId>,
     #[serde(rename = "alias", skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
+    #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<String>,
 }
 
 impl ListAuthentication200ResponseApiKeyAuthInner {
@@ -29,6 +31,7 @@ impl ListAuthentication200ResponseApiKeyAuthInner {
             api_key: None,
             default_context_id: None,
             alias: None,
+            created_at: None,
         }
     }
 }

@@ -14,14 +14,14 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetRoles200Response {
+pub struct GetAbstractRoles200Response {
     #[serde(rename = "roles", skip_serializing_if = "Option::is_none")]
-    pub roles: Option<Vec<models::Role>>,
+    pub roles: Option<Vec<models::AbstractRole>>,
 }
 
-impl GetRoles200Response {
-    pub fn new() -> GetRoles200Response {
-        GetRoles200Response {
+impl GetAbstractRoles200Response {
+    pub fn new() -> GetAbstractRoles200Response {
+        GetAbstractRoles200Response {
             roles: None,
         }
     }

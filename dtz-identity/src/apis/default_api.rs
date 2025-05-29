@@ -59,6 +59,14 @@ pub enum ChangeAuthenticationError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`check_identity`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CheckIdentityError {
+    Status401(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`create_api_key`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -87,6 +95,13 @@ pub enum DeleteIdentityError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_abstract_roles`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAbstractRolesError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_account_email`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -102,10 +117,17 @@ pub enum GetAccountStatsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_roles`]
+/// struct for typed errors of method [`get_roles_for_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetRolesError {
+pub enum GetRolesForContextError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_roles_for_identity`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRolesForIdentityError {
     UnknownValue(serde_json::Value),
 }
 
@@ -113,6 +135,13 @@ pub enum GetRolesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAuthenticationError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`list_available_contexts`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListAvailableContextsError {
     UnknownValue(serde_json::Value),
 }
 
@@ -159,6 +188,14 @@ pub enum RemoveRoleAssignmentError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`share_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ShareRoleError {
+    Status401(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`token_refresh`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -191,11 +228,11 @@ pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result
     let local_var_uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(role_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -221,11 +258,11 @@ pub async fn assume_identity(configuration: &Configuration, assume_identity_requ
     let local_var_uri_str = format!("{}/identity/assume", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&assume_identity_request);
 
@@ -252,11 +289,11 @@ pub async fn authenticate_apikey(configuration: &Configuration, apikey_request: 
     let local_var_uri_str = format!("{}/auth/apikey", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&apikey_request);
 
@@ -283,11 +320,11 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
     let local_var_uri_str = format!("{}/authentication", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&change_authentication_request);
 
@@ -306,6 +343,37 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
     }
 }
 
+pub async fn check_identity(configuration: &Configuration, assume_identity_request: Option<crate::models::AssumeIdentityRequest>) -> Result<models::CheckIdentity200Response, Error<CheckIdentityError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/identity/check", build_url(configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&assume_identity_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<CheckIdentityError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 pub async fn create_api_key(configuration: &Configuration, create_api_key_request: crate::models::CreateApiKeyRequest) -> Result<String, Error<CreateApiKeyError>> {
     let local_var_configuration = configuration;
 
@@ -314,11 +382,11 @@ pub async fn create_api_key(configuration: &Configuration, create_api_key_reques
     let local_var_uri_str = format!("{}/me/identity/apikey", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&create_api_key_request);
 
@@ -345,11 +413,11 @@ pub async fn delete_api_key(configuration: &Configuration, apikey: &str) -> Resu
     let local_var_uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(apikey));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -375,11 +443,11 @@ pub async fn delete_context_roles(configuration: &Configuration, context_id: &st
     let local_var_uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -405,11 +473,11 @@ pub async fn delete_identity(configuration: &Configuration, ) -> Result<(), Erro
     let local_var_uri_str = format!("{}/me/identity", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -427,6 +495,36 @@ pub async fn delete_identity(configuration: &Configuration, ) -> Result<(), Erro
     }
 }
 
+pub async fn get_abstract_roles(configuration: &Configuration, ) -> Result<models::GetAbstractRoles200Response, Error<GetAbstractRolesError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/roles", build_url(configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetAbstractRolesError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 pub async fn get_account_email(configuration: &Configuration, ) -> Result<models::GetAccountEmail200Response, Error<GetAccountEmailError>> {
     let local_var_configuration = configuration;
 
@@ -435,11 +533,11 @@ pub async fn get_account_email(configuration: &Configuration, ) -> Result<models
     let local_var_uri_str = format!("{}/me/email", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -465,11 +563,11 @@ pub async fn get_account_stats(configuration: &Configuration, ) -> Result<models
     let local_var_uri_str = format!("{}/me", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -487,19 +585,19 @@ pub async fn get_account_stats(configuration: &Configuration, ) -> Result<models
     }
 }
 
-pub async fn get_roles(configuration: &Configuration, ) -> Result<models::GetRoles200Response, Error<GetRolesError>> {
+pub async fn get_roles_for_context(configuration: &Configuration, context_id: &str) -> Result<models::GetRolesForContext200Response, Error<GetRolesForContextError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/roles", build_url(configuration));
+    let local_var_uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -511,7 +609,37 @@ pub async fn get_roles(configuration: &Configuration, ) -> Result<models::GetRol
     if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
             serde_json::from_str(&local_var_content).map_err(Error::from)
     } else {
-        let local_var_entity: Option<GetRolesError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_entity: Option<GetRolesForContextError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
+pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: &str) -> Result<models::GetRolesForIdentity200Response, Error<GetRolesForIdentityError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/roles/identity/{identityId}", build_url(configuration), identityId=crate::apis::urlencode(identity_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<GetRolesForIdentityError> = serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
         Err(Error::ResponseError(local_var_error))
     }
@@ -525,11 +653,11 @@ pub async fn list_authentication(configuration: &Configuration, ) -> Result<mode
     let local_var_uri_str = format!("{}/authentication", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -547,6 +675,36 @@ pub async fn list_authentication(configuration: &Configuration, ) -> Result<mode
     }
 }
 
+pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<Vec<models::ListAvailableContexts200ResponseInner>, Error<ListAvailableContextsError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/context", build_url(configuration));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+            serde_json::from_str(&local_var_content).map_err(Error::from)
+    } else {
+        let local_var_entity: Option<ListAvailableContextsError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 pub async fn list_identity(configuration: &Configuration, ) -> Result<models::ListIdentity200Response, Error<ListIdentityError>> {
     let local_var_configuration = configuration;
 
@@ -555,11 +713,11 @@ pub async fn list_identity(configuration: &Configuration, ) -> Result<models::Li
     let local_var_uri_str = format!("{}/identity", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -585,11 +743,11 @@ pub async fn new_context(configuration: &Configuration, context_id: &str, new_co
     let local_var_uri_str = format!("{}/context/{context_id}/new", build_url(configuration), context_id=crate::apis::urlencode(context_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&new_context_request);
 
@@ -616,11 +774,11 @@ pub async fn new_identity(configuration: &Configuration, new_identity_request: O
     let local_var_uri_str = format!("{}/identity", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&new_identity_request);
 
@@ -657,12 +815,6 @@ pub async fn oauth_authorize(configuration: &Configuration, response_type: &str,
     if let Some(ref local_var_str) = nonce {
         local_var_req_builder = local_var_req_builder.query(&[("nonce", &local_var_str.to_string())]);
     }
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -689,12 +841,6 @@ pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client
     let local_var_uri_str = format!("{}/oauth/token", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
     let mut local_var_form_params = std::collections::HashMap::new();
     local_var_form_params.insert("grant_type", grant_type.to_string());
     local_var_form_params.insert("client_id", client_id.to_string());
@@ -726,11 +872,11 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     let local_var_uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(role_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
 
     let local_var_req = local_var_req_builder.build()?;
@@ -748,6 +894,37 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     }
 }
 
+pub async fn share_role(configuration: &Configuration, context_id: &str, role_id: &str, assume_identity_request: crate::models::AssumeIdentityRequest) -> Result<(), Error<ShareRoleError>> {
+    let local_var_configuration = configuration;
+
+    let local_var_client = &local_var_configuration.client;
+
+    let local_var_uri_str = format!("{}/roles/context/{contextId}/{roleId}/share", build_url(configuration), contextId=crate::apis::urlencode(context_id), roleId=crate::apis::urlencode(role_id));
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
+
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
+    local_var_req_builder = local_var_req_builder.json(&assume_identity_request);
+
+    let local_var_req = local_var_req_builder.build()?;
+    let local_var_resp = local_var_client.execute(local_var_req).await?;
+
+    let local_var_status = local_var_resp.status();
+    let local_var_content = local_var_resp.text().await?;
+
+    if !local_var_status.is_client_error() && !local_var_status.is_server_error() {
+        Ok(())
+    } else {
+        let local_var_entity: Option<ShareRoleError> = serde_json::from_str(&local_var_content).ok();
+        let local_var_error = ResponseContent { status: local_var_status, content: Some(crate::apis::Content::Text(local_var_content)), entity: local_var_entity };
+        Err(Error::ResponseError(local_var_error))
+    }
+}
+
 /// token refresh
 pub async fn token_refresh(configuration: &Configuration, change_context_request: crate::models::ChangeContextRequest) -> Result<models::TokenResponse, Error<TokenRefreshError>> {
     let local_var_configuration = configuration;
@@ -757,11 +934,11 @@ pub async fn token_refresh(configuration: &Configuration, change_context_request
     let local_var_uri_str = format!("{}/token/refresh", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
     if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
     local_var_req_builder = local_var_req_builder.json(&change_context_request);
 
@@ -788,12 +965,6 @@ pub async fn user_login(configuration: &Configuration, auth_request: crate::mode
     let local_var_uri_str = format!("{}/token/auth", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
     local_var_req_builder = local_var_req_builder.json(&auth_request);
 
     let local_var_req = local_var_req_builder.build()?;
@@ -819,12 +990,6 @@ pub async fn user_signup(configuration: &Configuration, signup_request: crate::m
     let local_var_uri_str = format!("{}/signup", build_url(configuration));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
-        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
-    };
-    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
-        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
-    };
     local_var_req_builder = local_var_req_builder.json(&signup_request);
 
     let local_var_req = local_var_req_builder.build()?;

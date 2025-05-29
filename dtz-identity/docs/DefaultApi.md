@@ -8,20 +8,25 @@ Method | HTTP request | Description
 [**assume_identity**](DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
 [**authenticate_apikey**](DefaultApi.md#authenticate_apikey) | **POST** /auth/apikey | authenticate with apikey
 [**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password
+[**check_identity**](DefaultApi.md#check_identity) | **POST** /identity/check | checks whether an identity exists
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 [**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
+[**get_abstract_roles**](DefaultApi.md#get_abstract_roles) | **GET** /roles | get roles which are abstract - not assigned to any context or identity
 [**get_account_email**](DefaultApi.md#get_account_email) | **GET** /me/email | Get account email
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
-[**get_roles**](DefaultApi.md#get_roles) | **GET** /roles | get roles
+[**get_roles_for_context**](DefaultApi.md#get_roles_for_context) | **GET** /roles/context/{contextId} | get roles for a certain context id
+[**get_roles_for_identity**](DefaultApi.md#get_roles_for_identity) | **GET** /roles/identity/{identityId} | get roles for a certain identity id
 [**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
+[**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /context | get a list of contexts that the user has access to
 [**list_identity**](DefaultApi.md#list_identity) | **GET** /identity | get a list of all available identities
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**new_identity**](DefaultApi.md#new_identity) | **POST** /identity | creates a new identity
 [**oauth_authorize**](DefaultApi.md#oauth_authorize) | **GET** /oauth/authorize | oauth authorize
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
+[**share_role**](DefaultApi.md#share_role) | **POST** /roles/context/{contextId}/{roleId}/share | sharing a role with another identity
 [**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
@@ -46,7 +51,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -74,7 +79,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -102,7 +107,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -130,12 +135,40 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## check_identity
+
+> models::CheckIdentity200Response check_identity(assume_identity_request)
+checks whether an identity exists
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**assume_identity_request** | Option<[**AssumeIdentityRequest**](AssumeIdentityRequest.md)> | checking for existing identity |  |
+
+### Return type
+
+[**models::CheckIdentity200Response**](checkIdentity_200_response.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -158,7 +191,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -186,7 +219,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -214,7 +247,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -239,12 +272,37 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_abstract_roles
+
+> models::GetAbstractRoles200Response get_abstract_roles()
+get roles which are abstract - not assigned to any context or identity
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::GetAbstractRoles200Response**](getAbstractRoles_200_response.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -264,7 +322,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -289,7 +347,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -299,22 +357,53 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_roles
+## get_roles_for_context
 
-> models::GetRoles200Response get_roles()
-get roles
+> models::GetRolesForContext200Response get_roles_for_context(context_id)
+get roles for a certain context id
 
 ### Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 
 ### Return type
 
-[**models::GetRoles200Response**](getRoles_200_response.md)
+[**models::GetRolesForContext200Response**](getRolesForContext_200_response.md)
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_roles_for_identity
+
+> models::GetRolesForIdentity200Response get_roles_for_identity(identity_id)
+get roles for a certain identity id
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**identity_id** | **dtz_identifier::IdentityId** | identity id | [required] |
+
+### Return type
+
+[**models::GetRolesForIdentity200Response**](getRolesForIdentity_200_response.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -339,7 +428,32 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_available_contexts
+
+> Vec<models::ListAvailableContexts200ResponseInner> list_available_contexts()
+get a list of contexts that the user has access to
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::ListAvailableContexts200ResponseInner>**](listAvailableContexts_200_response_inner.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -364,7 +478,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -393,7 +507,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -421,7 +535,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -454,7 +568,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+No authorization required
 
 ### HTTP request headers
 
@@ -488,7 +602,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+No authorization required
 
 ### HTTP request headers
 
@@ -516,11 +630,41 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## share_role
+
+> share_role(context_id, role_id, assume_identity_request)
+sharing a role with another identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
+**assume_identity_request** | [**AssumeIdentityRequest**](AssumeIdentityRequest.md) |  | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -546,7 +690,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -574,7 +718,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+No authorization required
 
 ### HTTP request headers
 
@@ -602,7 +746,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+No authorization required
 
 ### HTTP request headers
 
