@@ -15,20 +15,20 @@ use crate::models;
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AbstractRole {
-    #[serde(rename = "roleId", skip_serializing_if = "Option::is_none")]
-    pub role_id: Option<dtz_identifier::RoleId>,
+    #[serde(rename = "roleId")]
+    pub role_id: dtz_identifier::RoleId,
     #[serde(rename = "roleAlias", skip_serializing_if = "Option::is_none")]
     pub role_alias: Option<String>,
-    #[serde(rename = "roleScope", skip_serializing_if = "Option::is_none")]
-    pub role_scope: Option<String>,
+    #[serde(rename = "roleScope")]
+    pub role_scope: String,
 }
 
 impl AbstractRole {
-    pub fn new() -> AbstractRole {
+    pub fn new(role_id: dtz_identifier::RoleId, role_scope: String) -> AbstractRole {
         AbstractRole {
-            role_id: None,
+            role_id,
             role_alias: None,
-            role_scope: None,
+            role_scope,
         }
     }
 }

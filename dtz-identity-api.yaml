@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 1.0.23
+  version: 1.0.24
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -692,6 +692,9 @@ components:
           type: string
         roleScope:
           type: string
+      required:
+      - roleId
+      - roleScope
     ContextRole:
       type: object
       properties:
