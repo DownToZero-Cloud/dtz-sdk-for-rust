@@ -568,7 +568,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-No authorization required
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 

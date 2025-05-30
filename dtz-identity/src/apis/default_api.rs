@@ -815,6 +815,12 @@ pub async fn oauth_authorize(configuration: &Configuration, response_type: &str,
     if let Some(ref local_var_str) = nonce {
         local_var_req_builder = local_var_req_builder.query(&[("nonce", &local_var_str.to_string())]);
     }
+    if let Some(ref local_var_token) = local_var_configuration.oauth_access_token {
+        local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
+    };
+    if let Some(ref local_var_apikey) = local_var_configuration.api_key {
+        local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
+    };
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
