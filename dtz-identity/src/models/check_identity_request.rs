@@ -14,22 +14,18 @@ use crate::models;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AssumeIdentityRequest {
+pub struct CheckIdentityRequest {
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
     #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
     pub identity_id: Option<dtz_identifier::IdentityId>,
-    /// target context the token is issued for, if not present, a random context will be chosen.
-    #[serde(rename = "contextId", skip_serializing_if = "Option::is_none")]
-    pub context_id: Option<dtz_identifier::ContextId>,
 }
 
-impl AssumeIdentityRequest {
-    pub fn new() -> AssumeIdentityRequest {
-        AssumeIdentityRequest {
+impl CheckIdentityRequest {
+    pub fn new() -> CheckIdentityRequest {
+        CheckIdentityRequest {
             email: None,
             identity_id: None,
-            context_id: None,
         }
     }
 }

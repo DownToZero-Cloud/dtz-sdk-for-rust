@@ -12,6 +12,8 @@ pub mod change_context_request;
 pub use self::change_context_request::ChangeContextRequest;
 pub mod check_identity_200_response;
 pub use self::check_identity_200_response::CheckIdentity200Response;
+pub mod check_identity_request;
+pub use self::check_identity_request::CheckIdentityRequest;
 pub mod context_role;
 pub use self::context_role::ContextRole;
 pub mod create_api_key_request;

@@ -147,7 +147,7 @@ Name | Type | Description  | Required | Notes
 
 ## check_identity
 
-> models::CheckIdentity200Response check_identity(assume_identity_request)
+> models::CheckIdentity200Response check_identity(check_identity_request)
 checks whether an identity exists
 
 ### Parameters
@@ -155,7 +155,7 @@ checks whether an identity exists
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**assume_identity_request** | Option<[**AssumeIdentityRequest**](AssumeIdentityRequest.md)> | checking for existing identity |  |
+**check_identity_request** | Option<[**CheckIdentityRequest**](CheckIdentityRequest.md)> | checking for existing identity |  |
 
 ### Return type
 
@@ -642,7 +642,7 @@ Name | Type | Description  | Required | Notes
 
 ## share_role
 
-> share_role(context_id, role_id, assume_identity_request)
+> share_role(context_id, role_id, check_identity_request)
 sharing a role with another identity
 
 ### Parameters
@@ -652,7 +652,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **context_id** | **dtz_identifier::ContextId** | context id | [required] |
 **role_id** | **dtz_identifier::RoleId** | role id | [required] |
-**assume_identity_request** | [**AssumeIdentityRequest**](AssumeIdentityRequest.md) |  | [required] |
+**check_identity_request** | [**CheckIdentityRequest**](CheckIdentityRequest.md) |  | [required] |
 
 ### Return type
 

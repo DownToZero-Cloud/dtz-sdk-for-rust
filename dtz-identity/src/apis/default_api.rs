@@ -343,7 +343,7 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
     }
 }
 
-pub async fn check_identity(configuration: &Configuration, assume_identity_request: Option<crate::models::AssumeIdentityRequest>) -> Result<models::CheckIdentity200Response, Error<CheckIdentityError>> {
+pub async fn check_identity(configuration: &Configuration, check_identity_request: Option<crate::models::CheckIdentityRequest>) -> Result<models::CheckIdentity200Response, Error<CheckIdentityError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -357,7 +357,7 @@ pub async fn check_identity(configuration: &Configuration, assume_identity_reque
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
-    local_var_req_builder = local_var_req_builder.json(&assume_identity_request);
+    local_var_req_builder = local_var_req_builder.json(&check_identity_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
@@ -900,7 +900,7 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     }
 }
 
-pub async fn share_role(configuration: &Configuration, context_id: &str, role_id: &str, assume_identity_request: crate::models::AssumeIdentityRequest) -> Result<(), Error<ShareRoleError>> {
+pub async fn share_role(configuration: &Configuration, context_id: &str, role_id: &str, check_identity_request: crate::models::CheckIdentityRequest) -> Result<(), Error<ShareRoleError>> {
     let local_var_configuration = configuration;
 
     let local_var_client = &local_var_configuration.client;
@@ -914,7 +914,7 @@ pub async fn share_role(configuration: &Configuration, context_id: &str, role_id
     if let Some(ref local_var_apikey) = local_var_configuration.api_key {
         local_var_req_builder = local_var_req_builder.header("X-API-KEY", local_var_apikey);
     };
-    local_var_req_builder = local_var_req_builder.json(&assume_identity_request);
+    local_var_req_builder = local_var_req_builder.json(&check_identity_request);
 
     let local_var_req = local_var_req_builder.build()?;
     let local_var_resp = local_var_client.execute(local_var_req).await?;
