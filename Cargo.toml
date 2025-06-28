@@ -1,5 +1,6 @@
 [workspace]
-package.rust-version = "1.72"
+package.rust-version = "1.82"
+package.edition = "2021"
 members = [
     "dtz",
     "dtz-billing",

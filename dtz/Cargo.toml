@@ -1,7 +1,7 @@
 [package]
 name = "dtz"
 version = "0.7.6"
-edition = "2021"
+edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"
 license = "MIT OR Apache-2.0"
