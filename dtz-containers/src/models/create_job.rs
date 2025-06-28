@@ -30,7 +30,7 @@ pub struct CreateJob {
     #[serde(rename = "scheduleRepeat", skip_serializing_if = "Option::is_none")]
     pub schedule_repeat: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<std::collections::HashMap<String, String>>,
+    pub env_variables: Option<std::collections::HashMap<String, models::CreateJobEnvVariablesValue>>,
 }
 
 impl CreateJob {

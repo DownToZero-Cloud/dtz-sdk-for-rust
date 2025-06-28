@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 1.1.5
+  version: 1.1.6
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -195,6 +195,24 @@ paths:
                   type: string
                 envVariables:
                   type: object
+                  additionalProperties:
+                    oneOf:
+                    - type: string
+                    - type: object
+                      name: EncryptedValue
+                      properties:
+                        encryptionKey:
+                          type: string
+                          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'."
+                        encryptedValue:
+                          type: string
+                          description: "The base-64 encoded ciphertext."
+                    - type: object
+                      name: PlainValue
+                      properties:
+                        plainValue:
+                          type: string
+                          description: "the plain text value for server side encryption"
                 rewrite:
                   description: provids url rewriting capabilities
                   type: object
@@ -357,7 +375,10 @@ components:
         envVariables:
           type: object
           additionalProperties:
-            type: string
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/EncryptedValue'
+            - $ref: '#/components/schemas/PlainValue'
       required:
       - name
       - containerImage
@@ -389,7 +410,9 @@ components:
         envVariables:
           type: object
           additionalProperties:
-            type: string
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/EncryptedValue'
       required:
         - id
         - name
@@ -437,6 +460,9 @@ components:
         created:
           type: string
           format: date-time
+        updated:
+          type: string
+          format: date-time
         prefix:
           type: string
         containerImage:
@@ -450,7 +476,9 @@ components:
         envVariables:
           type: object
           additionalProperties:
-            type: string
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/EncryptedValue'
         rewrite:
           description: provids url rewriting capabilities
           type: object
@@ -498,7 +526,10 @@ components:
         envVariables:
           type: object
           additionalProperties:
-            type: string
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/EncryptedValue'
+            - $ref: '#/components/schemas/PlainValue'
         rewrite:
           description: provids url rewriting capabilities
           type: object
@@ -522,14 +553,30 @@ components:
       required:
         - prefix
         - containerImage
+    EncryptedValue:
+      type: object
+      properties:
+        encryptionKey:
+          type: string
+          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'."
+        encryptedValue:
+          type: string
+          description: "The base-64 encoded ciphertext."
+    PlainValue:
+      type: object
+      properties:
+        plainValue:
+          type: string
+          description: "the plain text value for server side encryption"
   securitySchemes:
     dtz_oauth:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://oauth.dtz.rocks/api/2021-02-21/oauth/authorize
-          tokenUrl: https://oauth.dtz.rocks/api/2021-02-21/oauth/token
-          scopes: {}
+          authorizationUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/authorize
+          tokenUrl: https://identity.dtz.rocks/api/2021-02-21/oauth/token
+          scopes:
+            openid: "default profile"
     dtz_apikey:
       type: apiKey
       in: header

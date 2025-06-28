@@ -24,6 +24,8 @@ pub struct Service {
     pub service_id: dtz_identifier::ServiceId,
     #[serde(rename = "created")]
     pub created: String,
+    #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
+    pub updated: Option<String>,
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "containerImage")]
@@ -35,7 +37,7 @@ pub struct Service {
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<std::collections::HashMap<String, String>>,
+    pub env_variables: Option<std::collections::HashMap<String, models::JobResponseEnvVariablesValue>>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
     pub rewrite: Option<Box<crate::models::UpdateServiceRequestRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
@@ -49,6 +51,7 @@ impl Service {
             domain: None,
             service_id,
             created,
+            updated: None,
             prefix,
             container_image,
             container_image_version: None,

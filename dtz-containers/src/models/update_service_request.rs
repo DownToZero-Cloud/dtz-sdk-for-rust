@@ -29,7 +29,7 @@ pub struct UpdateServiceRequest {
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<serde_json::Value>,
+    pub env_variables: Option<std::collections::HashMap<String, models::UpdateServiceRequestEnvVariablesValue>>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
     pub rewrite: Option<Box<crate::models::UpdateServiceRequestRewrite>>,
 }

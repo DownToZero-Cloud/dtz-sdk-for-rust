@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **container_image_version** | Option<**String**> |  | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]
-**env_variables** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
+**env_variables** | Option<[**std::collections::HashMap<String, models::CreateJobEnvVariablesValue>**](CreateJob_envVariables_value.md)> |  | [optional]
 **rewrite** | Option<[**models::UpdateServiceRequestRewrite**](updateService_request_rewrite.md)> |  | [optional]
 **login** | Option<[**models::ServiceLogin**](Service_login.md)> |  | [optional]
 

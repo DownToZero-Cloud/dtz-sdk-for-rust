@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **schedule_type** | **String** |  | 
 **schedule_cron** | Option<**String**> |  | [optional]
 **schedule_repeat** | Option<**String**> |  | [optional]
-**env_variables** | Option<**std::collections::HashMap<String, String>**> |  | [optional]
+**env_variables** | Option<[**std::collections::HashMap<String, models::CreateJobEnvVariablesValue>**](CreateJob_envVariables_value.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
