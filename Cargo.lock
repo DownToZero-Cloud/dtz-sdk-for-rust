@@ -197,7 +197,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.7.6"
+version = "1.0.0"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -213,7 +213,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-billing"
-version = "1.1.4"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -221,6 +221,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
@@ -233,7 +234,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containerregistry"
-version = "1.0.5"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -241,12 +242,13 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
 [[package]]
 name = "dtz-containers"
-version = "1.1.6"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -254,12 +256,13 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
 [[package]]
 name = "dtz-core"
-version = "1.1.7"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -267,6 +270,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "serde_with",
  "url",
 ]
@@ -281,7 +285,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-identity"
-version = "1.0.26"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -289,12 +293,13 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
 [[package]]
 name = "dtz-objectstore"
-version = "1.0.8"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -302,12 +307,13 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
 [[package]]
 name = "dtz-observability"
-version = "1.0.10"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -315,12 +321,13 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
 [[package]]
 name = "dtz-rss2email"
-version = "1.0.9"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -328,6 +335,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
+ "serde_repr",
  "url",
 ]
 
@@ -1199,6 +1207,17 @@ dependencies = [
  "memchr",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "serde_repr"
+version = "0.1.20"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "175ee3e80ae9982737ca543e96133087cbd9a485eecc3bc4de9c1a37b47ea59c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

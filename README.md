@@ -12,7 +12,9 @@ All service specific functionality is exposed through features.
 
 ### Features
 
+* billing
 * containers
+* containerregistry
 * core
 * identity
 * full (contains all features at once)
@@ -33,14 +35,13 @@ dtz = { version = "*", features = ["core"] }
 ```rust
 #[tokio::main]
 use std::str::FromStr;
-use uuid::Uuid;
 
 async fn main() {
     let config = dtz::Configuration {
         api_key: Some("some api key".to_string()),
         ..Default::default()
     };
-    let ctx_id = "00000000-0000-0000-0000-000000000000";
+    let ctx_id = "context-00000000";
     let result = dtz::core::apis::default_api::get_context(&config, ctx_id)
         .await
         .unwrap();
