@@ -14,3 +14,5 @@ jobs:
       run: cargo binstall cargo-msrv
     - name: Verify MSRV
       run: cargo msrv verify --path dtz
+    - name: Cargo Test
+      run: cargo test -q

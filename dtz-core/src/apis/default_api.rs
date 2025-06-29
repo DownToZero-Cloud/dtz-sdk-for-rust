@@ -10,9 +10,11 @@
 
 
 use reqwest;
-use serde::{Deserialize, Serialize, de::Error as _};
+#[allow(unused_imports)]
+use serde::{de::Error as _};
 use crate::{apis::ResponseContent, models};
-use super::{Error, configuration, ContentType};
+#[allow(unused_imports)]
+use super::{Error, ContentType};
 use dtz_config::Configuration;
 
 fn build_url(config: &Configuration) -> String {
