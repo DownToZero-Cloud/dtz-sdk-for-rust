@@ -131,7 +131,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 ### UUIDs
 }}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{!
 ### Models and primative types
-}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{{dataType}}}{{/isUuid}}{{/isString}}{{!
+}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{!
 ### Option End
 }}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{!
 ### Comma for next arguement
@@ -145,7 +145,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 ### Multi response support
 }}{{#supportMultipleResponses}}ResponseContent<{{{operationIdCamelCase}}}Success>{{/supportMultipleResponses}}{{!
 ### Regular return type
-}}{{^supportMultipleResponses}}{{^returnType}}(){{/returnType}}{{{returnType}}}{{/supportMultipleResponses}}{{/isResponseFile}}{{!
+}}{{^supportMultipleResponses}}{{^returnType}}{{#vendorExtensions.x-dtz-include-headers}}reqwest::header::HeaderMap{{/vendorExtensions.x-dtz-include-headers}}{{^vendorExtensions.x-dtz-include-headers}}(){{/vendorExtensions.x-dtz-include-headers}}{{/returnType}}{{{returnType}}}{{/supportMultipleResponses}}{{/isResponseFile}}{{!
 ### Error Type
 }}, Error<{{{operationIdCamelCase}}}Error>> {
     {{#allParams.0}}
@@ -446,7 +446,7 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     {{#hasBodyParam}}
     {{#bodyParams}}
     {{#isFile}}
-    req_builder = req_builder.body({{{vendorExtensions.x-rust-param-identifier}}});
+    req_builder = req_builder.body({{{vendorExtensions.x-rust-param-identifier}}}.unwrap_or_default());
     {{/isFile}}
     {{^isFile}}
     req_builder = req_builder.json(&{{{vendorExtensions.x-rust-param-identifier}}});
@@ -458,6 +458,9 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     let resp = configuration.client.execute(req){{#supportAsync}}.await{{/supportAsync}}?;
 
     let status = resp.status();
+    {{#vendorExtensions.x-dtz-include-headers}}
+    let headers = resp.headers().clone();
+    {{/vendorExtensions.x-dtz-include-headers}}
     {{^supportMultipleResponses}}
     {{^isResponseFile}}
     {{#returnType}}
@@ -478,7 +481,12 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
         {{/isResponseFile}}
         {{^isResponseFile}}
         {{^returnType}}
+        {{#vendorExtensions.x-dtz-include-headers}}
+        Ok(headers)
+        {{/vendorExtensions.x-dtz-include-headers}}
+        {{^vendorExtensions.x-dtz-include-headers}}
         Ok(())
+        {{/vendorExtensions.x-dtz-include-headers}}
         {{/returnType}}
         {{#returnType}}
         let content = resp.text(){{#supportAsync}}.await{{/supportAsync}}?;
