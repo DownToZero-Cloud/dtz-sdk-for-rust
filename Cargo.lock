@@ -197,7 +197,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "0.7.6"
+version = "1.0.0"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -213,7 +213,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-billing"
-version = "1.1.4"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -234,7 +234,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containerregistry"
-version = "1.0.5"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -248,7 +248,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-containers"
-version = "1.1.6"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -262,7 +262,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-core"
-version = "1.1.7"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -285,7 +285,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-identity"
-version = "1.0.26"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -299,7 +299,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-objectstore"
-version = "1.0.8"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -313,7 +313,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-observability"
-version = "1.0.10"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
@@ -327,7 +327,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "1.0.9"
+version = "2.0.0"
 dependencies = [
  "dtz-config",
  "dtz-identifier",
