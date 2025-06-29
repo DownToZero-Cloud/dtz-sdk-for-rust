@@ -1,6 +1,7 @@
 name: ci
 on:
   push:
+  workflow_dispatch:
 jobs:
   ci:
     permissions: write-all
