@@ -12,7 +12,8 @@ dtz-config = { workspace = true }
 dtz-identifier = { workspace = true }
 serde = { workspace = true }
 serde_derive = { workspace = true }
-serde_with = "3"
+serde_repr = "^0.1"
+serde_with = { workspace = true }
 serde_json = { workspace = true }
 url = { workspace = true }
 reqwest = { workspace = true }

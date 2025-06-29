@@ -60,7 +60,7 @@ paths:
       operationId: putObject
       requestBody:
         content:
-          '*/*':
+          application/octet-stream::
             schema:
               type: string
               format: binary

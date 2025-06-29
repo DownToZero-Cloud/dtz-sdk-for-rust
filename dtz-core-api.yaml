@@ -240,7 +240,6 @@ paths:
     post:
       summary: pull one task from the async task queue
       operationId: pullTaskFromQueue
-      x-dtz-all-responses: true
       requestBody:
         description: pulls the next task
         content: 
