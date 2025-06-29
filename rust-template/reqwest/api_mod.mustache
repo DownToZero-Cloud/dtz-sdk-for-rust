@@ -7,7 +7,7 @@ use aws_sigv4;
 #[derive(Debug, Clone)]
 pub struct ResponseContent<T> {
     pub status: reqwest::StatusCode,
-    pub content: Option<Content>, 
+    pub content: String,
     pub entity: Option<T>,
 }
 
@@ -29,6 +29,11 @@ pub enum Error<T> {
     {{#withAWSV4Signature}}
     AWSV4SignatureError(aws_sigv4::http_request::Error),
     {{/withAWSV4Signature}}
+    {{#supportAsync}}
+    {{#supportTokenSource}}
+    TokenSource(Box<dyn std::error::Error + Send + Sync>),
+    {{/supportTokenSource}}
+    {{/supportAsync}}
 }
 
 impl <T> fmt::Display for Error<T> {
@@ -41,9 +46,14 @@ impl <T> fmt::Display for Error<T> {
             Error::Serde(e) => ("serde", e.to_string()),
             Error::Io(e) => ("IO", e.to_string()),
             Error::ResponseError(e) => ("response", format!("status code {}", e.status)),
-	    {{#withAWSV4Signature}}
+            {{#withAWSV4Signature}}
             Error::AWSV4SignatureError(e) => ("aws v4 signature", e.to_string()),
-	    {{/withAWSV4Signature}}
+            {{/withAWSV4Signature}}
+            {{#supportAsync}}
+            {{#supportTokenSource}}
+            Error::TokenSource(e) => ("token source failure", e.to_string()),
+            {{/supportTokenSource}}
+            {{/supportAsync}}
         };
         write!(f, "error in {}: {}", module, e)
     }
@@ -59,9 +69,14 @@ impl <T: fmt::Debug> error::Error for Error<T> {
             Error::Serde(e) => e,
             Error::Io(e) => e,
             Error::ResponseError(_) => return None,
-	    {{#withAWSV4Signature}}
-	    Error::AWSV4SignatureError(_) => return None,
-	    {{/withAWSV4Signature}}
+            {{#withAWSV4Signature}}
+            Error::AWSV4SignatureError(_) => return None,
+            {{/withAWSV4Signature}}
+            {{#supportAsync}}
+            {{#supportTokenSource}}
+            Error::TokenSource(e) => &**e,
+            {{/supportTokenSource}}
+            {{/supportAsync}}
         })
     }
 }
@@ -125,6 +140,27 @@ pub fn parse_deep_object(prefix: &str, value: &serde_json::Value) -> Vec<(String
     unimplemented!("Only objects are supported with style=deepObject")
 }
 
+/// Internal use only
+/// A content type supported by this client.
+#[allow(dead_code)]
+enum ContentType {
+    Json,
+    Text,
+    Unsupported(String)
+}
+
+impl From<&str> for ContentType {
+    fn from(content_type: &str) -> Self {
+        if content_type.starts_with("application") && content_type.contains("json") {
+            return Self::Json;
+        } else if content_type.starts_with("text/plain") {
+            return Self::Text;
+        } else {
+            return Self::Unsupported(content_type.to_string());
+        }
+    }
+}
+
 {{#apiInfo}}
 {{#apis}}
 pub mod {{{classFilename}}};
@@ -132,3 +168,4 @@ pub mod {{{classFilename}}};
 {{/apiInfo}}
 
 pub mod configuration;
+pub use configuration::*;
