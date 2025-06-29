@@ -8,12 +8,6 @@ pub struct ResponseContent<T> {
     pub entity: Option<T>,
 }
 
-#[derive(Debug, Clone)]
-pub enum Content{
-    Text(String),
-    Binary(Vec<u8>),
-}
-
 #[derive(Debug)]
 pub enum Error<T> {
     Reqwest(reqwest::Error),
