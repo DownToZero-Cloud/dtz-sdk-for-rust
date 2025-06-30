@@ -13,17 +13,16 @@ use crate::models;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Login {
-    #[serde(rename = "providerName")]
-    pub provider_name: String,
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum EnvironmentVariablesValue {
+    String(String),
+    EncryptedValue(Box<models::EncryptedValue>),
 }
 
-impl Login {
-    pub fn new(provider_name: String) -> Login {
-        Login {
-            provider_name,
-        }
+impl Default for EnvironmentVariablesValue {
+    fn default() -> Self {
+        Self::String(Default::default())
     }
 }
 

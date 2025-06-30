@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.0.0
+  version: 2.0.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -122,18 +122,22 @@ paths:
       responses:
         "200":
           description: context information
-  /context/{context_id}/support:
+  /support:
+    get:
+      summary: list all support cases for the current context
+      operationId: listSupportCases
+      responses:
+        "200":
+          description: support case listing
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportCase'
     post:
-      summary: create a new support request
+      summary: create a new support request for the current context
       operationId: createSupportRequest
-      parameters:
-        - in: path
-          name: context_id
-          schema:
-            type: string
-            format: ContextId
-          required: true
-          description: context id
       requestBody:
         description: support request
         content:
@@ -150,18 +154,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SupportCase'
-  /context/{context_id}/support/{case_id}:
+  /support/{case_id}:
     get:
       summary: get the full support case, including its timeline
       operationId: getSupportCase
       parameters:
-        - in: path
-          name: context_id
-          schema:
-            type: string
-            format: ContextId
-          required: true
-          description: context id
         - in: path
           name: case_id
           schema:
@@ -184,13 +181,6 @@ paths:
       summary: add a new entry to the support timeline
       operationId: updateSupportCase
       parameters:
-        - in: path
-          name: context_id
-          schema:
-            type: string
-            format: ContextId
-          required: true
-          description: context id
         - in: path
           name: case_id
           schema:
@@ -240,6 +230,7 @@ paths:
     post:
       summary: pull one task from the async task queue
       operationId: pullTaskFromQueue
+      x-dtz-all-responses: true
       requestBody:
         description: pulls the next task
         content: 
@@ -293,7 +284,7 @@ paths:
                   containerPullPwd:
                     type: string
                   envVariables:
-                    type: object
+                    $ref: '#/components/schemas/EnvironmentVariables'
                 required:
                 - contextId
                 - executionId
@@ -346,7 +337,7 @@ paths:
                     containerPullPwd:
                       type: string
                     envVariables:
-                      type: object
+                      $ref: '#/components/schemas/EnvironmentVariables'
                   required:
                   - containerImage
               required:
@@ -689,7 +680,7 @@ components:
         containerPullPwd:
           type: string
         envVariables:
-          type: object
+          $ref: '#/components/schemas/EnvironmentVariables'
       required:
       - containerImage
     SupportCase:
@@ -716,6 +707,21 @@ components:
               identityId:
                 type: string
                 format: IdentityId
+    EnvironmentVariables:
+      type: object
+      additionalProperties:
+        oneOf:
+        - type: string
+        - $ref: '#/components/schemas/EncryptedValue'
+    EncryptedValue:
+      type: object
+      properties:
+        encryptionKey:
+          type: string
+          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'."
+        encryptedValue:
+          type: string
+          description: "The base-64 encoded ciphertext."
   securitySchemes:
     dtz_oauth:
       type: oauth2
