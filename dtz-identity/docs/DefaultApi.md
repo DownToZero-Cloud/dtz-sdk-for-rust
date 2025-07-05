@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password
 [**check_identity**](DefaultApi.md#check_identity) | **POST** /identity/check | checks whether an identity exists
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
+[**create_role_for_context**](DefaultApi.md#create_role_for_context) | **POST** /roles/context/{contextId} | create role from abstract role (template)
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 [**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
@@ -28,6 +29,7 @@ Method | HTTP request | Description
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
 [**share_role**](DefaultApi.md#share_role) | **POST** /roles/context/{contextId}/{roleId}/share | sharing a role with another identity
 [**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
+[**update_api_key_alias**](DefaultApi.md#update_api_key_alias) | **PATCH** /me/identity/apikey/{apikey} | update the api key alias
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
@@ -197,6 +199,35 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: text/plain
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_role_for_context
+
+> models::ContextRole create_role_for_context(context_id, create_role_for_context_request)
+create role from abstract role (template)
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**context_id** | **dtz_identifier::ContextId** | context id | [required] |
+**create_role_for_context_request** | Option<[**CreateRoleForContextRequest**](CreateRoleForContextRequest.md)> |  |  |
+
+### Return type
+
+[**models::ContextRole**](ContextRole.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -696,6 +727,35 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_api_key_alias
+
+> update_api_key_alias(apikey, update_api_key_alias_request)
+update the api key alias
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**apikey** | **String** | api key | [required] |
+**update_api_key_alias_request** | Option<[**UpdateApiKeyAliasRequest**](UpdateApiKeyAliasRequest.md)> |  |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

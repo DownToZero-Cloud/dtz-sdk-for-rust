@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.0.0
+  version: 2.0.1
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -83,6 +83,9 @@ paths:
                         alias:
                           type: string
                         createdAt:
+                          type: string
+                          format: date-time
+                        lastUsedAt:
                           type: string
                           format: date-time
                   oauthAuth:
@@ -386,6 +389,28 @@ paths:
       responses:
         "200":
           description: success
+    patch:
+      summary: update the api key alias
+      operationId: updateApiKeyAlias
+      parameters:
+        - in: path
+          name: apikey
+          schema:
+            type: string
+            format: ApikeyId
+          required: true
+          description: api key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                alias:
+                  type: string
+      responses:
+        "200":
+          description: success
   /me/roles/{roleId}:
     post:
       summary: create role assignment
@@ -498,6 +523,33 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ContextRole'
+    post:
+      summary: create role from abstract role (template)
+      operationId: createRoleForContext
+      parameters:
+        - in: path
+          name: contextId
+          schema:
+            type: string
+            format: ContextId
+          required: true
+          description: context id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                roleId:
+                  type: string
+                  format: roleId
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextRole'  
   /roles/identity/{identityId}:
     get:
       summary: get roles for a certain identity id

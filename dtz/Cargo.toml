@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "1.0.1"
+version = "1.0.2"
 edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"

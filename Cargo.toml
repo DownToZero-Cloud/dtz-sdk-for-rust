@@ -22,7 +22,7 @@ dtz-containerregistry = {  version = "=2.0.0", path = "./dtz-containerregistry" 
 dtz-containers = {  version = "=2.0.0", path = "./dtz-containers" }
 dtz-core = {  version = "=2.0.1", path = "./dtz-core" }
 dtz-identifier = {  version = "=1.2.5", path = "./dtz-identifier" }
-dtz-identity = {  version = "=2.0.0", path = "./dtz-identity" }
+dtz-identity = {  version = "=2.0.1", path = "./dtz-identity" }
 dtz-objectstore = {  version = "=2.0.0", path = "./dtz-objectstore" }
 dtz-observability = {  version = "=2.0.0", path = "./dtz-observability" }
 dtz-rss2email = {  version = "=2.0.0", path = "./dtz-rss2email" }
