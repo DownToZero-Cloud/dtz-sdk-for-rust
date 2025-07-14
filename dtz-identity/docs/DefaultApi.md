@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**assign_role**](DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
 [**assume_identity**](DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
 [**authenticate_apikey**](DefaultApi.md#authenticate_apikey) | **POST** /auth/apikey | authenticate with apikey
-[**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password
+[**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password or default context
 [**check_identity**](DefaultApi.md#check_identity) | **POST** /identity/check | checks whether an identity exists
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
 [**create_role_for_context**](DefaultApi.md#create_role_for_context) | **POST** /roles/context/{contextId} | create role from abstract role (template)
@@ -122,7 +122,7 @@ Name | Type | Description  | Required | Notes
 ## change_authentication
 
 > change_authentication(change_authentication_request)
-update the user authentication, aka change you password
+update the user authentication, aka change you password or default context
 
 ### Parameters
 

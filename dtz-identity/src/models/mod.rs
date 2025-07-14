@@ -40,6 +40,8 @@ pub mod list_authentication_200_response;
 pub use self::list_authentication_200_response::ListAuthentication200Response;
 pub mod list_authentication_200_response_api_key_auth_inner;
 pub use self::list_authentication_200_response_api_key_auth_inner::ListAuthentication200ResponseApiKeyAuthInner;
+pub mod list_authentication_200_response_user_auth_inner;
+pub use self::list_authentication_200_response_user_auth_inner::ListAuthentication200ResponseUserAuthInner;
 pub mod list_available_contexts_200_response_inner;
 pub use self::list_available_contexts_200_response_inner::ListAvailableContexts200ResponseInner;
 pub mod list_identity_200_response;
