@@ -16,3 +16,7 @@ serde_repr = "^0.1"
 serde_json = { workspace = true }
 url = { workspace = true }
 reqwest = { workspace = true }
+
+[dev-dependencies]
+dtz = { path = "../dtz" , features = ["full"] }
+tokio = { version = "1", features = ["full"] }

@@ -215,6 +215,7 @@ dependencies = [
 name = "dtz-billing"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -222,6 +223,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -236,6 +238,7 @@ dependencies = [
 name = "dtz-containerregistry"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -243,6 +246,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -250,6 +254,7 @@ dependencies = [
 name = "dtz-containers"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -257,6 +262,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -264,6 +270,7 @@ dependencies = [
 name = "dtz-core"
 version = "2.0.1"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -272,6 +279,7 @@ dependencies = [
  "serde_json",
  "serde_repr",
  "serde_with",
+ "tokio",
  "url",
 ]
 
@@ -287,6 +295,7 @@ dependencies = [
 name = "dtz-identity"
 version = "2.0.2"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -294,6 +303,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -301,6 +311,7 @@ dependencies = [
 name = "dtz-objectstore"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -308,6 +319,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -315,6 +327,7 @@ dependencies = [
 name = "dtz-observability"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -322,6 +335,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -329,6 +343,7 @@ dependencies = [
 name = "dtz-rss2email"
 version = "2.0.0"
 dependencies = [
+ "dtz",
  "dtz-config",
  "dtz-identifier",
  "reqwest",
@@ -336,6 +351,7 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "serde_repr",
+ "tokio",
  "url",
 ]
 
@@ -801,6 +817,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "241eaef5fd12c88705a01fc1066c48c4b36e0dd4377dcdc7ec3942cea7a69956"
 
 [[package]]
+name = "lock_api"
+version = "0.4.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "96936507f153605bddfcda068dd804796c84324ed2510809e5b2a624c81da765"
+dependencies = [
+ "autocfg",
+ "scopeguard",
+]
+
+[[package]]
 name = "log"
 version = "0.4.27"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -883,6 +909,29 @@ name = "once_cell"
 version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
+
+[[package]]
+name = "parking_lot"
+version = "0.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "70d58bf43669b5795d1576d0641cfb6fbb2057bf629506267a92807158584a13"
+dependencies = [
+ "lock_api",
+ "parking_lot_core",
+]
+
+[[package]]
+name = "parking_lot_core"
+version = "0.9.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc838d2a56b5b1a6c25f55575dfc605fabb63bb2365f6c2353ef9159aa69e4a5"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "redox_syscall",
+ "smallvec",
+ "windows-targets",
+]
 
 [[package]]
 name = "percent-encoding"
@@ -1038,6 +1087,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "99d9a13982dcf210057a8a78572b2217b667c3beacbf3a0d8b454f6f82837d38"
 dependencies = [
  "getrandom 0.3.3",
+]
+
+[[package]]
+name = "redox_syscall"
+version = "0.5.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0d04b7d0ee6b4a0207a0a7adb104d23ecb0b47d6beae7152d0fa34b692b29fd6"
+dependencies = [
+ "bitflags",
 ]
 
 [[package]]
@@ -1201,6 +1259,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "scopeguard"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
+
+[[package]]
 name = "serde"
 version = "1.0.219"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1292,6 +1356,15 @@ name = "shlex"
 version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fda2ff0d084019ba4d7c6f371c95d8fd75ce3524c3cb8fb653a3023f6323e64"
+
+[[package]]
+name = "signal-hook-registry"
+version = "1.4.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9203b8055f63a2a00e2f593bb0510367fe707d7ff1e5c872de2f537b339e5410"
+dependencies = [
+ "libc",
+]
 
 [[package]]
 name = "slab"
@@ -1451,10 +1524,24 @@ dependencies = [
  "io-uring",
  "libc",
  "mio",
+ "parking_lot",
  "pin-project-lite",
+ "signal-hook-registry",
  "slab",
  "socket2",
+ "tokio-macros",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "tokio-macros"
+version = "2.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e06d43f1345a3bcd39f6a56dbb7dcab2ba47e68e8ac134855e7e2bdbaf8cab8"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

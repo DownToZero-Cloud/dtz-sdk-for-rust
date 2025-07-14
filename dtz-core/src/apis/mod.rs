@@ -111,7 +111,9 @@ impl From<&str> for ContentType {
     }
 }
 
-pub mod default_api;
+// expose default_api as root level object
+mod default_api;
+pub use default_api::*;
 
 pub mod configuration;
 pub use configuration::*;

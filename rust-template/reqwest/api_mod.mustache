@@ -157,7 +157,9 @@ impl From<&str> for ContentType {
 
 {{#apiInfo}}
 {{#apis}}
-pub mod {{{classFilename}}};
+// expose default_api as root level object
+mod {{{classFilename}}};
+pub use {{{classFilename}}}::*;
 {{/apis}}
 {{/apiInfo}}
 
