@@ -293,7 +293,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-identity"
-version = "2.0.3"
+version = "2.0.4"
 dependencies = [
  "dtz",
  "dtz-config",
@@ -309,7 +309,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-objectstore"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "dtz",
  "dtz-config",
@@ -325,7 +325,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-observability"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "dtz",
  "dtz-config",
@@ -341,7 +341,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "dtz",
  "dtz-config",
