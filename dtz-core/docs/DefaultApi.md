@@ -16,7 +16,7 @@ Method | HTTP request | Description
 [**get_chat**](DefaultApi.md#get_chat) | **GET** /chat/{chat_id} | get the full chat timeline
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
-[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for specific path
+[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
 [**get_task_history**](DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
@@ -24,8 +24,8 @@ Method | HTTP request | Description
 [**list_chat**](DefaultApi.md#list_chat) | **GET** /chat | list all chat threads for the current context
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
-[**update_chat**](DefaultApi.md#update_chat) | **POST** /chat/{chat_id} | add a new message to the chat
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
+[**update_support_case**](DefaultApi.md#update_support_case) | **POST** /chat/{chat_id} | add a new message to the chat
 
 
 
@@ -374,7 +374,7 @@ This endpoint does not need any parameter.
 ## get_ingress
 
 > models::IngressResponse get_ingress(domain, uri, scope)
-get ingress for specific path
+get ingress for '/' path
 
 ### Parameters
 
@@ -594,35 +594,6 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## update_chat
-
-> models::ChatResponseMessage update_chat(chat_id, create_chat_request)
-add a new message to the chat
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**chat_id** | **String** | chat id | [required] |
-**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat post |  |
-
-### Return type
-
-[**models::ChatResponseMessage**](ChatResponseMessage.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## update_context
 
 > models::ContextResponse update_context(context_id, create_context_request)
@@ -641,6 +612,35 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ContextResponse**](ContextResponse.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_support_case
+
+> models::ChatResponseMessage update_support_case(chat_id, create_chat_request)
+add a new message to the chat
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**chat_id** | **String** | chat id | [required] |
+**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat post |  |
+
+### Return type
+
+[**models::ChatResponseMessage**](ChatResponseMessage.md)
 
 ### Authorization
 

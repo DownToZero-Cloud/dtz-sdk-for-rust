@@ -38,7 +38,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_chat**](docs/DefaultApi.md#get_chat) | **GET** /chat/{chat_id} | get the full chat timeline
 *DefaultApi* | [**get_context**](docs/DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 *DefaultApi* | [**get_current_context**](docs/DefaultApi.md#get_current_context) | **GET** /context | get current context
-*DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for specific path
+*DefaultApi* | [**get_ingress**](docs/DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
 *DefaultApi* | [**get_root_ingress**](docs/DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
 *DefaultApi* | [**get_task_history**](docs/DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 *DefaultApi* | [**issue_certificate**](docs/DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
@@ -46,13 +46,14 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**list_chat**](docs/DefaultApi.md#list_chat) | **GET** /chat | list all chat threads for the current context
 *DefaultApi* | [**list_ingress**](docs/DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 *DefaultApi* | [**pull_task_from_queue**](docs/DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
-*DefaultApi* | [**update_chat**](docs/DefaultApi.md#update_chat) | **POST** /chat/{chat_id} | add a new message to the chat
 *DefaultApi* | [**update_context**](docs/DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
+*DefaultApi* | [**update_support_case**](docs/DefaultApi.md#update_support_case) | **POST** /chat/{chat_id} | add a new message to the chat
 
 
 ## Documentation For Models
 
  - [Chat](docs/Chat.md)
+ - [ChatPrivileges](docs/ChatPrivileges.md)
  - [ChatResponseMessage](docs/ChatResponseMessage.md)
  - [ChatTimelineInner](docs/ChatTimelineInner.md)
  - [Container](docs/Container.md)

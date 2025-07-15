@@ -191,19 +191,19 @@ pub enum PullTaskFromQueueSuccess {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed successes of method [`update_chat`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum UpdateChatSuccess {
-    Status200(models::ChatResponseMessage),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed successes of method [`update_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateContextSuccess {
     Status200(models::ContextResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`update_support_case`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateSupportCaseSuccess {
+    Status200(models::ChatResponseMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -348,17 +348,17 @@ pub enum PullTaskFromQueueError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`update_chat`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum UpdateChatError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`update_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateContextError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_support_case`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateSupportCaseError {
     UnknownValue(serde_json::Value),
 }
 
@@ -980,38 +980,6 @@ pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_
     }
 }
 
-pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<UpdateChatSuccess>, Error<UpdateChatError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_chat_id = chat_id;
-    let p_create_chat_request = create_chat_request;
-
-    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
-    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-    req_builder = req_builder.json(&p_create_chat_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<UpdateChatSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<UpdateChatError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
 /// update context
 pub async fn update_context(configuration: &Configuration, context_id: &str, create_context_request: Option<models::CreateContextRequest>) -> Result<ResponseContent<UpdateContextSuccess>, Error<UpdateContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1041,6 +1009,38 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateContextError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn update_support_case(configuration: &Configuration, chat_id: &str, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<UpdateSupportCaseSuccess>, Error<UpdateSupportCaseError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_chat_id = chat_id;
+    let p_create_chat_request = create_chat_request;
+
+    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_create_chat_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<UpdateSupportCaseSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateSupportCaseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

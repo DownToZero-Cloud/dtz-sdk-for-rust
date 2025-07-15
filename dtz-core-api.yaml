@@ -185,7 +185,7 @@ paths:
                 $ref: '#/components/schemas/Chat'
     post:
       summary: add a new message to the chat
-      operationId: updateChat
+      operationId: updateSupportCase
       parameters:
         - in: path
           name: chat_id
@@ -469,7 +469,7 @@ paths:
           description: status
   /ingress/{domain}/{uri}:
     get:
-      summary: get ingress for specific path
+      summary: get ingress for '/' path
       operationId: getIngress
       parameters:
         - in: path
@@ -715,6 +715,11 @@ components:
         created:
           type: string
           format: date-time
+        owner:
+          type: string
+          format: IdentityId
+        privileges:
+          $ref: '#/components/schemas/ChatPrivileges'
         timeline:
           type: array
           items:
@@ -759,6 +764,21 @@ components:
         encryptedValue:
           type: string
           description: "The base-64 encoded ciphertext."
+    ChatPrivileges:
+      type: object
+      properties:
+        allContextMembers:
+          type: boolean
+        nullBot:
+          $ref: '#/components/schemas/Privileges'
+        supportEmployee:
+          $ref: '#/components/schemas/Privileges'
+    Privileges:
+      type: string
+      values:
+        - chatOnly
+        - contextRead
+        - contextWrite
   securitySchemes:
     dtz_oauth:
       type: oauth2

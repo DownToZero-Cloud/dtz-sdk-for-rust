@@ -1,5 +1,7 @@
 pub mod chat;
 pub use self::chat::Chat;
+pub mod chat_privileges;
+pub use self::chat_privileges::ChatPrivileges;
 pub mod chat_response_message;
 pub use self::chat_response_message::ChatResponseMessage;
 pub mod chat_timeline_inner;

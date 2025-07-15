@@ -18,6 +18,10 @@ pub struct Chat {
     pub chat_id: Option<String>,
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
     pub created: Option<String>,
+    #[serde(rename = "owner", skip_serializing_if = "Option::is_none")]
+    pub owner: Option<dtz_identifier::IdentityId>,
+    #[serde(rename = "privileges", skip_serializing_if = "Option::is_none")]
+    pub privileges: Option<Box<models::ChatPrivileges>>,
     #[serde(rename = "timeline", skip_serializing_if = "Option::is_none")]
     pub timeline: Option<Vec<models::ChatTimelineInner>>,
 }
@@ -27,6 +31,8 @@ impl Chat {
         Chat {
             chat_id: None,
             created: None,
+            owner: None,
+            privileges: None,
             timeline: None,
         }
     }
