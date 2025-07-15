@@ -8,6 +8,9 @@ license = "MIT OR Apache-2.0"
 rust-version.workspace = true
 repository = "https://github.com/DownToZero-Cloud/dtz-sdk-for-rust"
 documentation = "https://docs.rs/dtz"
+homepage = "https://downtozero.cloud"
+keywords = ["dtz", "downtozero", "cloud"]
+categories = ["api-bindings", "development-tools"]
 
 [features]
 billing = ["dep:dtz-billing"]
