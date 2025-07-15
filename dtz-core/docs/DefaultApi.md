@@ -4,29 +4,57 @@ All URIs are relative to *https://dtz.rocks/api/2021-12-09*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**create_chat**](DefaultApi.md#create_chat) | **POST** /chat | create a new chat by posting a message
 [**create_context**](DefaultApi.md#create_context) | **POST** /context | create new context
 [**create_ingress**](DefaultApi.md#create_ingress) | **POST** /ingress/{domain}/{uri} | create static content for ingress
 [**create_root_ingress**](DefaultApi.md#create_root_ingress) | **POST** /ingress/{domain}/ | create or update ingress
-[**create_support_request**](DefaultApi.md#create_support_request) | **POST** /support | create a new support request for the current context
 [**create_task**](DefaultApi.md#create_task) | **POST** /task/{task_id} | create task for async execution
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /context/{context_id}/enableService | enable service for context
+[**get_chat**](DefaultApi.md#get_chat) | **GET** /chat/{chat_id} | get the full chat timeline
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
-[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for '/' path
+[**get_ingress**](DefaultApi.md#get_ingress) | **GET** /ingress/{domain}/{uri} | get ingress for specific path
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
-[**get_support_case**](DefaultApi.md#get_support_case) | **GET** /support/{case_id} | get the full support case, including its timeline
 [**get_task_history**](DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
 [**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /identity/availableContexts | list all avaiable contexts
+[**list_chat**](DefaultApi.md#list_chat) | **GET** /chat | list all chat threads for the current context
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
-[**list_support_cases**](DefaultApi.md#list_support_cases) | **GET** /support | list all support cases for the current context
 [**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
+[**update_chat**](DefaultApi.md#update_chat) | **POST** /chat/{chat_id} | add a new message to the chat
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
-[**update_support_case**](DefaultApi.md#update_support_case) | **POST** /support/{case_id} | add a new entry to the support timeline
 
+
+
+## create_chat
+
+> models::ChatResponseMessage create_chat(create_chat_request)
+create a new chat by posting a message
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat request request |  |
+
+### Return type
+
+[**models::ChatResponseMessage**](ChatResponseMessage.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## create_context
@@ -118,37 +146,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## create_support_request
-
-> models::SupportCase create_support_request(create_support_request_request)
-create a new support request for the current context
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**create_support_request_request** | Option<[**CreateSupportRequestRequest**](CreateSupportRequestRequest.md)> | support request |  |
-
-### Return type
-
-[**models::SupportCase**](SupportCase.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
 ## create_task
 
-> create_task(task_id, create_task_request)
+> models::CreateTask200Response create_task(task_id, create_task_request)
 create task for async execution
 
 ### Parameters
@@ -161,7 +161,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::CreateTask200Response**](createTask_200_response.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -288,6 +288,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_chat
+
+> models::Chat get_chat(chat_id)
+get the full chat timeline
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**chat_id** | **String** | chat id | [required] |
+
+### Return type
+
+[**models::Chat**](Chat.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_context
 
 > models::ContextResponse get_context(context_id)
@@ -346,7 +374,7 @@ This endpoint does not need any parameter.
 ## get_ingress
 
 > models::IngressResponse get_ingress(domain, uri, scope)
-get ingress for '/' path
+get ingress for specific path
 
 ### Parameters
 
@@ -389,34 +417,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::IngressResponse**](IngressResponse.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## get_support_case
-
-> models::SupportCase get_support_case(case_id)
-get the full support case, including its timeline
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**case_id** | **String** | case id | [required] |
-
-### Return type
-
-[**models::SupportCase**](SupportCase.md)
 
 ### Authorization
 
@@ -513,6 +513,31 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_chat
+
+> Vec<models::ListChat200ResponseInner> list_chat()
+list all chat threads for the current context
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::ListChat200ResponseInner>**](listChat_200_response_inner.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_ingress
 
 > Vec<models::IngressResponse> list_ingress(scope)
@@ -528,31 +553,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**Vec<models::IngressResponse>**](IngressResponse.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## list_support_cases
-
-> Vec<models::SupportCase> list_support_cases()
-list all support cases for the current context
-
-### Parameters
-
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Vec<models::SupportCase>**](SupportCase.md)
 
 ### Authorization
 
@@ -594,6 +594,35 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_chat
+
+> models::ChatResponseMessage update_chat(chat_id, create_chat_request)
+add a new message to the chat
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**chat_id** | **String** | chat id | [required] |
+**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat post |  |
+
+### Return type
+
+[**models::ChatResponseMessage**](ChatResponseMessage.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_context
 
 > models::ContextResponse update_context(context_id, create_context_request)
@@ -612,35 +641,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ContextResponse**](ContextResponse.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## update_support_case
-
-> models::SupportCase update_support_case(case_id, create_support_request_request)
-add a new entry to the support timeline
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**case_id** | **String** | case id | [required] |
-**create_support_request_request** | Option<[**CreateSupportRequestRequest**](CreateSupportRequestRequest.md)> | support case update |  |
-
-### Return type
-
-[**models::SupportCase**](SupportCase.md)
 
 ### Authorization
 

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.0.2
+  version: 2.1.0
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -122,24 +122,30 @@ paths:
       responses:
         "200":
           description: context information
-  /support:
+  /chat:
     get:
-      summary: list all support cases for the current context
-      operationId: listSupportCases
+      summary: list all chat threads for the current context
+      operationId: listChat
       responses:
         "200":
-          description: support case listing
+          description: thread listing
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/SupportCase'
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    id:
+                      type: string
+                      format: ChatId
     post:
-      summary: create a new support request for the current context
-      operationId: createSupportRequest
+      summary: create a new chat by posting a message
+      operationId: createChat
       requestBody:
-        description: support request
+        description: chat request request
         content:
           application/json:
             schema:
@@ -149,47 +155,47 @@ paths:
                   type: string
       responses:
         "200":
-          description: support case information
+          description: single response for the request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SupportCase'
-  /support/{case_id}:
+                $ref: '#/components/schemas/ChatResponseMessage'
+  /chat/{chat_id}:
     get:
-      summary: get the full support case, including its timeline
-      operationId: getSupportCase
+      summary: get the full chat timeline
+      operationId: getChat
       parameters:
         - in: path
-          name: case_id
+          name: chat_id
           schema:
             type: string
-            format: CaseId
+            format: ChatId
           required: true
-          description: case id
+          description: chat id
           examples:
-            caseId1:
-              description: sample case id
-              value: case-r3e2m4sa
+            chatId1:
+              description: sample chat id
+              value: chat-r3e2m4sa
       responses:
         "200":
-          description: support case information
+          description: returns the full chat
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SupportCase'
+                $ref: '#/components/schemas/Chat'
     post:
-      summary: add a new entry to the support timeline
-      operationId: updateSupportCase
+      summary: add a new message to the chat
+      operationId: updateChat
       parameters:
         - in: path
-          name: case_id
+          name: chat_id
           schema:
             type: string
-            format: CaseId
+            format: ChatId
           required: true
-          description: case id
+          description: chat id
       requestBody:
-        description: support case update
+        description: chat post
         content:
           application/json:
             schema:
@@ -199,11 +205,11 @@ paths:
                   type: string
       responses:
         "200":
-          description: support case information
+          description: single response for the request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SupportCase'
+                $ref: '#/components/schemas/ChatResponseMessage'
   /certificate:
     post:
       summary: issue a certificate
@@ -350,6 +356,23 @@ paths:
       responses:
         "200":
           description: success
+          content: 
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  taskId:
+                    type: string
+                    format: TaskId
+                  service:
+                    type: string
+                  executionId:
+                    type: string
+                    format: ExecutionId
+                required:
+                  - taskId
+                  - service
+                  - executionId
     get:
       summary: get execution history
       operationId: getTaskHistory
@@ -446,7 +469,7 @@ paths:
           description: status
   /ingress/{domain}/{uri}:
     get:
-      summary: get ingress for '/' path
+      summary: get ingress for specific path
       operationId: getIngress
       parameters:
         - in: path
@@ -683,17 +706,15 @@ components:
           $ref: '#/components/schemas/EnvironmentVariables'
       required:
       - containerImage
-    SupportCase:
+    Chat:
       type: object
       properties:
-        caseId:
+        chatId:
           type: string
-          format: CaseId
+          format: chatId
         created:
           type: string
           format: date-time
-        status:
-          type: string
         timeline:
           type: array
           items:
@@ -707,6 +728,22 @@ components:
               identityId:
                 type: string
                 format: IdentityId
+    ChatResponseMessage:
+      type: object
+      properties:
+        chatId:
+          type: string
+          format: chatId
+        created:
+          description: when the message was created
+          type: string
+          format: date-time
+        content:
+          type: string
+        identityId:
+          type: string
+          format: IdentityId
+          description: who the answer is from
     EnvironmentVariables:
       type: object
       additionalProperties:

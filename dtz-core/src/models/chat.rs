@@ -13,21 +13,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SupportCaseTimelineInner {
+pub struct Chat {
+    #[serde(rename = "chatId", skip_serializing_if = "Option::is_none")]
+    pub chat_id: Option<String>,
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
     pub created: Option<String>,
-    #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<String>,
-    #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
-    pub identity_id: Option<dtz_identifier::IdentityId>,
+    #[serde(rename = "timeline", skip_serializing_if = "Option::is_none")]
+    pub timeline: Option<Vec<models::ChatTimelineInner>>,
 }
 
-impl SupportCaseTimelineInner {
-    pub fn new() -> SupportCaseTimelineInner {
-        SupportCaseTimelineInner {
+impl Chat {
+    pub fn new() -> Chat {
+        Chat {
+            chat_id: None,
             created: None,
-            content: None,
-            identity_id: None,
+            timeline: None,
         }
     }
 }

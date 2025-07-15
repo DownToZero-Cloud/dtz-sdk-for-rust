@@ -9,7 +9,9 @@ pub struct ExecutionId {
 
 impl Default for ExecutionId {
     fn default() -> Self {
-        Self { id: crate::generate_internal_id(18) }
+        Self {
+            id: crate::generate_internal_id(18),
+        }
     }
 }
 
@@ -18,7 +20,6 @@ impl Display for ExecutionId {
         f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
-
 
 impl TryFrom<String> for ExecutionId {
     type Error = String;
@@ -90,4 +91,3 @@ impl serde::Serialize for ExecutionId {
         serializer.serialize_str(&self.to_string())
     }
 }
-

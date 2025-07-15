@@ -151,7 +151,6 @@ fn key_nil() {
     assert!(identity.is_ok())
 }
 
-
 #[test]
 fn key_nil_2() {
     let k = "identity-00000000";
@@ -159,5 +158,3 @@ fn key_nil_2() {
     let nil_id = IdentityId::nil();
     assert_eq!(identity.unwrap(), nil_id);
 }
-
-

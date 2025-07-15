@@ -30,6 +30,14 @@ fn build_url(config: &Configuration) -> String {
 }
 
 
+/// struct for typed successes of method [`create_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateChatSuccess {
+    Status200(models::ChatResponseMessage),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`create_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -54,19 +62,11 @@ pub enum CreateRootIngressSuccess {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed successes of method [`create_support_request`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateSupportRequestSuccess {
-    Status200(models::SupportCase),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed successes of method [`create_task`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTaskSuccess {
-    Status200(),
+    Status200(models::CreateTask200Response),
     UnknownValue(serde_json::Value),
 }
 
@@ -102,6 +102,14 @@ pub enum EnableServiceSuccess {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed successes of method [`get_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetChatSuccess {
+    Status200(models::Chat),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`get_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -134,14 +142,6 @@ pub enum GetRootIngressSuccess {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed successes of method [`get_support_case`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetSupportCaseSuccess {
-    Status200(models::SupportCase),
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed successes of method [`get_task_history`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -166,19 +166,19 @@ pub enum ListAvailableContextsSuccess {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed successes of method [`list_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListChatSuccess {
+    Status200(Vec<models::ListChat200ResponseInner>),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`list_ingress`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListIngressSuccess {
     Status200(Vec<models::IngressResponse>),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed successes of method [`list_support_cases`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ListSupportCasesSuccess {
-    Status200(Vec<models::SupportCase>),
     UnknownValue(serde_json::Value),
 }
 
@@ -191,6 +191,14 @@ pub enum PullTaskFromQueueSuccess {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed successes of method [`update_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateChatSuccess {
+    Status200(models::ChatResponseMessage),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`update_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -199,11 +207,10 @@ pub enum UpdateContextSuccess {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed successes of method [`update_support_case`]
+/// struct for typed errors of method [`create_chat`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum UpdateSupportCaseSuccess {
-    Status200(models::SupportCase),
+pub enum CreateChatError {
     UnknownValue(serde_json::Value),
 }
 
@@ -225,13 +232,6 @@ pub enum CreateIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRootIngressError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`create_support_request`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateSupportRequestError {
     UnknownValue(serde_json::Value),
 }
 
@@ -270,6 +270,13 @@ pub enum EnableServiceError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetChatError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -298,13 +305,6 @@ pub enum GetRootIngressError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_support_case`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetSupportCaseError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`get_task_history`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -327,17 +327,17 @@ pub enum ListAvailableContextsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListChatError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_ingress`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListIngressError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`list_support_cases`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ListSupportCasesError {
     UnknownValue(serde_json::Value),
 }
 
@@ -348,6 +348,13 @@ pub enum PullTaskFromQueueError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`update_chat`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateChatError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`update_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -355,13 +362,37 @@ pub enum UpdateContextError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`update_support_case`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum UpdateSupportCaseError {
-    UnknownValue(serde_json::Value),
-}
 
+pub async fn create_chat(configuration: &Configuration, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<CreateChatSuccess>, Error<CreateChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_create_chat_request = create_chat_request;
+
+    let uri_str = format!("{}/chat", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_create_chat_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<CreateChatSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 /// create new context
 pub async fn create_context(configuration: &Configuration, create_context_request: Option<models::CreateContextRequest>) -> Result<ResponseContent<CreateContextSuccess>, Error<CreateContextError>> {
@@ -456,37 +487,6 @@ pub async fn create_root_ingress(configuration: &Configuration, domain: &str, cr
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateRootIngressError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-pub async fn create_support_request(configuration: &Configuration, create_support_request_request: Option<models::CreateSupportRequestRequest>) -> Result<ResponseContent<CreateSupportRequestSuccess>, Error<CreateSupportRequestError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_support_request_request = create_support_request_request;
-
-    let uri_str = format!("{}/support", build_url(configuration));
-    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-    req_builder = req_builder.json(&p_create_support_request_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<CreateSupportRequestSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<CreateSupportRequestError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -644,6 +644,36 @@ pub async fn enable_service(configuration: &Configuration, context_id: &str) -> 
     }
 }
 
+pub async fn get_chat(configuration: &Configuration, chat_id: &str) -> Result<ResponseContent<GetChatSuccess>, Error<GetChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_chat_id = chat_id;
+
+    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<GetChatSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn get_context(configuration: &Configuration, context_id: &str) -> Result<ResponseContent<GetContextSuccess>, Error<GetContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_context_id = context_id;
@@ -768,36 +798,6 @@ pub async fn get_root_ingress(configuration: &Configuration, domain: &str, scope
     }
 }
 
-pub async fn get_support_case(configuration: &Configuration, case_id: &str) -> Result<ResponseContent<GetSupportCaseSuccess>, Error<GetSupportCaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_case_id = case_id;
-
-    let uri_str = format!("{}/support/{case_id}", build_url(configuration), case_id=crate::apis::urlencode(p_case_id));
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<GetSupportCaseSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetSupportCaseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
 pub async fn get_task_history(configuration: &Configuration, task_id: &str) -> Result<ResponseContent<GetTaskHistorySuccess>, Error<GetTaskHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_task_id = task_id;
@@ -888,6 +888,34 @@ pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<
     }
 }
 
+pub async fn list_chat(configuration: &Configuration, ) -> Result<ResponseContent<ListChatSuccess>, Error<ListChatError>> {
+
+    let uri_str = format!("{}/chat", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<ListChatSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn list_ingress(configuration: &Configuration, scope: Option<&str>) -> Result<ResponseContent<ListIngressSuccess>, Error<ListIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_scope = scope;
@@ -917,34 +945,6 @@ pub async fn list_ingress(configuration: &Configuration, scope: Option<&str>) ->
     } else {
         let content = resp.text().await?;
         let entity: Option<ListIngressError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-pub async fn list_support_cases(configuration: &Configuration, ) -> Result<ResponseContent<ListSupportCasesSuccess>, Error<ListSupportCasesError>> {
-
-    let uri_str = format!("{}/support", build_url(configuration));
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<ListSupportCasesSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<ListSupportCasesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -980,6 +980,38 @@ pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_
     }
 }
 
+pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<UpdateChatSuccess>, Error<UpdateChatError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_chat_id = chat_id;
+    let p_create_chat_request = create_chat_request;
+
+    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_create_chat_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<UpdateChatSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateChatError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// update context
 pub async fn update_context(configuration: &Configuration, context_id: &str, create_context_request: Option<models::CreateContextRequest>) -> Result<ResponseContent<UpdateContextSuccess>, Error<UpdateContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1009,38 +1041,6 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateContextError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-pub async fn update_support_case(configuration: &Configuration, case_id: &str, create_support_request_request: Option<models::CreateSupportRequestRequest>) -> Result<ResponseContent<UpdateSupportCaseSuccess>, Error<UpdateSupportCaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_case_id = case_id;
-    let p_create_support_request_request = create_support_request_request;
-
-    let uri_str = format!("{}/support/{case_id}", build_url(configuration), case_id=crate::apis::urlencode(p_case_id));
-    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-    req_builder = req_builder.json(&p_create_support_request_request);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<UpdateSupportCaseSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<UpdateSupportCaseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

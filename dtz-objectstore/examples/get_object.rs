@@ -5,15 +5,13 @@ async fn main() {
         api_key: Some(api_key),
         ..Default::default()
     };
-    let result =
-        dtz::objectstore::apis::get_object(&config, "file.txt")
-            .await;
+    let result = dtz::objectstore::apis::get_object(&config, "file.txt").await;
     match result {
         Ok(response) => {
             let bytes = response.bytes().await.unwrap();
             let string = String::from_utf8(bytes.to_vec()).unwrap();
             println!("response content: {}", string);
-        },
+        }
         Err(e) => println!("Error uploading file.txt: {}", e),
     }
 }

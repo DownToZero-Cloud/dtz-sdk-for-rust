@@ -81,7 +81,7 @@ impl<'de> serde::Deserialize<'de> for ChatId {
     }
 }
 
-    impl serde::Serialize for ChatId {
+impl serde::Serialize for ChatId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,

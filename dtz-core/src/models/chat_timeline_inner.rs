@@ -13,15 +13,21 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateSupportRequestRequest {
+pub struct ChatTimelineInner {
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
+    #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
+    pub identity_id: Option<dtz_identifier::IdentityId>,
 }
 
-impl CreateSupportRequestRequest {
-    pub fn new() -> CreateSupportRequestRequest {
-        CreateSupportRequestRequest {
+impl ChatTimelineInner {
+    pub fn new() -> ChatTimelineInner {
+        ChatTimelineInner {
+            created: None,
             content: None,
+            identity_id: None,
         }
     }
 }

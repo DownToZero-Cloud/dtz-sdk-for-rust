@@ -142,4 +142,3 @@ fn test_nil() {
     let ctx = ContextId::nil();
     assert_eq!(ctx.id, "00000000");
 }
-
