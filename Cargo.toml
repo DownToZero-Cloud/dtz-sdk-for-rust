@@ -17,16 +17,16 @@ members = [
 resolver = "2"
 
 [workspace.dependencies]
-dtz-billing = { path = "./dtz-billing" }
-dtz-config = { path = "./dtz-config" }
-dtz-containerregistry = { path = "./dtz-containerregistry" }
-dtz-containers = { path = "./dtz-containers" }
-dtz-core = { path = "./dtz-core" }
-dtz-identifier = { path = "./dtz-identifier" }
-dtz-identity = { path = "./dtz-identity" }
-dtz-objectstore = { path = "./dtz-objectstore" }
-dtz-observability = { path = "./dtz-observability" }
-dtz-rss2email = { path = "./dtz-rss2email" }
+dtz-billing = { version = "=2.0.0", path = "./dtz-billing" }
+dtz-config = { version = "=1.0.2", path = "./dtz-config" }
+dtz-containerregistry = { version = "=2.0.0", path = "./dtz-containerregistry" }
+dtz-containers = { version = "=2.0.0", path = "./dtz-containers" }
+dtz-core = { version = "=2.0.2", path = "./dtz-core" }
+dtz-identifier = { version = "=1.2.5", path = "./dtz-identifier" }
+dtz-identity = { version = "=2.0.3", path = "./dtz-identity" }
+dtz-objectstore = { version = "=2.0.0", path = "./dtz-objectstore" }
+dtz-observability = { version = "=2.0.0", path = "./dtz-observability" }
+dtz-rss2email = { version = "=2.0.0", path = "./dtz-rss2email" }
 serde = "1"
 serde_derive = "1"
 serde_json = "1"
