@@ -8,6 +8,14 @@ pub struct IdentityId {
     pub id: String,
 }
 
+impl IdentityId {
+    pub fn nil() -> Self {
+        Self {
+            id: "00000000".to_string(),
+        }
+    }
+}
+
 impl Display for IdentityId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
@@ -128,3 +136,28 @@ fn key_invalid_2() {
     let identity: Result<IdentityId, String> = IdentityId::try_from(k);
     assert!(identity.is_err())
 }
+
+#[test]
+fn key_null() {
+    let k = "identity-null";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_ok())
+}
+
+#[test]
+fn key_nil() {
+    let k = "identity-00000000";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    assert!(identity.is_ok())
+}
+
+
+#[test]
+fn key_nil_2() {
+    let k = "identity-00000000";
+    let identity: Result<IdentityId, String> = IdentityId::try_from(k);
+    let nil_id = IdentityId::nil();
+    assert_eq!(identity.unwrap(), nil_id);
+}
+
+
