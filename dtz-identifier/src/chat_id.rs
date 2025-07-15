@@ -1,11 +1,11 @@
-static PREFIX: &str = "case-";
+static PREFIX: &str = "chat-";
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct CaseId {
+pub struct ChatId {
     pub id: String,
 }
 
-impl Default for CaseId {
+impl Default for ChatId {
     fn default() -> Self {
         Self {
             id: crate::generate_internal_id(8),
@@ -13,18 +13,18 @@ impl Default for CaseId {
     }
 }
 
-impl std::fmt::Display for CaseId {
+impl std::fmt::Display for ChatId {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(&format!("{PREFIX}{}", self.id))
     }
 }
 
-impl TryFrom<String> for CaseId {
+impl TryFrom<String> for ChatId {
     type Error = String;
 
     fn try_from(value: String) -> Result<Self, Self::Error> {
         if let Some(id_str) = value.strip_prefix(PREFIX) {
-            Ok(CaseId {
+            Ok(ChatId {
                 id: id_str.to_string(),
             })
         } else {
@@ -33,12 +33,12 @@ impl TryFrom<String> for CaseId {
     }
 }
 
-impl TryFrom<&str> for CaseId {
+impl TryFrom<&str> for ChatId {
     type Error = String;
 
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         if let Some(id_str) = value.strip_prefix(PREFIX) {
-            Ok(CaseId {
+            Ok(ChatId {
                 id: id_str.to_string(),
             })
         } else {
@@ -47,15 +47,15 @@ impl TryFrom<&str> for CaseId {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for CaseId {
+impl<'de> serde::Deserialize<'de> for ChatId {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
     {
-        struct CaseIdVisitor;
+        struct ChatIdVisitor;
 
-        impl serde::de::Visitor<'_> for CaseIdVisitor {
-            type Value = CaseId;
+        impl serde::de::Visitor<'_> for ChatIdVisitor {
+            type Value = ChatId;
 
             fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                 formatter.write_str("a string starting with '")?;
@@ -68,7 +68,7 @@ impl<'de> serde::Deserialize<'de> for CaseId {
                 E: serde::de::Error,
             {
                 if let Some(id_str) = value.strip_prefix(PREFIX) {
-                    Ok(CaseId {
+                    Ok(ChatId {
                         id: id_str.to_string(),
                     })
                 } else {
@@ -77,11 +77,11 @@ impl<'de> serde::Deserialize<'de> for CaseId {
             }
         }
 
-        deserializer.deserialize_str(CaseIdVisitor)
+        deserializer.deserialize_str(ChatIdVisitor)
     }
 }
 
-impl serde::Serialize for CaseId {
+    impl serde::Serialize for ChatId {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::Serializer,
@@ -92,6 +92,6 @@ impl serde::Serialize for CaseId {
 
 #[test]
 fn test_from() {
-    let ctx = CaseId::try_from("case-12345678").unwrap();
+    let ctx = ChatId::try_from("chat-12345678").unwrap();
     assert_eq!(ctx.id, "12345678");
 }

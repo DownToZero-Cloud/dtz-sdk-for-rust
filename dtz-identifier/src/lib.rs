@@ -1,5 +1,5 @@
 mod apikey_id;
-mod case_id;
+mod chat_id;
 mod context_id;
 mod execution_id;
 mod feed_id;
@@ -11,7 +11,7 @@ mod service_id;
 mod task_id;
 
 pub use apikey_id::*;
-pub use case_id::*;
+pub use chat_id::*;
 pub use context_id::*;
 pub use execution_id::*;
 pub use feed_id::*;
