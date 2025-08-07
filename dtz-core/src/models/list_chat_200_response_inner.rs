@@ -18,6 +18,8 @@ pub struct ListChat200ResponseInner {
     pub name: Option<String>,
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
+    #[serde(rename = "lastUpdate", skip_serializing_if = "Option::is_none")]
+    pub last_update: Option<String>,
 }
 
 impl ListChat200ResponseInner {
@@ -25,6 +27,7 @@ impl ListChat200ResponseInner {
         ListChat200ResponseInner {
             name: None,
             id: None,
+            last_update: None,
         }
     }
 }

@@ -16,17 +16,20 @@ use serde::{Deserialize, Serialize};
 pub struct ChatPrivileges {
     #[serde(rename = "allContextMembers", skip_serializing_if = "Option::is_none")]
     pub all_context_members: Option<bool>,
-    #[serde(rename = "nullBot", skip_serializing_if = "Option::is_none")]
-    pub null_bot: Option<String>,
+    #[serde(rename = "nullBotRead", skip_serializing_if = "Option::is_none")]
+    pub null_bot_read: Option<bool>,
+    #[serde(rename = "nullBotWrite", skip_serializing_if = "Option::is_none")]
+    pub null_bot_write: Option<bool>,
     #[serde(rename = "supportEmployee", skip_serializing_if = "Option::is_none")]
-    pub support_employee: Option<String>,
+    pub support_employee: Option<bool>,
 }
 
 impl ChatPrivileges {
     pub fn new() -> ChatPrivileges {
         ChatPrivileges {
             all_context_members: None,
-            null_bot: None,
+            null_bot_read: None,
+            null_bot_write: None,
             support_employee: None,
         }
     }

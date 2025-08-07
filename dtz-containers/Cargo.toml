@@ -6,6 +6,9 @@ description = "a generated client for the DTZ Containers API"
 license = "MIT OR Apache-2.0"
 edition.workspace = true
 rust-version.workspace = true
+repository = "https://github.com/DownToZero-Cloud/dtz-sdk-for-rust"
+documentation = "https://docs.rs/dtz"
+homepage = "https://downtozero.cloud"
 
 [dependencies]
 dtz-config = { workspace = true }

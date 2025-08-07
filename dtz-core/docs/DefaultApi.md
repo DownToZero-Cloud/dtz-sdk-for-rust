@@ -24,8 +24,8 @@ Method | HTTP request | Description
 [**list_chat**](DefaultApi.md#list_chat) | **GET** /chat | list all chat threads for the current context
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
 [**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
+[**update_chat**](DefaultApi.md#update_chat) | **POST** /chat/{chat_id} | add a new message to the chat
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
-[**update_support_case**](DefaultApi.md#update_support_case) | **POST** /chat/{chat_id} | add a new message to the chat
 
 
 
@@ -548,7 +548,7 @@ list all ingress
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**scope** | Option<**String**> | only include the named scope |  |
+**scope** | **String** | only include the named scope | [required] |
 
 ### Return type
 
@@ -594,6 +594,35 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## update_chat
+
+> models::ChatResponseMessage update_chat(chat_id, create_chat_request)
+add a new message to the chat
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**chat_id** | **String** | chat id | [required] |
+**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat post |  |
+
+### Return type
+
+[**models::ChatResponseMessage**](ChatResponseMessage.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## update_context
 
 > models::ContextResponse update_context(context_id, create_context_request)
@@ -612,35 +641,6 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::ContextResponse**](ContextResponse.md)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## update_support_case
-
-> models::ChatResponseMessage update_support_case(chat_id, create_chat_request)
-add a new message to the chat
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**chat_id** | **String** | chat id | [required] |
-**create_chat_request** | Option<[**CreateChatRequest**](CreateChatRequest.md)> | chat post |  |
-
-### Return type
-
-[**models::ChatResponseMessage**](ChatResponseMessage.md)
 
 ### Authorization
 

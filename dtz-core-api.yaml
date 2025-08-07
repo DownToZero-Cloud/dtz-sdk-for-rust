@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.1.0
+  version: 2.1.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -141,6 +141,9 @@ paths:
                     id:
                       type: string
                       format: ChatId
+                    lastUpdate:
+                      type: string
+                      format: date-time
     post:
       summary: create a new chat by posting a message
       operationId: createChat
@@ -185,7 +188,7 @@ paths:
                 $ref: '#/components/schemas/Chat'
     post:
       summary: add a new message to the chat
-      operationId: updateSupportCase
+      operationId: updateChat
       parameters:
         - in: path
           name: chat_id
@@ -396,6 +399,11 @@ paths:
           name: scope
           schema:
             type: string
+            values:
+              - dtz-containers
+              - dtz-core
+              - dtz-containerregistry
+          required: true
           description: only include the named scope
       responses:
         "200":
@@ -421,6 +429,10 @@ paths:
           name: scope
           schema:
             type: string
+            values:
+              - dtz-containers
+              - dtz-core
+              - dtz-containerregistry
           required: true
           description: only include the named scope
       responses:
@@ -595,6 +607,8 @@ components:
           $ref: '#/components/schemas/Container'
         staticContent:
           $ref: '#/components/schemas/StaticContent'
+        singletonProcessor:
+          type: boolean
       required:
       - scope
     Login:
@@ -647,6 +661,8 @@ components:
           $ref: '#/components/schemas/Container'
         staticContent:
           $ref: '#/components/schemas/StaticContent'
+        singletonProcessor:
+          type: boolean
       required:
       - domain
       - pathPrefix
@@ -719,7 +735,16 @@ components:
           type: string
           format: IdentityId
         privileges:
-          $ref: '#/components/schemas/ChatPrivileges'
+          type: object
+          properties:
+            allContextMembers:
+              type: boolean
+            nullBotRead:
+              type: boolean
+            nullBotWrite:
+              type: boolean
+            supportEmployee:
+              type: boolean
         timeline:
           type: array
           items:
@@ -764,21 +789,6 @@ components:
         encryptedValue:
           type: string
           description: "The base-64 encoded ciphertext."
-    ChatPrivileges:
-      type: object
-      properties:
-        allContextMembers:
-          type: boolean
-        nullBot:
-          $ref: '#/components/schemas/Privileges'
-        supportEmployee:
-          $ref: '#/components/schemas/Privileges'
-    Privileges:
-      type: string
-      values:
-        - chatOnly
-        - contextRead
-        - contextWrite
   securitySchemes:
     dtz_oauth:
       type: oauth2

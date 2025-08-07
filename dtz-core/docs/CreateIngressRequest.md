@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **rewrite** | Option<[**models::Rewrite**](Rewrite.md)> |  | [optional]
 **container** | Option<[**models::Container**](Container.md)> |  | [optional]
 **static_content** | Option<[**models::StaticContent**](StaticContent.md)> |  | [optional]
+**singleton_processor** | Option<**bool**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -31,6 +31,8 @@ pub struct IngressResponse {
     pub container: Option<Box<models::Container>>,
     #[serde(rename = "staticContent", skip_serializing_if = "Option::is_none")]
     pub static_content: Option<Box<models::StaticContent>>,
+    #[serde(rename = "singletonProcessor", skip_serializing_if = "Option::is_none")]
+    pub singleton_processor: Option<bool>,
 }
 
 impl IngressResponse {
@@ -44,6 +46,7 @@ impl IngressResponse {
             rewrite: None,
             container: None,
             static_content: None,
+            singleton_processor: None,
         }
     }
 }
