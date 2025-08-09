@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.0.4
+  version: 2.0.5
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -28,6 +28,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        "401":
+          description: not authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
   /signup:
     post:
       summary: create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
@@ -625,6 +634,15 @@ paths:
           description: success
         "401":
           description: forbidden
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: string
   /oauth/authorize:
     get:
       summary: oauth authorize

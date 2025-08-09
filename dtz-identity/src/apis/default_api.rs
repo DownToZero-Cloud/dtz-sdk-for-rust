@@ -49,6 +49,7 @@ pub enum AssumeIdentityError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AuthenticateApikeyError {
+    Status401(models::AuthenticateApikey401Response),
     UnknownValue(serde_json::Value),
 }
 
@@ -200,6 +201,7 @@ pub enum RemoveRoleAssignmentError {
 #[serde(untagged)]
 pub enum ShareRoleError {
     Status401(),
+    Status400(models::ShareRole400Response),
     UnknownValue(serde_json::Value),
 }
 
