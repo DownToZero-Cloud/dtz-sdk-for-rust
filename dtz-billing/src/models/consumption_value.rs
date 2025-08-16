@@ -22,15 +22,18 @@ pub struct ConsumptionValue {
     pub amount: f64,
     #[serde(rename = "unitOfAmount")]
     pub unit_of_amount: UnitOfAmount,
+    #[serde(rename = "deduplicationKey")]
+    pub deduplication_key: String,
 }
 
 impl ConsumptionValue {
-    pub fn new(amount: f64, unit_of_amount: UnitOfAmount) -> ConsumptionValue {
+    pub fn new(amount: f64, unit_of_amount: UnitOfAmount, deduplication_key: String) -> ConsumptionValue {
         ConsumptionValue {
             description: None,
             eco_mode: None,
             amount,
             unit_of_amount,
+            deduplication_key,
         }
     }
 }
