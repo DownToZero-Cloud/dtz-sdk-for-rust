@@ -90,9 +90,9 @@ pub enum StatsError {
 /// This can only be done by the logged in user.
 pub async fn delete_object(configuration: &Configuration, object_path: &str) -> Result<(), Error<DeleteObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_object_path = object_path;
+    let p_path_object_path = object_path;
 
-    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_object_path));
+    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref value) = configuration.api_key {
@@ -170,9 +170,9 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
 
 pub async fn get_object(configuration: &Configuration, object_path: &str) -> Result<reqwest::Response, Error<GetObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_object_path = object_path;
+    let p_path_object_path = object_path;
 
-    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_object_path));
+    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref value) = configuration.api_key {
@@ -198,9 +198,9 @@ pub async fn get_object(configuration: &Configuration, object_path: &str) -> Res
 
 pub async fn get_object_metadata(configuration: &Configuration, object_path: &str) -> Result<models::ObjectMetadata, Error<GetObjectMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_object_path = object_path;
+    let p_path_object_path = object_path;
 
-    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_object_path));
+    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::HEAD, &uri_str);
 
     if let Some(ref value) = configuration.api_key {
@@ -237,12 +237,12 @@ pub async fn get_object_metadata(configuration: &Configuration, object_path: &st
 
 pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>) -> Result<Vec<models::ObjectMetadata>, Error<ListObjectsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_prefix = prefix;
+    let p_query_prefix = prefix;
 
     let uri_str = format!("{}/obj/", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_prefix {
+    if let Some(ref param_value) = p_query_prefix {
         req_builder = req_builder.query(&[("prefix", &param_value.to_string())]);
     }
     if let Some(ref value) = configuration.api_key {
@@ -279,14 +279,14 @@ pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>) -
 
 pub async fn put_object(configuration: &Configuration, object_path: &str, x_dtz_expiration: Option<&str>, body: Option<Vec<u8>>) -> Result<(), Error<PutObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_object_path = object_path;
-    let p_x_dtz_expiration = x_dtz_expiration;
-    let p_body = body;
+    let p_path_object_path = object_path;
+    let p_header_x_dtz_expiration = x_dtz_expiration;
+    let p_body_body = body;
 
-    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_object_path));
+    let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(param_value) = p_x_dtz_expiration {
+    if let Some(param_value) = p_header_x_dtz_expiration {
         req_builder = req_builder.header("X-DTZ-EXPIRATION", param_value.to_string());
     }
     if let Some(ref value) = configuration.api_key {
@@ -295,7 +295,7 @@ pub async fn put_object(configuration: &Configuration, object_path: &str, x_dtz_
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.body(p_body.unwrap_or_default());
+    req_builder = req_builder.body(p_body_body.unwrap_or_default());
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -14,6 +14,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateServiceRequest {
+    /// whether this service is active and should be propagated to ingress
+    #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
+    pub enabled: Option<bool>,
     /// by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
     #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
     pub domain: Option<Vec<String>>,
@@ -36,6 +39,7 @@ pub struct UpdateServiceRequest {
 impl UpdateServiceRequest {
     pub fn new(prefix: String, container_image: String) -> UpdateServiceRequest {
         UpdateServiceRequest {
+            enabled: None,
             domain: None,
             prefix,
             container_image,

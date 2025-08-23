@@ -95,12 +95,12 @@ pub async fn charge_stripe_post(configuration: &Configuration, ) -> Result<(), E
 
 pub async fn check_funded(configuration: &Configuration, identity: Option<&str>) -> Result<models::CheckFunded200Response, Error<CheckFundedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_identity = identity;
+    let p_query_identity = identity;
 
     let uri_str = format!("{}/funded", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_identity {
+    if let Some(ref param_value) = p_query_identity {
         req_builder = req_builder.query(&[("identity", &param_value.to_string())]);
     }
     if let Some(ref token) = configuration.oauth_access_token {
@@ -174,24 +174,24 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetSta
 
 pub async fn list_transactions(configuration: &Configuration, start: Option<String>, end: Option<String>, service: Option<&str>, context_id: Option<&str>) -> Result<Vec<models::Transaction>, Error<ListTransactionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_start = start;
-    let p_end = end;
-    let p_service = service;
-    let p_context_id = context_id;
+    let p_query_start = start;
+    let p_query_end = end;
+    let p_query_service = service;
+    let p_query_context_id = context_id;
 
     let uri_str = format!("{}/transaction", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_start {
+    if let Some(ref param_value) = p_query_start {
         req_builder = req_builder.query(&[("start", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_end {
+    if let Some(ref param_value) = p_query_end {
         req_builder = req_builder.query(&[("end", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_service {
+    if let Some(ref param_value) = p_query_service {
         req_builder = req_builder.query(&[("service", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_context_id {
+    if let Some(ref param_value) = p_query_context_id {
         req_builder = req_builder.query(&[("contextId", &param_value.to_string())]);
     }
     if let Some(ref token) = configuration.oauth_access_token {
@@ -229,7 +229,7 @@ pub async fn list_transactions(configuration: &Configuration, start: Option<Stri
 /// post new service consumption This endpoint cannot be used with service credentials. Only system credentials can update service consumption. 
 pub async fn post_consumption(configuration: &Configuration, consumption: Option<models::Consumption>) -> Result<(), Error<PostConsumptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_consumption = consumption;
+    let p_body_consumption = consumption;
 
     let uri_str = format!("{}/consumption", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -240,7 +240,7 @@ pub async fn post_consumption(configuration: &Configuration, consumption: Option
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_consumption);
+    req_builder = req_builder.json(&p_body_consumption);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

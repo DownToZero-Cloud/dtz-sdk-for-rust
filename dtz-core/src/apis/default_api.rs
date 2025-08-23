@@ -365,7 +365,7 @@ pub enum UpdateContextError {
 
 pub async fn create_chat(configuration: &Configuration, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<CreateChatSuccess>, Error<CreateChatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_chat_request = create_chat_request;
+    let p_body_create_chat_request = create_chat_request;
 
     let uri_str = format!("{}/chat", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -376,7 +376,7 @@ pub async fn create_chat(configuration: &Configuration, create_chat_request: Opt
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_chat_request);
+    req_builder = req_builder.json(&p_body_create_chat_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -397,7 +397,7 @@ pub async fn create_chat(configuration: &Configuration, create_chat_request: Opt
 /// create new context
 pub async fn create_context(configuration: &Configuration, create_context_request: Option<models::CreateContextRequest>) -> Result<ResponseContent<CreateContextSuccess>, Error<CreateContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_context_request = create_context_request;
+    let p_body_create_context_request = create_context_request;
 
     let uri_str = format!("{}/context", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -408,7 +408,7 @@ pub async fn create_context(configuration: &Configuration, create_context_reques
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_context_request);
+    req_builder = req_builder.json(&p_body_create_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -428,11 +428,11 @@ pub async fn create_context(configuration: &Configuration, create_context_reques
 
 pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &str, create_ingress_request: Option<models::CreateIngressRequest>) -> Result<ResponseContent<CreateIngressSuccess>, Error<CreateIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
-    let p_uri = uri;
-    let p_create_ingress_request = create_ingress_request;
+    let p_path_domain = domain;
+    let p_path_uri = uri;
+    let p_body_create_ingress_request = create_ingress_request;
 
-    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_domain), uri=crate::apis::urlencode(p_uri));
+    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -441,7 +441,7 @@ pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &s
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_ingress_request);
+    req_builder = req_builder.json(&p_body_create_ingress_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -461,10 +461,10 @@ pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &s
 
 pub async fn create_root_ingress(configuration: &Configuration, domain: &str, create_ingress_request: Option<models::CreateIngressRequest>) -> Result<ResponseContent<CreateRootIngressSuccess>, Error<CreateRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
-    let p_create_ingress_request = create_ingress_request;
+    let p_path_domain = domain;
+    let p_body_create_ingress_request = create_ingress_request;
 
-    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_domain));
+    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -473,7 +473,7 @@ pub async fn create_root_ingress(configuration: &Configuration, domain: &str, cr
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_ingress_request);
+    req_builder = req_builder.json(&p_body_create_ingress_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -493,10 +493,10 @@ pub async fn create_root_ingress(configuration: &Configuration, domain: &str, cr
 
 pub async fn create_task(configuration: &Configuration, task_id: &str, create_task_request: Option<models::CreateTaskRequest>) -> Result<ResponseContent<CreateTaskSuccess>, Error<CreateTaskError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_task_id = task_id;
-    let p_create_task_request = create_task_request;
+    let p_path_task_id = task_id;
+    let p_body_create_task_request = create_task_request;
 
-    let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_task_id));
+    let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_path_task_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -505,7 +505,7 @@ pub async fn create_task(configuration: &Configuration, task_id: &str, create_ta
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_task_request);
+    req_builder = req_builder.json(&p_body_create_task_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -525,9 +525,9 @@ pub async fn create_task(configuration: &Configuration, task_id: &str, create_ta
 
 pub async fn delete_context(configuration: &Configuration, context_id: &str) -> Result<ResponseContent<DeleteContextSuccess>, Error<DeleteContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
+    let p_path_context_id = context_id;
 
-    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -555,10 +555,10 @@ pub async fn delete_context(configuration: &Configuration, context_id: &str) -> 
 
 pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &str) -> Result<ResponseContent<DeleteIngressSuccess>, Error<DeleteIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
-    let p_uri = uri;
+    let p_path_domain = domain;
+    let p_path_uri = uri;
 
-    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_domain), uri=crate::apis::urlencode(p_uri));
+    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -586,9 +586,9 @@ pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &s
 
 pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) -> Result<ResponseContent<DeleteRootIngressSuccess>, Error<DeleteRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
+    let p_path_domain = domain;
 
-    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_domain));
+    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -616,9 +616,9 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) ->
 
 pub async fn enable_service(configuration: &Configuration, context_id: &str) -> Result<ResponseContent<EnableServiceSuccess>, Error<EnableServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
+    let p_path_context_id = context_id;
 
-    let uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -646,9 +646,9 @@ pub async fn enable_service(configuration: &Configuration, context_id: &str) -> 
 
 pub async fn get_chat(configuration: &Configuration, chat_id: &str) -> Result<ResponseContent<GetChatSuccess>, Error<GetChatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_chat_id = chat_id;
+    let p_path_chat_id = chat_id;
 
-    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
+    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_path_chat_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -676,9 +676,9 @@ pub async fn get_chat(configuration: &Configuration, chat_id: &str) -> Result<Re
 
 pub async fn get_context(configuration: &Configuration, context_id: &str) -> Result<ResponseContent<GetContextSuccess>, Error<GetContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
+    let p_path_context_id = context_id;
 
-    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -735,14 +735,14 @@ pub async fn get_current_context(configuration: &Configuration, ) -> Result<Resp
 
 pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str, scope: &str) -> Result<ResponseContent<GetIngressSuccess>, Error<GetIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
-    let p_uri = uri;
-    let p_scope = scope;
+    let p_path_domain = domain;
+    let p_path_uri = uri;
+    let p_query_scope = scope;
 
-    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_domain), uri=crate::apis::urlencode(p_uri));
+    let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_scope.to_string())]);
+    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -768,13 +768,13 @@ pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str,
 
 pub async fn get_root_ingress(configuration: &Configuration, domain: &str, scope: &str) -> Result<ResponseContent<GetRootIngressSuccess>, Error<GetRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain = domain;
-    let p_scope = scope;
+    let p_path_domain = domain;
+    let p_query_scope = scope;
 
-    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_domain));
+    let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_scope.to_string())]);
+    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -800,9 +800,9 @@ pub async fn get_root_ingress(configuration: &Configuration, domain: &str, scope
 
 pub async fn get_task_history(configuration: &Configuration, task_id: &str) -> Result<ResponseContent<GetTaskHistorySuccess>, Error<GetTaskHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_task_id = task_id;
+    let p_path_task_id = task_id;
 
-    let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_task_id));
+    let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_path_task_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -831,7 +831,7 @@ pub async fn get_task_history(configuration: &Configuration, task_id: &str) -> R
 /// issue a certificate -  if no certificate exists a new one is issued, if a certificate exists a new one will only be issued 3 days before its expiration 
 pub async fn issue_certificate(configuration: &Configuration, issue_certificate_request: Option<models::IssueCertificateRequest>) -> Result<ResponseContent<IssueCertificateSuccess>, Error<IssueCertificateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_issue_certificate_request = issue_certificate_request;
+    let p_body_issue_certificate_request = issue_certificate_request;
 
     let uri_str = format!("{}/certificate", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -842,7 +842,7 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_issue_certificate_request);
+    req_builder = req_builder.json(&p_body_issue_certificate_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -918,12 +918,12 @@ pub async fn list_chat(configuration: &Configuration, ) -> Result<ResponseConten
 
 pub async fn list_ingress(configuration: &Configuration, scope: &str) -> Result<ResponseContent<ListIngressSuccess>, Error<ListIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_scope = scope;
+    let p_query_scope = scope;
 
     let uri_str = format!("{}/ingress", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_scope.to_string())]);
+    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -949,7 +949,7 @@ pub async fn list_ingress(configuration: &Configuration, scope: &str) -> Result<
 
 pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_queue_request: Option<models::PullTaskFromQueueRequest>) -> Result<ResponseContent<PullTaskFromQueueSuccess>, Error<PullTaskFromQueueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_pull_task_from_queue_request = pull_task_from_queue_request;
+    let p_body_pull_task_from_queue_request = pull_task_from_queue_request;
 
     let uri_str = format!("{}/task", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -960,7 +960,7 @@ pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_pull_task_from_queue_request);
+    req_builder = req_builder.json(&p_body_pull_task_from_queue_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -980,10 +980,10 @@ pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_
 
 pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_chat_request: Option<models::CreateChatRequest>) -> Result<ResponseContent<UpdateChatSuccess>, Error<UpdateChatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_chat_id = chat_id;
-    let p_create_chat_request = create_chat_request;
+    let p_path_chat_id = chat_id;
+    let p_body_create_chat_request = create_chat_request;
 
-    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_chat_id));
+    let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_path_chat_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -992,7 +992,7 @@ pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_ch
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_chat_request);
+    req_builder = req_builder.json(&p_body_create_chat_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1013,10 +1013,10 @@ pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_ch
 /// update context
 pub async fn update_context(configuration: &Configuration, context_id: &str, create_context_request: Option<models::CreateContextRequest>) -> Result<ResponseContent<UpdateContextSuccess>, Error<UpdateContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
-    let p_create_context_request = create_context_request;
+    let p_path_context_id = context_id;
+    let p_body_create_context_request = create_context_request;
 
-    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -1025,7 +1025,7 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_context_request);
+    req_builder = req_builder.json(&p_body_create_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

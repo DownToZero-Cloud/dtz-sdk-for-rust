@@ -412,9 +412,9 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetSta
 
 pub async fn list_label_values(configuration: &Configuration, label: &str) -> Result<models::ListLabelValues200Response, Error<ListLabelValuesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_label = label;
+    let p_path_label = label;
 
-    let uri_str = format!("{}/prometheus/api/v1/label/{label}/values", build_url(configuration), label=crate::apis::urlencode(p_label));
+    let uri_str = format!("{}/prometheus/api/v1/label/{label}/values", build_url(configuration), label=crate::apis::urlencode(p_path_label));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -488,7 +488,7 @@ pub async fn list_labels(configuration: &Configuration, ) -> Result<models::List
 
 pub async fn post_log(configuration: &Configuration, post_log_request_inner: Option<Vec<models::PostLogRequestInner>>) -> Result<(), Error<PostLogError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_post_log_request_inner = post_log_request_inner;
+    let p_body_post_log_request_inner = post_log_request_inner;
 
     let uri_str = format!("{}/log/push", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -499,7 +499,7 @@ pub async fn post_log(configuration: &Configuration, post_log_request_inner: Opt
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_post_log_request_inner);
+    req_builder = req_builder.json(&p_body_post_log_request_inner);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -517,7 +517,7 @@ pub async fn post_log(configuration: &Configuration, post_log_request_inner: Opt
 
 pub async fn post_metric(configuration: &Configuration, dtz_metric: Option<Vec<models::DtzMetric>>) -> Result<(), Error<PostMetricError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_dtz_metric = dtz_metric;
+    let p_body_dtz_metric = dtz_metric;
 
     let uri_str = format!("{}/metric", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -528,7 +528,7 @@ pub async fn post_metric(configuration: &Configuration, dtz_metric: Option<Vec<m
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_dtz_metric);
+    req_builder = req_builder.json(&p_body_dtz_metric);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -546,7 +546,7 @@ pub async fn post_metric(configuration: &Configuration, dtz_metric: Option<Vec<m
 
 pub async fn post_prometheus(configuration: &Configuration, body: Option<&str>) -> Result<(), Error<PostPrometheusError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body = body;
+    let p_body_body = body;
 
     let uri_str = format!("{}/prometheus", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -557,7 +557,7 @@ pub async fn post_prometheus(configuration: &Configuration, body: Option<&str>) 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body);
+    req_builder = req_builder.json(&p_body_body);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -575,7 +575,7 @@ pub async fn post_prometheus(configuration: &Configuration, body: Option<&str>) 
 
 pub async fn query_log_activity(configuration: &Configuration, query_logs_request: Option<models::QueryLogsRequest>) -> Result<Vec<models::GetLogActivity200ResponseInner>, Error<QueryLogActivityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_logs_request = query_logs_request;
+    let p_body_query_logs_request = query_logs_request;
 
     let uri_str = format!("{}/log/activity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -586,7 +586,7 @@ pub async fn query_log_activity(configuration: &Configuration, query_logs_reques
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_query_logs_request);
+    req_builder = req_builder.json(&p_body_query_logs_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -615,7 +615,7 @@ pub async fn query_log_activity(configuration: &Configuration, query_logs_reques
 
 pub async fn query_logs(configuration: &Configuration, query_logs_request: Option<models::QueryLogsRequest>) -> Result<Vec<models::DtzLogsInner>, Error<QueryLogsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_logs_request = query_logs_request;
+    let p_body_query_logs_request = query_logs_request;
 
     let uri_str = format!("{}/log", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -626,7 +626,7 @@ pub async fn query_logs(configuration: &Configuration, query_logs_request: Optio
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_query_logs_request);
+    req_builder = req_builder.json(&p_body_query_logs_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -238,9 +238,9 @@ pub enum UserSignupError {
 
 pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result<(), Error<AssignRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_role_id = role_id;
+    let p_path_role_id = role_id;
 
-    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_role_id));
+    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -266,7 +266,7 @@ pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result
 
 pub async fn assume_identity(configuration: &Configuration, assume_identity_request: Option<models::AssumeIdentityRequest>) -> Result<models::TokenResponse, Error<AssumeIdentityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_assume_identity_request = assume_identity_request;
+    let p_body_assume_identity_request = assume_identity_request;
 
     let uri_str = format!("{}/identity/assume", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -277,7 +277,7 @@ pub async fn assume_identity(configuration: &Configuration, assume_identity_requ
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_assume_identity_request);
+    req_builder = req_builder.json(&p_body_assume_identity_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -306,7 +306,7 @@ pub async fn assume_identity(configuration: &Configuration, assume_identity_requ
 
 pub async fn authenticate_apikey(configuration: &Configuration, apikey_request: Option<models::ApikeyRequest>) -> Result<models::TokenResponse, Error<AuthenticateApikeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_apikey_request = apikey_request;
+    let p_body_apikey_request = apikey_request;
 
     let uri_str = format!("{}/auth/apikey", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -317,7 +317,7 @@ pub async fn authenticate_apikey(configuration: &Configuration, apikey_request: 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_apikey_request);
+    req_builder = req_builder.json(&p_body_apikey_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -346,7 +346,7 @@ pub async fn authenticate_apikey(configuration: &Configuration, apikey_request: 
 
 pub async fn change_authentication(configuration: &Configuration, change_authentication_request: Option<models::ChangeAuthenticationRequest>) -> Result<(), Error<ChangeAuthenticationError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_change_authentication_request = change_authentication_request;
+    let p_body_change_authentication_request = change_authentication_request;
 
     let uri_str = format!("{}/authentication", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -357,7 +357,7 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_change_authentication_request);
+    req_builder = req_builder.json(&p_body_change_authentication_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -375,7 +375,7 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
 
 pub async fn check_identity(configuration: &Configuration, check_identity_request: Option<models::CheckIdentityRequest>) -> Result<models::CheckIdentity200Response, Error<CheckIdentityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_check_identity_request = check_identity_request;
+    let p_body_check_identity_request = check_identity_request;
 
     let uri_str = format!("{}/identity/check", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -386,7 +386,7 @@ pub async fn check_identity(configuration: &Configuration, check_identity_reques
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_check_identity_request);
+    req_builder = req_builder.json(&p_body_check_identity_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -415,7 +415,7 @@ pub async fn check_identity(configuration: &Configuration, check_identity_reques
 
 pub async fn create_api_key(configuration: &Configuration, create_api_key_request: models::CreateApiKeyRequest) -> Result<String, Error<CreateApiKeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_api_key_request = create_api_key_request;
+    let p_body_create_api_key_request = create_api_key_request;
 
     let uri_str = format!("{}/me/identity/apikey", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -426,7 +426,7 @@ pub async fn create_api_key(configuration: &Configuration, create_api_key_reques
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_api_key_request);
+    req_builder = req_builder.json(&p_body_create_api_key_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -455,10 +455,10 @@ pub async fn create_api_key(configuration: &Configuration, create_api_key_reques
 
 pub async fn create_role_for_context(configuration: &Configuration, context_id: &str, create_role_for_context_request: Option<models::CreateRoleForContextRequest>) -> Result<models::ContextRole, Error<CreateRoleForContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
-    let p_create_role_for_context_request = create_role_for_context_request;
+    let p_path_context_id = context_id;
+    let p_body_create_role_for_context_request = create_role_for_context_request;
 
-    let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -467,7 +467,7 @@ pub async fn create_role_for_context(configuration: &Configuration, context_id: 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_role_for_context_request);
+    req_builder = req_builder.json(&p_body_create_role_for_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -496,9 +496,9 @@ pub async fn create_role_for_context(configuration: &Configuration, context_id: 
 
 pub async fn delete_api_key(configuration: &Configuration, apikey: &str) -> Result<(), Error<DeleteApiKeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_apikey = apikey;
+    let p_path_apikey = apikey;
 
-    let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_apikey));
+    let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_path_apikey));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -524,9 +524,9 @@ pub async fn delete_api_key(configuration: &Configuration, apikey: &str) -> Resu
 
 pub async fn delete_context_roles(configuration: &Configuration, context_id: &str) -> Result<(), Error<DeleteContextRolesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
+    let p_path_context_id = context_id;
 
-    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -689,9 +689,9 @@ pub async fn get_account_stats(configuration: &Configuration, ) -> Result<models
 
 pub async fn get_roles_for_context(configuration: &Configuration, context_id: &str) -> Result<models::GetRolesForContext200Response, Error<GetRolesForContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
+    let p_path_context_id = context_id;
 
-    let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -728,9 +728,9 @@ pub async fn get_roles_for_context(configuration: &Configuration, context_id: &s
 
 pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: &str) -> Result<models::GetRolesForIdentity200Response, Error<GetRolesForIdentityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_identity_id = identity_id;
+    let p_path_identity_id = identity_id;
 
-    let uri_str = format!("{}/roles/identity/{identityId}", build_url(configuration), identityId=crate::apis::urlencode(p_identity_id));
+    let uri_str = format!("{}/roles/identity/{identityId}", build_url(configuration), identityId=crate::apis::urlencode(p_path_identity_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -878,10 +878,10 @@ pub async fn list_identity(configuration: &Configuration, ) -> Result<models::Li
 
 pub async fn new_context(configuration: &Configuration, context_id: &str, new_context_request: Option<models::NewContextRequest>) -> Result<(), Error<NewContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
-    let p_new_context_request = new_context_request;
+    let p_path_context_id = context_id;
+    let p_body_new_context_request = new_context_request;
 
-    let uri_str = format!("{}/context/{context_id}/new", build_url(configuration), context_id=crate::apis::urlencode(p_context_id));
+    let uri_str = format!("{}/context/{context_id}/new", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -890,7 +890,7 @@ pub async fn new_context(configuration: &Configuration, context_id: &str, new_co
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_new_context_request);
+    req_builder = req_builder.json(&p_body_new_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -908,7 +908,7 @@ pub async fn new_context(configuration: &Configuration, context_id: &str, new_co
 
 pub async fn new_identity(configuration: &Configuration, new_identity_request: Option<models::NewIdentityRequest>) -> Result<models::ListIdentity200ResponseIdentitiesInner, Error<NewIdentityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_new_identity_request = new_identity_request;
+    let p_body_new_identity_request = new_identity_request;
 
     let uri_str = format!("{}/identity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -919,7 +919,7 @@ pub async fn new_identity(configuration: &Configuration, new_identity_request: O
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_new_identity_request);
+    req_builder = req_builder.json(&p_body_new_identity_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -948,24 +948,24 @@ pub async fn new_identity(configuration: &Configuration, new_identity_request: O
 
 pub async fn oauth_authorize(configuration: &Configuration, response_type: &str, client_id: &str, redirect_uri: &str, scope: &str, state: Option<&str>, nonce: Option<&str>) -> Result<reqwest::header::HeaderMap, Error<OauthAuthorizeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_response_type = response_type;
-    let p_client_id = client_id;
-    let p_redirect_uri = redirect_uri;
-    let p_scope = scope;
-    let p_state = state;
-    let p_nonce = nonce;
+    let p_query_response_type = response_type;
+    let p_query_client_id = client_id;
+    let p_query_redirect_uri = redirect_uri;
+    let p_query_scope = scope;
+    let p_query_state = state;
+    let p_query_nonce = nonce;
 
     let uri_str = format!("{}/oauth/authorize", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("response_type", &p_response_type.to_string())]);
-    req_builder = req_builder.query(&[("client_id", &p_client_id.to_string())]);
-    req_builder = req_builder.query(&[("redirect_uri", &p_redirect_uri.to_string())]);
-    req_builder = req_builder.query(&[("scope", &p_scope.to_string())]);
-    if let Some(ref param_value) = p_state {
+    req_builder = req_builder.query(&[("response_type", &p_query_response_type.to_string())]);
+    req_builder = req_builder.query(&[("client_id", &p_query_client_id.to_string())]);
+    req_builder = req_builder.query(&[("redirect_uri", &p_query_redirect_uri.to_string())]);
+    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
+    if let Some(ref param_value) = p_query_state {
         req_builder = req_builder.query(&[("state", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_nonce {
+    if let Some(ref param_value) = p_query_nonce {
         req_builder = req_builder.query(&[("nonce", &param_value.to_string())]);
     }
     if let Some(ref token) = configuration.oauth_access_token {
@@ -993,21 +993,21 @@ pub async fn oauth_authorize(configuration: &Configuration, response_type: &str,
 /// oauth token request
 pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client_id: &str, client_secret: &str, redirect_uri: &str, code: &str) -> Result<models::TokenResponse, Error<OauthTokenError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_grant_type = grant_type;
-    let p_client_id = client_id;
-    let p_client_secret = client_secret;
-    let p_redirect_uri = redirect_uri;
-    let p_code = code;
+    let p_form_grant_type = grant_type;
+    let p_form_client_id = client_id;
+    let p_form_client_secret = client_secret;
+    let p_form_redirect_uri = redirect_uri;
+    let p_form_code = code;
 
     let uri_str = format!("{}/oauth/token", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     let mut multipart_form_params = std::collections::HashMap::new();
-    multipart_form_params.insert("grant_type", p_grant_type.to_string());
-    multipart_form_params.insert("client_id", p_client_id.to_string());
-    multipart_form_params.insert("client_secret", p_client_secret.to_string());
-    multipart_form_params.insert("redirect_uri", p_redirect_uri.to_string());
-    multipart_form_params.insert("code", p_code.to_string());
+    multipart_form_params.insert("grant_type", p_form_grant_type.to_string());
+    multipart_form_params.insert("client_id", p_form_client_id.to_string());
+    multipart_form_params.insert("client_secret", p_form_client_secret.to_string());
+    multipart_form_params.insert("redirect_uri", p_form_redirect_uri.to_string());
+    multipart_form_params.insert("code", p_form_code.to_string());
     req_builder = req_builder.form(&multipart_form_params);
 
     let req = req_builder.build()?;
@@ -1037,9 +1037,9 @@ pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client
 
 pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str) -> Result<(), Error<RemoveRoleAssignmentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_role_id = role_id;
+    let p_path_role_id = role_id;
 
-    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_role_id));
+    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -1065,11 +1065,11 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
 
 pub async fn share_role(configuration: &Configuration, context_id: &str, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_context_id = context_id;
-    let p_role_id = role_id;
-    let p_check_identity_request = check_identity_request;
+    let p_path_context_id = context_id;
+    let p_path_role_id = role_id;
+    let p_body_check_identity_request = check_identity_request;
 
-    let uri_str = format!("{}/roles/context/{contextId}/{roleId}/share", build_url(configuration), contextId=crate::apis::urlencode(p_context_id), roleId=crate::apis::urlencode(p_role_id));
+    let uri_str = format!("{}/roles/context/{contextId}/{roleId}/share", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -1078,7 +1078,7 @@ pub async fn share_role(configuration: &Configuration, context_id: &str, role_id
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_check_identity_request);
+    req_builder = req_builder.json(&p_body_check_identity_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1097,7 +1097,7 @@ pub async fn share_role(configuration: &Configuration, context_id: &str, role_id
 /// token refresh
 pub async fn token_refresh(configuration: &Configuration, change_context_request: models::ChangeContextRequest) -> Result<models::TokenResponse, Error<TokenRefreshError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_change_context_request = change_context_request;
+    let p_body_change_context_request = change_context_request;
 
     let uri_str = format!("{}/token/refresh", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1108,7 +1108,7 @@ pub async fn token_refresh(configuration: &Configuration, change_context_request
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_change_context_request);
+    req_builder = req_builder.json(&p_body_change_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1137,10 +1137,10 @@ pub async fn token_refresh(configuration: &Configuration, change_context_request
 
 pub async fn update_api_key_alias(configuration: &Configuration, apikey: &str, update_api_key_alias_request: Option<models::UpdateApiKeyAliasRequest>) -> Result<(), Error<UpdateApiKeyAliasError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_apikey = apikey;
-    let p_update_api_key_alias_request = update_api_key_alias_request;
+    let p_path_apikey = apikey;
+    let p_body_update_api_key_alias_request = update_api_key_alias_request;
 
-    let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_apikey));
+    let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_path_apikey));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -1149,7 +1149,7 @@ pub async fn update_api_key_alias(configuration: &Configuration, apikey: &str, u
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_update_api_key_alias_request);
+    req_builder = req_builder.json(&p_body_update_api_key_alias_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1167,12 +1167,12 @@ pub async fn update_api_key_alias(configuration: &Configuration, apikey: &str, u
 
 pub async fn user_login(configuration: &Configuration, auth_request: models::AuthRequest) -> Result<models::TokenResponse, Error<UserLoginError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_auth_request = auth_request;
+    let p_body_auth_request = auth_request;
 
     let uri_str = format!("{}/token/auth", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    req_builder = req_builder.json(&p_auth_request);
+    req_builder = req_builder.json(&p_body_auth_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1201,12 +1201,12 @@ pub async fn user_login(configuration: &Configuration, auth_request: models::Aut
 
 pub async fn user_signup(configuration: &Configuration, signup_request: models::SignupRequest) -> Result<models::TokenResponse, Error<UserSignupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_signup_request = signup_request;
+    let p_body_signup_request = signup_request;
 
     let uri_str = format!("{}/signup", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    req_builder = req_builder.json(&p_signup_request);
+    req_builder = req_builder.json(&p_body_signup_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

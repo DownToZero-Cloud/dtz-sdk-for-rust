@@ -16,6 +16,9 @@ use serde::{Deserialize, Serialize};
 pub struct Service {
     #[serde(rename = "contextId")]
     pub context_id: dtz_identifier::ContextId,
+    /// whether this service is active and should be propagated to ingress
+    #[serde(rename = "enabled")]
+    pub enabled: bool,
     /// by default this property is empty, this property is only populated if it was part of the service creation.
     #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
     pub domain: Option<Vec<String>>,
@@ -44,9 +47,10 @@ pub struct Service {
 }
 
 impl Service {
-    pub fn new(context_id: dtz_identifier::ContextId, service_id: dtz_identifier::ServiceId, created: String, prefix: String, container_image: String) -> Service {
+    pub fn new(context_id: dtz_identifier::ContextId, enabled: bool, service_id: dtz_identifier::ServiceId, created: String, prefix: String, container_image: String) -> Service {
         Service {
             context_id,
+            enabled,
             domain: None,
             service_id,
             created,

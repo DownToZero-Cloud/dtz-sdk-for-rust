@@ -117,7 +117,7 @@ pub enum UpdateFeedError {
 
 pub async fn create_feed(configuration: &Configuration, feed_request: Option<models::FeedRequest>) -> Result<models::Feed, Error<CreateFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_request = feed_request;
+    let p_body_feed_request = feed_request;
 
     let uri_str = format!("{}/rss2email/feed", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -128,7 +128,7 @@ pub async fn create_feed(configuration: &Configuration, feed_request: Option<mod
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_feed_request);
+    req_builder = req_builder.json(&p_body_feed_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -157,9 +157,9 @@ pub async fn create_feed(configuration: &Configuration, feed_request: Option<mod
 
 pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result<(), Error<DeleteFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_id = feed_id;
+    let p_path_feed_id = feed_id;
 
-    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_feed_id));
+    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -185,9 +185,9 @@ pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result
 
 pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Result<(), Error<DisableFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_id = feed_id;
+    let p_path_feed_id = feed_id;
 
-    let uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(configuration), feed_id=crate::apis::urlencode(p_feed_id));
+    let uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -213,7 +213,7 @@ pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Resul
 
 pub async fn discover_feed(configuration: &Configuration, discover_feed_request: Option<models::DiscoverFeedRequest>) -> Result<models::DiscoverFeed200Response, Error<DiscoverFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_discover_feed_request = discover_feed_request;
+    let p_body_discover_feed_request = discover_feed_request;
 
     let uri_str = format!("{}/rss2email/discover", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -224,7 +224,7 @@ pub async fn discover_feed(configuration: &Configuration, discover_feed_request:
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_discover_feed_request);
+    req_builder = req_builder.json(&p_body_discover_feed_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -253,9 +253,9 @@ pub async fn discover_feed(configuration: &Configuration, discover_feed_request:
 
 pub async fn enable_feed(configuration: &Configuration, feed_id: &str) -> Result<(), Error<EnableFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_id = feed_id;
+    let p_path_feed_id = feed_id;
 
-    let uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(configuration), feed_id=crate::apis::urlencode(p_feed_id));
+    let uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -307,9 +307,9 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
 
 pub async fn get_feed(configuration: &Configuration, feed_id: &str) -> Result<models::Feed, Error<GetFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_id = feed_id;
+    let p_path_feed_id = feed_id;
 
-    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_feed_id));
+    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -457,7 +457,7 @@ pub async fn list_feed(configuration: &Configuration, ) -> Result<Vec<models::Fe
 
 pub async fn post_profile(configuration: &Configuration, profile: Option<models::Profile>) -> Result<(), Error<PostProfileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_profile = profile;
+    let p_body_profile = profile;
 
     let uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -468,7 +468,7 @@ pub async fn post_profile(configuration: &Configuration, profile: Option<models:
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_profile);
+    req_builder = req_builder.json(&p_body_profile);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -486,10 +486,10 @@ pub async fn post_profile(configuration: &Configuration, profile: Option<models:
 
 pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_request: Option<models::FeedRequest>) -> Result<(), Error<UpdateFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_feed_id = feed_id;
-    let p_feed_request = feed_request;
+    let p_path_feed_id = feed_id;
+    let p_body_feed_request = feed_request;
 
-    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_feed_id));
+    let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -498,7 +498,7 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_requ
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_feed_request);
+    req_builder = req_builder.json(&p_body_feed_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

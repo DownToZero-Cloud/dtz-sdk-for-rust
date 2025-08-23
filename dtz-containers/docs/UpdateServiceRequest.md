@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**enabled** | Option<**bool**> | whether this service is active and should be propagated to ingress | [optional]
 **domain** | Option<**Vec<String>**> | by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically. | [optional]
 **prefix** | **String** |  | 
 **container_image** | **String** |  | 

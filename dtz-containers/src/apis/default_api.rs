@@ -42,6 +42,7 @@ pub enum CreateDomainError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateJobError {
+    Status400(models::CreateJob400Response),
     UnknownValue(serde_json::Value),
 }
 
@@ -133,6 +134,7 @@ pub enum GetServicesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TriggerJobError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -161,7 +163,7 @@ pub enum VerifyDomainError {
 
 pub async fn create_domain(configuration: &Configuration, create_domain: Option<models::CreateDomain>) -> Result<models::Domain, Error<CreateDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_domain = create_domain;
+    let p_body_create_domain = create_domain;
 
     let uri_str = format!("{}/domain", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -172,7 +174,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_domain);
+    req_builder = req_builder.json(&p_body_create_domain);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -201,7 +203,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
 
 pub async fn create_job(configuration: &Configuration, create_job: Option<models::CreateJob>) -> Result<models::JobResponse, Error<CreateJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_job = create_job;
+    let p_body_create_job = create_job;
 
     let uri_str = format!("{}/job", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -212,7 +214,7 @@ pub async fn create_job(configuration: &Configuration, create_job: Option<models
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_job);
+    req_builder = req_builder.json(&p_body_create_job);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -241,7 +243,7 @@ pub async fn create_job(configuration: &Configuration, create_job: Option<models
 
 pub async fn create_service(configuration: &Configuration, create_service: Option<models::CreateService>) -> Result<models::Service, Error<CreateServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_create_service = create_service;
+    let p_body_create_service = create_service;
 
     let uri_str = format!("{}/service", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -252,7 +254,7 @@ pub async fn create_service(configuration: &Configuration, create_service: Optio
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_create_service);
+    req_builder = req_builder.json(&p_body_create_service);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -281,9 +283,9 @@ pub async fn create_service(configuration: &Configuration, create_service: Optio
 
 pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<DeleteDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain_name = domain_name;
+    let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_domain_name));
+    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -309,9 +311,9 @@ pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> 
 
 pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<DeleteJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -337,9 +339,9 @@ pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(
 
 pub async fn delete_service(configuration: &Configuration, service_id: &str) -> Result<(), Error<DeleteServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_service_id = service_id;
+    let p_path_service_id = service_id;
 
-    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_service_id));
+    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -417,9 +419,9 @@ pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableE
 
 pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Result<models::Domain, Error<GetDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain_name = domain_name;
+    let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_domain_name));
+    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -493,9 +495,9 @@ pub async fn get_domains(configuration: &Configuration, ) -> Result<Vec<models::
 
 pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<models::JobResponse, Error<GetJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -569,9 +571,9 @@ pub async fn get_jobs(configuration: &Configuration, ) -> Result<Vec<models::Job
 
 pub async fn get_service(configuration: &Configuration, service_id: &str) -> Result<models::Service, Error<GetServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_service_id = service_id;
+    let p_path_service_id = service_id;
 
-    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_service_id));
+    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -645,9 +647,9 @@ pub async fn get_services(configuration: &Configuration, ) -> Result<Vec<models:
 
 pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<TriggerJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -673,9 +675,9 @@ pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<
 
 pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<models::JobResponse, Error<UpdateJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_job_id = job_id;
+    let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_job_id));
+    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -712,10 +714,10 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
 
 pub async fn update_service(configuration: &Configuration, service_id: &str, update_service_request: Option<models::UpdateServiceRequest>) -> Result<models::Service, Error<UpdateServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_service_id = service_id;
-    let p_update_service_request = update_service_request;
+    let p_path_service_id = service_id;
+    let p_body_update_service_request = update_service_request;
 
-    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_service_id));
+    let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {
@@ -724,7 +726,7 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_update_service_request);
+    req_builder = req_builder.json(&p_body_update_service_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -753,9 +755,9 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
 
 pub async fn verify_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<VerifyDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_domain_name = domain_name;
+    let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_domain_name));
+    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
     if let Some(ref token) = configuration.oauth_access_token {

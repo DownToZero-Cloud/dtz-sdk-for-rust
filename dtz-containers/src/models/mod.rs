@@ -2,6 +2,8 @@ pub mod create_domain;
 pub use self::create_domain::CreateDomain;
 pub mod create_job;
 pub use self::create_job::CreateJob;
+pub mod create_job_400_response;
+pub use self::create_job_400_response::CreateJob400Response;
 pub mod create_job_env_variables_value;
 pub use self::create_job_env_variables_value::CreateJobEnvVariablesValue;
 pub mod create_service;
