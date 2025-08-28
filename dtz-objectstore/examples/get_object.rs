@@ -5,7 +5,7 @@ async fn main() {
         api_key: Some(api_key),
         ..Default::default()
     };
-    let result = dtz::objectstore::apis::get_object(&config, "file.txt").await;
+    let result = dtz::objectstore::apis::get_object(&config, "file.txt", None).await;
     match result {
         Ok(response) => {
             let bytes = response.bytes().await.unwrap();

@@ -29,6 +29,24 @@ fn build_url(config: &Configuration) -> String {
     }
 }
 
+/// struct for passing optional header parameters to the method [`delete_object`]
+#[derive(Clone, Debug, Default)]
+pub struct DeleteObjectHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`get_object`]
+#[derive(Clone, Debug, Default)]
+pub struct GetObjectHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`get_object_metadata`]
+#[derive(Clone, Debug, Default)]
+pub struct GetObjectMetadataHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+    pub x_dtz_realm: Option<String>,
+}
 /// struct for passing optional header parameters to the method [`put_object`]
 #[derive(Clone, Debug, Default)]
 pub struct PutObjectHeaders {
@@ -100,13 +118,19 @@ pub enum StatsError {
 
 
 /// This can only be done by the logged in user.
-pub async fn delete_object(configuration: &Configuration, object_path: &str) -> Result<(), Error<DeleteObjectError>> {
+pub async fn delete_object(configuration: &Configuration, object_path: &str, headers: Option<DeleteObjectHeaders>) -> Result<(), Error<DeleteObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_object_path = object_path;
 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
@@ -183,13 +207,19 @@ pub async fn enable_service(configuration: &Configuration) -> Result<(), Error<E
     }
 }
 
-pub async fn get_object(configuration: &Configuration, object_path: &str) -> Result<reqwest::Response, Error<GetObjectError>> {
+pub async fn get_object(configuration: &Configuration, object_path: &str, headers: Option<GetObjectHeaders>) -> Result<reqwest::Response, Error<GetObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_object_path = object_path;
 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
@@ -212,13 +242,19 @@ pub async fn get_object(configuration: &Configuration, object_path: &str) -> Res
     }
 }
 
-pub async fn get_object_metadata(configuration: &Configuration, object_path: &str) -> Result<models::ObjectMetadata, Error<GetObjectMetadataError>> {
+pub async fn get_object_metadata(configuration: &Configuration, object_path: &str, headers: Option<GetObjectMetadataHeaders>) -> Result<models::ObjectMetadata, Error<GetObjectMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_object_path = object_path;
 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::HEAD, &uri_str);
 
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);

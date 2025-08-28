@@ -6,7 +6,7 @@ async fn main() {
         ..Default::default()
     };
     let payload = "Hello, world!".as_bytes().to_vec();
-    let result = dtz::objectstore::apis::put_object(&config, "file.txt", None, Some(payload)).await;
+    let result = dtz::objectstore::apis::put_object(&config, "file.txt", Some(payload), None).await;
     match result {
         Ok(_) => println!("Uploaded file.txt"),
         Err(e) => println!("Error uploading file.txt: {}", e),

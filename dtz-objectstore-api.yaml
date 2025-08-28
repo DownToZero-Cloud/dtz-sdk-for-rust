@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Objectstore
-  version: 2.1.0
+  version: 2.1.1
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0
@@ -133,6 +133,13 @@ paths:
         schema:
           type: string  
         style: simple
+      - name: X-DTZ-REALM
+        in: header
+        description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+        required: false
+        schema:
+          type: string  
+        style: simple
     head:
       summary: Get Object Metadata
       operationId: getObjectMetadata
@@ -160,6 +167,13 @@ paths:
         schema:
           type: string  
         style: simple
+      - name: X-DTZ-REALM
+        in: header
+        description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+        required: false
+        schema:
+          type: string  
+        style: simple
     delete:
       summary: Delete object
       description: This can only be done by the logged in user.
@@ -170,6 +184,13 @@ paths:
           required: true
           schema:
             type: string
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+          required: false
+          schema:
+            type: string  
+          style: simple
       responses:
         '200':
           description: Successful operation

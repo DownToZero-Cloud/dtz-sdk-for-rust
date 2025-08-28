@@ -219,7 +219,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -331,7 +331,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-objectstore"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "dtz",
  "dtz-config",

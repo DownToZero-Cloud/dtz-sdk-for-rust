@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## delete_object
 
-> delete_object(object_path)
+> delete_object(object_path, x_dtz_realm)
 Delete object
 
 This can only be done by the logged in user.
@@ -28,6 +28,7 @@ This can only be done by the logged in user.
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **object_path** | **String** |  | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
 
@@ -97,7 +98,7 @@ This endpoint does not need any parameter.
 
 ## get_object
 
-> std::path::PathBuf get_object(object_path)
+> std::path::PathBuf get_object(object_path, x_dtz_realm)
 Get Object
 
 ### Parameters
@@ -106,6 +107,7 @@ Get Object
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **object_path** | **String** | object patch | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
 
@@ -125,7 +127,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_object_metadata
 
-> models::ObjectMetadata get_object_metadata(object_path)
+> models::ObjectMetadata get_object_metadata(object_path, x_dtz_realm)
 Get Object Metadata
 
 ### Parameters
@@ -134,6 +136,7 @@ Get Object Metadata
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **object_path** | **String** | object patch | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
 
