@@ -52,6 +52,26 @@ pub struct {{{operationIdCamelCase}}}Params {
 {{/-last}}
 {{/allParams}}
 {{/vendorExtensions.x-group-parameters}}
+{{#hasHeaderParams}}
+/// struct for passing optional header parameters to the method [`{{operationId}}`]
+#[derive(Clone, Debug, Default)]
+pub struct {{{operationIdCamelCase}}}Headers {
+{{#headerParams}}
+{{^required}}
+    {{#description}}
+    /// {{{.}}}
+    {{/description}}
+    pub {{{paramName}}}: Option<{{!
+    ### &str and Vec<&str> map to owned String(s)
+    }}{{^isUuid}}{{#isString}}{{#isArray}}Vec<{{/isArray}}String{{#isArray}}>{{/isArray}}{{/isString}}{{/isUuid}}{{!
+    ### UUIDs as Strings
+    }}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}String{{#isArray}}>{{/isArray}}{{/isUuid}}{{!
+    ### Models and primitive types
+    }}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{{dataType}}}{{/isUuid}}{{/isString}}>,
+{{/required}}
+{{/headerParams}}
+}
+{{/hasHeaderParams}}
 {{/operation}}
 {{/operations}}
 
@@ -111,6 +131,8 @@ pub enum {{{operationIdCamelCase}}}Error {
 pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &Configuration{{#allParams}}{{#-first}}, {{!
 ### Params
 }}params: {{{operationIdCamelCase}}}Params{{/-first}}{{/allParams}}{{!
+### Optional headers struct
+}}{{#hasHeaderParams}}, headers: Option<{{{operationIdCamelCase}}}Headers>{{/hasHeaderParams}}{{!
 ### Function return type
 }}) -> Result<{{!
 ### Response File Support
@@ -125,19 +147,19 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
 }}, Error<{{{operationIdCamelCase}}}Error>> {
 {{/vendorExtensions.x-group-parameters}}
 {{^vendorExtensions.x-group-parameters}}
-pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &Configuration, {{#allParams}}{{{paramName}}}: {{!
-### Option Start
-}}{{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{!
-### &str and Vec<&str>
-}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{!
-### UUIDs
-}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{!
-### Models and primative types
-}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{!
-### Option End
-}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{!
-### Comma for next arguement
-}}{{^-last}}, {{/-last}}{{/allParams}}{{!
+pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: &Configuration{{!
+### Path params
+}}{{#pathParams}}, {{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{/pathParams}}{{!
+### Query params
+}}{{#queryParams}}, {{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{/queryParams}}{{!
+### Form params
+}}{{#formParams}}, {{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{/formParams}}{{!
+### Body params
+}}{{#bodyParams}}, {{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{/bodyParams}}{{!
+### Required header params only
+}}{{#headerParams}}{{#required}}, {{{paramName}}}: {{^required}}Option<{{/required}}{{#required}}{{#isNullable}}Option<{{/isNullable}}{{/required}}{{#isString}}{{#isArray}}Vec<{{/isArray}}{{^isUuid}}&str{{/isUuid}}{{#isArray}}>{{/isArray}}{{/isString}}{{#isUuid}}{{#isArray}}Vec<{{/isArray}}&str{{#isArray}}>{{/isArray}}{{/isUuid}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}models::{{/isContainer}}{{/isPrimitiveType}}{{#isBinary}}Vec<u8>{{/isBinary}}{{^isBinary}}{{{dataType}}}{{/isBinary}}{{/isUuid}}{{/isString}}{{^required}}>{{/required}}{{#required}}{{#isNullable}}>{{/isNullable}}{{/required}}{{/required}}{{/headerParams}}{{!
+### Optional headers struct
+}}{{#hasHeaderParams}}, headers: Option<{{{operationIdCamelCase}}}Headers>{{/hasHeaderParams}}{{!
 ### Function return type
 }}) -> Result<{{!
 ### Response File Support
@@ -153,13 +175,40 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
     {{#allParams.0}}
     // add a prefix to parameters to efficiently prevent name collisions
     {{/allParams.0}}
-    {{#allParams}}
+    {{#pathParams}}
     let {{{vendorExtensions.x-rust-param-identifier}}} = {{{paramName}}};
-    {{/allParams}}
+    {{/pathParams}}
+    {{#queryParams}}
+    let {{{vendorExtensions.x-rust-param-identifier}}} = {{{paramName}}};
+    {{/queryParams}}
+    {{#formParams}}
+    let {{{vendorExtensions.x-rust-param-identifier}}} = {{{paramName}}};
+    {{/formParams}}
+    {{#bodyParams}}
+    let {{{vendorExtensions.x-rust-param-identifier}}} = {{{paramName}}};
+    {{/bodyParams}}
+    {{#headerParams}}
+    {{#required}}
+    let {{{vendorExtensions.x-rust-param-identifier}}} = {{{paramName}}};
+    {{/required}}
+    {{/headerParams}}
 {{/vendorExtensions.x-group-parameters}}
 
     let uri_str = format!("{}{{{path}}}", build_url(configuration){{#pathParams}}, {{{baseName}}}={{#isString}}crate::apis::urlencode({{/isString}}{{{vendorExtensions.x-rust-param-identifier}}}{{^required}}.unwrap(){{/required}}{{#required}}{{#isNullable}}.unwrap(){{/isNullable}}{{/required}}{{#isArray}}.join(",").as_ref(){{/isArray}}{{^isString}}{{^isUuid}}{{^isPrimitiveType}}{{^isContainer}}.to_string(){{/isContainer}}{{/isPrimitiveType}}{{/isUuid}}{{/isString}}{{#isString}}){{/isString}}{{/pathParams}});
     let mut req_builder = configuration.client.request(reqwest::Method::{{{httpMethod}}}, &uri_str);
+
+    {{#hasHeaderParams}}
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        {{#headerParams}}
+        {{^required}}
+        if let Some(param_value) = h.{{{paramName}}}.as_ref() {
+            req_builder = req_builder.header("{{{baseName}}}", {{#isArray}}param_value.join(",").to_string(){{/isArray}}{{^isArray}}param_value.to_string(){{/isArray}});
+        }
+        {{/required}}
+        {{/headerParams}}
+    }
+    {{/hasHeaderParams}}
 
     {{#queryParams}}
     {{#required}}
@@ -307,11 +356,6 @@ pub {{#supportAsync}}async {{/supportAsync}}fn {{{operationId}}}(configuration: 
         None => { req_builder = req_builder.header("{{{baseName}}}", ""); },
     }
     {{/isNullable}}
-    {{/required}}
-    {{^required}}
-    if let Some(param_value) = {{{vendorExtensions.x-rust-param-identifier}}} {
-        req_builder = req_builder.header("{{{baseName}}}", param_value{{#isArray}}.join(","){{/isArray}}.to_string());
-    }
     {{/required}}
     {{/headerParams}}
     {{/hasHeaderParams}}
