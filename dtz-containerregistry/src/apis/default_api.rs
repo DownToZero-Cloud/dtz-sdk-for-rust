@@ -60,10 +60,11 @@ pub enum GetStatsError {
 
 
 /// check authentication
-pub async fn check_authentication(configuration: &Configuration, ) -> Result<(), Error<CheckAuthenticationError>> {
+pub async fn check_authentication(configuration: &Configuration) -> Result<(), Error<CheckAuthenticationError>> {
 
     let uri_str = format!("{}/v2/", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -87,10 +88,11 @@ pub async fn check_authentication(configuration: &Configuration, ) -> Result<(),
 }
 
 /// disable the container registry service
-pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Error<DisableServiceError>> {
+pub async fn disable_service(configuration: &Configuration) -> Result<(), Error<DisableServiceError>> {
 
     let uri_str = format!("{}/disable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -114,10 +116,11 @@ pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Erro
 }
 
 /// enable the container registry service
-pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error<EnableServiceError>> {
+pub async fn enable_service(configuration: &Configuration) -> Result<(), Error<EnableServiceError>> {
 
     let uri_str = format!("{}/enable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -141,10 +144,11 @@ pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error
 }
 
 /// get stats
-pub async fn get_stats(configuration: &Configuration, ) -> Result<models::StatsResponse, Error<GetStatsError>> {
+pub async fn get_stats(configuration: &Configuration) -> Result<models::StatsResponse, Error<GetStatsError>> {
 
     let uri_str = format!("{}/stats", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

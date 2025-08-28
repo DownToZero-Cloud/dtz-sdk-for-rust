@@ -29,6 +29,18 @@ fn build_url(config: &Configuration) -> String {
     }
 }
 
+/// struct for passing optional header parameters to the method [`put_object`]
+#[derive(Clone, Debug, Default)]
+pub struct PutObjectHeaders {
+    /// expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours
+    pub x_dtz_expiration: Option<String>,
+    /// expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours
+    pub x_dtz_expire_in: Option<String>,
+    /// expiration of the object, format is a rfc3339 timestamp, e.g. \"2025-04-01T13:44:00Z\"
+    pub x_dtz_expire_at: Option<String>,
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+    pub x_dtz_realm: Option<String>,
+}
 
 /// struct for typed errors of method [`delete_object`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -95,6 +107,7 @@ pub async fn delete_object(configuration: &Configuration, object_path: &str) -> 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
@@ -116,10 +129,11 @@ pub async fn delete_object(configuration: &Configuration, object_path: &str) -> 
     }
 }
 
-pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Error<DisableServiceError>> {
+pub async fn disable_service(configuration: &Configuration) -> Result<(), Error<DisableServiceError>> {
 
     let uri_str = format!("{}/disable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
@@ -142,10 +156,11 @@ pub async fn disable_service(configuration: &Configuration, ) -> Result<(), Erro
     }
 }
 
-pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error<EnableServiceError>> {
+pub async fn enable_service(configuration: &Configuration) -> Result<(), Error<EnableServiceError>> {
 
     let uri_str = format!("{}/enable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
@@ -175,6 +190,7 @@ pub async fn get_object(configuration: &Configuration, object_path: &str) -> Res
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
@@ -202,6 +218,7 @@ pub async fn get_object_metadata(configuration: &Configuration, object_path: &st
 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::HEAD, &uri_str);
+
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
@@ -242,6 +259,7 @@ pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>) -
     let uri_str = format!("{}/obj/", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref param_value) = p_query_prefix {
         req_builder = req_builder.query(&[("prefix", &param_value.to_string())]);
     }
@@ -277,18 +295,30 @@ pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>) -
     }
 }
 
-pub async fn put_object(configuration: &Configuration, object_path: &str, x_dtz_expiration: Option<&str>, body: Option<Vec<u8>>) -> Result<(), Error<PutObjectError>> {
+pub async fn put_object(configuration: &Configuration, object_path: &str, body: Option<Vec<u8>>, headers: Option<PutObjectHeaders>) -> Result<(), Error<PutObjectError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_object_path = object_path;
-    let p_header_x_dtz_expiration = x_dtz_expiration;
     let p_body_body = body;
 
     let uri_str = format!("{}/obj/{objectPath}", build_url(configuration), objectPath=crate::apis::urlencode(p_path_object_path));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(param_value) = p_header_x_dtz_expiration {
-        req_builder = req_builder.header("X-DTZ-EXPIRATION", param_value.to_string());
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_expiration.as_ref() {
+            req_builder = req_builder.header("X-DTZ-EXPIRATION", param_value.to_string());
+        }
+        if let Some(param_value) = h.x_dtz_expire_in.as_ref() {
+            req_builder = req_builder.header("X-DTZ-EXPIRE-IN", param_value.to_string());
+        }
+        if let Some(param_value) = h.x_dtz_expire_at.as_ref() {
+            req_builder = req_builder.header("X-DTZ-EXPIRE-AT", param_value.to_string());
+        }
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
     }
+
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
@@ -311,10 +341,11 @@ pub async fn put_object(configuration: &Configuration, object_path: &str, x_dtz_
     }
 }
 
-pub async fn stats(configuration: &Configuration, ) -> Result<models::Stats, Error<StatsError>> {
+pub async fn stats(configuration: &Configuration) -> Result<models::Stats, Error<StatsError>> {
 
     let uri_str = format!("{}/stats", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);

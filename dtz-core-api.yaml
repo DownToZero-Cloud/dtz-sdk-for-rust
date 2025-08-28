@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.1.1
+  version: 2.2.0
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -395,16 +395,13 @@ paths:
       summary: list all ingress
       operationId: listIngress
       parameters:
-        - in: query
-          name: scope
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
           schema:
-            type: string
-            values:
-              - dtz-containers
-              - dtz-core
-              - dtz-containerregistry
-          required: true
-          description: only include the named scope
+            type: string  
+          style: simple
       responses:
         "200":
           description: success
@@ -425,16 +422,13 @@ paths:
             type: string
           required: true
           description: domain name
-        - in: query
-          name: scope
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
           schema:
-            type: string
-            values:
-              - dtz-containers
-              - dtz-core
-              - dtz-containerregistry
-          required: true
-          description: only include the named scope
+            type: string  
+          style: simple
       responses:
         "200":
           description: success
@@ -452,6 +446,13 @@ paths:
             type: string
           required: true
           description: domain name
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
+          schema:
+            type: string  
+          style: simple
       requestBody:
         description: create or update ingress
         content: 
@@ -476,6 +477,13 @@ paths:
             type: string
           required: true
           description: domain name
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
+          schema:
+            type: string  
+          style: simple
       responses:
         "200":
           description: status
@@ -496,12 +504,13 @@ paths:
             type: string
           required: true
           description: uri
-        - in: query
-          name: scope
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
           schema:
-            type: string
-          required: true
-          description: only include the named scope
+            type: string  
+          style: simple
       responses:
         "200":
           description: success
@@ -525,6 +534,13 @@ paths:
             type: string
           required: true
           description: uri
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
+          schema:
+            type: string  
+          style: simple
       requestBody:
         description: serve static content for ingress
         content: 
@@ -555,6 +571,13 @@ paths:
             type: string
           required: true
           description: uri
+        - name: X-DTZ-REALM
+          in: header
+          description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+          required: false
+          schema:
+            type: string  
+          style: simple
       responses:
         "200":
           description: status
@@ -594,8 +617,8 @@ components:
     CreateIngressRequest: 
       type: object
       properties:
-        scope:
-          description: set the scope for this ingress, changes can only be performed within the same scope
+        realm:
+          description: set the realm for this ingress, changes can only be performed within the same realm
           type: string
         validity:
           $ref: '#/components/schemas/Validity'
@@ -610,7 +633,7 @@ components:
         singletonProcessor:
           type: boolean
       required:
-      - scope
+      - realm
     Login:
       type: object
       properties:
@@ -648,8 +671,8 @@ components:
           type: string
         pathPrefix:
           type: string
-        scope:
-          description: owning scope, changes can only be performed within the scope 
+        realm:
+          description: owning realm, changes can only be performed within the realm 
           type: string
         validity:
           $ref: '#/components/schemas/Validity'

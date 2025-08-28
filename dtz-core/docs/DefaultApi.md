@@ -89,7 +89,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_ingress
 
-> models::IngressResponse create_ingress(domain, uri, create_ingress_request)
+> models::IngressResponse create_ingress(domain, uri, x_dtz_realm, create_ingress_request)
 create static content for ingress
 
 ### Parameters
@@ -99,6 +99,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 **create_ingress_request** | Option<[**CreateIngressRequest**](CreateIngressRequest.md)> | serve static content for ingress |  |
 
 ### Return type
@@ -119,7 +120,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_root_ingress
 
-> models::IngressResponse create_root_ingress(domain, create_ingress_request)
+> models::IngressResponse create_root_ingress(domain, x_dtz_realm, create_ingress_request)
 create or update ingress
 
 ### Parameters
@@ -128,6 +129,7 @@ create or update ingress
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 **create_ingress_request** | Option<[**CreateIngressRequest**](CreateIngressRequest.md)> | create or update ingress |  |
 
 ### Return type
@@ -205,7 +207,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_ingress
 
-> delete_ingress(domain, uri)
+> delete_ingress(domain, uri, x_dtz_realm)
 delete ingress
 
 ### Parameters
@@ -215,6 +217,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 
 ### Return type
 
@@ -234,7 +237,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_root_ingress
 
-> delete_root_ingress(domain)
+> delete_root_ingress(domain, x_dtz_realm)
 delete ingress
 
 ### Parameters
@@ -243,6 +246,7 @@ delete ingress
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 
 ### Return type
 
@@ -373,7 +377,7 @@ This endpoint does not need any parameter.
 
 ## get_ingress
 
-> models::IngressResponse get_ingress(domain, uri, scope)
+> models::IngressResponse get_ingress(domain, uri, x_dtz_realm)
 get ingress for '/' path
 
 ### Parameters
@@ -383,7 +387,7 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
 **uri** | **String** | uri | [required] |
-**scope** | **String** | only include the named scope | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 
 ### Return type
 
@@ -403,7 +407,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_root_ingress
 
-> models::IngressResponse get_root_ingress(domain, scope)
+> models::IngressResponse get_root_ingress(domain, x_dtz_realm)
 get ingress for '/' path
 
 ### Parameters
@@ -412,7 +416,7 @@ get ingress for '/' path
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
-**scope** | **String** | only include the named scope | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 
 ### Return type
 
@@ -540,7 +544,7 @@ This endpoint does not need any parameter.
 
 ## list_ingress
 
-> Vec<models::IngressResponse> list_ingress(scope)
+> Vec<models::IngressResponse> list_ingress(x_dtz_realm)
 list all ingress
 
 ### Parameters
@@ -548,7 +552,7 @@ list all ingress
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**scope** | **String** | only include the named scope | [required] |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
 
 ### Return type
 

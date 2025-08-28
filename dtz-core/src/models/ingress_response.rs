@@ -18,9 +18,9 @@ pub struct IngressResponse {
     pub domain: String,
     #[serde(rename = "pathPrefix")]
     pub path_prefix: String,
-    /// owning scope, changes can only be performed within the scope
-    #[serde(rename = "scope", skip_serializing_if = "Option::is_none")]
-    pub scope: Option<String>,
+    /// owning realm, changes can only be performed within the realm
+    #[serde(rename = "realm", skip_serializing_if = "Option::is_none")]
+    pub realm: Option<String>,
     #[serde(rename = "validity", skip_serializing_if = "Option::is_none")]
     pub validity: Option<Box<models::Validity>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
@@ -40,7 +40,7 @@ impl IngressResponse {
         IngressResponse {
             domain,
             path_prefix,
-            scope: None,
+            realm: None,
             validity: None,
             login: None,
             rewrite: None,

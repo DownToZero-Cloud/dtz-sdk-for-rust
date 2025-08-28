@@ -181,7 +181,7 @@ Name | Type | Description  | Required | Notes
 
 ## put_object
 
-> put_object(object_path, x_dtz_expiration, body)
+> put_object(object_path, x_dtz_expiration, x_dtz_expire_in, x_dtz_expire_at, x_dtz_realm, body)
 Put Object
 
 ### Parameters
@@ -191,6 +191,9 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **object_path** | **String** | object path | [required] |
 **x_dtz_expiration** | Option<**String**> | expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours |  |
+**x_dtz_expire_in** | Option<**String**> | expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours |  |
+**x_dtz_expire_at** | Option<**String**> | expiration of the object, format is a rfc3339 timestamp, e.g. \"2025-04-01T13:44:00Z\" |  |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 **body** | Option<**std::path::PathBuf**> |  |  |
 
 ### Return type

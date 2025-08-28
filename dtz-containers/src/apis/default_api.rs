@@ -168,6 +168,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
     let uri_str = format!("{}/domain", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -207,6 +208,7 @@ pub async fn create_job(configuration: &Configuration, create_job: Option<models
 
     let uri_str = format!("{}/job", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -248,6 +250,7 @@ pub async fn create_service(configuration: &Configuration, create_service: Optio
     let uri_str = format!("{}/service", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -288,6 +291,7 @@ pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> 
     let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -315,6 +319,7 @@ pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(
 
     let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -344,6 +349,7 @@ pub async fn delete_service(configuration: &Configuration, service_id: &str) -> 
     let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -365,10 +371,11 @@ pub async fn delete_service(configuration: &Configuration, service_id: &str) -> 
     }
 }
 
-pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<DisableError>> {
+pub async fn disable(configuration: &Configuration) -> Result<(), Error<DisableError>> {
 
     let uri_str = format!("{}/disable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -391,10 +398,11 @@ pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<Disabl
     }
 }
 
-pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableError>> {
+pub async fn enable(configuration: &Configuration) -> Result<(), Error<EnableError>> {
 
     let uri_str = format!("{}/enable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -423,6 +431,7 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
 
     let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -456,10 +465,11 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
     }
 }
 
-pub async fn get_domains(configuration: &Configuration, ) -> Result<Vec<models::Domain>, Error<GetDomainsError>> {
+pub async fn get_domains(configuration: &Configuration) -> Result<Vec<models::Domain>, Error<GetDomainsError>> {
 
     let uri_str = format!("{}/domain", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -500,6 +510,7 @@ pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<mode
     let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -532,10 +543,11 @@ pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<mode
     }
 }
 
-pub async fn get_jobs(configuration: &Configuration, ) -> Result<Vec<models::JobResponse>, Error<GetJobsError>> {
+pub async fn get_jobs(configuration: &Configuration) -> Result<Vec<models::JobResponse>, Error<GetJobsError>> {
 
     let uri_str = format!("{}/job", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -576,6 +588,7 @@ pub async fn get_service(configuration: &Configuration, service_id: &str) -> Res
     let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -608,10 +621,11 @@ pub async fn get_service(configuration: &Configuration, service_id: &str) -> Res
     }
 }
 
-pub async fn get_services(configuration: &Configuration, ) -> Result<Vec<models::Service>, Error<GetServicesError>> {
+pub async fn get_services(configuration: &Configuration) -> Result<Vec<models::Service>, Error<GetServicesError>> {
 
     let uri_str = format!("{}/service", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -652,6 +666,7 @@ pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<
     let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -679,6 +694,7 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
 
     let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -720,6 +736,7 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
     let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -759,6 +776,7 @@ pub async fn verify_domain(configuration: &Configuration, domain_name: &str) -> 
 
     let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

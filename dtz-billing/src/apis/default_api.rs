@@ -67,10 +67,11 @@ pub enum PostConsumptionError {
 
 
 /// stripe webhook This endpoint cannot be used with service credentials. Only system credentials can update charge information. 
-pub async fn charge_stripe_post(configuration: &Configuration, ) -> Result<(), Error<ChargeStripePostError>> {
+pub async fn charge_stripe_post(configuration: &Configuration) -> Result<(), Error<ChargeStripePostError>> {
 
     let uri_str = format!("{}/charge/stripe", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -99,6 +100,7 @@ pub async fn check_funded(configuration: &Configuration, identity: Option<&str>)
 
     let uri_str = format!("{}/funded", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref param_value) = p_query_identity {
         req_builder = req_builder.query(&[("identity", &param_value.to_string())]);
@@ -135,10 +137,11 @@ pub async fn check_funded(configuration: &Configuration, identity: Option<&str>)
     }
 }
 
-pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetStats200Response, Error<GetStatsError>> {
+pub async fn get_stats(configuration: &Configuration) -> Result<models::GetStats200Response, Error<GetStatsError>> {
 
     let uri_str = format!("{}/stats", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -181,6 +184,7 @@ pub async fn list_transactions(configuration: &Configuration, start: Option<Stri
 
     let uri_str = format!("{}/transaction", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref param_value) = p_query_start {
         req_builder = req_builder.query(&[("start", &param_value.to_string())]);
@@ -233,6 +237,7 @@ pub async fn post_consumption(configuration: &Configuration, consumption: Option
 
     let uri_str = format!("{}/consumption", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

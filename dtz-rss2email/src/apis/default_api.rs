@@ -122,6 +122,7 @@ pub async fn create_feed(configuration: &Configuration, feed_request: Option<mod
     let uri_str = format!("{}/rss2email/feed", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -162,6 +163,7 @@ pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result
     let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -190,6 +192,7 @@ pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Resul
     let uri_str = format!("{}/rss2email/feed/{feed_id}/disable", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -217,6 +220,7 @@ pub async fn discover_feed(configuration: &Configuration, discover_feed_request:
 
     let uri_str = format!("{}/rss2email/discover", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -258,6 +262,7 @@ pub async fn enable_feed(configuration: &Configuration, feed_id: &str) -> Result
     let uri_str = format!("{}/rss2email/feed/{feed_id}/enable", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -279,10 +284,11 @@ pub async fn enable_feed(configuration: &Configuration, feed_id: &str) -> Result
     }
 }
 
-pub async fn enable_service(configuration: &Configuration, ) -> Result<(), Error<EnableServiceError>> {
+pub async fn enable_service(configuration: &Configuration) -> Result<(), Error<EnableServiceError>> {
 
     let uri_str = format!("{}/enable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -311,6 +317,7 @@ pub async fn get_feed(configuration: &Configuration, feed_id: &str) -> Result<mo
 
     let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -344,10 +351,11 @@ pub async fn get_feed(configuration: &Configuration, feed_id: &str) -> Result<mo
     }
 }
 
-pub async fn get_profile(configuration: &Configuration, ) -> Result<models::Profile, Error<GetProfileError>> {
+pub async fn get_profile(configuration: &Configuration) -> Result<models::Profile, Error<GetProfileError>> {
 
     let uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -381,10 +389,11 @@ pub async fn get_profile(configuration: &Configuration, ) -> Result<models::Prof
     }
 }
 
-pub async fn get_stats(configuration: &Configuration, ) -> Result<models::FeedStatistics, Error<GetStatsError>> {
+pub async fn get_stats(configuration: &Configuration) -> Result<models::FeedStatistics, Error<GetStatsError>> {
 
     let uri_str = format!("{}/stats", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -418,10 +427,11 @@ pub async fn get_stats(configuration: &Configuration, ) -> Result<models::FeedSt
     }
 }
 
-pub async fn list_feed(configuration: &Configuration, ) -> Result<Vec<models::Feed>, Error<ListFeedError>> {
+pub async fn list_feed(configuration: &Configuration) -> Result<Vec<models::Feed>, Error<ListFeedError>> {
 
     let uri_str = format!("{}/rss2email/feed", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -462,6 +472,7 @@ pub async fn post_profile(configuration: &Configuration, profile: Option<models:
     let uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -491,6 +502,7 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_requ
 
     let uri_str = format!("{}/rss2email/feed/{feed_id}", build_url(configuration), feed_id=crate::apis::urlencode(p_path_feed_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

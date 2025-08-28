@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Objectstore
-  version: 2.0.1
+  version: 2.1.0
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0
@@ -80,6 +80,29 @@ paths:
         description: expiration of the object, format is a iso8601 duration,e.g. "P1D" for 1 day, "PT2H" for 2 hours
         required: false
         schema:
+          type: string
+        style: simple
+        deprecated: true
+      - name: X-DTZ-EXPIRE-IN
+        in: header
+        description: expiration of the object, format is a iso8601 duration,e.g. "P1D" for 1 day, "PT2H" for 2 hours
+        required: false
+        schema:
+          type: string
+        style: simple
+      - name: X-DTZ-EXPIRE-AT
+        in: header
+        description: expiration of the object, format is a rfc3339 timestamp, e.g. "2025-04-01T13:44:00Z"
+        required: false
+        schema:
+          type: string
+          format: date-time
+        style: simple
+      - name: X-DTZ-REALM
+        in: header
+        description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+        required: false
+        schema:
           type: string  
         style: simple
     get:
@@ -97,6 +120,10 @@ paths:
             Content-Digest: 
               description: sha256 digest of the content (base64 encoded)
               schema: 
+                type: string
+            X-DTZ-EXPIRATION:
+              description: expiration of the object, format is a rfc3339 timestamp, e.g. "2025-04-01T13:44:00Z"
+              schema:
                 type: string
       parameters:
       - name: objectPath
@@ -120,6 +147,10 @@ paths:
             Content-Digest: 
               description: sha256 digest of the content (base64 encoded)
               schema: 
+                type: string
+            X-DTZ-EXPIRATION:
+              description: expiration of the object, format is a rfc3339 timestamp, e.g. "2025-04-01T13:44:00Z"
+              schema:
                 type: string
       parameters:
       - name: objectPath

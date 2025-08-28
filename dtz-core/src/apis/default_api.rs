@@ -29,6 +29,48 @@ fn build_url(config: &Configuration) -> String {
     }
 }
 
+/// struct for passing optional header parameters to the method [`create_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct CreateIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`create_root_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct CreateRootIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`delete_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct DeleteIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`delete_root_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct DeleteRootIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`get_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct GetIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`get_root_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct GetRootIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
+/// struct for passing optional header parameters to the method [`list_ingress`]
+#[derive(Clone, Debug, Default)]
+pub struct ListIngressHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers
+    pub x_dtz_realm: Option<String>,
+}
 
 /// struct for typed successes of method [`create_chat`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -370,6 +412,7 @@ pub async fn create_chat(configuration: &Configuration, create_chat_request: Opt
     let uri_str = format!("{}/chat", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -402,6 +445,7 @@ pub async fn create_context(configuration: &Configuration, create_context_reques
     let uri_str = format!("{}/context", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -426,7 +470,7 @@ pub async fn create_context(configuration: &Configuration, create_context_reques
     }
 }
 
-pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &str, create_ingress_request: Option<models::CreateIngressRequest>) -> Result<ResponseContent<CreateIngressSuccess>, Error<CreateIngressError>> {
+pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &str, create_ingress_request: Option<models::CreateIngressRequest>, headers: Option<CreateIngressHeaders>) -> Result<ResponseContent<CreateIngressSuccess>, Error<CreateIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
     let p_path_uri = uri;
@@ -434,6 +478,13 @@ pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &s
 
     let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -459,13 +510,20 @@ pub async fn create_ingress(configuration: &Configuration, domain: &str, uri: &s
     }
 }
 
-pub async fn create_root_ingress(configuration: &Configuration, domain: &str, create_ingress_request: Option<models::CreateIngressRequest>) -> Result<ResponseContent<CreateRootIngressSuccess>, Error<CreateRootIngressError>> {
+pub async fn create_root_ingress(configuration: &Configuration, domain: &str, create_ingress_request: Option<models::CreateIngressRequest>, headers: Option<CreateRootIngressHeaders>) -> Result<ResponseContent<CreateRootIngressSuccess>, Error<CreateRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
     let p_body_create_ingress_request = create_ingress_request;
 
     let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -499,6 +557,7 @@ pub async fn create_task(configuration: &Configuration, task_id: &str, create_ta
     let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_path_task_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -530,6 +589,7 @@ pub async fn delete_context(configuration: &Configuration, context_id: &str) -> 
     let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -553,13 +613,20 @@ pub async fn delete_context(configuration: &Configuration, context_id: &str) -> 
     }
 }
 
-pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &str) -> Result<ResponseContent<DeleteIngressSuccess>, Error<DeleteIngressError>> {
+pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &str, headers: Option<DeleteIngressHeaders>) -> Result<ResponseContent<DeleteIngressSuccess>, Error<DeleteIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
     let p_path_uri = uri;
 
     let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -584,12 +651,19 @@ pub async fn delete_ingress(configuration: &Configuration, domain: &str, uri: &s
     }
 }
 
-pub async fn delete_root_ingress(configuration: &Configuration, domain: &str) -> Result<ResponseContent<DeleteRootIngressSuccess>, Error<DeleteRootIngressError>> {
+pub async fn delete_root_ingress(configuration: &Configuration, domain: &str, headers: Option<DeleteRootIngressHeaders>) -> Result<ResponseContent<DeleteRootIngressSuccess>, Error<DeleteRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
 
     let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -621,6 +695,7 @@ pub async fn enable_service(configuration: &Configuration, context_id: &str) -> 
     let uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -650,6 +725,7 @@ pub async fn get_chat(configuration: &Configuration, chat_id: &str) -> Result<Re
 
     let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_path_chat_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -681,6 +757,7 @@ pub async fn get_context(configuration: &Configuration, context_id: &str) -> Res
     let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -705,10 +782,11 @@ pub async fn get_context(configuration: &Configuration, context_id: &str) -> Res
 }
 
 /// get current context
-pub async fn get_current_context(configuration: &Configuration, ) -> Result<ResponseContent<GetCurrentContextSuccess>, Error<GetCurrentContextError>> {
+pub async fn get_current_context(configuration: &Configuration) -> Result<ResponseContent<GetCurrentContextSuccess>, Error<GetCurrentContextError>> {
 
     let uri_str = format!("{}/context", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -733,16 +811,21 @@ pub async fn get_current_context(configuration: &Configuration, ) -> Result<Resp
     }
 }
 
-pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str, scope: &str) -> Result<ResponseContent<GetIngressSuccess>, Error<GetIngressError>> {
+pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str, headers: Option<GetIngressHeaders>) -> Result<ResponseContent<GetIngressSuccess>, Error<GetIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
     let p_path_uri = uri;
-    let p_query_scope = scope;
 
     let uri_str = format!("{}/ingress/{domain}/{uri}", build_url(configuration), domain=crate::apis::urlencode(p_path_domain), uri=crate::apis::urlencode(p_path_uri));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -766,15 +849,20 @@ pub async fn get_ingress(configuration: &Configuration, domain: &str, uri: &str,
     }
 }
 
-pub async fn get_root_ingress(configuration: &Configuration, domain: &str, scope: &str) -> Result<ResponseContent<GetRootIngressSuccess>, Error<GetRootIngressError>> {
+pub async fn get_root_ingress(configuration: &Configuration, domain: &str, headers: Option<GetRootIngressHeaders>) -> Result<ResponseContent<GetRootIngressSuccess>, Error<GetRootIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain = domain;
-    let p_query_scope = scope;
 
     let uri_str = format!("{}/ingress/{domain}/", build_url(configuration), domain=crate::apis::urlencode(p_path_domain));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -804,6 +892,7 @@ pub async fn get_task_history(configuration: &Configuration, task_id: &str) -> R
 
     let uri_str = format!("{}/task/{task_id}", build_url(configuration), task_id=crate::apis::urlencode(p_path_task_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -836,6 +925,7 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
     let uri_str = format!("{}/certificate", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -860,10 +950,11 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
     }
 }
 
-pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<ResponseContent<ListAvailableContextsSuccess>, Error<ListAvailableContextsError>> {
+pub async fn list_available_contexts(configuration: &Configuration) -> Result<ResponseContent<ListAvailableContextsSuccess>, Error<ListAvailableContextsError>> {
 
     let uri_str = format!("{}/identity/availableContexts", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -888,10 +979,11 @@ pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<
     }
 }
 
-pub async fn list_chat(configuration: &Configuration, ) -> Result<ResponseContent<ListChatSuccess>, Error<ListChatError>> {
+pub async fn list_chat(configuration: &Configuration) -> Result<ResponseContent<ListChatSuccess>, Error<ListChatError>> {
 
     let uri_str = format!("{}/chat", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -916,14 +1008,19 @@ pub async fn list_chat(configuration: &Configuration, ) -> Result<ResponseConten
     }
 }
 
-pub async fn list_ingress(configuration: &Configuration, scope: &str) -> Result<ResponseContent<ListIngressSuccess>, Error<ListIngressError>> {
+pub async fn list_ingress(configuration: &Configuration, headers: Option<ListIngressHeaders>) -> Result<ResponseContent<ListIngressSuccess>, Error<ListIngressError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_scope = scope;
 
     let uri_str = format!("{}/ingress", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -953,6 +1050,7 @@ pub async fn pull_task_from_queue(configuration: &Configuration, pull_task_from_
 
     let uri_str = format!("{}/task", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -986,6 +1084,7 @@ pub async fn update_chat(configuration: &Configuration, chat_id: &str, create_ch
     let uri_str = format!("{}/chat/{chat_id}", build_url(configuration), chat_id=crate::apis::urlencode(p_path_chat_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -1018,6 +1117,7 @@ pub async fn update_context(configuration: &Configuration, context_id: &str, cre
 
     let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());

@@ -243,6 +243,7 @@ pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result
     let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -270,6 +271,7 @@ pub async fn assume_identity(configuration: &Configuration, assume_identity_requ
 
     let uri_str = format!("{}/identity/assume", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -311,6 +313,7 @@ pub async fn authenticate_apikey(configuration: &Configuration, apikey_request: 
     let uri_str = format!("{}/auth/apikey", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -351,6 +354,7 @@ pub async fn change_authentication(configuration: &Configuration, change_authent
     let uri_str = format!("{}/authentication", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -379,6 +383,7 @@ pub async fn check_identity(configuration: &Configuration, check_identity_reques
 
     let uri_str = format!("{}/identity/check", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -419,6 +424,7 @@ pub async fn create_api_key(configuration: &Configuration, create_api_key_reques
 
     let uri_str = format!("{}/me/identity/apikey", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -461,6 +467,7 @@ pub async fn create_role_for_context(configuration: &Configuration, context_id: 
     let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -501,6 +508,7 @@ pub async fn delete_api_key(configuration: &Configuration, apikey: &str) -> Resu
     let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_path_apikey));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -529,6 +537,7 @@ pub async fn delete_context_roles(configuration: &Configuration, context_id: &st
     let uri_str = format!("{}/context/{context_id}", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -550,10 +559,11 @@ pub async fn delete_context_roles(configuration: &Configuration, context_id: &st
     }
 }
 
-pub async fn delete_identity(configuration: &Configuration, ) -> Result<(), Error<DeleteIdentityError>> {
+pub async fn delete_identity(configuration: &Configuration) -> Result<(), Error<DeleteIdentityError>> {
 
     let uri_str = format!("{}/me/identity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -576,10 +586,11 @@ pub async fn delete_identity(configuration: &Configuration, ) -> Result<(), Erro
     }
 }
 
-pub async fn get_abstract_roles(configuration: &Configuration, ) -> Result<models::GetAbstractRoles200Response, Error<GetAbstractRolesError>> {
+pub async fn get_abstract_roles(configuration: &Configuration) -> Result<models::GetAbstractRoles200Response, Error<GetAbstractRolesError>> {
 
     let uri_str = format!("{}/roles", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -613,10 +624,11 @@ pub async fn get_abstract_roles(configuration: &Configuration, ) -> Result<model
     }
 }
 
-pub async fn get_account_email(configuration: &Configuration, ) -> Result<models::GetAccountEmail200Response, Error<GetAccountEmailError>> {
+pub async fn get_account_email(configuration: &Configuration) -> Result<models::GetAccountEmail200Response, Error<GetAccountEmailError>> {
 
     let uri_str = format!("{}/me/email", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -650,10 +662,11 @@ pub async fn get_account_email(configuration: &Configuration, ) -> Result<models
     }
 }
 
-pub async fn get_account_stats(configuration: &Configuration, ) -> Result<models::GetAccountStats200Response, Error<GetAccountStatsError>> {
+pub async fn get_account_stats(configuration: &Configuration) -> Result<models::GetAccountStats200Response, Error<GetAccountStatsError>> {
 
     let uri_str = format!("{}/me", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -694,6 +707,7 @@ pub async fn get_roles_for_context(configuration: &Configuration, context_id: &s
     let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -733,6 +747,7 @@ pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: 
     let uri_str = format!("{}/roles/identity/{identityId}", build_url(configuration), identityId=crate::apis::urlencode(p_path_identity_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -765,10 +780,11 @@ pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: 
     }
 }
 
-pub async fn list_authentication(configuration: &Configuration, ) -> Result<models::ListAuthentication200Response, Error<ListAuthenticationError>> {
+pub async fn list_authentication(configuration: &Configuration) -> Result<models::ListAuthentication200Response, Error<ListAuthenticationError>> {
 
     let uri_str = format!("{}/authentication", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -802,10 +818,11 @@ pub async fn list_authentication(configuration: &Configuration, ) -> Result<mode
     }
 }
 
-pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<Vec<models::ListAvailableContexts200ResponseInner>, Error<ListAvailableContextsError>> {
+pub async fn list_available_contexts(configuration: &Configuration) -> Result<Vec<models::ListAvailableContexts200ResponseInner>, Error<ListAvailableContextsError>> {
 
     let uri_str = format!("{}/context", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -839,10 +856,11 @@ pub async fn list_available_contexts(configuration: &Configuration, ) -> Result<
     }
 }
 
-pub async fn list_identity(configuration: &Configuration, ) -> Result<models::ListIdentity200Response, Error<ListIdentityError>> {
+pub async fn list_identity(configuration: &Configuration) -> Result<models::ListIdentity200Response, Error<ListIdentityError>> {
 
     let uri_str = format!("{}/identity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -884,6 +902,7 @@ pub async fn new_context(configuration: &Configuration, context_id: &str, new_co
     let uri_str = format!("{}/context/{context_id}/new", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -912,6 +931,7 @@ pub async fn new_identity(configuration: &Configuration, new_identity_request: O
 
     let uri_str = format!("{}/identity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -958,6 +978,7 @@ pub async fn oauth_authorize(configuration: &Configuration, response_type: &str,
     let uri_str = format!("{}/oauth/authorize", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     req_builder = req_builder.query(&[("response_type", &p_query_response_type.to_string())]);
     req_builder = req_builder.query(&[("client_id", &p_query_client_id.to_string())]);
     req_builder = req_builder.query(&[("redirect_uri", &p_query_redirect_uri.to_string())]);
@@ -1002,6 +1023,7 @@ pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client
     let uri_str = format!("{}/oauth/token", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     let mut multipart_form_params = std::collections::HashMap::new();
     multipart_form_params.insert("grant_type", p_form_grant_type.to_string());
     multipart_form_params.insert("client_id", p_form_client_id.to_string());
@@ -1042,6 +1064,7 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -1072,6 +1095,7 @@ pub async fn share_role(configuration: &Configuration, context_id: &str, role_id
     let uri_str = format!("{}/roles/context/{contextId}/{roleId}/share", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -1101,6 +1125,7 @@ pub async fn token_refresh(configuration: &Configuration, change_context_request
 
     let uri_str = format!("{}/token/refresh", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -1143,6 +1168,7 @@ pub async fn update_api_key_alias(configuration: &Configuration, apikey: &str, u
     let uri_str = format!("{}/me/identity/apikey/{apikey}", build_url(configuration), apikey=crate::apis::urlencode(p_path_apikey));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -1171,6 +1197,7 @@ pub async fn user_login(configuration: &Configuration, auth_request: models::Aut
 
     let uri_str = format!("{}/token/auth", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     req_builder = req_builder.json(&p_body_auth_request);
 
@@ -1205,6 +1232,7 @@ pub async fn user_signup(configuration: &Configuration, signup_request: models::
 
     let uri_str = format!("{}/signup", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     req_builder = req_builder.json(&p_body_signup_request);
 

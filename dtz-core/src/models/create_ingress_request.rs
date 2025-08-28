@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateIngressRequest {
-    /// set the scope for this ingress, changes can only be performed within the same scope
-    #[serde(rename = "scope")]
-    pub scope: String,
+    /// set the realm for this ingress, changes can only be performed within the same realm
+    #[serde(rename = "realm")]
+    pub realm: String,
     #[serde(rename = "validity", skip_serializing_if = "Option::is_none")]
     pub validity: Option<Box<models::Validity>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
@@ -32,9 +32,9 @@ pub struct CreateIngressRequest {
 }
 
 impl CreateIngressRequest {
-    pub fn new(scope: String) -> CreateIngressRequest {
+    pub fn new(realm: String) -> CreateIngressRequest {
         CreateIngressRequest {
-            scope,
+            realm,
             validity: None,
             login: None,
             rewrite: None,

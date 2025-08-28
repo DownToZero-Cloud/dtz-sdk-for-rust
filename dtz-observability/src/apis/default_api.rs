@@ -136,10 +136,11 @@ pub enum QueryLogsError {
 }
 
 
-pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<DisableError>> {
+pub async fn disable(configuration: &Configuration) -> Result<(), Error<DisableError>> {
 
     let uri_str = format!("{}/disable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -162,10 +163,11 @@ pub async fn disable(configuration: &Configuration, ) -> Result<(), Error<Disabl
     }
 }
 
-pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableError>> {
+pub async fn enable(configuration: &Configuration) -> Result<(), Error<EnableError>> {
 
     let uri_str = format!("{}/enable", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -188,10 +190,11 @@ pub async fn enable(configuration: &Configuration, ) -> Result<(), Error<EnableE
     }
 }
 
-pub async fn get_build_info(configuration: &Configuration, ) -> Result<models::GetBuildInfo200Response, Error<GetBuildInfoError>> {
+pub async fn get_build_info(configuration: &Configuration) -> Result<models::GetBuildInfo200Response, Error<GetBuildInfoError>> {
 
     let uri_str = format!("{}/prometheus/api/v1/status/buildinfo", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -225,10 +228,11 @@ pub async fn get_build_info(configuration: &Configuration, ) -> Result<models::G
     }
 }
 
-pub async fn get_log_activity(configuration: &Configuration, ) -> Result<Vec<models::GetLogActivity200ResponseInner>, Error<GetLogActivityError>> {
+pub async fn get_log_activity(configuration: &Configuration) -> Result<Vec<models::GetLogActivity200ResponseInner>, Error<GetLogActivityError>> {
 
     let uri_str = format!("{}/log/activity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -262,10 +266,11 @@ pub async fn get_log_activity(configuration: &Configuration, ) -> Result<Vec<mod
     }
 }
 
-pub async fn get_log_attributes(configuration: &Configuration, ) -> Result<Vec<models::GetLogAttributes200ResponseInner>, Error<GetLogAttributesError>> {
+pub async fn get_log_attributes(configuration: &Configuration) -> Result<Vec<models::GetLogAttributes200ResponseInner>, Error<GetLogAttributesError>> {
 
     let uri_str = format!("{}/log/attribute", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -299,10 +304,11 @@ pub async fn get_log_attributes(configuration: &Configuration, ) -> Result<Vec<m
     }
 }
 
-pub async fn get_logs(configuration: &Configuration, ) -> Result<Vec<models::DtzLogsInner>, Error<GetLogsError>> {
+pub async fn get_logs(configuration: &Configuration) -> Result<Vec<models::DtzLogsInner>, Error<GetLogsError>> {
 
     let uri_str = format!("{}/log", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -336,10 +342,11 @@ pub async fn get_logs(configuration: &Configuration, ) -> Result<Vec<models::Dtz
     }
 }
 
-pub async fn get_metric_metadata(configuration: &Configuration, ) -> Result<models::GetMetricMetadata200Response, Error<GetMetricMetadataError>> {
+pub async fn get_metric_metadata(configuration: &Configuration) -> Result<models::GetMetricMetadata200Response, Error<GetMetricMetadataError>> {
 
     let uri_str = format!("{}/prometheus/api/v1/metadata", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -373,10 +380,11 @@ pub async fn get_metric_metadata(configuration: &Configuration, ) -> Result<mode
     }
 }
 
-pub async fn get_stats(configuration: &Configuration, ) -> Result<models::GetStats200Response, Error<GetStatsError>> {
+pub async fn get_stats(configuration: &Configuration) -> Result<models::GetStats200Response, Error<GetStatsError>> {
 
     let uri_str = format!("{}/stats", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -417,6 +425,7 @@ pub async fn list_label_values(configuration: &Configuration, label: &str) -> Re
     let uri_str = format!("{}/prometheus/api/v1/label/{label}/values", build_url(configuration), label=crate::apis::urlencode(p_path_label));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -449,10 +458,11 @@ pub async fn list_label_values(configuration: &Configuration, label: &str) -> Re
     }
 }
 
-pub async fn list_labels(configuration: &Configuration, ) -> Result<models::ListLabelValues200Response, Error<ListLabelsError>> {
+pub async fn list_labels(configuration: &Configuration) -> Result<models::ListLabelValues200Response, Error<ListLabelsError>> {
 
     let uri_str = format!("{}/prometheus/api/v1/labels", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -493,6 +503,7 @@ pub async fn post_log(configuration: &Configuration, post_log_request_inner: Opt
     let uri_str = format!("{}/log/push", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -521,6 +532,7 @@ pub async fn post_metric(configuration: &Configuration, dtz_metric: Option<Vec<m
 
     let uri_str = format!("{}/metric", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -551,6 +563,7 @@ pub async fn post_prometheus(configuration: &Configuration, body: Option<&str>) 
     let uri_str = format!("{}/prometheus", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
+
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
@@ -579,6 +592,7 @@ pub async fn query_log_activity(configuration: &Configuration, query_logs_reques
 
     let uri_str = format!("{}/log/activity", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
@@ -619,6 +633,7 @@ pub async fn query_logs(configuration: &Configuration, query_logs_request: Optio
 
     let uri_str = format!("{}/log", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
