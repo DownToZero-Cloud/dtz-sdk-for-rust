@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**realm** | **String** | set the realm for this ingress, changes can only be performed within the same realm | 
 **validity** | Option<[**models::Validity**](Validity.md)> |  | [optional]
 **login** | Option<[**models::Login**](Login.md)> |  | [optional]
 **rewrite** | Option<[**models::Rewrite**](Rewrite.md)> |  | [optional]

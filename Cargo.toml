@@ -21,7 +21,7 @@ dtz-billing = { version = "=2.1.0", path = "./dtz-billing" }
 dtz-config = { version = "1.0.2", path = "./dtz-config" }
 dtz-containerregistry = { version = "=2.0.1", path = "./dtz-containerregistry" }
 dtz-containers = { version = "=2.1.0", path = "./dtz-containers" }
-dtz-core = { version = "=2.2.0", path = "./dtz-core" }
+dtz-core = { version = "=2.2.1", path = "./dtz-core" }
 dtz-identifier = { version = "1.4.0", path = "./dtz-identifier" }
 dtz-identity = { version = "=2.0.5", path = "./dtz-identity" }
 dtz-objectstore = { version = "=2.1.1", path = "./dtz-objectstore" }

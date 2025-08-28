@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.2.0
+  version: 2.2.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -617,9 +617,6 @@ components:
     CreateIngressRequest: 
       type: object
       properties:
-        realm:
-          description: set the realm for this ingress, changes can only be performed within the same realm
-          type: string
         validity:
           $ref: '#/components/schemas/Validity'
         login:
@@ -632,8 +629,6 @@ components:
           $ref: '#/components/schemas/StaticContent'
         singletonProcessor:
           type: boolean
-      required:
-      - realm
     Login:
       type: object
       properties:
