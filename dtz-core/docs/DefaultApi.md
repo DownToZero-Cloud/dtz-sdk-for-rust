@@ -150,7 +150,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_task
 
-> models::CreateTask200Response create_task(task_id, create_task_request)
+> models::CreateTaskResponse create_task(task_id, create_task_request)
 create task for async execution
 
 ### Parameters
@@ -163,7 +163,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::CreateTask200Response**](createTask_200_response.md)
+[**models::CreateTaskResponse**](CreateTaskResponse.md)
 
 ### Authorization
 

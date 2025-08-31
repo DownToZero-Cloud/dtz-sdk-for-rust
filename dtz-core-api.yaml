@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.2.1
+  version: 2.2.2
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -319,63 +319,20 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                taskName:
-                  type: string
-                service:
-                  description: origin service, like dtz-flows, dtz-containers
-                  type: string
-                earliestStart:
-                  type: string
-                  format: dateTime
-                latestStart:
-                  type: string
-                  format: dateTime
-                requireEcoMode:
-                  type: boolean
-                taskDefinition:
-                  type: object
-                  properties:
-                    containerImage:
-                      type: string
-                    containerImageVersion:
-                      type: string
-                    containerPullUser:
-                      type: string
-                    containerPullPwd:
-                      type: string
-                    envVariables:
-                      $ref: '#/components/schemas/EnvironmentVariables'
-                  required:
-                  - containerImage
-              required:
-              - taskName
-              - service
-              - earliestStart
-              - latestStart
-              - requireEcoMode
-              - taskDefinition
+              $ref: '#/components/schemas/CreateTaskRequest'
       responses:
         "200":
           description: success
           content: 
             application/json: 
               schema:
-                type: object
-                properties:
-                  taskId:
-                    type: string
-                    format: TaskId
-                  service:
-                    type: string
-                  executionId:
-                    type: string
-                    format: ExecutionId
-                required:
-                  - taskId
-                  - service
-                  - executionId
+                $ref: '#/components/schemas/CreateTaskResponse'
+        "302":
+          description: job already exists
+          content: 
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/CreateTaskResponse'
     get:
       summary: get execution history
       operationId: getTaskHistory
@@ -807,6 +764,59 @@ components:
         encryptedValue:
           type: string
           description: "The base-64 encoded ciphertext."
+    CreateTaskRequest:
+      type: object
+      properties:
+        taskName:
+          type: string
+        service:
+          description: origin service, like dtz-flows, dtz-containers
+          type: string
+        earliestStart:
+          type: string
+          format: dateTime
+        latestStart:
+          type: string
+          format: dateTime
+        requireEcoMode:
+          type: boolean
+        taskDefinition:
+          type: object
+          properties:
+            containerImage:
+              type: string
+            containerImageVersion:
+              type: string
+            containerPullUser:
+              type: string
+            containerPullPwd:
+              type: string
+            envVariables:
+              $ref: '#/components/schemas/EnvironmentVariables'
+          required:
+          - containerImage
+      required:
+      - taskName
+      - service
+      - earliestStart
+      - latestStart
+      - requireEcoMode
+      - taskDefinition
+    CreateTaskResponse:
+      type: object
+      properties:
+        taskId:
+          type: string
+          format: TaskId
+        service:
+          type: string
+        executionId:
+          type: string
+          format: ExecutionId
+      required:
+        - taskId
+        - service
+        - executionId
   securitySchemes:
     dtz_oauth:
       type: oauth2

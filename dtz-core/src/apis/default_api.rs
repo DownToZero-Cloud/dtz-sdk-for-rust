@@ -108,7 +108,8 @@ pub enum CreateRootIngressSuccess {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateTaskSuccess {
-    Status200(models::CreateTask200Response),
+    Status200(models::CreateTaskResponse),
+    Status302(models::CreateTaskResponse),
     UnknownValue(serde_json::Value),
 }
 

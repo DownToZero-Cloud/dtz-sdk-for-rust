@@ -13,7 +13,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateTask200Response {
+pub struct CreateTaskResponse {
     #[serde(rename = "taskId")]
     pub task_id: dtz_identifier::TaskId,
     #[serde(rename = "service")]
@@ -22,9 +22,9 @@ pub struct CreateTask200Response {
     pub execution_id: dtz_identifier::ExecutionId,
 }
 
-impl CreateTask200Response {
-    pub fn new(task_id: dtz_identifier::TaskId, service: String, execution_id: dtz_identifier::ExecutionId) -> CreateTask200Response {
-        CreateTask200Response {
+impl CreateTaskResponse {
+    pub fn new(task_id: dtz_identifier::TaskId, service: String, execution_id: dtz_identifier::ExecutionId) -> CreateTaskResponse {
+        CreateTaskResponse {
             task_id,
             service,
             execution_id,
