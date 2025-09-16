@@ -12,9 +12,9 @@ use crate::models;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 
-/// UpdateService : Full update for a service; all fields are required and will overwrite existing values
+/// UpdateServiceRequest : Full update for a service; all fields are required and will overwrite existing values
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateService {
+pub struct UpdateServiceRequest {
     /// whether this service is active and should be propagated to ingress
     #[serde(rename = "enabled")]
     pub enabled: bool,
@@ -32,17 +32,17 @@ pub struct UpdateService {
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables")]
-    pub env_variables: std::collections::HashMap<String, models::CreateJobEnvVariablesValue>,
+    pub env_variables: std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
     pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
-    pub login: Option<Box<models::UpdateServiceLogin>>,
+    pub login: Option<Box<models::UpdateServiceRequestLogin>>,
 }
 
-impl UpdateService {
+impl UpdateServiceRequest {
     /// Full update for a service; all fields are required and will overwrite existing values
-    pub fn new(enabled: bool, domain: Vec<String>, prefix: String, container_image: String, env_variables: std::collections::HashMap<String, models::CreateJobEnvVariablesValue>) -> UpdateService {
-        UpdateService {
+    pub fn new(enabled: bool, domain: Vec<String>, prefix: String, container_image: String, env_variables: std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>) -> UpdateServiceRequest {
+        UpdateServiceRequest {
             enabled,
             domain,
             prefix,

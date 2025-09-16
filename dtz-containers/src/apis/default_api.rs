@@ -161,9 +161,9 @@ pub enum VerifyDomainError {
 }
 
 
-pub async fn create_domain(configuration: &Configuration, create_domain: Option<models::CreateDomain>) -> Result<models::Domain, Error<CreateDomainError>> {
+pub async fn create_domain(configuration: &Configuration, create_domain_request: Option<models::CreateDomainRequest>) -> Result<models::Domain, Error<CreateDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_domain = create_domain;
+    let p_body_create_domain_request = create_domain_request;
 
     let uri_str = format!("{}/domain", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -175,7 +175,7 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_create_domain);
+    req_builder = req_builder.json(&p_body_create_domain_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -202,9 +202,9 @@ pub async fn create_domain(configuration: &Configuration, create_domain: Option<
     }
 }
 
-pub async fn create_job(configuration: &Configuration, create_job: Option<models::CreateJob>) -> Result<models::JobResponse, Error<CreateJobError>> {
+pub async fn create_job(configuration: &Configuration, create_job_request: Option<models::CreateJobRequest>) -> Result<models::JobResponse, Error<CreateJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_job = create_job;
+    let p_body_create_job_request = create_job_request;
 
     let uri_str = format!("{}/job", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -216,7 +216,7 @@ pub async fn create_job(configuration: &Configuration, create_job: Option<models
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_create_job);
+    req_builder = req_builder.json(&p_body_create_job_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -243,9 +243,9 @@ pub async fn create_job(configuration: &Configuration, create_job: Option<models
     }
 }
 
-pub async fn create_service(configuration: &Configuration, create_service: Option<models::CreateService>) -> Result<models::Service, Error<CreateServiceError>> {
+pub async fn create_service(configuration: &Configuration, create_service_request: Option<models::CreateServiceRequest>) -> Result<models::Service, Error<CreateServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_service = create_service;
+    let p_body_create_service_request = create_service_request;
 
     let uri_str = format!("{}/service", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -257,7 +257,7 @@ pub async fn create_service(configuration: &Configuration, create_service: Optio
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_create_service);
+    req_builder = req_builder.json(&p_body_create_service_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -728,10 +728,10 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
     }
 }
 
-pub async fn update_service(configuration: &Configuration, service_id: &str, update_service: Option<models::UpdateService>) -> Result<models::Service, Error<UpdateServiceError>> {
+pub async fn update_service(configuration: &Configuration, service_id: &str, update_service_request: Option<models::UpdateServiceRequest>) -> Result<models::Service, Error<UpdateServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_service_id = service_id;
-    let p_body_update_service = update_service;
+    let p_body_update_service_request = update_service_request;
 
     let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -743,7 +743,7 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_update_service);
+    req_builder = req_builder.json(&p_body_update_service_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

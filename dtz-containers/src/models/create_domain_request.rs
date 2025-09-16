@@ -13,14 +13,14 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateDomain {
+pub struct CreateDomainRequest {
     #[serde(rename = "name")]
     pub name: String,
 }
 
-impl CreateDomain {
-    pub fn new(name: String) -> CreateDomain {
-        CreateDomain {
+impl CreateDomainRequest {
+    pub fn new(name: String) -> CreateDomainRequest {
+        CreateDomainRequest {
             name,
         }
     }

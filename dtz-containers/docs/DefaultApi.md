@@ -27,7 +27,7 @@ Method | HTTP request | Description
 
 ## create_domain
 
-> models::Domain create_domain(create_domain)
+> models::Domain create_domain(create_domain_request)
 create a new domain
 
 ### Parameters
@@ -35,7 +35,7 @@ create a new domain
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_domain** | Option<[**CreateDomain**](CreateDomain.md)> | register a new domain within dtz |  |
+**create_domain_request** | Option<[**CreateDomainRequest**](CreateDomainRequest.md)> | register a new domain within dtz |  |
 
 ### Return type
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_job
 
-> models::JobResponse create_job(create_job)
+> models::JobResponse create_job(create_job_request)
 create new job
 
 ### Parameters
@@ -63,7 +63,7 @@ create new job
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_job** | Option<[**CreateJob**](CreateJob.md)> | update existing hosting |  |
+**create_job_request** | Option<[**CreateJobRequest**](CreateJobRequest.md)> | update existing hosting |  |
 
 ### Return type
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Required | Notes
 
 ## create_service
 
-> models::Service create_service(create_service)
+> models::Service create_service(create_service_request)
 create a new service hosting
 
 ### Parameters
@@ -91,7 +91,7 @@ create a new service hosting
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**create_service** | Option<[**CreateService**](CreateService.md)> | creation request |  |
+**create_service_request** | Option<[**CreateServiceRequest**](CreateServiceRequest.md)> | creation request |  |
 
 ### Return type
 
@@ -460,7 +460,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_service
 
-> models::Service update_service(service_id, update_service)
+> models::Service update_service(service_id, update_service_request)
 update service
 
 ### Parameters
@@ -469,7 +469,7 @@ update service
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **service_id** | **dtz_identifier::ServiceId** | service id | [required] |
-**update_service** | Option<[**UpdateService**](UpdateService.md)> | update request |  |
+**update_service_request** | Option<[**UpdateServiceRequest**](UpdateServiceRequest.md)> | update request |  |
 
 ### Return type
 

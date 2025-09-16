@@ -13,7 +13,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateJob {
+pub struct CreateJobRequest {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "containerImage")]
@@ -30,12 +30,12 @@ pub struct CreateJob {
     #[serde(rename = "scheduleRepeat", skip_serializing_if = "Option::is_none")]
     pub schedule_repeat: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<std::collections::HashMap<String, models::CreateJobEnvVariablesValue>>,
+    pub env_variables: Option<std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>>,
 }
 
-impl CreateJob {
-    pub fn new(name: String, container_image: String, schedule_type: ScheduleType) -> CreateJob {
-        CreateJob {
+impl CreateJobRequest {
+    pub fn new(name: String, container_image: String, schedule_type: ScheduleType) -> CreateJobRequest {
+        CreateJobRequest {
             name,
             container_image,
             container_pull_user: None,

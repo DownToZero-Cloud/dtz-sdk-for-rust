@@ -13,7 +13,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateService {
+pub struct CreateServiceRequest {
     /// whether this service is active and should be propagated to ingress
     #[serde(rename = "enabled")]
     pub enabled: bool,
@@ -31,16 +31,16 @@ pub struct CreateService {
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<std::collections::HashMap<String, models::CreateJobEnvVariablesValue>>,
+    pub env_variables: Option<std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
     pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
     pub login: Option<Box<models::ServiceLogin>>,
 }
 
-impl CreateService {
-    pub fn new(enabled: bool, prefix: String, container_image: String) -> CreateService {
-        CreateService {
+impl CreateServiceRequest {
+    pub fn new(enabled: bool, prefix: String, container_image: String) -> CreateServiceRequest {
+        CreateServiceRequest {
             enabled,
             domain: None,
             prefix,

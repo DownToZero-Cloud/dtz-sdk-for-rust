@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 2.1.1
+  version: 2.1.2
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -52,7 +52,7 @@ paths:
         content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateDomain'
+              $ref: '#/components/schemas/CreateDomainRequest'
       responses:
         "200":
           description: success
@@ -133,7 +133,7 @@ paths:
         content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateService'
+              $ref: '#/components/schemas/CreateServiceRequest'
             examples:
               basic_service:
                 summary: Basic web service
@@ -214,7 +214,7 @@ paths:
         content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateService'
+              $ref: '#/components/schemas/UpdateServiceRequest'
       responses:
         "200":
           description: success
@@ -257,7 +257,7 @@ paths:
         content: 
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateJob'
+              $ref: '#/components/schemas/CreateJobRequest'
       responses:
         "200":
           description: success
@@ -348,7 +348,7 @@ components:
       properties:
         msg:
           type: string
-    CreateJob:
+    CreateJobRequest:
       type: object
       properties:
         name:
@@ -437,7 +437,7 @@ components:
         - name
         - verified
         - created
-    CreateDomain:
+    CreateDomainRequest:
       type: object
       properties:
         name:
@@ -510,7 +510,7 @@ components:
         - enabled
         - prefix
         - containerImage
-    CreateService:
+    CreateServiceRequest:
       type: object
       properties:
         enabled:
@@ -562,7 +562,7 @@ components:
         - enabled
         - prefix
         - containerImage
-    UpdateService:
+    UpdateServiceRequest:
       type: object
       description: Full update for a service; all fields are required and will overwrite existing values
       properties:

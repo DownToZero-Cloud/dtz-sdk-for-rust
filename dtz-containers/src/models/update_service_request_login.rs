@@ -12,17 +12,17 @@ use crate::models;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 
-/// UpdateServiceLogin : a login can only be added, to remove the login functionality, either set the providerName to an empty string or recreate the service without the login property
+/// UpdateServiceRequestLogin : a login can only be added, to remove the login functionality, either set the providerName to an empty string or recreate the service without the login property
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateServiceLogin {
+pub struct UpdateServiceRequestLogin {
     #[serde(rename = "providerName")]
     pub provider_name: String,
 }
 
-impl UpdateServiceLogin {
+impl UpdateServiceRequestLogin {
     /// a login can only be added, to remove the login functionality, either set the providerName to an empty string or recreate the service without the login property
-    pub fn new(provider_name: String) -> UpdateServiceLogin {
-        UpdateServiceLogin {
+    pub fn new(provider_name: String) -> UpdateServiceRequestLogin {
+        UpdateServiceRequestLogin {
             provider_name,
         }
     }

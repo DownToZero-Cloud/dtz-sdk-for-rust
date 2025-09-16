@@ -14,13 +14,13 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum CreateJobEnvVariablesValue {
+pub enum CreateJobRequestEnvVariablesValue {
     String(String),
     EncryptedValue(Box<models::EncryptedValue>),
     PlainValue(Box<models::PlainValue>),
 }
 
-impl Default for CreateJobEnvVariablesValue {
+impl Default for CreateJobRequestEnvVariablesValue {
     fn default() -> Self {
         Self::String(Default::default())
     }
