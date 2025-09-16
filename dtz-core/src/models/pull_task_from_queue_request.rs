@@ -14,14 +14,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct PullTaskFromQueueRequest {
+    /// declares the node id
     #[serde(rename = "nodeId")]
     pub node_id: String,
+    /// declares the instance id
     #[serde(rename = "instanceId")]
     pub instance_id: String,
+    /// declares the cpu capacity of the node
     #[serde(rename = "cpuCapacity")]
     pub cpu_capacity: i64,
+    /// declares the memory capacity of the node
     #[serde(rename = "memCapacity")]
     pub mem_capacity: i64,
+    /// declares if the node is running in eco mode
     #[serde(rename = "ecoMode")]
     pub eco_mode: bool,
 }

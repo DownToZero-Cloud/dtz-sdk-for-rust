@@ -117,7 +117,7 @@ pub enum CreateTaskSuccess {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteContextSuccess {
-    Status200(),
+    Status200(models::ContextResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -133,14 +133,6 @@ pub enum DeleteIngressSuccess {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteRootIngressSuccess {
-    Status200(),
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed successes of method [`enable_service`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum EnableServiceSuccess {
     Status200(),
     UnknownValue(serde_json::Value),
 }
@@ -229,7 +221,7 @@ pub enum ListIngressSuccess {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PullTaskFromQueueSuccess {
-    Status200(models::PullTaskFromQueue200Response),
+    Status200(models::PullTaskResponse),
     Status204(),
     UnknownValue(serde_json::Value),
 }
@@ -289,6 +281,7 @@ pub enum CreateTaskError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteContextError {
+    Status500(),
     UnknownValue(serde_json::Value),
 }
 
@@ -306,13 +299,6 @@ pub enum DeleteRootIngressError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`enable_service`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum EnableServiceError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`get_chat`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -324,6 +310,7 @@ pub enum GetChatError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetContextError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -331,6 +318,7 @@ pub enum GetContextError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetCurrentContextError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -338,6 +326,7 @@ pub enum GetCurrentContextError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetIngressError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -345,6 +334,7 @@ pub enum GetIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetRootIngressError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -685,37 +675,6 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str, he
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteRootIngressError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-pub async fn enable_service(configuration: &Configuration, context_id: &str) -> Result<ResponseContent<EnableServiceSuccess>, Error<EnableServiceError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_context_id = context_id;
-
-    let uri_str = format!("{}/context/{context_id}/enableService", build_url(configuration), context_id=crate::apis::urlencode(p_path_context_id));
-    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
-
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        let entity: Option<EnableServiceSuccess> = serde_json::from_str(&content).ok();
-        Ok(ResponseContent { status, content, entity })
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<EnableServiceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

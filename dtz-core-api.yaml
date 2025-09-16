@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.2.2
+  version: 2.2.3
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -24,6 +24,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/ContextResponse'
+        "404":
+          description: context not found
     post:
       summary: create new context
       description: create new context
@@ -64,6 +66,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/ContextResponse'
+        "404":
+          description: context not found
     post:
       summary: update context
       description: update context
@@ -106,22 +110,13 @@ paths:
           description: context id
       responses:
         "200":
-          description: status
-  /context/{context_id}/enableService:
-    post:
-      summary: enable service for context
-      operationId: enableService
-      parameters:
-        - in: path
-          name: context_id
-          schema:
-            type: string
-            format: ContextId
-          required: true
-          description: context id
-      responses:
-        "200":
-          description: context information
+          description: returns the deleted context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextResponse'
+        "500":
+          description: internal server error
   /chat:
     get:
       summary: list all chat threads for the current context
@@ -249,15 +244,20 @@ paths:
               properties:
                 nodeId:
                   type: string
+                  description: declares the node id
                 instanceId:
                   type: string
+                  description: declares the instance id
                 cpuCapacity:
+                  description: declares the cpu capacity of the node
                   type: integer
                   format: int64
                 memCapacity:
+                  description: declares the memory capacity of the node
                   type: integer
                   format: int64
                 ecoMode:
+                  description: declares if the node is running in eco mode
                   type: boolean
               required:
               - nodeId
@@ -271,35 +271,7 @@ paths:
           content: 
             application/json:
               schema:
-                type: object
-                properties:
-                  contextId:
-                    type: string
-                    format: ContextId
-                  executionId:
-                    type: string
-                    format: ExecutionId
-                  taskId:
-                    type: string
-                    format: TaskId
-                  taskName:
-                    type: string
-                  containerImage:
-                    type: string
-                  containerImageVersion:
-                    type: string
-                  containerPullUser:
-                    type: string
-                  containerPullPwd:
-                    type: string
-                  envVariables:
-                    $ref: '#/components/schemas/EnvironmentVariables'
-                required:
-                - contextId
-                - executionId
-                - taskId
-                - taskName
-                - containerImage
+                $ref: '#/components/schemas/PullTaskResponse'
         "204":
           description: nothing found
   /task/{task_id}:
@@ -393,6 +365,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/IngressResponse'
+        "404":
+          description: ingress not found
     post:
       summary: create or update ingress
       operationId: createRootIngress
@@ -475,6 +449,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/IngressResponse'
+        "404":
+          description: ingress not found
     post:
       summary: create static content for ingress
       operationId: createIngress
@@ -553,6 +529,34 @@ paths:
                   $ref: '#/components/schemas/ContextResponse'                    
 components:
   schemas:
+    PullTaskResponse:
+      type: object
+      properties:
+        contextId:
+          type: string
+          format: ContextId
+        executionId:
+          type: string
+          format: ExecutionId
+        taskId:
+          type: string
+          format: TaskId
+        taskName:
+          type: string
+        containerImage:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
+        envVariables:
+          $ref: '#/components/schemas/EnvironmentVariables'
+      required:
+      - contextId
+      - executionId
+      - taskId
+      - taskName
+      - containerImage
     ContextResponse:
       type: object
       properties:
@@ -685,8 +689,6 @@ components:
       properties:
         containerImage:
           type: string
-        containerImageVersion:
-          type: string
         containerIdentity:
           type: string
         containerPullUser:
@@ -702,7 +704,7 @@ components:
       properties:
         chatId:
           type: string
-          format: chatId
+          format: ChatId
         created:
           type: string
           format: date-time
@@ -738,7 +740,7 @@ components:
       properties:
         chatId:
           type: string
-          format: chatId
+          format: ChatId
         created:
           description: when the message was created
           type: string
@@ -774,18 +776,16 @@ components:
           type: string
         earliestStart:
           type: string
-          format: dateTime
+          format: date-time
         latestStart:
           type: string
-          format: dateTime
+          format: date-time
         requireEcoMode:
           type: boolean
         taskDefinition:
           type: object
           properties:
             containerImage:
-              type: string
-            containerImageVersion:
               type: string
             containerPullUser:
               type: string

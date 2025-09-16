@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
-[**enable_service**](DefaultApi.md#enable_service) | **POST** /context/{context_id}/enableService | enable service for context
 [**get_chat**](DefaultApi.md#get_chat) | **GET** /chat/{chat_id} | get the full chat timeline
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
@@ -179,7 +178,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_context
 
-> delete_context(context_id)
+> models::ContextResponse delete_context(context_id)
 delete context
 
 ### Parameters
@@ -191,7 +190,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::ContextResponse**](ContextResponse.md)
 
 ### Authorization
 
@@ -200,7 +199,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -247,34 +246,6 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **domain** | **String** | domain name | [required] |
 **x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore, dtz-containerregistry, dtz-containers |  |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## enable_service
-
-> enable_service(context_id)
-enable service for context
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 
 ### Return type
 
@@ -572,7 +543,7 @@ Name | Type | Description  | Required | Notes
 
 ## pull_task_from_queue
 
-> models::PullTaskFromQueue200Response pull_task_from_queue(pull_task_from_queue_request)
+> models::PullTaskResponse pull_task_from_queue(pull_task_from_queue_request)
 pull one task from the async task queue
 
 ### Parameters
@@ -584,7 +555,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::PullTaskFromQueue200Response**](pullTaskFromQueue_200_response.md)
+[**models::PullTaskResponse**](PullTaskResponse.md)
 
 ### Authorization
 

@@ -13,7 +13,7 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct PullTaskFromQueue200Response {
+pub struct PullTaskResponse {
     #[serde(rename = "contextId")]
     pub context_id: dtz_identifier::ContextId,
     #[serde(rename = "executionId")]
@@ -24,8 +24,6 @@ pub struct PullTaskFromQueue200Response {
     pub task_name: String,
     #[serde(rename = "containerImage")]
     pub container_image: String,
-    #[serde(rename = "containerImageVersion", skip_serializing_if = "Option::is_none")]
-    pub container_image_version: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -34,15 +32,14 @@ pub struct PullTaskFromQueue200Response {
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
 }
 
-impl PullTaskFromQueue200Response {
-    pub fn new(context_id: dtz_identifier::ContextId, execution_id: dtz_identifier::ExecutionId, task_id: dtz_identifier::TaskId, task_name: String, container_image: String) -> PullTaskFromQueue200Response {
-        PullTaskFromQueue200Response {
+impl PullTaskResponse {
+    pub fn new(context_id: dtz_identifier::ContextId, execution_id: dtz_identifier::ExecutionId, task_id: dtz_identifier::TaskId, task_name: String, container_image: String) -> PullTaskResponse {
+        PullTaskResponse {
             context_id,
             execution_id,
             task_id,
             task_name,
             container_image,
-            container_image_version: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,

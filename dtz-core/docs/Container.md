@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **container_image** | **String** |  | 
-**container_image_version** | Option<**String**> |  | [optional]
 **container_identity** | Option<**String**> |  | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]
