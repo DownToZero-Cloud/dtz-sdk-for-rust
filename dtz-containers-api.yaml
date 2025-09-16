@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 2.1.0
+  version: 2.1.1
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -214,62 +214,7 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                enabled:
-                  type: boolean
-                  description: whether this service is active and should be propagated to ingress
-                domain:
-                  description: by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
-                  type: array
-                  items:
-                    type: string
-                prefix:
-                  type: string
-                containerImage:
-                  type: string
-                containerImageVersion:
-                  type: string
-                containerPullUser:
-                  type: string
-                containerPullPwd:
-                  type: string
-                envVariables:
-                  type: object
-                  additionalProperties:
-                    oneOf:
-                    - type: string
-                    - type: object
-                      name: EncryptedValue
-                      properties:
-                        encryptionKey:
-                          type: string
-                          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'."
-                        encryptedValue:
-                          type: string
-                          description: "The base-64 encoded ciphertext."
-                    - type: object
-                      name: PlainValue
-                      properties:
-                        plainValue:
-                          type: string
-                          description: "the plain text value for server side encryption"
-                rewrite:
-                  description: provids url rewriting capabilities
-                  type: object
-                  properties:
-                    source:
-                      type: string
-                      description: regex to match the incoming uri
-                    target:
-                      description: replacement value
-                      type: string
-                  required:
-                    - source
-                    - target
-              required:
-                - prefix
-                - containerImage
+              $ref: '#/components/schemas/UpdateService'
       responses:
         "200":
           description: success
@@ -424,6 +369,8 @@ components:
           type: string
         scheduleRepeat:
           type: string
+          description: "ecoMode repetition bounds in the format 'min(<freq>) max(<freq>)'. Allowed frequencies: hourly, daily, weekly, monthly. See docs/scheduling.md."
+          pattern: "^min\\((hourly|daily|weekly|monthly)\\)\\s+max\\((hourly|daily|weekly|monthly)\\)$"
         envVariables:
           type: object
           additionalProperties:
@@ -457,6 +404,8 @@ components:
             - none
         scheduleRepeat:
           type: string
+          description: "ecoMode repetition bounds in the format 'min(<freq>) max(<freq>)'. Allowed frequencies: hourly, daily, weekly, monthly. See docs/scheduling.md."
+          pattern: "^min\\((hourly|daily|weekly|monthly)\\)\\s+max\\((hourly|daily|weekly|monthly)\\)$"
         scheduleCron:
           type: string
         envVariables:
@@ -613,6 +562,63 @@ components:
         - enabled
         - prefix
         - containerImage
+    UpdateService:
+      type: object
+      description: Full update for a service; all fields are required and will overwrite existing values
+      properties:
+        enabled:
+          type: boolean
+          description: whether this service is active and should be propagated to ingress
+        domain:
+          description: by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
+          type: array
+          items:
+            type: string
+        prefix:
+          type: string
+        containerImage:
+          type: string
+        containerImageVersion:
+          type: string
+        containerPullUser:
+          type: string
+        containerPullPwd:
+          type: string
+        envVariables:
+          type: object
+          additionalProperties:
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/EncryptedValue'
+            - $ref: '#/components/schemas/PlainValue'
+        rewrite:
+          description: provids url rewriting capabilities
+          type: object
+          properties:
+            source:
+              type: string
+              description: regex to match the incoming uri
+            target:
+              description: replacement value
+              type: string
+          required:
+            - source
+            - target
+        login:
+          type: object
+          description: a login can only be added, to remove the login functionality, 
+            either set the providerName to an empty string or recreate the service without the login property
+          properties:
+            providerName:
+              type: string
+          required:
+          - providerName
+      required:
+        - enabled
+        - domain
+        - prefix
+        - containerImage
+        - envVariables
     EncryptedValue:
       type: object
       properties:

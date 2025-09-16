@@ -728,10 +728,10 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
     }
 }
 
-pub async fn update_service(configuration: &Configuration, service_id: &str, update_service_request: Option<models::UpdateServiceRequest>) -> Result<models::Service, Error<UpdateServiceError>> {
+pub async fn update_service(configuration: &Configuration, service_id: &str, update_service: Option<models::UpdateService>) -> Result<models::Service, Error<UpdateServiceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_service_id = service_id;
-    let p_body_update_service_request = update_service_request;
+    let p_body_update_service = update_service;
 
     let uri_str = format!("{}/service/{serviceId}", build_url(configuration), serviceId=crate::apis::urlencode(p_path_service_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -743,7 +743,7 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_update_service_request);
+    req_builder = req_builder.json(&p_body_update_service);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -41,7 +41,7 @@ pub struct Service {
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::JobResponseEnvVariablesValue>>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
-    pub rewrite: Option<Box<models::UpdateServiceRequestRewrite>>,
+    pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
     pub login: Option<Box<models::ServiceLogin>>,
 }

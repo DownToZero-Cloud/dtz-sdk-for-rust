@@ -12,14 +12,15 @@ use crate::models;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 
+/// UpdateService : Full update for a service; all fields are required and will overwrite existing values
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateServiceRequest {
+pub struct UpdateService {
     /// whether this service is active and should be propagated to ingress
-    #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
-    pub enabled: Option<bool>,
+    #[serde(rename = "enabled")]
+    pub enabled: bool,
     /// by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
-    #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
-    pub domain: Option<Vec<String>>,
+    #[serde(rename = "domain")]
+    pub domain: Vec<String>,
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "containerImage")]
@@ -30,24 +31,28 @@ pub struct UpdateServiceRequest {
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
-    #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
-    pub env_variables: Option<std::collections::HashMap<String, models::UpdateServiceRequestEnvVariablesValue>>,
+    #[serde(rename = "envVariables")]
+    pub env_variables: std::collections::HashMap<String, models::CreateJobEnvVariablesValue>,
     #[serde(rename = "rewrite", skip_serializing_if = "Option::is_none")]
-    pub rewrite: Option<Box<models::UpdateServiceRequestRewrite>>,
+    pub rewrite: Option<Box<models::ServiceRewrite>>,
+    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
+    pub login: Option<Box<models::UpdateServiceLogin>>,
 }
 
-impl UpdateServiceRequest {
-    pub fn new(prefix: String, container_image: String) -> UpdateServiceRequest {
-        UpdateServiceRequest {
-            enabled: None,
-            domain: None,
+impl UpdateService {
+    /// Full update for a service; all fields are required and will overwrite existing values
+    pub fn new(enabled: bool, domain: Vec<String>, prefix: String, container_image: String, env_variables: std::collections::HashMap<String, models::CreateJobEnvVariablesValue>) -> UpdateService {
+        UpdateService {
+            enabled,
+            domain,
             prefix,
             container_image,
             container_image_version: None,
             container_pull_user: None,
             container_pull_pwd: None,
-            env_variables: None,
+            env_variables,
             rewrite: None,
+            login: None,
         }
     }
 }

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]
 **schedule_type** | **String** |  | 
-**schedule_repeat** | Option<**String**> |  | [optional]
+**schedule_repeat** | Option<**String**> | ecoMode repetition bounds in the format 'min(<freq>) max(<freq>)'. Allowed frequencies: hourly, daily, weekly, monthly. See docs/scheduling.md. | [optional]
 **schedule_cron** | Option<**String**> |  | [optional]
 **env_variables** | Option<[**std::collections::HashMap<String, models::JobResponseEnvVariablesValue>**](JobResponse_envVariables_value.md)> |  | [optional]
 

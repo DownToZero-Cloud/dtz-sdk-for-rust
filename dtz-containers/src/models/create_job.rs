@@ -26,6 +26,7 @@ pub struct CreateJob {
     pub schedule_type: ScheduleType,
     #[serde(rename = "scheduleCron", skip_serializing_if = "Option::is_none")]
     pub schedule_cron: Option<String>,
+    /// ecoMode repetition bounds in the format 'min(<freq>) max(<freq>)'. Allowed frequencies: hourly, daily, weekly, monthly. See docs/scheduling.md.
     #[serde(rename = "scheduleRepeat", skip_serializing_if = "Option::is_none")]
     pub schedule_repeat: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]

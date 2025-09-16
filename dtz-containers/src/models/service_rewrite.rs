@@ -12,9 +12,9 @@ use crate::models;
 #[allow(unused_imports)]
 use serde::{Deserialize, Serialize};
 
-/// UpdateServiceRequestRewrite : provids url rewriting capabilities
+/// ServiceRewrite : provids url rewriting capabilities
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateServiceRequestRewrite {
+pub struct ServiceRewrite {
     /// regex to match the incoming uri
     #[serde(rename = "source")]
     pub source: String,
@@ -23,10 +23,10 @@ pub struct UpdateServiceRequestRewrite {
     pub target: String,
 }
 
-impl UpdateServiceRequestRewrite {
+impl ServiceRewrite {
     /// provids url rewriting capabilities
-    pub fn new(source: String, target: String) -> UpdateServiceRequestRewrite {
-        UpdateServiceRequestRewrite {
+    pub fn new(source: String, target: String) -> ServiceRewrite {
+        ServiceRewrite {
             source,
             target,
         }

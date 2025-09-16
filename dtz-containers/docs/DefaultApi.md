@@ -460,7 +460,7 @@ Name | Type | Description  | Required | Notes
 
 ## update_service
 
-> models::Service update_service(service_id, update_service_request)
+> models::Service update_service(service_id, update_service)
 update service
 
 ### Parameters
@@ -469,7 +469,7 @@ update service
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **service_id** | **dtz_identifier::ServiceId** | service id | [required] |
-**update_service_request** | Option<[**UpdateServiceRequest**](UpdateServiceRequest.md)> | update request |  |
+**update_service** | Option<[**UpdateService**](UpdateService.md)> | update request |  |
 
 ### Return type
 
