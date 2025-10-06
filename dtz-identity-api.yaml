@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.0.5
+  version: 2.0.6
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -33,10 +33,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
+                $ref: '#/components/schemas/ErrorResponse'
   /signup:
     post:
       summary: create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
@@ -56,6 +53,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        "400":
+          description: invalid email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "500":
           description: server error
           content:
@@ -598,18 +601,11 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/IdentityRole'
-  /roles/context/{contextId}/{roleId}/share:
+  /roles/{roleId}/share:
     post:
       summary: sharing a role with another identity
       operationId: shareRole
       parameters:
-        - in: path
-          name: contextId
-          schema:
-            type: string
-            format: ContextId
-          required: true
-          description: context id
         - in: path
           name: roleId
           schema:
@@ -633,16 +629,13 @@ paths:
         "200":
           description: success
         "401":
-          description: forbidden
+          description: unauthorized
         "400":
           description: bad request
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  msg:
-                    type: string
+                $ref: '#/components/schemas/ErrorResponse'
   /oauth/authorize:
     get:
       summary: oauth authorize
@@ -685,6 +678,63 @@ paths:
               schema:
                 type: string
               description: redirect uri
+        "307":
+          description: temporary redirect to login when unauthenticated
+          headers:
+            Location:
+              schema:
+                type: string
+              description: login url
+        "401":
+          description: unauthorized
+    post:
+      summary: oauth authorize
+      operationId: oauthAuthorizePost
+      x-dtz-include-headers: true
+      parameters: 
+        - in: query
+          name: response_type
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: client_id
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: redirect_uri
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: scope
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: state
+          schema:
+            type: string
+        - in: query
+          name: nonce
+          schema:
+            type: string
+      responses:
+        "302":
+          description: success
+          headers:
+            Location:
+              schema:
+                type: string
+              description: redirect uri
+        "307":
+          description: temporary redirect to login when unauthenticated
+          headers:
+            Location:
+              schema:
+                type: string
+              description: login url
         "401":
           description: unauthorized
   /oauth/token:
@@ -705,7 +755,92 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenResponse'      
+                $ref: '#/components/schemas/TokenResponse'
+        "400":
+          description: invalid token format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /oauth/userinfo:
+    get:
+      summary: get user information from oauth token
+      description: returns the decoded JWT token content containing user information
+      operationId: oauthUserinfo
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Decoded JWT token content
+                additionalProperties: true
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /oauth/register:
+    post:
+      summary: register oauth client
+      description: register a new oauth client application
+      operationId: oauthRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                redirect_uris:
+                  type: array
+                  items:
+                    type: string
+                  description: List of allowed redirect URIs
+                client_name:
+                  type: string
+                  description: Optional client application name
+                logo_uri:
+                  type: string
+                  description: Optional logo URI for the client
+              required:
+                - redirect_uris
+        required: true
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  client_id:
+                    type: string
+                    description: The registered client ID
+                  client_secret:
+                    type: string
+                    description: Optional client secret (if generated)
+                  client_id_issued_at:
+                    type: string
+                    format: date-time
+                    description: When the client ID was issued
+                  client_secret_expires_at:
+                    type: string
+                    format: date-time
+                    description: When the client secret expires (if applicable)      
 components:
   schemas:
     ApikeyRequest:
@@ -719,11 +854,9 @@ components:
       required:
       - apiKey
     ErrorResponse:
-      required:
-      - status
       type: object
       properties:
-        status:
+        msg:
           type: string
     SignupRequest:
       type: object
@@ -821,7 +954,6 @@ components:
         - roleId
         - roleAlias
         - roleScope
-        - exposure
     Role:
       type: object
       properties:
@@ -835,15 +967,12 @@ components:
         contextId:
           type: string
           format: ContextId
-        exposure:
-          type: string
         assignedToUser:
           type: boolean
       required:
         - roleId
         - roleAlias
         - roleScope
-        - exposure
     OauthTokenRequest:
       type: object
       properties:
@@ -878,7 +1007,7 @@ components:
     dtz-cookie:
       type: apiKey
       in: cookie
-      name: dtz_auth
+      name: dtz-auth
 security:
   - dtz_apikey: []
   - dtz_oauth: []

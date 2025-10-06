@@ -25,9 +25,12 @@ Method | HTTP request | Description
 [**new_context**](DefaultApi.md#new_context) | **POST** /context/{context_id}/new | create identity requirements for a new context
 [**new_identity**](DefaultApi.md#new_identity) | **POST** /identity | creates a new identity
 [**oauth_authorize**](DefaultApi.md#oauth_authorize) | **GET** /oauth/authorize | oauth authorize
+[**oauth_authorize_post**](DefaultApi.md#oauth_authorize_post) | **POST** /oauth/authorize | oauth authorize
+[**oauth_register**](DefaultApi.md#oauth_register) | **POST** /oauth/register | register oauth client
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
+[**oauth_userinfo**](DefaultApi.md#oauth_userinfo) | **GET** /oauth/userinfo | get user information from oauth token
 [**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
-[**share_role**](DefaultApi.md#share_role) | **POST** /roles/context/{contextId}/{roleId}/share | sharing a role with another identity
+[**share_role**](DefaultApi.md#share_role) | **POST** /roles/{roleId}/share | sharing a role with another identity
 [**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
 [**update_api_key_alias**](DefaultApi.md#update_api_key_alias) | **PATCH** /me/identity/apikey/{apikey} | update the api key alias
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
@@ -609,6 +612,69 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## oauth_authorize_post
+
+> oauth_authorize_post(response_type, client_id, redirect_uri, scope, state, nonce)
+oauth authorize
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**response_type** | **String** |  | [required] |
+**client_id** | **String** |  | [required] |
+**redirect_uri** | **String** |  | [required] |
+**scope** | **String** |  | [required] |
+**state** | Option<**String**> |  |  |
+**nonce** | Option<**String**> |  |  |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## oauth_register
+
+> models::OauthRegister200Response oauth_register(oauth_register_request)
+register oauth client
+
+register a new oauth client application
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**oauth_register_request** | [**OauthRegisterRequest**](OauthRegisterRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OauthRegister200Response**](oauthRegister_200_response.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## oauth_token
 
 > models::TokenResponse oauth_token(grant_type, client_id, client_secret, redirect_uri, code)
@@ -638,6 +704,33 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## oauth_userinfo
+
+> std::collections::HashMap<String, serde_json::Value> oauth_userinfo()
+get user information from oauth token
+
+returns the decoded JWT token content containing user information
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**std::collections::HashMap<String, serde_json::Value>**](serde_json::Value.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -673,7 +766,7 @@ Name | Type | Description  | Required | Notes
 
 ## share_role
 
-> share_role(context_id, role_id, check_identity_request)
+> share_role(role_id, check_identity_request)
 sharing a role with another identity
 
 ### Parameters
@@ -681,7 +774,6 @@ sharing a role with another identity
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**context_id** | **dtz_identifier::ContextId** | context id | [required] |
 **role_id** | **dtz_identifier::RoleId** | role id | [required] |
 **check_identity_request** | [**CheckIdentityRequest**](CheckIdentityRequest.md) |  | [required] |
 

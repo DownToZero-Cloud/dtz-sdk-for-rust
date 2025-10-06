@@ -14,14 +14,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ErrorResponse {
-    #[serde(rename = "status")]
-    pub status: String,
+    #[serde(rename = "msg", skip_serializing_if = "Option::is_none")]
+    pub msg: Option<String>,
 }
 
 impl ErrorResponse {
-    pub fn new(status: String) -> ErrorResponse {
+    pub fn new() -> ErrorResponse {
         ErrorResponse {
-            status,
+            msg: None,
         }
     }
 }

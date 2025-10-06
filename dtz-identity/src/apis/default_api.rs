@@ -49,7 +49,7 @@ pub enum AssumeIdentityError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AuthenticateApikeyError {
-    Status401(models::AuthenticateApikey401Response),
+    Status401(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -182,10 +182,36 @@ pub enum OauthAuthorizeError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`oauth_authorize_post`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OauthAuthorizePostError {
+    Status401(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`oauth_register`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OauthRegisterError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`oauth_token`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum OauthTokenError {
+    Status400(models::ErrorResponse),
+    Status401(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`oauth_userinfo`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OauthUserinfoError {
+    Status401(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -201,7 +227,7 @@ pub enum RemoveRoleAssignmentError {
 #[serde(untagged)]
 pub enum ShareRoleError {
     Status401(),
-    Status400(models::ShareRole400Response),
+    Status400(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -231,6 +257,7 @@ pub enum UserLoginError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserSignupError {
+    Status400(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -1011,6 +1038,93 @@ pub async fn oauth_authorize(configuration: &Configuration, response_type: &str,
     }
 }
 
+pub async fn oauth_authorize_post(configuration: &Configuration, response_type: &str, client_id: &str, redirect_uri: &str, scope: &str, state: Option<&str>, nonce: Option<&str>) -> Result<reqwest::header::HeaderMap, Error<OauthAuthorizePostError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_response_type = response_type;
+    let p_query_client_id = client_id;
+    let p_query_redirect_uri = redirect_uri;
+    let p_query_scope = scope;
+    let p_query_state = state;
+    let p_query_nonce = nonce;
+
+    let uri_str = format!("{}/oauth/authorize", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    req_builder = req_builder.query(&[("response_type", &p_query_response_type.to_string())]);
+    req_builder = req_builder.query(&[("client_id", &p_query_client_id.to_string())]);
+    req_builder = req_builder.query(&[("redirect_uri", &p_query_redirect_uri.to_string())]);
+    req_builder = req_builder.query(&[("scope", &p_query_scope.to_string())]);
+    if let Some(ref param_value) = p_query_state {
+        req_builder = req_builder.query(&[("state", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_nonce {
+        req_builder = req_builder.query(&[("nonce", &param_value.to_string())]);
+    }
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let headers = resp.headers().clone();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(headers)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OauthAuthorizePostError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// register a new oauth client application
+pub async fn oauth_register(configuration: &Configuration, oauth_register_request: models::OauthRegisterRequest) -> Result<models::OauthRegister200Response, Error<OauthRegisterError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_oauth_register_request = oauth_register_request;
+
+    let uri_str = format!("{}/oauth/register", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_body_oauth_register_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OauthRegister200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OauthRegister200Response`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OauthRegisterError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 /// oauth token request
 pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client_id: &str, client_secret: &str, redirect_uri: &str, code: &str) -> Result<models::TokenResponse, Error<OauthTokenError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1057,6 +1171,45 @@ pub async fn oauth_token(configuration: &Configuration, grant_type: &str, client
     }
 }
 
+/// returns the decoded JWT token content containing user information
+pub async fn oauth_userinfo(configuration: &Configuration) -> Result<std::collections::HashMap<String, serde_json::Value>, Error<OauthUserinfoError>> {
+
+    let uri_str = format!("{}/oauth/userinfo", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `std::collections::HashMap&lt;String, serde_json::Value&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `std::collections::HashMap&lt;String, serde_json::Value&gt;`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<OauthUserinfoError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str) -> Result<(), Error<RemoveRoleAssignmentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
@@ -1086,13 +1239,12 @@ pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str
     }
 }
 
-pub async fn share_role(configuration: &Configuration, context_id: &str, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareRoleError>> {
+pub async fn share_role(configuration: &Configuration, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_context_id = context_id;
     let p_path_role_id = role_id;
     let p_body_check_identity_request = check_identity_request;
 
-    let uri_str = format!("{}/roles/context/{contextId}/{roleId}/share", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id), roleId=crate::apis::urlencode(p_path_role_id));
+    let uri_str = format!("{}/roles/{roleId}/share", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
 
