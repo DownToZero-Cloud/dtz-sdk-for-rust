@@ -4,21 +4,21 @@ All URIs are relative to *https://identity.dtz.rocks/api/2021-02-21*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assign_role**](DefaultApi.md#assign_role) | **POST** /me/roles/{roleId} | create role assignment
+[**assign_concrete_role**](DefaultApi.md#assign_concrete_role) | **POST** /me/roles/{roleId} | assign an existing concrete role to the current identity
 [**assume_identity**](DefaultApi.md#assume_identity) | **POST** /identity/assume | assume identity
 [**authenticate_apikey**](DefaultApi.md#authenticate_apikey) | **POST** /auth/apikey | authenticate with apikey
 [**change_authentication**](DefaultApi.md#change_authentication) | **POST** /authentication | update the user authentication, aka change you password or default context
 [**check_identity**](DefaultApi.md#check_identity) | **POST** /identity/check | checks whether an identity exists
 [**create_api_key**](DefaultApi.md#create_api_key) | **POST** /me/identity/apikey | create api key
-[**create_role_for_context**](DefaultApi.md#create_role_for_context) | **POST** /roles/context/{contextId} | create role from abstract role (template)
+[**create_concrete_role_for_context**](DefaultApi.md#create_concrete_role_for_context) | **POST** /roles/context/{contextId} | create role from abstract role (template)
 [**delete_api_key**](DefaultApi.md#delete_api_key) | **DELETE** /me/identity/apikey/{apikey} | delete api key
 [**delete_context_roles**](DefaultApi.md#delete_context_roles) | **DELETE** /context/{context_id} | delete all roles attached to this context
 [**delete_identity**](DefaultApi.md#delete_identity) | **DELETE** /me/identity | delete current identity
 [**get_abstract_roles**](DefaultApi.md#get_abstract_roles) | **GET** /roles | get roles which are abstract - not assigned to any context or identity
 [**get_account_email**](DefaultApi.md#get_account_email) | **GET** /me/email | Get account email
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
-[**get_roles_for_context**](DefaultApi.md#get_roles_for_context) | **GET** /roles/context/{contextId} | get roles for a certain context id
-[**get_roles_for_identity**](DefaultApi.md#get_roles_for_identity) | **GET** /roles/identity/{identityId} | get roles for a certain identity id
+[**get_concrete_roles_for_context**](DefaultApi.md#get_concrete_roles_for_context) | **GET** /roles/context/{contextId} | get roles for a certain context id
+[**get_concrete_roles_for_identity**](DefaultApi.md#get_concrete_roles_for_identity) | **GET** /roles/identity/{identityId} | get roles for a certain identity id
 [**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
 [**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /context | get a list of contexts that the user has access to
 [**list_identity**](DefaultApi.md#list_identity) | **GET** /identity | get a list of all available identities
@@ -29,19 +29,19 @@ Method | HTTP request | Description
 [**oauth_register**](DefaultApi.md#oauth_register) | **POST** /oauth/register | register oauth client
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
 [**oauth_userinfo**](DefaultApi.md#oauth_userinfo) | **GET** /oauth/userinfo | get user information from oauth token
-[**remove_role_assignment**](DefaultApi.md#remove_role_assignment) | **DELETE** /me/roles/{roleId} | remove role assignment from identity
-[**share_role**](DefaultApi.md#share_role) | **POST** /roles/{roleId}/share | sharing a role with another identity
+[**share_concrete_role**](DefaultApi.md#share_concrete_role) | **POST** /roles/{roleId}/share | sharing a role with another identity
 [**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
+[**unassign_concrete_role**](DefaultApi.md#unassign_concrete_role) | **DELETE** /me/roles/{roleId} | remove assignment of a concrete role from current identity
 [**update_api_key_alias**](DefaultApi.md#update_api_key_alias) | **PATCH** /me/identity/apikey/{apikey} | update the api key alias
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
 
 
 
-## assign_role
+## assign_concrete_role
 
-> assign_role(role_id)
-create role assignment
+> assign_concrete_role(role_id)
+assign an existing concrete role to the current identity
 
 ### Parameters
 
@@ -206,9 +206,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## create_role_for_context
+## create_concrete_role_for_context
 
-> models::ContextRole create_role_for_context(context_id, create_role_for_context_request)
+> models::ContextRole create_concrete_role_for_context(context_id, create_concrete_role_for_context_request)
 create role from abstract role (template)
 
 ### Parameters
@@ -217,7 +217,7 @@ create role from abstract role (template)
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **context_id** | **dtz_identifier::ContextId** | context id | [required] |
-**create_role_for_context_request** | Option<[**CreateRoleForContextRequest**](CreateRoleForContextRequest.md)> |  |  |
+**create_concrete_role_for_context_request** | Option<[**CreateConcreteRoleForContextRequest**](CreateConcreteRoleForContextRequest.md)> |  |  |
 
 ### Return type
 
@@ -391,9 +391,9 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_roles_for_context
+## get_concrete_roles_for_context
 
-> models::GetRolesForContext200Response get_roles_for_context(context_id)
+> models::GetConcreteRolesForContext200Response get_concrete_roles_for_context(context_id)
 get roles for a certain context id
 
 ### Parameters
@@ -405,7 +405,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetRolesForContext200Response**](getRolesForContext_200_response.md)
+[**models::GetConcreteRolesForContext200Response**](getConcreteRolesForContext_200_response.md)
 
 ### Authorization
 
@@ -419,9 +419,9 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## get_roles_for_identity
+## get_concrete_roles_for_identity
 
-> models::GetRolesForIdentity200Response get_roles_for_identity(identity_id)
+> models::GetConcreteRolesForIdentity200Response get_concrete_roles_for_identity(identity_id)
 get roles for a certain identity id
 
 ### Parameters
@@ -433,7 +433,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**models::GetRolesForIdentity200Response**](getRolesForIdentity_200_response.md)
+[**models::GetConcreteRolesForIdentity200Response**](getConcreteRolesForIdentity_200_response.md)
 
 ### Authorization
 
@@ -736,37 +736,9 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
-## remove_role_assignment
+## share_concrete_role
 
-> remove_role_assignment(role_id)
-remove role assignment from identity
-
-### Parameters
-
-
-Name | Type | Description  | Required | Notes
-------------- | ------------- | ------------- | ------------- | -------------
-**role_id** | **dtz_identifier::RoleId** | role id | [required] |
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-
-## share_role
-
-> share_role(role_id, check_identity_request)
+> share_concrete_role(role_id, check_identity_request)
 sharing a role with another identity
 
 ### Parameters
@@ -819,6 +791,34 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: application/json
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## unassign_concrete_role
+
+> unassign_concrete_role(role_id)
+remove assignment of a concrete role from current identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

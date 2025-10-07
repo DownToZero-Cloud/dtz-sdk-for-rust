@@ -13,15 +13,15 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateRoleForContextRequest {
-    #[serde(rename = "roleId", skip_serializing_if = "Option::is_none")]
-    pub role_id: Option<String>,
+pub struct GetConcreteRolesForContext200Response {
+    #[serde(rename = "roles", skip_serializing_if = "Option::is_none")]
+    pub roles: Option<Vec<models::ContextRole>>,
 }
 
-impl CreateRoleForContextRequest {
-    pub fn new() -> CreateRoleForContextRequest {
-        CreateRoleForContextRequest {
-            role_id: None,
+impl GetConcreteRolesForContext200Response {
+    pub fn new() -> GetConcreteRolesForContext200Response {
+        GetConcreteRolesForContext200Response {
+            roles: None,
         }
     }
 }

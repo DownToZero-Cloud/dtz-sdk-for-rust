@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.0.6
+  version: 2.0.7
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -53,6 +53,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        "409":
+          description: account already registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "400":
           description: invalid email
           content:
@@ -440,8 +446,8 @@ paths:
           description: success
   /me/roles/{roleId}:
     post:
-      summary: create role assignment
-      operationId: assignRole
+      summary: assign an existing concrete role to the current identity
+      operationId: assignConcreteRole
       parameters:
         - in: path
           name: roleId
@@ -454,8 +460,8 @@ paths:
         "200":
           description: success
     delete:
-      summary: remove role assignment from identity
-      operationId: removeRoleAssignment
+      summary: remove assignment of a concrete role from current identity
+      operationId: unassignConcreteRole
       parameters:
         - in: path
           name: roleId
@@ -529,7 +535,7 @@ paths:
   /roles/context/{contextId}:
     get:
       summary: get roles for a certain context id
-      operationId: getRolesForContext
+      operationId: getConcreteRolesForContext
       parameters:
         - in: path
           name: contextId
@@ -552,7 +558,7 @@ paths:
                       $ref: '#/components/schemas/ContextRole'
     post:
       summary: create role from abstract role (template)
-      operationId: createRoleForContext
+      operationId: createConcreteRoleForContext
       parameters:
         - in: path
           name: contextId
@@ -580,7 +586,7 @@ paths:
   /roles/identity/{identityId}:
     get:
       summary: get roles for a certain identity id
-      operationId: getRolesForIdentity
+      operationId: getConcreteRolesForIdentity
       parameters:
         - in: path
           name: identityId
@@ -604,7 +610,7 @@ paths:
   /roles/{roleId}/share:
     post:
       summary: sharing a role with another identity
-      operationId: shareRole
+      operationId: shareConcreteRole
       parameters:
         - in: path
           name: roleId

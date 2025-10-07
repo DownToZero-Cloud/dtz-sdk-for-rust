@@ -30,10 +30,10 @@ fn build_url(config: &Configuration) -> String {
 }
 
 
-/// struct for typed errors of method [`assign_role`]
+/// struct for typed errors of method [`assign_concrete_role`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum AssignRoleError {
+pub enum AssignConcreteRoleError {
     UnknownValue(serde_json::Value),
 }
 
@@ -75,10 +75,10 @@ pub enum CreateApiKeyError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`create_role_for_context`]
+/// struct for typed errors of method [`create_concrete_role_for_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum CreateRoleForContextError {
+pub enum CreateConcreteRoleForContextError {
     UnknownValue(serde_json::Value),
 }
 
@@ -125,17 +125,17 @@ pub enum GetAccountStatsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_roles_for_context`]
+/// struct for typed errors of method [`get_concrete_roles_for_context`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetRolesForContextError {
+pub enum GetConcreteRolesForContextError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`get_roles_for_identity`]
+/// struct for typed errors of method [`get_concrete_roles_for_identity`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetRolesForIdentityError {
+pub enum GetConcreteRolesForIdentityError {
     UnknownValue(serde_json::Value),
 }
 
@@ -215,17 +215,10 @@ pub enum OauthUserinfoError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`remove_role_assignment`]
+/// struct for typed errors of method [`share_concrete_role`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum RemoveRoleAssignmentError {
-    UnknownValue(serde_json::Value),
-}
-
-/// struct for typed errors of method [`share_role`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum ShareRoleError {
+pub enum ShareConcreteRoleError {
     Status401(),
     Status400(models::ErrorResponse),
     UnknownValue(serde_json::Value),
@@ -235,6 +228,13 @@ pub enum ShareRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TokenRefreshError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`unassign_concrete_role`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UnassignConcreteRoleError {
     UnknownValue(serde_json::Value),
 }
 
@@ -257,13 +257,14 @@ pub enum UserLoginError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserSignupError {
+    Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
 
-pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result<(), Error<AssignRoleError>> {
+pub async fn assign_concrete_role(configuration: &Configuration, role_id: &str) -> Result<(), Error<AssignConcreteRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
 
@@ -287,7 +288,7 @@ pub async fn assign_role(configuration: &Configuration, role_id: &str) -> Result
         Ok(())
     } else {
         let content = resp.text().await?;
-        let entity: Option<AssignRoleError> = serde_json::from_str(&content).ok();
+        let entity: Option<AssignConcreteRoleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -486,10 +487,10 @@ pub async fn create_api_key(configuration: &Configuration, create_api_key_reques
     }
 }
 
-pub async fn create_role_for_context(configuration: &Configuration, context_id: &str, create_role_for_context_request: Option<models::CreateRoleForContextRequest>) -> Result<models::ContextRole, Error<CreateRoleForContextError>> {
+pub async fn create_concrete_role_for_context(configuration: &Configuration, context_id: &str, create_concrete_role_for_context_request: Option<models::CreateConcreteRoleForContextRequest>) -> Result<models::ContextRole, Error<CreateConcreteRoleForContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_context_id = context_id;
-    let p_body_create_role_for_context_request = create_role_for_context_request;
+    let p_body_create_concrete_role_for_context_request = create_concrete_role_for_context_request;
 
     let uri_str = format!("{}/roles/context/{contextId}", build_url(configuration), contextId=crate::apis::urlencode(p_path_context_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -501,7 +502,7 @@ pub async fn create_role_for_context(configuration: &Configuration, context_id: 
     if let Some(ref value) = configuration.api_key {
         req_builder = req_builder.header("X-API-KEY", value);
     };
-    req_builder = req_builder.json(&p_body_create_role_for_context_request);
+    req_builder = req_builder.json(&p_body_create_concrete_role_for_context_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -523,7 +524,7 @@ pub async fn create_role_for_context(configuration: &Configuration, context_id: 
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<CreateRoleForContextError> = serde_json::from_str(&content).ok();
+        let entity: Option<CreateConcreteRoleForContextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -727,7 +728,7 @@ pub async fn get_account_stats(configuration: &Configuration) -> Result<models::
     }
 }
 
-pub async fn get_roles_for_context(configuration: &Configuration, context_id: &str) -> Result<models::GetRolesForContext200Response, Error<GetRolesForContextError>> {
+pub async fn get_concrete_roles_for_context(configuration: &Configuration, context_id: &str) -> Result<models::GetConcreteRolesForContext200Response, Error<GetConcreteRolesForContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_context_id = context_id;
 
@@ -757,17 +758,17 @@ pub async fn get_roles_for_context(configuration: &Configuration, context_id: &s
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetRolesForContext200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRolesForContext200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConcreteRolesForContext200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConcreteRolesForContext200Response`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetRolesForContextError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetConcreteRolesForContextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: &str) -> Result<models::GetRolesForIdentity200Response, Error<GetRolesForIdentityError>> {
+pub async fn get_concrete_roles_for_identity(configuration: &Configuration, identity_id: &str) -> Result<models::GetConcreteRolesForIdentity200Response, Error<GetConcreteRolesForIdentityError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_identity_id = identity_id;
 
@@ -797,12 +798,12 @@ pub async fn get_roles_for_identity(configuration: &Configuration, identity_id: 
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetRolesForIdentity200Response`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetRolesForIdentity200Response`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetConcreteRolesForIdentity200Response`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetConcreteRolesForIdentity200Response`")))),
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetRolesForIdentityError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetConcreteRolesForIdentityError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -1210,36 +1211,7 @@ pub async fn oauth_userinfo(configuration: &Configuration) -> Result<std::collec
     }
 }
 
-pub async fn remove_role_assignment(configuration: &Configuration, role_id: &str) -> Result<(), Error<RemoveRoleAssignmentError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_role_id = role_id;
-
-    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
-    let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
-
-
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    if let Some(ref value) = configuration.api_key {
-        req_builder = req_builder.header("X-API-KEY", value);
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-
-    if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<RemoveRoleAssignmentError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-pub async fn share_role(configuration: &Configuration, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareRoleError>> {
+pub async fn share_concrete_role(configuration: &Configuration, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareConcreteRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
     let p_body_check_identity_request = check_identity_request;
@@ -1265,7 +1237,7 @@ pub async fn share_role(configuration: &Configuration, role_id: &str, check_iden
         Ok(())
     } else {
         let content = resp.text().await?;
-        let entity: Option<ShareRoleError> = serde_json::from_str(&content).ok();
+        let entity: Option<ShareConcreteRoleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -1308,6 +1280,35 @@ pub async fn token_refresh(configuration: &Configuration, change_context_request
     } else {
         let content = resp.text().await?;
         let entity: Option<TokenRefreshError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn unassign_concrete_role(configuration: &Configuration, role_id: &str) -> Result<(), Error<UnassignConcreteRoleError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_role_id = role_id;
+
+    let uri_str = format!("{}/me/roles/{roleId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UnassignConcreteRoleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
