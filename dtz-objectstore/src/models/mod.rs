@@ -1,3 +1,5 @@
+pub mod error_message;
+pub use self::error_message::ErrorMessage;
 pub mod object;
 pub use self::object::Object;
 pub mod object_metadata;

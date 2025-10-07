@@ -27,7 +27,7 @@ This can only be done by the logged in user.
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**object_path** | **String** |  | [required] |
+**object_path** | **String** | object path (may include slashes; treated as catch-all) | [required] |
 **x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
@@ -41,7 +41,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -66,7 +66,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -91,7 +91,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -106,7 +106,7 @@ Get Object
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**object_path** | **String** | object patch | [required] |
+**object_path** | **String** | object path (may include slashes; treated as catch-all) | [required] |
 **x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
@@ -120,14 +120,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: */*
+- **Accept**: */*, application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## get_object_metadata
 
-> models::ObjectMetadata get_object_metadata(object_path, x_dtz_realm)
+> get_object_metadata(object_path, x_dtz_realm)
 Get Object Metadata
 
 ### Parameters
@@ -135,12 +135,12 @@ Get Object Metadata
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**object_path** | **String** | object patch | [required] |
+**object_path** | **String** | object path (may include slashes; treated as catch-all) | [required] |
 **x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
 
-[**models::ObjectMetadata**](ObjectMetadata.md)
+ (empty response body)
 
 ### Authorization
 
@@ -156,7 +156,7 @@ Name | Type | Description  | Required | Notes
 
 ## list_objects
 
-> Vec<models::ObjectMetadata> list_objects(prefix)
+> Vec<models::ObjectMetadata> list_objects(prefix, x_dtz_realm)
 List objects
 
 ### Parameters
@@ -165,6 +165,7 @@ List objects
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **prefix** | Option<**String**> | prefix to search for |  |
+**x_dtz_realm** | Option<**String**> | see docs https://downtozero.cloud/docs e.g. dtz-objectstore |  |
 
 ### Return type
 
@@ -192,7 +193,7 @@ Put Object
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**object_path** | **String** | object path | [required] |
+**object_path** | **String** | object path (may include slashes; treated as catch-all) | [required] |
 **x_dtz_expiration** | Option<**String**> | expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours |  |
 **x_dtz_expire_in** | Option<**String**> | expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours |  |
 **x_dtz_expire_at** | Option<**String**> | expiration of the object, format is a rfc3339 timestamp, e.g. \"2025-04-01T13:44:00Z\" |  |
@@ -209,8 +210,8 @@ Name | Type | Description  | Required | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/octet-stream:
-- **Accept**: Not defined
+- **Content-Type**: application/octet-stream
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

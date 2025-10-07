@@ -47,6 +47,12 @@ pub struct GetObjectMetadataHeaders {
     /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
     pub x_dtz_realm: Option<String>,
 }
+/// struct for passing optional header parameters to the method [`list_objects`]
+#[derive(Clone, Debug, Default)]
+pub struct ListObjectsHeaders {
+    /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+    pub x_dtz_realm: Option<String>,
+}
 /// struct for passing optional header parameters to the method [`put_object`]
 #[derive(Clone, Debug, Default)]
 pub struct PutObjectHeaders {
@@ -64,6 +70,7 @@ pub struct PutObjectHeaders {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteObjectError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -71,6 +78,7 @@ pub enum DeleteObjectError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableServiceError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -78,6 +86,8 @@ pub enum DisableServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableServiceError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -85,6 +95,8 @@ pub enum EnableServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetObjectError {
+    Status404(),
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -92,6 +104,8 @@ pub enum GetObjectError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetObjectMetadataError {
+    Status404(),
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -99,6 +113,7 @@ pub enum GetObjectMetadataError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListObjectsError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -106,6 +121,8 @@ pub enum ListObjectsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PutObjectError {
+    Status400(models::ErrorMessage),
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -113,6 +130,7 @@ pub enum PutObjectError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum StatsError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -242,7 +260,7 @@ pub async fn get_object(configuration: &Configuration, object_path: &str, header
     }
 }
 
-pub async fn get_object_metadata(configuration: &Configuration, object_path: &str, headers: Option<GetObjectMetadataHeaders>) -> Result<models::ObjectMetadata, Error<GetObjectMetadataError>> {
+pub async fn get_object_metadata(configuration: &Configuration, object_path: &str, headers: Option<GetObjectMetadataHeaders>) -> Result<(), Error<GetObjectMetadataError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_object_path = object_path;
 
@@ -267,20 +285,9 @@ pub async fn get_object_metadata(configuration: &Configuration, object_path: &st
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ObjectMetadata`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ObjectMetadata`")))),
-        }
+        Ok(())
     } else {
         let content = resp.text().await?;
         let entity: Option<GetObjectMetadataError> = serde_json::from_str(&content).ok();
@@ -288,13 +295,19 @@ pub async fn get_object_metadata(configuration: &Configuration, object_path: &st
     }
 }
 
-pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>) -> Result<Vec<models::ObjectMetadata>, Error<ListObjectsError>> {
+pub async fn list_objects(configuration: &Configuration, prefix: Option<&str>, headers: Option<ListObjectsHeaders>) -> Result<Vec<models::ObjectMetadata>, Error<ListObjectsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_prefix = prefix;
 
     let uri_str = format!("{}/obj/", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    // Apply optional headers from the headers struct
+    if let Some(h) = &headers {
+        if let Some(param_value) = h.x_dtz_realm.as_ref() {
+            req_builder = req_builder.header("X-DTZ-REALM", param_value.to_string());
+        }
+    }
 
     if let Some(ref param_value) = p_query_prefix {
         req_builder = req_builder.query(&[("prefix", &param_value.to_string())]);

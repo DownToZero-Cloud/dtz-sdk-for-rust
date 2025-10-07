@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Objectstore
-  version: 2.1.1
+  version: 2.1.2
   description: a generated client for the DTZ Objectstore API
   license:
     name: Apache 2.0
@@ -27,6 +27,18 @@ paths:
       responses:
         "200":
           description: service enabled
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        "500":
+          description: internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /disable:
     post:
       summary: disable the objectstore service
@@ -34,6 +46,12 @@ paths:
       responses:
         "200":
           description: service disabled
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /obj/:
     get:
       summary: List objects
@@ -45,6 +63,13 @@ paths:
         required: false
         schema:
           type: string
+      - name: X-DTZ-REALM
+        in: header
+        description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
+        required: false
+        schema:
+          type: string  
+        style: simple
       responses:
         '200':
           description: success
@@ -54,27 +79,46 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ObjectMetadata'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /obj/{objectPath}:
     put:
       summary: Put Object
       operationId: putObject
       requestBody:
         content:
-          application/octet-stream::
+          application/octet-stream:
             schema:
               type: string
               format: binary
       responses:
-        '200':
-          description: success
+        '201':
+          description: created
+        '400':
+          description: invalid expiration header
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
       parameters:
       - name: objectPath
         in: path
-        description: object path
+        description: object path (may include slashes; treated as catch-all)
         required: true
         schema:
           type: string  
         style: simple
+        allowReserved: true
       - name: X-DTZ-EXPIRATION
         in: header
         description: expiration of the object, format is a iso8601 duration,e.g. "P1D" for 1 day, "PT2H" for 2 hours
@@ -125,14 +169,23 @@ paths:
               description: expiration of the object, format is a rfc3339 timestamp, e.g. "2025-04-01T13:44:00Z"
               schema:
                 type: string
+        '404':
+          description: not found
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
       parameters:
       - name: objectPath
         in: path
-        description: object patch
+        description: object path (may include slashes; treated as catch-all)
         required: true
         schema:
           type: string  
         style: simple
+        allowReserved: true
       - name: X-DTZ-REALM
         in: header
         description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
@@ -146,10 +199,6 @@ paths:
       responses:
         '200':
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ObjectMetadata'
           headers: 
             Content-Digest: 
               description: sha256 digest of the content (base64 encoded)
@@ -159,14 +208,23 @@ paths:
               description: expiration of the object, format is a rfc3339 timestamp, e.g. "2025-04-01T13:44:00Z"
               schema:
                 type: string
+        '404':
+          description: not found
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
       parameters:
       - name: objectPath
         in: path
-        description: object patch
+        description: object path (may include slashes; treated as catch-all)
         required: true
         schema:
           type: string  
         style: simple
+        allowReserved: true
       - name: X-DTZ-REALM
         in: header
         description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
@@ -184,6 +242,8 @@ paths:
           required: true
           schema:
             type: string
+          description: object path (may include slashes; treated as catch-all)
+          allowReserved: true
         - name: X-DTZ-REALM
           in: header
           description: see docs https://downtozero.cloud/docs e.g. dtz-objectstore
@@ -194,6 +254,12 @@ paths:
       responses:
         '200':
           description: Successful operation
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
   /stats:
     get:
       summary: get service statistics
@@ -205,15 +271,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stats'
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
 components:
   schemas:
     Stats:
       type: object
       properties:
-        amountOfFiles:
+        amountOfObjects:
           type: number
         amountOfStorage:
           type: number
+    ErrorMessage:
+      type: object
+      properties:
+        msg:
+          type: string
     Object:
       type: object
       properties:

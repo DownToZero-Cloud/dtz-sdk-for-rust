@@ -14,8 +14,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Stats {
-    #[serde(rename = "amountOfFiles", skip_serializing_if = "Option::is_none")]
-    pub amount_of_files: Option<f64>,
+    #[serde(rename = "amountOfObjects", skip_serializing_if = "Option::is_none")]
+    pub amount_of_objects: Option<f64>,
     #[serde(rename = "amountOfStorage", skip_serializing_if = "Option::is_none")]
     pub amount_of_storage: Option<f64>,
 }
@@ -23,7 +23,7 @@ pub struct Stats {
 impl Stats {
     pub fn new() -> Stats {
         Stats {
-            amount_of_files: None,
+            amount_of_objects: None,
             amount_of_storage: None,
         }
     }
