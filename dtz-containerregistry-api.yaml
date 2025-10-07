@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Container Registry
-  version: 2.0.1
+  version: 2.0.2
   description: a generated client for the DTZ Container Registry API
   license:
     name: Apache 2.0
@@ -16,9 +16,9 @@ servers:
 - url: https://cr.dtz.rocks/api/{version}
   variables:
     version:
-      default: 2023-12-28
+      default: "2023-12-28"
       enum:
-        - 2023-12-28
+        - "2023-12-28"
 paths:
   /enable:
     post:
@@ -26,38 +26,134 @@ paths:
       description: enable the container registry service
       operationId: enableService
       responses:
-        200:
+        '200':
           description: service enabled
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+        '503':
+          description: service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
   /disable:
     post:
       summary: disable the container registry service
       description: disable the container registry service
       operationId: disableService
       responses:
-        200:
+        '200':
           description: service disabled
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
   /stats:
     get:
       summary: get stats
       description: get stats
       operationId: getStats
       responses:
-        200:
+        '200':
           description: stats
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/StatsResponse"
+        '401':
+          description: unauthorized
   /v2/:
     get:
       summary: check authentication
       description: check authentication
       operationId: checkAuthentication
       responses:
-        200:
+        '200':
           description: success
+        '401':
+          description: unauthorized
+  /v2/_catalog:
+    get:
+      summary: get catalog
+      description: get catalog
+      operationId: getCatalog
+      responses:
+        '200':
+          description: catalog
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CatalogResponse"
+        '401':
+          description: unauthorized
+  /v2/{image}/manifests/{tag}:
+    get:
+      summary: get manifest for image and tag
+      description: get manifest for image and tag
+      operationId: getImageTagManifest
+      parameters:
+        - name: image
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tag
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: manifest
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ManifestResponse"
+        '401':
+          description: unauthorized
+        '404':
+          description: manifest not found
+  /v2/{image}/tags/list:
+    get:
+      summary: get tags list
+      description: get tags list
+      operationId: getImageTagsList
+      parameters:
+        - name: image
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: tags list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TagsListResponse"
+        '401':
+          description: unauthorized
+        '500':
+          description: internal server error
 components:
   schemas:
+    ErrorMessage:
+      type: object
+      properties:
+        msg:
+          type: string
     StatsResponse:
       type: object
       properties:
@@ -65,6 +161,62 @@ components:
           type: integer
         serverUrl:
           type: string
+    CatalogResponse:
+      type: object
+      properties:
+        repositories:
+          type: array
+          items:
+            type: string
+    TagsListResponse:
+      type: object
+      properties:
+        name:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ManifestResponse:
+      type: object
+      properties:
+        schemaVersion:
+          type: integer
+        mediaType:
+          type: string
+        manifests:
+          type: array
+          items:
+            type: object
+            properties:
+              mediaType:
+                type: string
+              size:
+                type: integer
+              digest:
+                type: string
+              platform:
+                type: object
+        subject:
+          type: object
+          properties:
+            mediaType:
+              type: string
+            digest:
+              type: string
+            size:
+              type: integer
+            platform:
+              type: object
+              properties:
+                architecture:
+                  type: string
+                os:
+                  type: string
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
   securitySchemes:
     dtz_auth:
       type: apiKey

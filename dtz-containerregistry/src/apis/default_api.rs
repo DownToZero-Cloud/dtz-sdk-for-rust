@@ -34,6 +34,7 @@ fn build_url(config: &Configuration) -> String {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CheckAuthenticationError {
+    Status401(),
     UnknownValue(serde_json::Value),
 }
 
@@ -41,6 +42,7 @@ pub enum CheckAuthenticationError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableServiceError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -48,6 +50,35 @@ pub enum DisableServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableServiceError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
+    Status503(models::ErrorMessage),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_catalog`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetCatalogError {
+    Status401(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_image_tag_manifest`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetImageTagManifestError {
+    Status401(),
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_image_tags_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetImageTagsListError {
+    Status401(),
+    Status500(),
     UnknownValue(serde_json::Value),
 }
 
@@ -55,6 +86,7 @@ pub enum EnableServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetStatsError {
+    Status401(),
     UnknownValue(serde_json::Value),
 }
 
@@ -139,6 +171,128 @@ pub async fn enable_service(configuration: &Configuration) -> Result<(), Error<E
     } else {
         let content = resp.text().await?;
         let entity: Option<EnableServiceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// get catalog
+pub async fn get_catalog(configuration: &Configuration) -> Result<models::CatalogResponse, Error<GetCatalogError>> {
+
+    let uri_str = format!("{}/v2/_catalog", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CatalogResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CatalogResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetCatalogError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// get manifest for image and tag
+pub async fn get_image_tag_manifest(configuration: &Configuration, image: &str, tag: &str) -> Result<models::ManifestResponse, Error<GetImageTagManifestError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_image = image;
+    let p_path_tag = tag;
+
+    let uri_str = format!("{}/v2/{image}/manifests/{tag}", build_url(configuration), image=crate::apis::urlencode(p_path_image), tag=crate::apis::urlencode(p_path_tag));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ManifestResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ManifestResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetImageTagManifestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// get tags list
+pub async fn get_image_tags_list(configuration: &Configuration, image: &str) -> Result<models::TagsListResponse, Error<GetImageTagsListError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_image = image;
+
+    let uri_str = format!("{}/v2/{image}/tags/list", build_url(configuration), image=crate::apis::urlencode(p_path_image));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TagsListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TagsListResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetImageTagsListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

@@ -1,2 +1,16 @@
+pub mod catalog_response;
+pub use self::catalog_response::CatalogResponse;
+pub mod error_message;
+pub use self::error_message::ErrorMessage;
+pub mod manifest_response;
+pub use self::manifest_response::ManifestResponse;
+pub mod manifest_response_manifests_inner;
+pub use self::manifest_response_manifests_inner::ManifestResponseManifestsInner;
+pub mod manifest_response_subject;
+pub use self::manifest_response_subject::ManifestResponseSubject;
+pub mod manifest_response_subject_platform;
+pub use self::manifest_response_subject_platform::ManifestResponseSubjectPlatform;
 pub mod stats_response;
 pub use self::stats_response::StatsResponse;
+pub mod tags_list_response;
+pub use self::tags_list_response::TagsListResponse;
