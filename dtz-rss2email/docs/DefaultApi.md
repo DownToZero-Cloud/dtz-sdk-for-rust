@@ -37,7 +37,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -121,7 +121,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -174,7 +174,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -202,7 +202,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -227,7 +227,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -252,7 +252,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -277,7 +277,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -305,7 +305,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 
@@ -334,7 +334,7 @@ Name | Type | Description  | Required | Notes
 
 ### Authorization
 
-[dtz_auth2](../README.md#dtz_auth2), [dtz_auth](../README.md#dtz_auth)
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
 
 ### HTTP request headers
 

@@ -207,7 +207,7 @@ dependencies = [
 
 [[package]]
 name = "dtz"
-version = "1.2.3"
+version = "1.2.4"
 dependencies = [
  "dtz-billing",
  "dtz-config",
@@ -351,7 +351,7 @@ dependencies = [
 
 [[package]]
 name = "dtz-rss2email"
-version = "2.0.1"
+version = "2.0.2"
 dependencies = [
  "dtz",
  "dtz-config",
