@@ -14,14 +14,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateConcreteRoleForContextRequest {
-    #[serde(rename = "roleId", skip_serializing_if = "Option::is_none")]
-    pub role_id: Option<String>,
+    #[serde(rename = "roleId")]
+    pub role_id: String,
 }
 
 impl CreateConcreteRoleForContextRequest {
-    pub fn new() -> CreateConcreteRoleForContextRequest {
+    pub fn new(role_id: String) -> CreateConcreteRoleForContextRequest {
         CreateConcreteRoleForContextRequest {
-            role_id: None,
+            role_id,
         }
     }
 }

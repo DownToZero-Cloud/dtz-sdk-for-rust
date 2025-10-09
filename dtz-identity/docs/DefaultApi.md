@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**get_account_stats**](DefaultApi.md#get_account_stats) | **GET** /me | get account stats
 [**get_concrete_roles_for_context**](DefaultApi.md#get_concrete_roles_for_context) | **GET** /roles/context/{contextId} | get roles for a certain context id
 [**get_concrete_roles_for_identity**](DefaultApi.md#get_concrete_roles_for_identity) | **GET** /roles/identity/{identityId} | get roles for a certain identity id
+[**get_role_assignment**](DefaultApi.md#get_role_assignment) | **GET** /roles/{roleId}/identity | get all indentities which have this role assigned to
 [**list_authentication**](DefaultApi.md#list_authentication) | **GET** /authentication | list user authentications
 [**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /context | get a list of contexts that the user has access to
 [**list_identity**](DefaultApi.md#list_identity) | **GET** /identity | get a list of all available identities
@@ -434,6 +435,34 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::GetConcreteRolesForIdentity200Response**](getConcreteRolesForIdentity_200_response.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_role_assignment
+
+> Vec<dtz_identifier::IdentityId> get_role_assignment(role_id)
+get all indentities which have this role assigned to
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
+
+### Return type
+
+[**Vec<dtz_identifier::IdentityId>**](dtz_identifier::IdentityId.md)
 
 ### Authorization
 

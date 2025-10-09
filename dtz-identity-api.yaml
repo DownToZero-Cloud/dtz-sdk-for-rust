@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.0.7
+  version: 2.1.0
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -576,6 +576,8 @@ paths:
                 roleId:
                   type: string
                   format: roleId
+              required:
+              - roleId
       responses:
         "200":
           description: success
@@ -607,6 +609,40 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/IdentityRole'
+  /roles/{roleId}/identity:
+    get:
+      summary: get all indentities which have this role assigned to
+      operationId: getRoleAssignment
+      parameters:
+        - in: path
+          name: roleId
+          schema:
+            type: string
+            format: RoleId
+          required: true
+          description: role id
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: IdentityId
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /roles/{roleId}/share:
     post:
       summary: sharing a role with another identity
