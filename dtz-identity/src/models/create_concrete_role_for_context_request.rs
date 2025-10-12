@@ -15,11 +15,11 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateConcreteRoleForContextRequest {
     #[serde(rename = "roleId")]
-    pub role_id: String,
+    pub role_id: dtz_identifier::RoleId,
 }
 
 impl CreateConcreteRoleForContextRequest {
-    pub fn new(role_id: String) -> CreateConcreteRoleForContextRequest {
+    pub fn new(role_id: dtz_identifier::RoleId) -> CreateConcreteRoleForContextRequest {
         CreateConcreteRoleForContextRequest {
             role_id,
         }

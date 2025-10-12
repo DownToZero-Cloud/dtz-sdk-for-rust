@@ -244,6 +244,7 @@ pub enum TokenRefreshError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UnassignConcreteRoleError {
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
