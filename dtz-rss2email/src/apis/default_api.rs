@@ -34,6 +34,8 @@ fn build_url(config: &Configuration) -> String {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -41,6 +43,8 @@ pub enum CreateFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -48,6 +52,16 @@ pub enum DeleteFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DisableFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`disable_service`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DisableServiceError {
+    Status401(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -62,6 +76,8 @@ pub enum DiscoverFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -69,6 +85,8 @@ pub enum EnableFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableServiceError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -76,6 +94,9 @@ pub enum EnableServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetFeedError {
+    Status401(models::ErrorMessage),
+    Status404(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -83,6 +104,9 @@ pub enum GetFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetProfileError {
+    Status401(models::ErrorMessage),
+    Status404(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -90,6 +114,8 @@ pub enum GetProfileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetStatsError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -97,6 +123,8 @@ pub enum GetStatsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -104,6 +132,8 @@ pub enum ListFeedError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum PostProfileError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -111,6 +141,8 @@ pub enum PostProfileError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateFeedError {
+    Status401(models::ErrorMessage),
+    Status500(models::ErrorMessage),
     UnknownValue(serde_json::Value),
 }
 
@@ -156,7 +188,7 @@ pub async fn create_feed(configuration: &Configuration, feed_request: Option<mod
     }
 }
 
-pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result<(), Error<DeleteFeedError>> {
+pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result<models::FeedResponse, Error<DeleteFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_feed_id = feed_id;
 
@@ -175,9 +207,20 @@ pub async fn delete_feed(configuration: &Configuration, feed_id: &str) -> Result
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FeedResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FeedResponse`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteFeedError> = serde_json::from_str(&content).ok();
@@ -210,6 +253,33 @@ pub async fn disable_feed(configuration: &Configuration, feed_id: &str) -> Resul
     } else {
         let content = resp.text().await?;
         let entity: Option<DisableFeedError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn disable_service(configuration: &Configuration) -> Result<(), Error<DisableServiceError>> {
+
+    let uri_str = format!("{}/disable", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DisableServiceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -351,7 +421,7 @@ pub async fn get_feed(configuration: &Configuration, feed_id: &str) -> Result<mo
     }
 }
 
-pub async fn get_profile(configuration: &Configuration) -> Result<models::Profile, Error<GetProfileError>> {
+pub async fn get_profile(configuration: &Configuration) -> Result<models::ProfileResponse, Error<GetProfileError>> {
 
     let uri_str = format!("{}/rss2email/profile", build_url(configuration));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -379,8 +449,8 @@ pub async fn get_profile(configuration: &Configuration) -> Result<models::Profil
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Profile`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Profile`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ProfileResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ProfileResponse`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -495,7 +565,7 @@ pub async fn post_profile(configuration: &Configuration, profile: Option<models:
     }
 }
 
-pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_request: Option<models::FeedRequest>) -> Result<(), Error<UpdateFeedError>> {
+pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_request: Option<models::FeedRequest>) -> Result<models::FeedResponse, Error<UpdateFeedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_feed_id = feed_id;
     let p_body_feed_request = feed_request;
@@ -516,9 +586,20 @@ pub async fn update_feed(configuration: &Configuration, feed_id: &str, feed_requ
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        Ok(())
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FeedResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FeedResponse`")))),
+        }
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateFeedError> = serde_json::from_str(&content).ok();

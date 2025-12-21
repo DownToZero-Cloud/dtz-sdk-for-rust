@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**create_feed**](DefaultApi.md#create_feed) | **POST** /rss2email/feed | create feed subscription
 [**delete_feed**](DefaultApi.md#delete_feed) | **DELETE** /rss2email/feed/{feed_id} | delete feed
 [**disable_feed**](DefaultApi.md#disable_feed) | **POST** /rss2email/feed/{feed_id}/disable | disable feed
+[**disable_service**](DefaultApi.md#disable_service) | **POST** /disable | disable the service
 [**discover_feed**](DefaultApi.md#discover_feed) | **POST** /rss2email/discover | discover feed on homepage
 [**enable_feed**](DefaultApi.md#enable_feed) | **POST** /rss2email/feed/{feed_id}/enable | enable feed
 [**enable_service**](DefaultApi.md#enable_service) | **POST** /enable | enable the service
@@ -49,7 +50,7 @@ Name | Type | Description  | Required | Notes
 
 ## delete_feed
 
-> delete_feed(feed_id)
+> models::FeedResponse delete_feed(feed_id)
 delete feed
 
 ### Parameters
@@ -61,7 +62,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::FeedResponse**](FeedResponse.md)
 
 ### Authorization
 
@@ -70,7 +71,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -98,7 +99,32 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## disable_service
+
+> disable_service()
+disable the service
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -154,7 +180,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -179,7 +205,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -214,7 +240,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_profile
 
-> models::Profile get_profile()
+> models::ProfileResponse get_profile()
 get profile
 
 ### Parameters
@@ -223,7 +249,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**models::Profile**](Profile.md)
+[**models::ProfileResponse**](ProfileResponse.md)
 
 ### Authorization
 
@@ -310,14 +336,14 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
 ## update_feed
 
-> update_feed(feed_id, feed_request)
+> models::FeedResponse update_feed(feed_id, feed_request)
 update feed
 
 ### Parameters
@@ -330,7 +356,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
- (empty response body)
+[**models::FeedResponse**](FeedResponse.md)
 
 ### Authorization
 
@@ -339,7 +365,7 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
