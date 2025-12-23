@@ -5,10 +5,12 @@ mod execution_id;
 mod feed_id;
 mod identity_id;
 mod job_id;
+mod node_id;
 mod object_id;
 mod role_id;
 mod service_id;
 mod task_id;
+mod volume_id;
 
 pub use apikey_id::*;
 pub use chat_id::*;
@@ -17,10 +19,12 @@ pub use execution_id::*;
 pub use feed_id::*;
 pub use identity_id::*;
 pub use job_id::*;
+pub use node_id::*;
 pub use object_id::*;
 pub use role_id::*;
 pub use service_id::*;
 pub use task_id::*;
+pub use volume_id::*;
 
 fn generate_internal_id(length: usize) -> String {
     use rand::prelude::*;
