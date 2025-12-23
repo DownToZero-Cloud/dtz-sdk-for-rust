@@ -95,27 +95,27 @@ impl serde::Serialize for VolumeId {
 #[test]
 fn key_invalid_1() {
     let k = "abc-dsfdg";
-    let service: Result<VolumeId, String> = VolumeId::try_from(k);
-    assert!(service.is_err())
+    let volume: Result<VolumeId, String> = VolumeId::try_from(k);
+    assert!(volume.is_err())
 }
 
 #[test]
 fn key_valid_1() {
-    let k = "service-dsfdg";
-    let service: Result<VolumeId, String> = VolumeId::try_from(k);
-    assert!(service.is_ok())
+    let k = "volume-dsfdg";
+    let volume: Result<VolumeId, String> = VolumeId::try_from(k);
+    assert!(volume.is_ok())
 }
 
 #[test]
 fn key_valid_2() {
-    let k = "service-0190c589-eb70-7980-97cf-af67b3a84116";
-    let service: Result<VolumeId, String> = VolumeId::try_from(k);
-    assert!(service.is_ok())
+    let k = "volume-0190c589-eb70-7980-97cf-af67b3a84116";
+    let volume: Result<VolumeId, String> = VolumeId::try_from(k);
+    assert!(volume.is_ok())
 }
 
 #[test]
 fn key_invalid_2() {
     let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
-    let service: Result<VolumeId, String> = VolumeId::try_from(k);
-    assert!(service.is_err())
+    let volume: Result<VolumeId, String> = VolumeId::try_from(k);
+    assert!(volume.is_err())
 }

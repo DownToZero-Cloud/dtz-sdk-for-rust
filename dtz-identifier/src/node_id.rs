@@ -95,27 +95,27 @@ impl serde::Serialize for NodeId {
 #[test]
 fn key_invalid_1() {
     let k = "abc-dsfdg";
-    let service: Result<NodeId, String> = NodeId::try_from(k);
-    assert!(service.is_err())
+    let node: Result<NodeId, String> = NodeId::try_from(k);
+    assert!(node.is_err())
 }
 
 #[test]
 fn key_valid_1() {
-    let k = "service-dsfdg";
-    let service: Result<NodeId, String> = NodeId::try_from(k);
-    assert!(service.is_ok())
+    let k = "node-dsfdg";
+    let node: Result<NodeId, String> = NodeId::try_from(k);
+    assert!(node.is_ok())
 }
 
 #[test]
 fn key_valid_2() {
-    let k = "service-0190c589-eb70-7980-97cf-af67b3a84116";
-    let service: Result<NodeId, String> = NodeId::try_from(k);
-    assert!(service.is_ok())
+    let k = "node-0190c589-eb70-7980-97cf-af67b3a84116";
+    let node: Result<NodeId, String> = NodeId::try_from(k);
+    assert!(node.is_ok())
 }
 
 #[test]
 fn key_invalid_2() {
     let k = "abc-0190c589-eb70-7980-97cf-af67b3a84116";
-    let service: Result<NodeId, String> = NodeId::try_from(k);
-    assert!(service.is_err())
+    let node: Result<NodeId, String> = NodeId::try_from(k);
+    assert!(node.is_err())
 }
