@@ -38,6 +38,8 @@ pub mod pull_task_from_queue_request;
 pub use self::pull_task_from_queue_request::PullTaskFromQueueRequest;
 pub mod pull_task_response;
 pub use self::pull_task_response::PullTaskResponse;
+pub mod pull_task_response_mounts_inner;
+pub use self::pull_task_response_mounts_inner::PullTaskResponseMountsInner;
 pub mod rewrite;
 pub use self::rewrite::Rewrite;
 pub mod static_content;

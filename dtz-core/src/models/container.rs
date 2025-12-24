@@ -24,6 +24,8 @@ pub struct Container {
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
+    #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
+    pub mounts: Option<Vec<models::PullTaskResponseMountsInner>>,
 }
 
 impl Container {
@@ -34,6 +36,7 @@ impl Container {
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,
+            mounts: None,
         }
     }
 }

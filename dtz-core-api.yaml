@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.2.4
+  version: 2.3.0
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -551,6 +551,20 @@ components:
           type: string
         envVariables:
           $ref: '#/components/schemas/EnvironmentVariables'
+        mounts:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                description: name of the volume
+                type: string
+              target:
+                description: target path inside the container
+                type: string
+                examples:
+                - data-mount:
+                    value: /data
       required:
       - contextId
       - executionId
@@ -697,6 +711,20 @@ components:
           type: string
         envVariables:
           $ref: '#/components/schemas/EnvironmentVariables'
+        mounts:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                description: name of the volume
+                type: string
+              target:
+                description: target path inside the container
+                type: string
+                examples:
+                - data-mount:
+                    value: /data
       required:
       - containerImage
     Chat:
@@ -793,6 +821,20 @@ components:
               type: string
             envVariables:
               $ref: '#/components/schemas/EnvironmentVariables'
+            mounts:
+              type: array
+              items:
+                type: object
+                properties:
+                  source:
+                    description: name of the volume
+                    type: string
+                  target:
+                    description: target path inside the container
+                    type: string
+                    examples:
+                    - data-mount:
+                        value: /data
           required:
           - containerImage
       required:
