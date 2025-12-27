@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.3.0
+  version: 2.3.1
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -261,7 +261,6 @@ paths:
                   type: boolean
               required:
               - nodeId
-              - instanceId
               - cpuCapacity
               - memCapacity
               - ecoMode
@@ -558,13 +557,17 @@ components:
             properties:
               source:
                 description: name of the volume
-                type: string
+                type: String
+                format: VolumeId
               target:
                 description: target path inside the container
                 type: string
                 examples:
                 - data-mount:
                     value: /data
+            required:
+            - source
+            - target
       required:
       - contextId
       - executionId

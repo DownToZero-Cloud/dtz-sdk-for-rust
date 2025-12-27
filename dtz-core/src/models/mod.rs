@@ -8,6 +8,8 @@ pub mod chat_timeline_inner;
 pub use self::chat_timeline_inner::ChatTimelineInner;
 pub mod container;
 pub use self::container::Container;
+pub mod container_mounts_inner;
+pub use self::container_mounts_inner::ContainerMountsInner;
 pub mod context_response;
 pub use self::context_response::ContextResponse;
 pub mod create_chat_request;

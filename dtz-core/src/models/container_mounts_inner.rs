@@ -13,20 +13,20 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct PullTaskResponseMountsInner {
+pub struct ContainerMountsInner {
     /// name of the volume
-    #[serde(rename = "source")]
-    pub source: String,
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<String>,
     /// target path inside the container
-    #[serde(rename = "target")]
-    pub target: String,
+    #[serde(rename = "target", skip_serializing_if = "Option::is_none")]
+    pub target: Option<String>,
 }
 
-impl PullTaskResponseMountsInner {
-    pub fn new(source: String, target: String) -> PullTaskResponseMountsInner {
-        PullTaskResponseMountsInner {
-            source,
-            target,
+impl ContainerMountsInner {
+    pub fn new() -> ContainerMountsInner {
+        ContainerMountsInner {
+            source: None,
+            target: None,
         }
     }
 }

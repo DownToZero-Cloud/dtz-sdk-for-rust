@@ -23,7 +23,7 @@ pub struct CreateTaskRequestTaskDefinition {
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
     #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
-    pub mounts: Option<Vec<models::PullTaskResponseMountsInner>>,
+    pub mounts: Option<Vec<models::ContainerMountsInner>>,
 }
 
 impl CreateTaskRequestTaskDefinition {

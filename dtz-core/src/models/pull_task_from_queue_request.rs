@@ -18,8 +18,8 @@ pub struct PullTaskFromQueueRequest {
     #[serde(rename = "nodeId")]
     pub node_id: String,
     /// declares the instance id
-    #[serde(rename = "instanceId")]
-    pub instance_id: String,
+    #[serde(rename = "instanceId", skip_serializing_if = "Option::is_none")]
+    pub instance_id: Option<String>,
     /// declares the cpu capacity of the node
     #[serde(rename = "cpuCapacity")]
     pub cpu_capacity: i64,
@@ -32,10 +32,10 @@ pub struct PullTaskFromQueueRequest {
 }
 
 impl PullTaskFromQueueRequest {
-    pub fn new(node_id: String, instance_id: String, cpu_capacity: i64, mem_capacity: i64, eco_mode: bool) -> PullTaskFromQueueRequest {
+    pub fn new(node_id: String, cpu_capacity: i64, mem_capacity: i64, eco_mode: bool) -> PullTaskFromQueueRequest {
         PullTaskFromQueueRequest {
             node_id,
-            instance_id,
+            instance_id: None,
             cpu_capacity,
             mem_capacity,
             eco_mode,
