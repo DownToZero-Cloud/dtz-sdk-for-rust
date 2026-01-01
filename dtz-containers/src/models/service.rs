@@ -34,6 +34,9 @@ pub struct Service {
     pub container_image: String,
     #[serde(rename = "containerImageVersion", skip_serializing_if = "Option::is_none")]
     pub container_image_version: Option<String>,
+    /// Optional port to expose externally; when omitted the first open container port is exposed automatically.
+    #[serde(rename = "containerPort", skip_serializing_if = "Option::is_none")]
+    pub container_port: Option<i32>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -58,6 +61,7 @@ impl Service {
             prefix,
             container_image,
             container_image_version: None,
+            container_port: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,

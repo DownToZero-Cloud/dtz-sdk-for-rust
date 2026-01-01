@@ -16,6 +16,8 @@ use serde::{Deserialize, Serialize};
 pub struct Container {
     #[serde(rename = "containerImage")]
     pub container_image: String,
+    #[serde(rename = "containerPort", skip_serializing_if = "Option::is_none")]
+    pub container_port: Option<i32>,
     #[serde(rename = "containerIdentity", skip_serializing_if = "Option::is_none")]
     pub container_identity: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
@@ -25,13 +27,14 @@ pub struct Container {
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
     #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
-    pub mounts: Option<Vec<models::ContainerMountsInner>>,
+    pub mounts: Option<Vec<models::VolumeMount>>,
 }
 
 impl Container {
     pub fn new(container_image: String) -> Container {
         Container {
             container_image,
+            container_port: None,
             container_identity: None,
             container_pull_user: None,
             container_pull_pwd: None,

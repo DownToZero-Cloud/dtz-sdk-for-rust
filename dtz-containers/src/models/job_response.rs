@@ -33,6 +33,8 @@ pub struct JobResponse {
     pub schedule_cron: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::JobResponseEnvVariablesValue>>,
+    #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
+    pub mounts: Option<Vec<models::VolumeMount>>,
 }
 
 impl JobResponse {
@@ -47,6 +49,7 @@ impl JobResponse {
             schedule_repeat: None,
             schedule_cron: None,
             env_variables: None,
+            mounts: None,
         }
     }
 }

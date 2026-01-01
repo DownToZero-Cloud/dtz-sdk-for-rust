@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 2.1.2
+  version: 2.2.2
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -24,6 +24,18 @@ paths:
       responses:
         "200":
           description: service enabled
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /disable:
     post:
       summary: disable the containers service
@@ -62,13 +74,13 @@ paths:
                 $ref: '#/components/schemas/Domain'
         "409":
           description: domain already registered
-  /domain/{domain_name}:
+  /domain/{domainName}:
     get:
       summary: get single domain
       operationId: getDomain
       parameters:
         - in: path
-          name: domain_name
+          name: domainName
           schema:
             type: string
           required: true
@@ -80,12 +92,14 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/Domain'
+        "404":
+          description: not found
     delete:
       summary: delete single domain
       operationId: deleteDomain
       parameters:
         - in: path
-          name: domain_name
+          name: domainName
           schema:
             type: string
           required: true
@@ -98,7 +112,7 @@ paths:
       operationId: verifyDomain
       parameters:
         - in: path
-          name: domain_name
+          name: domainName
           schema:
             type: string
           required: true
@@ -106,6 +120,18 @@ paths:
       responses:
         "200":
           description: success
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "409":
+          description: conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         "500":
           description: error
           content:
@@ -198,6 +224,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/Service'
+        "404":
+          description: not found
     post:
       summary: update service
       operationId: updateService
@@ -222,6 +250,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/Service'
+        "404":
+          description: not found
     delete:
       summary: delete service
       operationId: deleteService
@@ -236,6 +266,132 @@ paths:
       responses:
         "200":
           description: success
+  /volume:
+    get:
+      summary: list volumes
+      operationId: getVolumes
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Volume'
+    post:
+      summary: create a new volume
+      operationId: createVolume
+      requestBody:
+        description: create a volume
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVolumeRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        "400":
+          description: bad request
+  /volume/{volumeId}:
+    get:
+      summary: get volume
+      operationId: getVolume
+      parameters:
+        - in: path
+          name: volumeId
+          schema:
+            type: string
+            format: VolumeId
+          required: true
+          description: volume id
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        "404":
+          description: not found
+    post:
+      summary: update volume
+      operationId: updateVolume
+      parameters:
+        - in: path
+          name: volumeId
+          schema:
+            type: string
+            format: VolumeId
+          required: true
+          description: volume id
+      requestBody:
+        description: update request
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateVolumeRequest'
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Volume'
+        "404":
+          description: not found
+    delete:
+      summary: delete volume
+      operationId: deleteVolume
+      parameters:
+        - in: path
+          name: volumeId
+          schema:
+            type: string
+            format: VolumeId
+          required: true
+          description: volume id
+      responses:
+        "200":
+          description: success
+  /volume/stats:
+    get:
+      summary: get stats for all volumes
+      operationId: getVolumeStats
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VolumeStats'
+  /volume/{volumeId}/stats:
+    get:
+      summary: get stats for a single volume
+      operationId: getVolumeStatsForVolume
+      parameters:
+        - in: path
+          name: volumeId
+          schema:
+            type: string
+            format: VolumeId
+          required: true
+          description: volume id
+      responses:
+        "200":
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VolumeStats'
+        "404":
+          description: not found
   /job:
     get:
       summary: list all jobs
@@ -274,13 +430,13 @@ paths:
                 properties:
                   msg:
                     type: string  
-  /job/{job_id}:
+  /job/{jobId}:
     get:
       summary: get single job
       operationId: getJob
       parameters:
         - in: path
-          name: job_id
+          name: jobId
           schema:
             type: string
             format: JobId
@@ -293,12 +449,14 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/JobResponse'
+        "401":
+          description: unauthorized
     post:
       summary: update single job
       operationId: updateJob
       parameters:
         - in: path
-          name: job_id
+          name: jobId
           schema:
             type: string
             format: JobId
@@ -316,7 +474,7 @@ paths:
       operationId: triggerJob
       parameters:
         - in: path
-          name: job_id
+          name: jobId
           schema:
             type: string
             format: JobId
@@ -325,6 +483,8 @@ paths:
       responses:
         "200":
           description: success
+        "401":
+          description: unauthorized
         "404":
           description: job not found
     delete:
@@ -332,7 +492,7 @@ paths:
       operationId: deleteJob
       parameters:
         - in: path
-          name: job_id
+          name: jobId
           schema:
             type: string
             format: JobId
@@ -378,6 +538,10 @@ components:
             - type: string
             - $ref: '#/components/schemas/EncryptedValue'
             - $ref: '#/components/schemas/PlainValue'
+        mounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
       required:
       - name
       - containerImage
@@ -414,6 +578,10 @@ components:
             oneOf:
             - type: string
             - $ref: '#/components/schemas/EncryptedValue'
+        mounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
       required:
         - id
         - name
@@ -473,6 +641,12 @@ components:
           type: string
         containerImageVersion:
           type: string
+        containerPort:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: Optional port to expose externally; when omitted the first open container port is exposed automatically.
         containerPullUser:
           type: string
         containerPullPwd:
@@ -526,7 +700,15 @@ components:
         containerImage:
           type: string
         containerImageVersion:
+          description: the version of the container image; either empty string to reset or a sha256 digest in the form of "sha256:digest"
           type: string
+          pattern: "^(|sha256:[a-f0-9]{64})$"
+        containerPort:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: Optional port to expose externally; when omitted the first open container port is exposed automatically.
         containerPullUser:
           type: string
         containerPullPwd:
@@ -558,6 +740,10 @@ components:
               type: string
           required:
           - providerName
+        mounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
       required:
         - enabled
         - prefix
@@ -579,7 +765,15 @@ components:
         containerImage:
           type: string
         containerImageVersion:
+          description: the version of the container image; either empty string to reset or a sha256 digest in the form of "sha256:digest"
           type: string
+          pattern: "^(|sha256:[a-f0-9]{64})$"
+        containerPort:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+          description: Optional port to expose externally; when omitted the first open container port is exposed automatically.
         containerPullUser:
           type: string
         containerPullPwd:
@@ -613,9 +807,12 @@ components:
               type: string
           required:
           - providerName
+        mounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
       required:
         - enabled
-        - domain
         - prefix
         - containerImage
         - envVariables
@@ -634,6 +831,73 @@ components:
         plainValue:
           type: string
           description: "the plain text value for server side encryption"
+    Volume:
+      type: object
+      properties:
+        contextId:
+          type: string
+          format: ContextId
+        volumeId:
+          type: string
+          format: VolumeId
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+      required:
+        - contextId
+        - volumeId
+        - name
+        - created
+    VolumeMount:
+      type: object
+      properties:
+        source:
+          description: name of the volume
+          type: string
+          format: VolumeId
+          examples:
+          - volume-abc123:
+              value: volume-abc123
+        target:
+          description: target path inside the container
+          type: string
+          examples:
+          - data-mount:
+              value: /data
+      required:
+      - source
+      - target
+    CreateVolumeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    UpdateVolumeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    VolumeStats:
+      type: object
+      properties:
+        volumeId:
+          type: string
+          format: VolumeId
+        name:
+          type: string
+        created:
+          type: string
+          format: date-time
+      required:
+        - volumeId
+        - name
+        - created
   securitySchemes:
     dtz_oauth:
       type: oauth2

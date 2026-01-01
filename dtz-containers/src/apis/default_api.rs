@@ -53,6 +53,14 @@ pub enum CreateServiceError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`create_volume`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateVolumeError {
+    Status400(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`delete_domain`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -74,6 +82,13 @@ pub enum DeleteServiceError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`delete_volume`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteVolumeError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`disable`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -85,6 +100,8 @@ pub enum DisableError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum EnableError {
+    Status401(models::ErrorResponse),
+    Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -92,6 +109,7 @@ pub enum EnableError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDomainError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -106,6 +124,7 @@ pub enum GetDomainsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetJobError {
+    Status401(),
     UnknownValue(serde_json::Value),
 }
 
@@ -120,6 +139,7 @@ pub enum GetJobsError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetServiceError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -130,10 +150,41 @@ pub enum GetServicesError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_volume`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVolumeError {
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_volume_stats`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVolumeStatsError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_volume_stats_for_volume`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVolumeStatsForVolumeError {
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`get_volumes`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetVolumesError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`trigger_job`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TriggerJobError {
+    Status401(),
     Status404(),
     UnknownValue(serde_json::Value),
 }
@@ -149,6 +200,15 @@ pub enum UpdateJobError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateServiceError {
+    Status404(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`update_volume`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateVolumeError {
+    Status404(),
     UnknownValue(serde_json::Value),
 }
 
@@ -156,6 +216,8 @@ pub enum UpdateServiceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum VerifyDomainError {
+    Status401(models::ErrorResponse),
+    Status409(models::ErrorResponse),
     Status500(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
@@ -284,11 +346,52 @@ pub async fn create_service(configuration: &Configuration, create_service_reques
     }
 }
 
+pub async fn create_volume(configuration: &Configuration, create_volume_request: Option<models::CreateVolumeRequest>) -> Result<models::Volume, Error<CreateVolumeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_volume_request = create_volume_request;
+
+    let uri_str = format!("{}/volume", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_body_create_volume_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Volume`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Volume`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateVolumeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn delete_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<DeleteDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
+    let uri_str = format!("{}/domain/{domainName}", build_url(configuration), domainName=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
 
@@ -317,7 +420,7 @@ pub async fn delete_job(configuration: &Configuration, job_id: &str) -> Result<(
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
+    let uri_str = format!("{}/job/{jobId}", build_url(configuration), jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
 
@@ -367,6 +470,35 @@ pub async fn delete_service(configuration: &Configuration, service_id: &str) -> 
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteServiceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn delete_volume(configuration: &Configuration, volume_id: &str) -> Result<(), Error<DeleteVolumeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_volume_id = volume_id;
+
+    let uri_str = format!("{}/volume/{volumeId}", build_url(configuration), volumeId=crate::apis::urlencode(p_path_volume_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteVolumeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -429,7 +561,7 @@ pub async fn get_domain(configuration: &Configuration, domain_name: &str) -> Res
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
+    let uri_str = format!("{}/domain/{domainName}", build_url(configuration), domainName=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
 
@@ -507,7 +639,7 @@ pub async fn get_job(configuration: &Configuration, job_id: &str) -> Result<mode
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
+    let uri_str = format!("{}/job/{jobId}", build_url(configuration), jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
 
@@ -659,11 +791,167 @@ pub async fn get_services(configuration: &Configuration) -> Result<Vec<models::S
     }
 }
 
+pub async fn get_volume(configuration: &Configuration, volume_id: &str) -> Result<models::Volume, Error<GetVolumeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_volume_id = volume_id;
+
+    let uri_str = format!("{}/volume/{volumeId}", build_url(configuration), volumeId=crate::apis::urlencode(p_path_volume_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Volume`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Volume`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVolumeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn get_volume_stats(configuration: &Configuration) -> Result<Vec<models::VolumeStats>, Error<GetVolumeStatsError>> {
+
+    let uri_str = format!("{}/volume/stats", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::VolumeStats&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::VolumeStats&gt;`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVolumeStatsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn get_volume_stats_for_volume(configuration: &Configuration, volume_id: &str) -> Result<models::VolumeStats, Error<GetVolumeStatsForVolumeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_volume_id = volume_id;
+
+    let uri_str = format!("{}/volume/{volumeId}/stats", build_url(configuration), volumeId=crate::apis::urlencode(p_path_volume_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VolumeStats`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VolumeStats`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVolumeStatsForVolumeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+pub async fn get_volumes(configuration: &Configuration) -> Result<Vec<models::Volume>, Error<GetVolumesError>> {
+
+    let uri_str = format!("{}/volume", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::Volume&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::Volume&gt;`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetVolumesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn trigger_job(configuration: &Configuration, job_id: &str) -> Result<(), Error<TriggerJobError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
+    let uri_str = format!("{}/job/{jobId}", build_url(configuration), jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
 
@@ -692,7 +980,7 @@ pub async fn update_job(configuration: &Configuration, job_id: &str) -> Result<m
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_job_id = job_id;
 
-    let uri_str = format!("{}/job/{job_id}", build_url(configuration), job_id=crate::apis::urlencode(p_path_job_id));
+    let uri_str = format!("{}/job/{jobId}", build_url(configuration), jobId=crate::apis::urlencode(p_path_job_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
 
@@ -770,11 +1058,53 @@ pub async fn update_service(configuration: &Configuration, service_id: &str, upd
     }
 }
 
+pub async fn update_volume(configuration: &Configuration, volume_id: &str, update_volume_request: Option<models::UpdateVolumeRequest>) -> Result<models::Volume, Error<UpdateVolumeError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_volume_id = volume_id;
+    let p_body_update_volume_request = update_volume_request;
+
+    let uri_str = format!("{}/volume/{volumeId}", build_url(configuration), volumeId=crate::apis::urlencode(p_path_volume_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+    req_builder = req_builder.json(&p_body_update_volume_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::Volume`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::Volume`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateVolumeError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn verify_domain(configuration: &Configuration, domain_name: &str) -> Result<(), Error<VerifyDomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_domain_name = domain_name;
 
-    let uri_str = format!("{}/domain/{domain_name}", build_url(configuration), domain_name=crate::apis::urlencode(p_path_domain_name));
+    let uri_str = format!("{}/domain/{domainName}", build_url(configuration), domainName=crate::apis::urlencode(p_path_domain_name));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
 

@@ -19,14 +19,18 @@ pub struct UpdateServiceRequest {
     #[serde(rename = "enabled")]
     pub enabled: bool,
     /// by default this property is empty and represents that all verified domains will be added. I a domain is added through a service, this service will only be served through that domain, und new domain als also no longer added automatically.
-    #[serde(rename = "domain")]
-    pub domain: Vec<String>,
+    #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
+    pub domain: Option<Vec<String>>,
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "containerImage")]
     pub container_image: String,
+    /// the version of the container image; either empty string to reset or a sha256 digest in the form of \"sha256:digest\"
     #[serde(rename = "containerImageVersion", skip_serializing_if = "Option::is_none")]
     pub container_image_version: Option<String>,
+    /// Optional port to expose externally; when omitted the first open container port is exposed automatically.
+    #[serde(rename = "containerPort", skip_serializing_if = "Option::is_none")]
+    pub container_port: Option<i32>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -37,22 +41,26 @@ pub struct UpdateServiceRequest {
     pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
     pub login: Option<Box<models::UpdateServiceRequestLogin>>,
+    #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
+    pub mounts: Option<Vec<models::VolumeMount>>,
 }
 
 impl UpdateServiceRequest {
     /// Full update for a service; all fields are required and will overwrite existing values
-    pub fn new(enabled: bool, domain: Vec<String>, prefix: String, container_image: String, env_variables: std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>) -> UpdateServiceRequest {
+    pub fn new(enabled: bool, prefix: String, container_image: String, env_variables: std::collections::HashMap<String, models::CreateJobRequestEnvVariablesValue>) -> UpdateServiceRequest {
         UpdateServiceRequest {
             enabled,
-            domain,
+            domain: None,
             prefix,
             container_image,
             container_image_version: None,
+            container_port: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables,
             rewrite: None,
             login: None,
+            mounts: None,
         }
     }
 }

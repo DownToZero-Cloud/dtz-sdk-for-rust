@@ -24,8 +24,12 @@ pub struct CreateServiceRequest {
     pub prefix: String,
     #[serde(rename = "containerImage")]
     pub container_image: String,
+    /// the version of the container image; either empty string to reset or a sha256 digest in the form of \"sha256:digest\"
     #[serde(rename = "containerImageVersion", skip_serializing_if = "Option::is_none")]
     pub container_image_version: Option<String>,
+    /// Optional port to expose externally; when omitted the first open container port is exposed automatically.
+    #[serde(rename = "containerPort", skip_serializing_if = "Option::is_none")]
+    pub container_port: Option<i32>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
@@ -36,6 +40,8 @@ pub struct CreateServiceRequest {
     pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
     pub login: Option<Box<models::ServiceLogin>>,
+    #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
+    pub mounts: Option<Vec<models::VolumeMount>>,
 }
 
 impl CreateServiceRequest {
@@ -46,11 +52,13 @@ impl CreateServiceRequest {
             prefix,
             container_image,
             container_image_version: None,
+            container_port: None,
             container_pull_user: None,
             container_pull_pwd: None,
             env_variables: None,
             rewrite: None,
             login: None,
+            mounts: None,
         }
     }
 }

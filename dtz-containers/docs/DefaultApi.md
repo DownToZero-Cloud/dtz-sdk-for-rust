@@ -7,21 +7,28 @@ Method | HTTP request | Description
 [**create_domain**](DefaultApi.md#create_domain) | **POST** /domain | create a new domain
 [**create_job**](DefaultApi.md#create_job) | **POST** /job | create new job
 [**create_service**](DefaultApi.md#create_service) | **POST** /service | create a new service hosting
-[**delete_domain**](DefaultApi.md#delete_domain) | **DELETE** /domain/{domain_name} | delete single domain
-[**delete_job**](DefaultApi.md#delete_job) | **DELETE** /job/{job_id} | delete single job
+[**create_volume**](DefaultApi.md#create_volume) | **POST** /volume | create a new volume
+[**delete_domain**](DefaultApi.md#delete_domain) | **DELETE** /domain/{domainName} | delete single domain
+[**delete_job**](DefaultApi.md#delete_job) | **DELETE** /job/{jobId} | delete single job
 [**delete_service**](DefaultApi.md#delete_service) | **DELETE** /service/{serviceId} | delete service
+[**delete_volume**](DefaultApi.md#delete_volume) | **DELETE** /volume/{volumeId} | delete volume
 [**disable**](DefaultApi.md#disable) | **POST** /disable | disable the containers service
 [**enable**](DefaultApi.md#enable) | **POST** /enable | enable the containers service
-[**get_domain**](DefaultApi.md#get_domain) | **GET** /domain/{domain_name} | get single domain
+[**get_domain**](DefaultApi.md#get_domain) | **GET** /domain/{domainName} | get single domain
 [**get_domains**](DefaultApi.md#get_domains) | **GET** /domain | get all domains
-[**get_job**](DefaultApi.md#get_job) | **GET** /job/{job_id} | get single job
+[**get_job**](DefaultApi.md#get_job) | **GET** /job/{jobId} | get single job
 [**get_jobs**](DefaultApi.md#get_jobs) | **GET** /job | list all jobs
 [**get_service**](DefaultApi.md#get_service) | **GET** /service/{serviceId} | get service
 [**get_services**](DefaultApi.md#get_services) | **GET** /service | get current container services
-[**trigger_job**](DefaultApi.md#trigger_job) | **PATCH** /job/{job_id} | trigger single job
-[**update_job**](DefaultApi.md#update_job) | **POST** /job/{job_id} | update single job
+[**get_volume**](DefaultApi.md#get_volume) | **GET** /volume/{volumeId} | get volume
+[**get_volume_stats**](DefaultApi.md#get_volume_stats) | **GET** /volume/stats | get stats for all volumes
+[**get_volume_stats_for_volume**](DefaultApi.md#get_volume_stats_for_volume) | **GET** /volume/{volumeId}/stats | get stats for a single volume
+[**get_volumes**](DefaultApi.md#get_volumes) | **GET** /volume | list volumes
+[**trigger_job**](DefaultApi.md#trigger_job) | **PATCH** /job/{jobId} | trigger single job
+[**update_job**](DefaultApi.md#update_job) | **POST** /job/{jobId} | update single job
 [**update_service**](DefaultApi.md#update_service) | **POST** /service/{serviceId} | update service
-[**verify_domain**](DefaultApi.md#verify_domain) | **PATCH** /domain/{domain_name} | trigger domain verification
+[**update_volume**](DefaultApi.md#update_volume) | **POST** /volume/{volumeId} | update volume
+[**verify_domain**](DefaultApi.md#verify_domain) | **PATCH** /domain/{domainName} | trigger domain verification
 
 
 
@@ -96,6 +103,34 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::Service**](Service.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## create_volume
+
+> models::Volume create_volume(create_volume_request)
+create a new volume
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**create_volume_request** | Option<[**CreateVolumeRequest**](CreateVolumeRequest.md)> | create a volume |  |
+
+### Return type
+
+[**models::Volume**](Volume.md)
 
 ### Authorization
 
@@ -193,6 +228,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## delete_volume
+
+> delete_volume(volume_id)
+delete volume
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**volume_id** | **String** | volume id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## disable
 
 > disable()
@@ -238,7 +301,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -402,6 +465,112 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## get_volume
+
+> models::Volume get_volume(volume_id)
+get volume
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**volume_id** | **String** | volume id | [required] |
+
+### Return type
+
+[**models::Volume**](Volume.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_volume_stats
+
+> Vec<models::VolumeStats> get_volume_stats()
+get stats for all volumes
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::VolumeStats>**](VolumeStats.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_volume_stats_for_volume
+
+> models::VolumeStats get_volume_stats_for_volume(volume_id)
+get stats for a single volume
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**volume_id** | **String** | volume id | [required] |
+
+### Return type
+
+[**models::VolumeStats**](VolumeStats.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_volumes
+
+> Vec<models::Volume> get_volumes()
+list volumes
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::Volume>**](Volume.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## trigger_job
 
 > trigger_job(job_id)
@@ -474,6 +643,35 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::Service**](Service.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## update_volume
+
+> models::Volume update_volume(volume_id, update_volume_request)
+update volume
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**volume_id** | **String** | volume id | [required] |
+**update_volume_request** | Option<[**UpdateVolumeRequest**](UpdateVolumeRequest.md)> | update request |  |
+
+### Return type
+
+[**models::Volume**](Volume.md)
 
 ### Authorization
 

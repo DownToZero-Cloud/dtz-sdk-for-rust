@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **prefix** | **String** |  | 
 **container_image** | **String** |  | 
 **container_image_version** | Option<**String**> |  | [optional]
+**container_port** | Option<**i32**> | Optional port to expose externally; when omitted the first open container port is exposed automatically. | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
 **container_pull_pwd** | Option<**String**> |  | [optional]
 **env_variables** | Option<[**std::collections::HashMap<String, models::JobResponseEnvVariablesValue>**](JobResponse_envVariables_value.md)> |  | [optional]

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.3.1
+  version: 2.3.2
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -553,21 +553,7 @@ components:
         mounts:
           type: array
           items:
-            type: object
-            properties:
-              source:
-                description: name of the volume
-                type: String
-                format: VolumeId
-              target:
-                description: target path inside the container
-                type: string
-                examples:
-                - data-mount:
-                    value: /data
-            required:
-            - source
-            - target
+            $ref: '#/components/schemas/VolumeMount'
       required:
       - contextId
       - executionId
@@ -706,6 +692,9 @@ components:
       properties:
         containerImage:
           type: string
+        containerPort:
+          type: integer
+          format: int32
         containerIdentity:
           type: string
         containerPullUser:
@@ -717,17 +706,7 @@ components:
         mounts:
           type: array
           items:
-            type: object
-            properties:
-              source:
-                description: name of the volume
-                type: string
-              target:
-                description: target path inside the container
-                type: string
-                examples:
-                - data-mount:
-                    value: /data
+            $ref: '#/components/schemas/VolumeMount'
       required:
       - containerImage
     Chat:
@@ -827,17 +806,7 @@ components:
             mounts:
               type: array
               items:
-                type: object
-                properties:
-                  source:
-                    description: name of the volume
-                    type: string
-                  target:
-                    description: target path inside the container
-                    type: string
-                    examples:
-                    - data-mount:
-                        value: /data
+                $ref: '#/components/schemas/VolumeMount'
           required:
           - containerImage
       required:
@@ -847,6 +816,25 @@ components:
       - latestStart
       - requireEcoMode
       - taskDefinition
+    VolumeMount:
+      type: object
+      properties:
+        source:
+          description: name of the volume
+          type: string
+          format: VolumeId
+          examples:
+          - volume-abc123:
+              value: volume-abc123
+        target:
+          description: target path inside the container
+          type: string
+          examples:
+          - data-mount:
+              value: /data
+      required:
+      - source
+      - target
     CreateTaskResponse:
       type: object
       properties:

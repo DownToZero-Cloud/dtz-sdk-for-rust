@@ -13,20 +13,20 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ContainerMountsInner {
+pub struct VolumeMount {
     /// name of the volume
-    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
-    pub source: Option<String>,
+    #[serde(rename = "source")]
+    pub source: dtz_identifier::VolumeId,
     /// target path inside the container
-    #[serde(rename = "target", skip_serializing_if = "Option::is_none")]
-    pub target: Option<String>,
+    #[serde(rename = "target")]
+    pub target: String,
 }
 
-impl ContainerMountsInner {
-    pub fn new() -> ContainerMountsInner {
-        ContainerMountsInner {
-            source: None,
-            target: None,
+impl VolumeMount {
+    pub fn new(source: dtz_identifier::VolumeId, target: String) -> VolumeMount {
+        VolumeMount {
+            source,
+            target,
         }
     }
 }
