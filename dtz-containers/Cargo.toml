@@ -1,6 +1,6 @@
 [package]
 name = "dtz-containers"
-version = "2.2.2"
+version = "2.2.3"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Containers API"
 license = "MIT OR Apache-2.0"

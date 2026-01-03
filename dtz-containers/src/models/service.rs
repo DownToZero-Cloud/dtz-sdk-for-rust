@@ -47,6 +47,8 @@ pub struct Service {
     pub rewrite: Option<Box<models::ServiceRewrite>>,
     #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
     pub login: Option<Box<models::ServiceLogin>>,
+    #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
+    pub mounts: Option<Vec<models::VolumeMount>>,
 }
 
 impl Service {
@@ -67,6 +69,7 @@ impl Service {
             env_variables: None,
             rewrite: None,
             login: None,
+            mounts: None,
         }
     }
 }

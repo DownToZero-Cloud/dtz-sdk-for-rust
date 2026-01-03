@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 2.2.2
+  version: 2.2.3
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -677,6 +677,10 @@ components:
               type: string
           required:
           - providerName
+        mounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
       required:
         - contextId
         - serviceId

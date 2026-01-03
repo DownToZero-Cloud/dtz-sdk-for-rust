@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **env_variables** | Option<[**std::collections::HashMap<String, models::JobResponseEnvVariablesValue>**](JobResponse_envVariables_value.md)> |  | [optional]
 **rewrite** | Option<[**models::ServiceRewrite**](Service_rewrite.md)> |  | [optional]
 **login** | Option<[**models::ServiceLogin**](Service_login.md)> |  | [optional]
+**mounts** | Option<[**Vec<models::VolumeMount>**](VolumeMount.md)> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
