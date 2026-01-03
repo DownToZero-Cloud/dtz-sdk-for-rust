@@ -37,9 +37,16 @@ serde_with = { version = "3", default-features = false, features = [
 ] }
 url = "2"
 [workspace.dependencies.reqwest]
-version = "0.13"
+version = "=0.12.28"
 default-features = false
-features = ["json", "multipart", "rustls", "webpki-roots", "http2", "zstd"]
+features = [
+    "json",
+    "multipart",
+    "rustls-tls",
+    "rustls-tls-webpki-roots",
+    "http2",
+    "zstd",
+]
 
 [workspace.dev-dependencies]
 dtz = { version = "1" }
