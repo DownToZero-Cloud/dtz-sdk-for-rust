@@ -1,11 +1,11 @@
 [package]
 name = "dtz-config"
-version = "1.0.2"
-edition = "2021"
+version = "1.0.3"
+edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "config crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
-rust-version = "1.83"
+rust-version.workspace = true
 
 [dependencies]
 reqwest = { workspace = true }
