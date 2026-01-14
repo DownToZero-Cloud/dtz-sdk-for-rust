@@ -5,12 +5,7 @@ edition = "2021"
 authors = ["jens@apimeister.com"]
 description = "config crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
-rust-version = "1.63"
+rust-version = "1.83"
 
 [dependencies]
-reqwest = { version = "0.12", default-features = false, features = [
-    "json",
-    "multipart",
-    "rustls-tls",
-    "rustls-tls-webpki-roots",
-] }
+reqwest = { workspace = true }

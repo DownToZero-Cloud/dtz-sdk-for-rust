@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.3.2
+  version: 2.3.3
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -554,6 +554,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VolumeMount'
+        sourceId:
+          description: source artifact that this ingress is attached to
+          type: string
       required:
       - contextId
       - executionId
@@ -593,6 +596,9 @@ components:
           $ref: '#/components/schemas/StaticContent'
         singletonProcessor:
           type: boolean
+        sourceId:
+          description: source artifact that this ingress is attached to
+          type: string
     Login:
       type: object
       properties:
@@ -645,6 +651,9 @@ components:
           $ref: '#/components/schemas/StaticContent'
         singletonProcessor:
           type: boolean
+        sourceId:
+          description: source artifact that this ingress is attached to
+          type: string
       required:
       - domain
       - pathPrefix
@@ -809,6 +818,9 @@ components:
                 $ref: '#/components/schemas/VolumeMount'
           required:
           - containerImage
+        sourceId:
+          description: source artifact that this ingress is attached to
+          type: string
       required:
       - taskName
       - service

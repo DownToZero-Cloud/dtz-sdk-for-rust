@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Billing Api
-  version: 2.1.0
+  version: 2.1.1
   description: a generated client for the DTZ Billing API
   license:
     name: Apache 2.0

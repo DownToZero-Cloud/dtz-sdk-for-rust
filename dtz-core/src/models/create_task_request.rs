@@ -27,6 +27,9 @@ pub struct CreateTaskRequest {
     pub require_eco_mode: bool,
     #[serde(rename = "taskDefinition")]
     pub task_definition: Box<models::CreateTaskRequestTaskDefinition>,
+    /// source artifact that this ingress is attached to
+    #[serde(rename = "sourceId", skip_serializing_if = "Option::is_none")]
+    pub source_id: Option<String>,
 }
 
 impl CreateTaskRequest {
@@ -38,6 +41,7 @@ impl CreateTaskRequest {
             latest_start,
             require_eco_mode,
             task_definition: Box::new(task_definition),
+            source_id: None,
         }
     }
 }

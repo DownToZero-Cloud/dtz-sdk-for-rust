@@ -33,6 +33,9 @@ pub struct IngressResponse {
     pub static_content: Option<Box<models::StaticContent>>,
     #[serde(rename = "singletonProcessor", skip_serializing_if = "Option::is_none")]
     pub singleton_processor: Option<bool>,
+    /// source artifact that this ingress is attached to
+    #[serde(rename = "sourceId", skip_serializing_if = "Option::is_none")]
+    pub source_id: Option<String>,
 }
 
 impl IngressResponse {
@@ -47,6 +50,7 @@ impl IngressResponse {
             container: None,
             static_content: None,
             singleton_processor: None,
+            source_id: None,
         }
     }
 }

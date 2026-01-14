@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **container_pull_pwd** | Option<**String**> |  | [optional]
 **env_variables** | Option<[**std::collections::HashMap<String, models::EnvironmentVariablesValue>**](EnvironmentVariables_value.md)> |  | [optional]
 **mounts** | Option<[**Vec<models::VolumeMount>**](VolumeMount.md)> |  | [optional]
+**source_id** | Option<**String**> | source artifact that this ingress is attached to | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

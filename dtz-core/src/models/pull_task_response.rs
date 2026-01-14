@@ -32,6 +32,9 @@ pub struct PullTaskResponse {
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
     #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
     pub mounts: Option<Vec<models::VolumeMount>>,
+    /// source artifact that this ingress is attached to
+    #[serde(rename = "sourceId", skip_serializing_if = "Option::is_none")]
+    pub source_id: Option<String>,
 }
 
 impl PullTaskResponse {
@@ -46,6 +49,7 @@ impl PullTaskResponse {
             container_pull_pwd: None,
             env_variables: None,
             mounts: None,
+            source_id: None,
         }
     }
 }
