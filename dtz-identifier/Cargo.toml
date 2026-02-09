@@ -9,4 +9,4 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 serde = { workspace = true }
-rand = { version = "0.9" }
+rand = { version = "0.10" }
