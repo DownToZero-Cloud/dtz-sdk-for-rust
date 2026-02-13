@@ -1,6 +1,6 @@
 [package]
 name = "dtz-config"
-version = "1.0.3"
+version = "1.0.4"
 edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "config crate for the DownToZero Cloud API"

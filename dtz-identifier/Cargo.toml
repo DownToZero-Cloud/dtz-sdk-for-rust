@@ -1,6 +1,6 @@
 [package]
 name = "dtz-identifier"
-version = "1.5.2"
+version = "1.5.3"
 edition.workspace = true
 rust-version.workspace = true
 authors = ["jens@apimeister.com"]
