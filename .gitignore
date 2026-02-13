@@ -6,3 +6,4 @@ dtz-*/.gitignore
 .DS_Store
 .openapi-generator-ignore
 tf/
+Cargo.lock

@@ -38,7 +38,7 @@ serde_with = { version = "3", default-features = false, features = [
 url = "2"
 [workspace.dependencies.reqwest]
 version = "0.13"
-default-features = false
+default-features = true
 features = [
     "json",
     "multipart",
