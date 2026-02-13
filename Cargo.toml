@@ -1,5 +1,5 @@
 [workspace]
-package.rust-version = "1.85"
+package.rust-version = "1.87"
 package.edition = "2024"
 members = [
     "dtz",
@@ -43,7 +43,6 @@ features = [
     "json",
     "multipart",
     "rustls",
-    "webpki-roots",
     "http2",
     "zstd",
     "query",
