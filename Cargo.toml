@@ -14,7 +14,7 @@ members = [
     "dtz-observability",
     "dtz-rss2email",
 ]
-resolver = "2"
+resolver = "3"
 
 [workspace.dependencies]
 dtz-billing = { version = "=2.1.1", path = "./dtz-billing" }
