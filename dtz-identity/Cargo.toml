@@ -1,6 +1,6 @@
 [package]
 name = "dtz-identity"
-version = "2.1.5"
+version = "2.1.6"
 authors = ["jens@apimeister.com"]
 description = "a generated client for the DTZ Identity API"
 license = "MIT OR Apache-2.0"
@@ -19,6 +19,7 @@ serde_repr = "^0.1"
 serde_json = { workspace = true }
 url = { workspace = true }
 reqwest = { workspace = true }
+chrono = { workspace = true }
 
 [dev-dependencies]
 dtz = { path = "../dtz" , features = ["full"] }

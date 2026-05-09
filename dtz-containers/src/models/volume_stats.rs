@@ -19,11 +19,11 @@ pub struct VolumeStats {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "created")]
-    pub created: String,
+    pub created: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl VolumeStats {
-    pub fn new(volume_id: String, name: String, created: String) -> VolumeStats {
+    pub fn new(volume_id: String, name: String, created: chrono::DateTime<chrono::FixedOffset>) -> VolumeStats {
         VolumeStats {
             volume_id,
             name,

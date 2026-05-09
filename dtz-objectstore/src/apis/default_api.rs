@@ -61,7 +61,7 @@ pub struct PutObjectHeaders {
     /// expiration of the object, format is a iso8601 duration,e.g. \"P1D\" for 1 day, \"PT2H\" for 2 hours
     pub x_dtz_expire_in: Option<String>,
     /// expiration of the object, format is a rfc3339 timestamp, e.g. \"2025-04-01T13:44:00Z\"
-    pub x_dtz_expire_at: Option<String>,
+    pub x_dtz_expire_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// see docs https://downtozero.cloud/docs e.g. dtz-objectstore
     pub x_dtz_realm: Option<String>,
 }

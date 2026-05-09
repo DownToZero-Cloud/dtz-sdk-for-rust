@@ -19,7 +19,7 @@ pub struct ListChat200ResponseInner {
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
     #[serde(rename = "lastUpdate", skip_serializing_if = "Option::is_none")]
-    pub last_update: Option<String>,
+    pub last_update: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl ListChat200ResponseInner {

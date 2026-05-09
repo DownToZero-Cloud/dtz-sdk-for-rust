@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **service** | **String** |  | 
 **context_id** | [**dtz_identifier::ContextId**](dtz_identifier::ContextId.md) |  | 
 **description** | Option<**String**> |  | [optional]
-**interval_start** | **String** |  | 
+**interval_start** | [**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md) |  | 
 **interval_end** | **String** |  | 
 **values** | [**Vec<models::ConsumptionValue>**](ConsumptionValue.md) |  | 
 

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Identity
-  version: 2.1.4
+  version: 2.1.6
   description: a generated client for the DTZ Identity API
   license:
     name: Apache 2.0
@@ -53,6 +53,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        "409":
+          description: account already registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: invalid email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /signup_with_redirect:
+    post:
+      summary: create a new identity and redirect to oauth authorize instead of returning a token
+      description: |
+        Creates a new identity and its user authentication, provisions a default context, and then responds like a successful OAuth authorization request.
+
+        Instead of returning a token, the server immediately generates an authorization `code` bound to the newly created identity and default context and returns a JSON payload with a `location` field pointing to `https://dtz.rocks?code=...`.
+
+        The code can be exchanged via `/oauth/token` to retrieve an access token for the default context.
+      operationId: userSignupWithRedirect
+      security: []
+      requestBody:
+        description: signup
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+        required: true
+      responses:
+        "200":
+          description: returns JSON containing a `location` with an OAuth authorization code (default context)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OauthCodeResponse'
         "409":
           description: account already registered
           content:
@@ -278,7 +321,7 @@ paths:
                 contextId:
                   type: string
                   format: ContextId
-                  description: target context the token is issued for, if not present, a random context will be chosen.
+                  description: target context the token is issued for. The request fails if the caller is not authorized to assume the identity, the identity does not exist, the context does not exist, or the identity has no access to the context.
       responses:
         "200":
           description: success
@@ -506,8 +549,8 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
   /token/refresh:
     post:
-      summary: token refresh
-      description: token refresh
+      summary: token refresh, this operation is also used to switch context
+      description: this operation either returns a new token or a new token for a different context. Switching to an unknown context or a context unavailable to the current identity fails.
       operationId: tokenRefresh
       requestBody:
         content:
@@ -522,6 +565,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TokenResponse'
+        "400":
+          description: unknown context
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /roles:
     get:
       summary: get roles which are abstract - not assigned to any context or identity
@@ -635,10 +684,49 @@ paths:
               schema:
                 type: array
                 items:
-                  type: string
-                  format: IdentityId
+                  $ref: '#/components/schemas/RoleAssignmentEntry'
         "401":
           description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "500":
+          description: server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /roles/{roleId}/identity/{identityId}:
+    delete:
+      summary: revoke a context role assignment from an identity
+      operationId: revokeRoleAssignment
+      parameters:
+        - in: path
+          name: roleId
+          schema:
+            type: string
+            format: RoleId
+          required: true
+          description: role id
+        - in: path
+          name: identityId
+          schema:
+            type: string
+            format: IdentityId
+          required: true
+          description: identity id
+      responses:
+        "204":
+          description: role assignment revoked
+        "401":
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: role assignment not found in the current context
           content:
             application/json:
               schema:
@@ -891,6 +979,12 @@ paths:
                     description: When the client secret expires (if applicable)      
 components:
   schemas:
+    OauthCodeResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: OAuth authorization code
     ApikeyRequest:
       type: object
       properties:
@@ -1021,6 +1115,16 @@ components:
         - roleId
         - roleAlias
         - roleScope
+    RoleAssignmentEntry:
+      type: object
+      properties:
+        identityId:
+          type: string
+          format: IdentityId
+        email:
+          type: string
+      required:
+        - identityId
     OauthTokenRequest:
       type: object
       properties:

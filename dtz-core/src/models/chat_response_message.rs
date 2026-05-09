@@ -18,7 +18,7 @@ pub struct ChatResponseMessage {
     pub chat_id: Option<String>,
     /// when the message was created
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
-    pub created: Option<String>,
+    pub created: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
     pub content: Option<String>,
     /// who the answer is from

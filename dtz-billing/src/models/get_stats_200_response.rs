@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetStats200Response {
     #[serde(rename = "lastUpdated", skip_serializing_if = "Option::is_none")]
-    pub last_updated: Option<String>,
+    pub last_updated: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "balance", skip_serializing_if = "Option::is_none")]
     pub balance: Option<Box<models::GetStats200ResponseBalance>>,
     #[serde(rename = "previousDay", skip_serializing_if = "Option::is_none")]

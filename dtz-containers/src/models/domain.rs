@@ -21,11 +21,11 @@ pub struct Domain {
     #[serde(rename = "verified")]
     pub verified: bool,
     #[serde(rename = "created")]
-    pub created: String,
+    pub created: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl Domain {
-    pub fn new(context_id: dtz_identifier::ContextId, name: String, verified: bool, created: String) -> Domain {
+    pub fn new(context_id: dtz_identifier::ContextId, name: String, verified: bool, created: chrono::DateTime<chrono::FixedOffset>) -> Domain {
         Domain {
             context_id,
             name,

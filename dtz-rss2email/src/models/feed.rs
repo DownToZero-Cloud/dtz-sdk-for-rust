@@ -19,9 +19,9 @@ pub struct Feed {
     #[serde(rename = "url")]
     pub url: String,
     #[serde(rename = "lastCheck")]
-    pub last_check: String,
+    pub last_check: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "lastDataFound")]
-    pub last_data_found: String,
+    pub last_data_found: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "enabled")]
     pub enabled: bool,
     #[serde(rename = "name")]
@@ -29,7 +29,7 @@ pub struct Feed {
 }
 
 impl Feed {
-    pub fn new(id: dtz_identifier::FeedId, url: String, last_check: String, last_data_found: String, enabled: bool, name: String) -> Feed {
+    pub fn new(id: dtz_identifier::FeedId, url: String, last_check: chrono::DateTime<chrono::FixedOffset>, last_data_found: chrono::DateTime<chrono::FixedOffset>, enabled: bool, name: String) -> Feed {
         Feed {
             id,
             url,

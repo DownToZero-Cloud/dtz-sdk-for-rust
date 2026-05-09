@@ -22,10 +22,10 @@ pub struct OauthRegister200Response {
     pub client_secret: Option<String>,
     /// When the client ID was issued
     #[serde(rename = "client_id_issued_at", skip_serializing_if = "Option::is_none")]
-    pub client_id_issued_at: Option<String>,
+    pub client_id_issued_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// When the client secret expires (if applicable)
     #[serde(rename = "client_secret_expires_at", skip_serializing_if = "Option::is_none")]
-    pub client_secret_expires_at: Option<String>,
+    pub client_secret_expires_at: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl OauthRegister200Response {

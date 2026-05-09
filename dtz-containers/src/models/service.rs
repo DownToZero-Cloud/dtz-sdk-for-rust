@@ -25,9 +25,9 @@ pub struct Service {
     #[serde(rename = "serviceId")]
     pub service_id: dtz_identifier::ServiceId,
     #[serde(rename = "created")]
-    pub created: String,
+    pub created: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
-    pub updated: Option<String>,
+    pub updated: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "containerImage")]
@@ -52,7 +52,7 @@ pub struct Service {
 }
 
 impl Service {
-    pub fn new(context_id: dtz_identifier::ContextId, enabled: bool, service_id: dtz_identifier::ServiceId, created: String, prefix: String, container_image: String) -> Service {
+    pub fn new(context_id: dtz_identifier::ContextId, enabled: bool, service_id: dtz_identifier::ServiceId, created: chrono::DateTime<chrono::FixedOffset>, prefix: String, container_image: String) -> Service {
         Service {
             context_id,
             enabled,

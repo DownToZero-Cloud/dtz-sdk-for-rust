@@ -224,6 +224,16 @@ pub enum OauthUserinfoError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`revoke_role_assignment`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RevokeRoleAssignmentError {
+    Status401(models::ErrorResponse),
+    Status404(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`share_concrete_role`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -237,6 +247,7 @@ pub enum ShareConcreteRoleError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum TokenRefreshError {
+    Status400(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -267,6 +278,16 @@ pub enum UserLoginError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UserSignupError {
+    Status409(models::ErrorResponse),
+    Status400(models::ErrorResponse),
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`user_signup_with_redirect`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UserSignupWithRedirectError {
     Status409(models::ErrorResponse),
     Status400(models::ErrorResponse),
     Status500(models::ErrorResponse),
@@ -818,7 +839,7 @@ pub async fn get_concrete_roles_for_identity(configuration: &Configuration, iden
     }
 }
 
-pub async fn get_role_assignment(configuration: &Configuration, role_id: &str) -> Result<Vec<dtz_identifier::IdentityId>, Error<GetRoleAssignmentError>> {
+pub async fn get_role_assignment(configuration: &Configuration, role_id: &str) -> Result<Vec<models::RoleAssignmentEntry>, Error<GetRoleAssignmentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
 
@@ -848,8 +869,8 @@ pub async fn get_role_assignment(configuration: &Configuration, role_id: &str) -
         let content = resp.text().await?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;dtz_identifier::IdentityId&gt;`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;dtz_identifier::IdentityId&gt;`")))),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::RoleAssignmentEntry&gt;`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::RoleAssignmentEntry&gt;`")))),
         }
     } else {
         let content = resp.text().await?;
@@ -1261,6 +1282,36 @@ pub async fn oauth_userinfo(configuration: &Configuration) -> Result<std::collec
     }
 }
 
+pub async fn revoke_role_assignment(configuration: &Configuration, role_id: &str, identity_id: &str) -> Result<(), Error<RevokeRoleAssignmentError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_role_id = role_id;
+    let p_path_identity_id = identity_id;
+
+    let uri_str = format!("{}/roles/{roleId}/identity/{identityId}", build_url(configuration), roleId=crate::apis::urlencode(p_path_role_id), identityId=crate::apis::urlencode(p_path_identity_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RevokeRoleAssignmentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn share_concrete_role(configuration: &Configuration, role_id: &str, check_identity_request: models::CheckIdentityRequest) -> Result<(), Error<ShareConcreteRoleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_role_id = role_id;
@@ -1292,7 +1343,7 @@ pub async fn share_concrete_role(configuration: &Configuration, role_id: &str, c
     }
 }
 
-/// token refresh
+/// this operation either returns a new token or a new token for a different context. Switching to an unknown context or a context unavailable to the current identity fails.
 pub async fn token_refresh(configuration: &Configuration, change_context_request: models::ChangeContextRequest) -> Result<models::TokenResponse, Error<TokenRefreshError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_change_context_request = change_context_request;
@@ -1460,6 +1511,42 @@ pub async fn user_signup(configuration: &Configuration, signup_request: models::
     } else {
         let content = resp.text().await?;
         let entity: Option<UserSignupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Creates a new identity and its user authentication, provisions a default context, and then responds like a successful OAuth authorization request.  Instead of returning a token, the server immediately generates an authorization `code` bound to the newly created identity and default context and returns a JSON payload with a `location` field pointing to `https://dtz.rocks?code=...`.  The code can be exchanged via `/oauth/token` to retrieve an access token for the default context. 
+pub async fn user_signup_with_redirect(configuration: &Configuration, signup_request: models::SignupRequest) -> Result<models::OauthCodeResponse, Error<UserSignupWithRedirectError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_signup_request = signup_request;
+
+    let uri_str = format!("{}/signup_with_redirect", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    req_builder = req_builder.json(&p_body_signup_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OauthCodeResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OauthCodeResponse`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UserSignupWithRedirectError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

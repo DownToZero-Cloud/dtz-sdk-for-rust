@@ -23,17 +23,17 @@ pub struct ObjectMetadata {
     #[serde(rename = "sizeCompressed", skip_serializing_if = "Option::is_none")]
     pub size_compressed: Option<i32>,
     #[serde(rename = "lastModified")]
-    pub last_modified: String,
+    pub last_modified: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "lastAccessed")]
-    pub last_accessed: String,
+    pub last_accessed: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
     pub metadata: Option<serde_json::Value>,
     #[serde(rename = "expiration", skip_serializing_if = "Option::is_none")]
-    pub expiration: Option<String>,
+    pub expiration: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl ObjectMetadata {
-    pub fn new(id: String, key: String, size: i32, last_modified: String, last_accessed: String) -> ObjectMetadata {
+    pub fn new(id: String, key: String, size: i32, last_modified: chrono::DateTime<chrono::FixedOffset>, last_accessed: chrono::DateTime<chrono::FixedOffset>) -> ObjectMetadata {
         ObjectMetadata {
             id,
             key,

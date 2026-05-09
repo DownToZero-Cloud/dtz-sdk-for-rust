@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**last_updated** | Option<**String**> |  | [optional]
+**last_updated** | Option<[**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md)> |  | [optional]
 **balance** | Option<[**models::GetStats200ResponseBalance**](getStats_200_response_balance.md)> |  | [optional]
 **previous_day** | Option<[**models::GetStats200ResponsePreviousDay**](getStats_200_response_previousDay.md)> |  | [optional]
 **previous_week** | Option<[**models::GetStats200ResponsePreviousDay**](getStats_200_response_previousDay.md)> |  | [optional]

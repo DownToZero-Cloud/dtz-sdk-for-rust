@@ -17,7 +17,7 @@ pub struct Chat {
     #[serde(rename = "chatId", skip_serializing_if = "Option::is_none")]
     pub chat_id: Option<String>,
     #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
-    pub created: Option<String>,
+    pub created: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "owner", skip_serializing_if = "Option::is_none")]
     pub owner: Option<dtz_identifier::IdentityId>,
     #[serde(rename = "privileges", skip_serializing_if = "Option::is_none")]

@@ -20,9 +20,9 @@ pub struct CreateTaskRequest {
     #[serde(rename = "service")]
     pub service: String,
     #[serde(rename = "earliestStart")]
-    pub earliest_start: String,
+    pub earliest_start: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "latestStart")]
-    pub latest_start: String,
+    pub latest_start: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "requireEcoMode")]
     pub require_eco_mode: bool,
     #[serde(rename = "taskDefinition")]
@@ -33,7 +33,7 @@ pub struct CreateTaskRequest {
 }
 
 impl CreateTaskRequest {
-    pub fn new(task_name: String, service: String, earliest_start: String, latest_start: String, require_eco_mode: bool, task_definition: models::CreateTaskRequestTaskDefinition) -> CreateTaskRequest {
+    pub fn new(task_name: String, service: String, earliest_start: chrono::DateTime<chrono::FixedOffset>, latest_start: chrono::DateTime<chrono::FixedOffset>, require_eco_mode: bool, task_definition: models::CreateTaskRequestTaskDefinition) -> CreateTaskRequest {
         CreateTaskRequest {
             task_name,
             service,

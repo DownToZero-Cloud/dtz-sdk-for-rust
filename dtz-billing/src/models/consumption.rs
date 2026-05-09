@@ -21,7 +21,7 @@ pub struct Consumption {
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "intervalStart")]
-    pub interval_start: String,
+    pub interval_start: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "intervalEnd")]
     pub interval_end: String,
     #[serde(rename = "values")]
@@ -29,7 +29,7 @@ pub struct Consumption {
 }
 
 impl Consumption {
-    pub fn new(service: String, context_id: dtz_identifier::ContextId, interval_start: String, interval_end: String, values: Vec<models::ConsumptionValue>) -> Consumption {
+    pub fn new(service: String, context_id: dtz_identifier::ContextId, interval_start: chrono::DateTime<chrono::FixedOffset>, interval_end: String, values: Vec<models::ConsumptionValue>) -> Consumption {
         Consumption {
             service,
             context_id,

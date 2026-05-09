@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **chat_id** | Option<**String**> |  | [optional]
-**created** | Option<**String**> | when the message was created | [optional]
+**created** | Option<[**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md)> | when the message was created | [optional]
 **content** | Option<**String**> |  | [optional]
 **identity_id** | Option<[**dtz_identifier::IdentityId**](dtz_identifier::IdentityId.md)> | who the answer is from | [optional]
 

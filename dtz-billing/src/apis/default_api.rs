@@ -175,7 +175,7 @@ pub async fn get_stats(configuration: &Configuration) -> Result<models::GetStats
     }
 }
 
-pub async fn list_transactions(configuration: &Configuration, start: Option<String>, end: Option<String>, service: Option<&str>, context_id: Option<&str>) -> Result<Vec<models::Transaction>, Error<ListTransactionsError>> {
+pub async fn list_transactions(configuration: &Configuration, start: Option<chrono::DateTime<chrono::FixedOffset>>, end: Option<chrono::DateTime<chrono::FixedOffset>>, service: Option<&str>, context_id: Option<&str>) -> Result<Vec<models::Transaction>, Error<ListTransactionsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_start = start;
     let p_query_end = end;

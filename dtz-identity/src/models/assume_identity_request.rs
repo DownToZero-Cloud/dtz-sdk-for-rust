@@ -18,7 +18,7 @@ pub struct AssumeIdentityRequest {
     pub email: Option<String>,
     #[serde(rename = "identityId", skip_serializing_if = "Option::is_none")]
     pub identity_id: Option<dtz_identifier::IdentityId>,
-    /// target context the token is issued for, if not present, a random context will be chosen.
+    /// target context the token is issued for. The request fails if the caller is not authorized to assume the identity, the identity does not exist, the context does not exist, or the identity has no access to the context.
     #[serde(rename = "contextId", skip_serializing_if = "Option::is_none")]
     pub context_id: Option<dtz_identifier::ContextId>,
 }

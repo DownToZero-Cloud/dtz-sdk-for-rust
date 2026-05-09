@@ -102,8 +102,8 @@ get a transaction listing of all incoming and outgoing charges
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
-**start** | Option<**String**> | filter timeframe from that date |  |
-**end** | Option<**String**> | filter timeframe to that date |  |
+**start** | Option<**chrono::DateTime<chrono::FixedOffset>**> | filter timeframe from that date |  |
+**end** | Option<**chrono::DateTime<chrono::FixedOffset>**> | filter timeframe to that date |  |
 **service** | Option<**String**> | filter by service |  |
 **context_id** | Option<**String**> | filter by context id |  |
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**created** | Option<**String**> |  | [optional]
+**created** | Option<[**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md)> |  | [optional]
 **content** | Option<**String**> |  | [optional]
 **identity_id** | Option<[**dtz_identifier::IdentityId**](dtz_identifier::IdentityId.md)> |  | [optional]
 

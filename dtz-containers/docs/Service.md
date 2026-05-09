@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **enabled** | **bool** | whether this service is active and should be propagated to ingress | 
 **domain** | Option<**Vec<String>**> | by default this property is empty, this property is only populated if it was part of the service creation. | [optional]
 **service_id** | [**dtz_identifier::ServiceId**](dtz_identifier::ServiceId.md) |  | 
-**created** | **String** |  | 
-**updated** | Option<**String**> |  | [optional]
+**created** | [**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md) |  | 
+**updated** | Option<[**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md)> |  | [optional]
 **prefix** | **String** |  | 
 **container_image** | **String** |  | 
 **container_image_version** | Option<**String**> |  | [optional]

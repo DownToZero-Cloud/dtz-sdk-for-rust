@@ -16,10 +16,10 @@ use serde::{Deserialize, Serialize};
 pub struct Validity {
     /// if not present, ingress is immediately available
     #[serde(rename = "validFrom", skip_serializing_if = "Option::is_none")]
-    pub valid_from: Option<String>,
+    pub valid_from: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// if not present, ingress is available forwever
     #[serde(rename = "validTo", skip_serializing_if = "Option::is_none")]
-    pub valid_to: Option<String>,
+    pub valid_to: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl Validity {

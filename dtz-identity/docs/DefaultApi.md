@@ -30,12 +30,14 @@ Method | HTTP request | Description
 [**oauth_register**](DefaultApi.md#oauth_register) | **POST** /oauth/register | register oauth client
 [**oauth_token**](DefaultApi.md#oauth_token) | **POST** /oauth/token | oauth token request
 [**oauth_userinfo**](DefaultApi.md#oauth_userinfo) | **GET** /oauth/userinfo | get user information from oauth token
+[**revoke_role_assignment**](DefaultApi.md#revoke_role_assignment) | **DELETE** /roles/{roleId}/identity/{identityId} | revoke a context role assignment from an identity
 [**share_concrete_role**](DefaultApi.md#share_concrete_role) | **POST** /roles/{roleId}/share | sharing a role with another identity
-[**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh
+[**token_refresh**](DefaultApi.md#token_refresh) | **POST** /token/refresh | token refresh, this operation is also used to switch context
 [**unassign_concrete_role**](DefaultApi.md#unassign_concrete_role) | **DELETE** /me/roles/{roleId} | remove assignment of a concrete role from current identity
 [**update_api_key_alias**](DefaultApi.md#update_api_key_alias) | **PATCH** /me/identity/apikey/{apikey} | update the api key alias
 [**user_login**](DefaultApi.md#user_login) | **POST** /token/auth | user login
 [**user_signup**](DefaultApi.md#user_signup) | **POST** /signup | create a new identity with the given email as account email, also create an authentication with the given credentials to allow a login, creates a default context
+[**user_signup_with_redirect**](DefaultApi.md#user_signup_with_redirect) | **POST** /signup_with_redirect | create a new identity and redirect to oauth authorize instead of returning a token
 
 
 
@@ -450,7 +452,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_role_assignment
 
-> Vec<dtz_identifier::IdentityId> get_role_assignment(role_id)
+> Vec<models::RoleAssignmentEntry> get_role_assignment(role_id)
 get all indentities which have this role assigned to
 
 ### Parameters
@@ -462,7 +464,7 @@ Name | Type | Description  | Required | Notes
 
 ### Return type
 
-[**Vec<dtz_identifier::IdentityId>**](dtz_identifier::IdentityId.md)
+[**Vec<models::RoleAssignmentEntry>**](RoleAssignmentEntry.md)
 
 ### Authorization
 
@@ -765,6 +767,35 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## revoke_role_assignment
+
+> revoke_role_assignment(role_id, identity_id)
+revoke a context role assignment from an identity
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**role_id** | **dtz_identifier::RoleId** | role id | [required] |
+**identity_id** | **dtz_identifier::IdentityId** | identity id | [required] |
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## share_concrete_role
 
 > share_concrete_role(role_id, check_identity_request)
@@ -797,9 +828,9 @@ Name | Type | Description  | Required | Notes
 ## token_refresh
 
 > models::TokenResponse token_refresh(change_context_request)
-token refresh
+token refresh, this operation is also used to switch context
 
-token refresh
+this operation either returns a new token or a new token for a different context. Switching to an unknown context or a context unavailable to the current identity fails.
 
 ### Parameters
 
@@ -924,6 +955,36 @@ Name | Type | Description  | Required | Notes
 ### Return type
 
 [**models::TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## user_signup_with_redirect
+
+> models::OauthCodeResponse user_signup_with_redirect(signup_request)
+create a new identity and redirect to oauth authorize instead of returning a token
+
+Creates a new identity and its user authentication, provisions a default context, and then responds like a successful OAuth authorization request.  Instead of returning a token, the server immediately generates an authorization `code` bound to the newly created identity and default context and returns a JSON payload with a `location` field pointing to `https://dtz.rocks?code=...`.  The code can be exchanged via `/oauth/token` to retrieve an access token for the default context. 
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**signup_request** | [**SignupRequest**](SignupRequest.md) | signup | [required] |
+
+### Return type
+
+[**models::OauthCodeResponse**](OauthCodeResponse.md)
 
 ### Authorization
 

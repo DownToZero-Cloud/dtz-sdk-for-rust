@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | [**dtz_identifier::FeedId**](dtz_identifier::FeedId.md) |  | 
 **url** | **String** |  | 
-**last_check** | **String** |  | 
-**last_data_found** | **String** |  | 
+**last_check** | [**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md) |  | 
+**last_data_found** | [**chrono::DateTime<chrono::FixedOffset>**](chrono::DateTime<chrono::FixedOffset>.md) |  | 
 **enabled** | **bool** |  | 
 **name** | **String** |  | 
 

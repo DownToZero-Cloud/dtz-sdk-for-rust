@@ -21,9 +21,9 @@ pub struct ListAuthentication200ResponseApiKeyAuthInner {
     #[serde(rename = "alias", skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
     #[serde(rename = "createdAt", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<String>,
+    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "lastUsedAt", skip_serializing_if = "Option::is_none")]
-    pub last_used_at: Option<String>,
+    pub last_used_at: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl ListAuthentication200ResponseApiKeyAuthInner {

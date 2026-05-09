@@ -19,13 +19,13 @@ pub struct ContextResponse {
     #[serde(rename = "owner")]
     pub owner: dtz_identifier::IdentityId,
     #[serde(rename = "created")]
-    pub created: String,
+    pub created: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "alias", skip_serializing_if = "Option::is_none")]
     pub alias: Option<String>,
 }
 
 impl ContextResponse {
-    pub fn new(context_id: dtz_identifier::ContextId, owner: dtz_identifier::IdentityId, created: String) -> ContextResponse {
+    pub fn new(context_id: dtz_identifier::ContextId, owner: dtz_identifier::IdentityId, created: chrono::DateTime<chrono::FixedOffset>) -> ContextResponse {
         ContextResponse {
             context_id,
             owner,
