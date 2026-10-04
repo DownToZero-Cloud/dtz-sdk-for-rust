@@ -1,5 +1,5 @@
 [workspace]
-package.rust-version = "1.87"
+package.rust-version = "1.90"
 package.edition = "2024"
 members = [
     "dtz",
