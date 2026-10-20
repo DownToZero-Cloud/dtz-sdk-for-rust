@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **rewrite** | Option<[**models::ServiceRewrite**](Service_rewrite.md)> |  | [optional]
 **login** | Option<[**models::UpdateServiceRequestLogin**](UpdateServiceRequest_login.md)> |  | [optional]
 **mounts** | Option<[**Vec<models::VolumeMount>**](VolumeMount.md)> |  | [optional]
+**identity_token_in_env** | Option<**bool**> | whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a service that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires | [optional][default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,6 +1,6 @@
 [package]
 name = "dtz"
-version = "1.3.11"
+version = "1.3.12"
 edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "The DownToZero Cloud SDK"
@@ -14,6 +14,8 @@ categories = ["api-bindings", "development-tools"]
 
 [features]
 billing = ["dep:dtz-billing"]
+# a postgres pool that logs in with the token of the service's database identity
+postgres = ["dtz-config/postgres"]
 containerregistry = ["dep:dtz-containerregistry"]
 containers = ["dep:dtz-containers"]
 core = ["dep:dtz-core"]

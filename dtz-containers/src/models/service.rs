@@ -49,6 +49,9 @@ pub struct Service {
     pub login: Option<Box<models::ServiceLogin>>,
     #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
     pub mounts: Option<Vec<models::VolumeMount>>,
+    /// whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a service that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
+    #[serde(rename = "identityTokenInEnv", skip_serializing_if = "Option::is_none")]
+    pub identity_token_in_env: Option<bool>,
 }
 
 impl Service {
@@ -70,6 +73,7 @@ impl Service {
             rewrite: None,
             login: None,
             mounts: None,
+            identity_token_in_env: None,
         }
     }
 }

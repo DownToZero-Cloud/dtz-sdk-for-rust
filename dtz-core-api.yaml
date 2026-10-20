@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Core Api
-  version: 2.3.6
+  version: 2.3.7
   description: a generated client for the DTZ Core API
   license:
     name: Apache 2.0
@@ -26,6 +26,8 @@ paths:
                 $ref: '#/components/schemas/ContextResponse'
         "404":
           description: context not found
+        "503":
+          description: context could not be read from storage, try again
     post:
       summary: create new context
       description: create new context
@@ -68,6 +70,8 @@ paths:
                 $ref: '#/components/schemas/ContextResponse'
         "404":
           description: context not found
+        "503":
+          description: context could not be read from storage, try again
     post:
       summary: update context
       description: update context
@@ -96,6 +100,8 @@ paths:
             application/json: 
               schema:
                 $ref: '#/components/schemas/ContextResponse'
+        "503":
+          description: context could not be read from storage, try again
     delete:
       summary: delete context
       operationId: deleteContext
@@ -139,6 +145,8 @@ paths:
                     lastUpdate:
                       type: string
                       format: date-time
+        "503":
+          description: chats could not be read from storage, try again
     post:
       summary: create a new chat by posting a message
       operationId: createChat
@@ -158,6 +166,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChatResponseMessage'
+        "503":
+          description: chat could not be written to storage, try again
   /chat/{chat_id}:
     get:
       summary: get the full chat timeline
@@ -181,6 +191,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Chat'
+        "503":
+          description: chat could not be read from storage, try again
     post:
       summary: add a new message to the chat
       operationId: updateChat
@@ -208,7 +220,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ChatResponseMessage'
+        "503":
+          description: chat could not be read from or written to storage, try again
   /certificate:
+    get:
+      summary: list all stored certificates
+      description: |
+        lists every stored certificate of every host without its key material,
+        together with the context whose ingress serves the host. only the
+        infra context may call it. the call is also the pruning pass: a
+        certificate that expired more than two days ago is removed from
+        storage, and a host without certificates left is deleted
+      operationId: listCertificates
+      responses:
+        "200":
+          description: the stored certificates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CertificateInfo'
+        "401":
+          description: the caller is no admin of its context
+        "403":
+          description: the caller is not the infra context
+        "503":
+          description: certificates could not be listed, try again
     post:
       summary: issue a certificate
       description: |
@@ -228,8 +266,14 @@ paths:
       responses:
         "200":
           description: issue certificate response
+        "400":
+          description: domain is not a host name
+        "403":
+          description: the domain is owned by another context, or it lies inside a zone of the platform (dtz.rocks, dtz.dev) and is not a host of the calling context
         "429":
           description: too many certificates already issued
+        "503":
+          description: stored certificate could not be read, try again
   /task:
     post:
       summary: pull one task from the async task queue
@@ -339,6 +383,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IngressResponse'
+        "503":
+          description: ingress could not be read from storage, try again
   /ingress/{domain}/:
     get:
       summary: get ingress for '/' path
@@ -366,6 +412,8 @@ paths:
                 $ref: '#/components/schemas/IngressResponse'
         "404":
           description: ingress not found
+        "503":
+          description: ingress could not be read from storage, try again
     post:
       summary: create or update ingress
       operationId: createRootIngress
@@ -396,6 +444,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngressResponse'
+        "400":
+          description: domain is not a host name, or its A and AAAA records are not the ones of dtz.rocks
+        "403":
+          description: domain is owned by another context, or it lies inside a zone of the platform (dtz.rocks, dtz.dev) and is not a host of the calling context
+        "503":
+          description: ingress could not be read from storage or the domain could not be resolved, try again
     delete:
       summary: delete ingress
       operationId: deleteRootIngress
@@ -417,6 +471,10 @@ paths:
       responses:
         "200":
           description: status
+        "403":
+          description: domain is owned by another context
+        "503":
+          description: ingress could not be read from storage, try again
   /ingress/{domain}/{uri}:
     get:
       summary: get ingress for '/' path
@@ -450,6 +508,8 @@ paths:
                 $ref: '#/components/schemas/IngressResponse'
         "404":
           description: ingress not found
+        "503":
+          description: ingress could not be read from storage, try again
     post:
       summary: create static content for ingress
       operationId: createIngress
@@ -486,6 +546,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/IngressResponse'
+        "400":
+          description: domain is not a host name, or its A and AAAA records are not the ones of dtz.rocks
+        "403":
+          description: domain is owned by another context, or it lies inside a zone of the platform (dtz.rocks, dtz.dev) and is not a host of the calling context
+        "503":
+          description: ingress could not be read from storage or the domain could not be resolved, try again
     delete:
       summary: delete ingress
       operationId: deleteIngress
@@ -513,6 +579,10 @@ paths:
       responses:
         "200":
           description: status
+        "403":
+          description: domain is owned by another context
+        "503":
+          description: ingress could not be read from storage, try again
   /identity/availableContexts:
     get:
       summary: list all avaiable contexts
@@ -526,8 +596,99 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ContextResponse'                    
+  /containerregistry:
+    post:
+      summary: provision the container registry of the current context
+      description: |
+        creates the dns record, the ingress and the certificate for the
+        container registry of the current context ({contextId}.cr.dtz.dev).
+        the registry image is set by the core service. it is the shared platform
+        image, which the nodes pull with the identity of the context.
+      operationId: provisionContainerRegistry
+      responses:
+        "200":
+          description: registry is provisioned
+        "401":
+          description: caller is not admin of the context
+        "429":
+          description: too many certificates already issued
+        "503":
+          description: ingress or certificate could not be created
+    delete:
+      summary: remove the container registry of the current context
+      description: |
+        deletes the ingress and the dns record of the container registry of
+        the current context.
+      operationId: deprovisionContainerRegistry
+      x-openai-isConsequential: true
+      responses:
+        "200":
+          description: registry is removed
+        "401":
+          description: caller is not admin of the context or of its container registry
+  /containerregistry/credentials:
+    post:
+      summary: issue temporary storage credentials for the container registry of the current context
+      description: |
+        returns temporary credentials for the registry storage. they are valid
+        for one hour and limited to the objects of the current context.
+        only an admin of the context gets them.
+      operationId: issueContainerRegistryStorageCredentials
+      responses:
+        "200":
+          description: temporary storage credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StorageCredentials'
+        "401":
+          description: caller is not admin of the context
+        "503":
+          description: credentials could not be issued
 components:
   schemas:
+    CertificateInfo:
+      type: object
+      description: a stored certificate without its key material
+      properties:
+        host:
+          type: string
+        contextId:
+          type: string
+          format: ContextId
+          description: the context the certificate is stored for
+        owner:
+          type: string
+          format: ContextId
+          description: the context whose ingress serves the host; absent when the host has no ingress. a renewal has to be requested by this context
+        validFrom:
+          type: string
+          format: date-time
+        validTo:
+          type: string
+          format: date-time
+      required:
+        - host
+        - contextId
+        - validFrom
+        - validTo
+    StorageCredentials:
+      type: object
+      properties:
+        accessKeyId:
+          type: string
+        secretAccessKey:
+          type: string
+        sessionToken:
+          type: string
+        expiration:
+          type: string
+          format: date-time
+      required:
+        - accessKeyId
+        - secretAccessKey
+        - sessionToken
+        - expiration
     PullTaskResponse:
       type: object
       properties:
@@ -548,6 +709,7 @@ components:
           type: string
         containerPullPwd:
           type: string
+          description: write-only, accepted on create and never returned
         envVariables:
           $ref: '#/components/schemas/EnvironmentVariables'
         mounts:
@@ -557,6 +719,17 @@ components:
         sourceId:
           description: source artifact that this ingress is attached to
           type: string
+        accessToken:
+          type: string
+          description: the workload token of the task's context for the hour of the job, attached when the puller holds the task/pull scope of the infra context
+        databaseToken:
+          type: string
+          description: the token of the job's database identity, when the task names one
+        secrets:
+          type: object
+          description: the job's parameters, served to the container by the runner, never put into its environment
+          additionalProperties:
+            type: string
       required:
       - contextId
       - executionId
@@ -710,12 +883,17 @@ components:
           type: string
         containerPullPwd:
           type: string
+          description: write-only, accepted on create and never returned
         envVariables:
           $ref: '#/components/schemas/EnvironmentVariables'
         mounts:
           type: array
           items:
             $ref: '#/components/schemas/VolumeMount'
+        identityTokenInEnv:
+          type: boolean
+          default: true
+          description: whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a container that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
       required:
       - containerImage
     Chat:
@@ -810,6 +988,7 @@ components:
               type: string
             containerPullPwd:
               type: string
+              description: write-only, accepted on create and never returned
             envVariables:
               $ref: '#/components/schemas/EnvironmentVariables'
             mounts:

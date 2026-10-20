@@ -18,6 +18,7 @@ pub struct CreateTaskRequestTaskDefinition {
     pub container_image: String,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
+    /// write-only, accepted on create and never returned
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]

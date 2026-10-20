@@ -1,3 +1,5 @@
+pub mod certificate_info;
+pub use self::certificate_info::CertificateInfo;
 pub mod chat;
 pub use self::chat::Chat;
 pub mod chat_privileges;
@@ -46,6 +48,8 @@ pub mod static_content_http;
 pub use self::static_content_http::StaticContentHttp;
 pub mod static_content_http_header_inner;
 pub use self::static_content_http_header_inner::StaticContentHttpHeaderInner;
+pub mod storage_credentials;
+pub use self::storage_credentials::StorageCredentials;
 pub mod validity;
 pub use self::validity::Validity;
 pub mod volume_mount;

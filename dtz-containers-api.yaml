@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: DTZ Containers
-  version: 2.2.7
+  version: 2.2.8
   description: a generated client for the DTZ Containers API
   license:
     name: Apache 2.0
@@ -681,6 +681,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VolumeMount'
+        identityTokenInEnv:
+          type: boolean
+          default: true
+          description: whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a service that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
       required:
         - contextId
         - serviceId
@@ -748,6 +752,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VolumeMount'
+        identityTokenInEnv:
+          type: boolean
+          default: true
+          description: whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a service that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
       required:
         - enabled
         - prefix
@@ -815,6 +823,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/VolumeMount'
+        identityTokenInEnv:
+          type: boolean
+          default: true
+          description: whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a service that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
       required:
         - enabled
         - prefix
@@ -825,7 +837,7 @@ components:
       properties:
         encryptionKey:
           type: string
-          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'."
+          description: "Encryption algorithm or key reference, e.g. 'AES256:KEY1'. Use 'CDK' for context-derived-key (derived from context id and variable name)."
         encryptedValue:
           type: string
           description: "The base-64 encoded ciphertext."

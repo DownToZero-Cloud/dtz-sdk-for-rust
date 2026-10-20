@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **container_image** | **String** |  | 
 **container_pull_user** | Option<**String**> |  | [optional]
-**container_pull_pwd** | Option<**String**> |  | [optional]
+**container_pull_pwd** | Option<**String**> | write-only, accepted on create and never returned | [optional]
 **env_variables** | Option<[**std::collections::HashMap<String, models::EnvironmentVariablesValue>**](EnvironmentVariables_value.md)> |  | [optional]
 **mounts** | Option<[**Vec<models::VolumeMount>**](VolumeMount.md)> |  | [optional]
 

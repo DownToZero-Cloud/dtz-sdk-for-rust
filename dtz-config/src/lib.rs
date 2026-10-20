@@ -1,5 +1,9 @@
 use reqwest::redirect::Policy;
 
+pub mod credentials;
+#[cfg(feature = "postgres")]
+pub mod postgres;
+
 #[derive(Debug, Clone)]
 pub struct Configuration {
     pub base_path: Option<String>,

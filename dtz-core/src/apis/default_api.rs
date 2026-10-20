@@ -137,6 +137,14 @@ pub enum DeleteRootIngressSuccess {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed successes of method [`deprovision_container_registry`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeprovisionContainerRegistrySuccess {
+    Status200(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`get_chat`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -193,11 +201,27 @@ pub enum IssueCertificateSuccess {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed successes of method [`issue_container_registry_storage_credentials`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueContainerRegistryStorageCredentialsSuccess {
+    Status200(models::StorageCredentials),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed successes of method [`list_available_contexts`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListAvailableContextsSuccess {
     Status200(Vec<models::ContextResponse>),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`list_certificates`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListCertificatesSuccess {
+    Status200(Vec<models::CertificateInfo>),
     UnknownValue(serde_json::Value),
 }
 
@@ -214,6 +238,14 @@ pub enum ListChatSuccess {
 #[serde(untagged)]
 pub enum ListIngressSuccess {
     Status200(Vec<models::IngressResponse>),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed successes of method [`provision_container_registry`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ProvisionContainerRegistrySuccess {
+    Status200(),
     UnknownValue(serde_json::Value),
 }
 
@@ -246,6 +278,7 @@ pub enum UpdateContextSuccess {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateChatError {
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -260,6 +293,9 @@ pub enum CreateContextError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateIngressError {
+    Status400(),
+    Status403(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -267,6 +303,9 @@ pub enum CreateIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum CreateRootIngressError {
+    Status400(),
+    Status403(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -289,6 +328,8 @@ pub enum DeleteContextError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteIngressError {
+    Status403(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -296,6 +337,16 @@ pub enum DeleteIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteRootIngressError {
+    Status403(),
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`deprovision_container_registry`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeprovisionContainerRegistryError {
+    Status401(),
     UnknownValue(serde_json::Value),
 }
 
@@ -303,6 +354,7 @@ pub enum DeleteRootIngressError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetChatError {
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -311,6 +363,7 @@ pub enum GetChatError {
 #[serde(untagged)]
 pub enum GetContextError {
     Status404(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -319,6 +372,7 @@ pub enum GetContextError {
 #[serde(untagged)]
 pub enum GetCurrentContextError {
     Status404(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -327,6 +381,7 @@ pub enum GetCurrentContextError {
 #[serde(untagged)]
 pub enum GetIngressError {
     Status404(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -335,6 +390,7 @@ pub enum GetIngressError {
 #[serde(untagged)]
 pub enum GetRootIngressError {
     Status404(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -349,7 +405,19 @@ pub enum GetTaskHistoryError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum IssueCertificateError {
+    Status400(),
+    Status403(),
     Status429(),
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`issue_container_registry_storage_credentials`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum IssueContainerRegistryStorageCredentialsError {
+    Status401(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -360,10 +428,21 @@ pub enum ListAvailableContextsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_certificates`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListCertificatesError {
+    Status401(),
+    Status403(),
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`list_chat`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListChatError {
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -371,6 +450,17 @@ pub enum ListChatError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum ListIngressError {
+    Status503(),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`provision_container_registry`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ProvisionContainerRegistryError {
+    Status401(),
+    Status429(),
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -385,6 +475,7 @@ pub enum PullTaskFromQueueError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateChatError {
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -392,6 +483,7 @@ pub enum UpdateChatError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateContextError {
+    Status503(),
     UnknownValue(serde_json::Value),
 }
 
@@ -679,6 +771,36 @@ pub async fn delete_root_ingress(configuration: &Configuration, domain: &str, he
     }
 }
 
+/// deletes the ingress and the dns record of the container registry of the current context. 
+pub async fn deprovision_container_registry(configuration: &Configuration) -> Result<ResponseContent<DeprovisionContainerRegistrySuccess>, Error<DeprovisionContainerRegistryError>> {
+
+    let uri_str = format!("{}/containerregistry", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<DeprovisionContainerRegistrySuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeprovisionContainerRegistryError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn get_chat(configuration: &Configuration, chat_id: &str) -> Result<ResponseContent<GetChatSuccess>, Error<GetChatError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_chat_id = chat_id;
@@ -910,6 +1032,36 @@ pub async fn issue_certificate(configuration: &Configuration, issue_certificate_
     }
 }
 
+/// returns temporary credentials for the registry storage. they are valid for one hour and limited to the objects of the current context. only an admin of the context gets them. 
+pub async fn issue_container_registry_storage_credentials(configuration: &Configuration) -> Result<ResponseContent<IssueContainerRegistryStorageCredentialsSuccess>, Error<IssueContainerRegistryStorageCredentialsError>> {
+
+    let uri_str = format!("{}/containerregistry/credentials", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<IssueContainerRegistryStorageCredentialsSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<IssueContainerRegistryStorageCredentialsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub async fn list_available_contexts(configuration: &Configuration) -> Result<ResponseContent<ListAvailableContextsSuccess>, Error<ListAvailableContextsError>> {
 
     let uri_str = format!("{}/identity/availableContexts", build_url(configuration));
@@ -935,6 +1087,36 @@ pub async fn list_available_contexts(configuration: &Configuration) -> Result<Re
     } else {
         let content = resp.text().await?;
         let entity: Option<ListAvailableContextsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// lists every stored certificate of every host without its key material, together with the context whose ingress serves the host. only the infra context may call it. the call is also the pruning pass: a certificate that expired more than two days ago is removed from storage, and a host without certificates left is deleted 
+pub async fn list_certificates(configuration: &Configuration) -> Result<ResponseContent<ListCertificatesSuccess>, Error<ListCertificatesError>> {
+
+    let uri_str = format!("{}/certificate", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<ListCertificatesSuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ListCertificatesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -1000,6 +1182,36 @@ pub async fn list_ingress(configuration: &Configuration, headers: Option<ListIng
     } else {
         let content = resp.text().await?;
         let entity: Option<ListIngressError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// creates the dns record, the ingress and the certificate for the container registry of the current context ({contextId}.cr.dtz.dev). the registry image is set by the core service. it is the shared platform image, which the nodes pull with the identity of the context. 
+pub async fn provision_container_registry(configuration: &Configuration) -> Result<ResponseContent<ProvisionContainerRegistrySuccess>, Error<ProvisionContainerRegistryError>> {
+
+    let uri_str = format!("{}/containerregistry", build_url(configuration));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    if let Some(ref value) = configuration.api_key {
+        req_builder = req_builder.header("X-API-KEY", value);
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        let entity: Option<ProvisionContainerRegistrySuccess> = serde_json::from_str(&content).ok();
+        Ok(ResponseContent { status, content, entity })
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ProvisionContainerRegistryError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

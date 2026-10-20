@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**delete_context**](DefaultApi.md#delete_context) | **DELETE** /context/{context_id} | delete context
 [**delete_ingress**](DefaultApi.md#delete_ingress) | **DELETE** /ingress/{domain}/{uri} | delete ingress
 [**delete_root_ingress**](DefaultApi.md#delete_root_ingress) | **DELETE** /ingress/{domain}/ | delete ingress
+[**deprovision_container_registry**](DefaultApi.md#deprovision_container_registry) | **DELETE** /containerregistry | remove the container registry of the current context
 [**get_chat**](DefaultApi.md#get_chat) | **GET** /chat/{chat_id} | get the full chat timeline
 [**get_context**](DefaultApi.md#get_context) | **GET** /context/{context_id} | get context information
 [**get_current_context**](DefaultApi.md#get_current_context) | **GET** /context | get current context
@@ -19,9 +20,12 @@ Method | HTTP request | Description
 [**get_root_ingress**](DefaultApi.md#get_root_ingress) | **GET** /ingress/{domain}/ | get ingress for '/' path
 [**get_task_history**](DefaultApi.md#get_task_history) | **GET** /task/{task_id} | get execution history
 [**issue_certificate**](DefaultApi.md#issue_certificate) | **POST** /certificate | issue a certificate
+[**issue_container_registry_storage_credentials**](DefaultApi.md#issue_container_registry_storage_credentials) | **POST** /containerregistry/credentials | issue temporary storage credentials for the container registry of the current context
 [**list_available_contexts**](DefaultApi.md#list_available_contexts) | **GET** /identity/availableContexts | list all avaiable contexts
+[**list_certificates**](DefaultApi.md#list_certificates) | **GET** /certificate | list all stored certificates
 [**list_chat**](DefaultApi.md#list_chat) | **GET** /chat | list all chat threads for the current context
 [**list_ingress**](DefaultApi.md#list_ingress) | **GET** /ingress | list all ingress
+[**provision_container_registry**](DefaultApi.md#provision_container_registry) | **POST** /containerregistry | provision the container registry of the current context
 [**pull_task_from_queue**](DefaultApi.md#pull_task_from_queue) | **POST** /task | pull one task from the async task queue
 [**update_chat**](DefaultApi.md#update_chat) | **POST** /chat/{chat_id} | add a new message to the chat
 [**update_context**](DefaultApi.md#update_context) | **POST** /context/{context_id} | update context
@@ -263,6 +267,33 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## deprovision_container_registry
+
+> deprovision_container_registry()
+remove the container registry of the current context
+
+deletes the ingress and the dns record of the container registry of the current context. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## get_chat
 
 > models::Chat get_chat(chat_id)
@@ -463,6 +494,33 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## issue_container_registry_storage_credentials
+
+> models::StorageCredentials issue_container_registry_storage_credentials()
+issue temporary storage credentials for the container registry of the current context
+
+returns temporary credentials for the registry storage. they are valid for one hour and limited to the objects of the current context. only an admin of the context gets them. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::StorageCredentials**](StorageCredentials.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## list_available_contexts
 
 > Vec<models::ContextResponse> list_available_contexts()
@@ -475,6 +533,33 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**Vec<models::ContextResponse>**](ContextResponse.md)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## list_certificates
+
+> Vec<models::CertificateInfo> list_certificates()
+list all stored certificates
+
+lists every stored certificate of every host without its key material, together with the context whose ingress serves the host. only the infra context may call it. the call is also the pruning pass: a certificate that expired more than two days ago is removed from storage, and a host without certificates left is deleted 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Vec<models::CertificateInfo>**](CertificateInfo.md)
 
 ### Authorization
 
@@ -537,6 +622,33 @@ Name | Type | Description  | Required | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## provision_container_registry
+
+> provision_container_registry()
+provision the container registry of the current context
+
+creates the dns record, the ingress and the certificate for the container registry of the current context ({contextId}.cr.dtz.dev). the registry image is set by the core service. it is the shared platform image, which the nodes pull with the identity of the context. 
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[dtz_oauth](../README.md#dtz_oauth), [dtz_apikey](../README.md#dtz_apikey), [dtz-cookie](../README.md#dtz-cookie)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

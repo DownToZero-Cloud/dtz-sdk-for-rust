@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **container_port** | Option<**i32**> |  | [optional]
 **container_identity** | Option<**String**> |  | [optional]
 **container_pull_user** | Option<**String**> |  | [optional]
-**container_pull_pwd** | Option<**String**> |  | [optional]
+**container_pull_pwd** | Option<**String**> | write-only, accepted on create and never returned | [optional]
 **env_variables** | Option<[**std::collections::HashMap<String, models::EnvironmentVariablesValue>**](EnvironmentVariables_value.md)> |  | [optional]
 **mounts** | Option<[**Vec<models::VolumeMount>**](VolumeMount.md)> |  | [optional]
+**identity_token_in_env** | Option<**bool**> | whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a container that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires | [optional][default to true]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

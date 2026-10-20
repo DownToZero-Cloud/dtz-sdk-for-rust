@@ -1,11 +1,23 @@
 [package]
 name = "dtz-config"
-version = "1.0.5"
+version = "1.0.6"
 edition.workspace = true
 authors = ["jens@apimeister.com"]
 description = "config crate for the DownToZero Cloud API"
 license = "MIT OR Apache-2.0"
 rust-version.workspace = true
 
+[features]
+# a postgres pool that logs in with the token of the service's database identity
+postgres = ["dep:sqlx", "dep:tokio", "dep:tracing"]
+
 [dependencies]
 reqwest = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde_json = { workspace = true }
+sqlx = { version = "0.9", default-features = false, features = ["postgres", "runtime-tokio"], optional = true }
+tokio = { version = "1", features = ["rt", "time"], optional = true }
+tracing = { version = "0.1", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["rt", "time", "macros"] }

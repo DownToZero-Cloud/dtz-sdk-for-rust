@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EncryptedValue {
-    /// Encryption algorithm or key reference, e.g. 'AES256:KEY1'.
+    /// Encryption algorithm or key reference, e.g. 'AES256:KEY1'. Use 'CDK' for context-derived-key (derived from context id and variable name).
     #[serde(rename = "encryptionKey", skip_serializing_if = "Option::is_none")]
     pub encryption_key: Option<String>,
     /// The base-64 encoded ciphertext.

@@ -26,6 +26,7 @@ pub struct PullTaskResponse {
     pub container_image: String,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
+    /// write-only, accepted on create and never returned
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
@@ -35,6 +36,15 @@ pub struct PullTaskResponse {
     /// source artifact that this ingress is attached to
     #[serde(rename = "sourceId", skip_serializing_if = "Option::is_none")]
     pub source_id: Option<String>,
+    /// the workload token of the task's context for the hour of the job, attached when the puller holds the task/pull scope of the infra context
+    #[serde(rename = "accessToken", skip_serializing_if = "Option::is_none")]
+    pub access_token: Option<String>,
+    /// the token of the job's database identity, when the task names one
+    #[serde(rename = "databaseToken", skip_serializing_if = "Option::is_none")]
+    pub database_token: Option<String>,
+    /// the job's parameters, served to the container by the runner, never put into its environment
+    #[serde(rename = "secrets", skip_serializing_if = "Option::is_none")]
+    pub secrets: Option<std::collections::HashMap<String, String>>,
 }
 
 impl PullTaskResponse {
@@ -50,6 +60,9 @@ impl PullTaskResponse {
             env_variables: None,
             mounts: None,
             source_id: None,
+            access_token: None,
+            database_token: None,
+            secrets: None,
         }
     }
 }

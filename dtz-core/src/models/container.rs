@@ -22,12 +22,16 @@ pub struct Container {
     pub container_identity: Option<String>,
     #[serde(rename = "containerPullUser", skip_serializing_if = "Option::is_none")]
     pub container_pull_user: Option<String>,
+    /// write-only, accepted on create and never returned
     #[serde(rename = "containerPullPwd", skip_serializing_if = "Option::is_none")]
     pub container_pull_pwd: Option<String>,
     #[serde(rename = "envVariables", skip_serializing_if = "Option::is_none")]
     pub env_variables: Option<std::collections::HashMap<String, models::EnvironmentVariablesValue>>,
     #[serde(rename = "mounts", skip_serializing_if = "Option::is_none")]
     pub mounts: Option<Vec<models::VolumeMount>>,
+    /// whether the container receives the workload token of its context as DTZ_ACCESS_TOKEN at start. a container that reads the token from the credential service of its node sets this to false and is no longer replaced before that token expires
+    #[serde(rename = "identityTokenInEnv", skip_serializing_if = "Option::is_none")]
+    pub identity_token_in_env: Option<bool>,
 }
 
 impl Container {
@@ -40,6 +44,7 @@ impl Container {
             container_pull_pwd: None,
             env_variables: None,
             mounts: None,
+            identity_token_in_env: None,
         }
     }
 }
